@@ -10,10 +10,10 @@ import java.io.*;
 import java.util.*;
 
 
-public class ReadingOpticalNodeInterface {
+public class OpticalNodeSingleInterfaceReader {
   public static void main(String[] args) throws Exception {
 
-    // the encoder is a web resource protected using BASIC HTTP Authentication
+    // the virtual database is a web resource protected using BASIC HTTP Authentication
     final String urlString = args[0];
     final String userName = args[1];
     final String password = args[2];

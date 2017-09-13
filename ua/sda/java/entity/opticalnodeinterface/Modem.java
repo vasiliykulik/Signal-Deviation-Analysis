@@ -7,12 +7,12 @@ public class Modem {
 
   private String street;
   private String houseNumber;
-  private String linkToURL;
+  private String linkToMAC;
 
-  public Modem(String street, String houseNumber, String linkToURL) {
+  public Modem(String street, String houseNumber, String linkToMAC) {
     this.street = street;
     this.houseNumber = houseNumber;
-    this.linkToURL = linkToURL;
+    this.linkToMAC = linkToMAC;
   }
 
   @Override
@@ -20,7 +20,7 @@ public class Modem {
     return "Modem{" +
             "street='" + street + '\'' +
             ", houseNumber='" + houseNumber + '\'' +
-            ", linkToURL='" + linkToURL + '\'' +
+            ", linkToMAC='" + linkToMAC + '\'' +
             '}';
   }
 
@@ -61,10 +61,10 @@ public class Modem {
   }
 
   public String getLinkToURL() {
-    return linkToURL;
+    return linkToMAC;
   }
 
-  public void setLinkToURL(String linkToURL) {
-    this.linkToURL = linkToURL;
+  public void setLinkToURL(String linkToMAC) {
+    this.linkToMAC = linkToMAC;
   }
 }
