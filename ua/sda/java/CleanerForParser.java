@@ -35,7 +35,7 @@ public class CleanerForParser {
     if(m.find()){
       output = (m.group(1));
     }
-    output = output.replace("period=5","period=30");
+   // output = output.replace("period=5","period=30");
     return output;
   }
 }
