@@ -22,6 +22,8 @@ public class OpticalNodeSingleInterfaceReader {
         con.setDoInput(true);
 
         // stuff the Authorization request header
+        // пароль передаю енкодеру, коннекшену передаю енкодер, у коннекшена берем входной стрим и передаем
+        // через StreamReader to BufferedReader
         byte[] encodedPassword = (userName + ":" + password).getBytes();
         BASE64Encoder encoder = new BASE64Encoder();
         con.setRequestProperty("Authorization",
