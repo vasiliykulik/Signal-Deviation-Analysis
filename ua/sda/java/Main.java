@@ -28,9 +28,11 @@ public class Main {
         // Reading Measurements for each modem
         List<Measurement> measurements = new ArrayList<>();
         ModemMeasurementsReader modemMeasurementsReader = new ModemMeasurementsReader();
-        for (Modem modem:modems) {
-            modemMeasurementsReader.getMeasurements(modem.getLinkToURL(),userName,password){
-
+        for (Modem modem : modems) {
+            try {
+                modemMeasurementsReader.getMeasurements(modem.getLinkToURL(), userName, password);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
