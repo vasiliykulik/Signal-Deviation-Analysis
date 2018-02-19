@@ -9,10 +9,30 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-
+/**
+ *  The {@code OpticalNodeSingleInterfaceReader} class represents a dao
+ *  to obtain Addresses with Links to modems.
+ *  <p>
+ *  This implementation uses a
+ *  <p>
+ *  URL and BASE64Encoder to create
+ *  <p>
+ *  HttpURLConnection to create
+ *  <p>
+ *  InputStreamReader to create
+ *  <p>
+ *  BufferedReader to read HTML lines
+ *  @author Vasiliy Kylik on 13.07.2017.
+ */
 public class OpticalNodeSingleInterfaceReader {
-
+    /**
+     * Parses HTML page for a "TrafficLight" info to build a List of Modems
+     * @param urlString link to single interface of Optical Node(s)
+     * @param userName username to web interface
+     * @param password password to web interface
+     */
     public List<Modem> getModemsUrls(String urlString, String userName, String password) throws Exception {
+
         // open url connection
         URL url = new URL(urlString);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
