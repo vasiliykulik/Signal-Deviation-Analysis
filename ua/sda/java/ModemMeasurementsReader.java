@@ -1,5 +1,4 @@
 import entity.opticalnodeinterface.Address;
-import entity.opticalnodeinterface.Link;
 import entity.opticalnodeinterface.Measurement;
 import entity.opticalnodeinterface.Modem;
 import sun.misc.BASE64Encoder;
@@ -52,33 +51,28 @@ public class ModemMeasurementsReader {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), "koi8_r"));
 
-        String inputLine;
-        Date time;
-        float usTXPower;
-        float usRXPower;
-        float usSNR;
-        float dsSNR;
-        float microReflex;
         List<Measurement> measurements = new ArrayList<>();
         Date date1 = new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( "28-12-2016 12:04:03" );
 
-        // and here i need matchers for Measurement fields
-        boolean isNewStreet = false;
-        boolean isNewHouse = false;
-        boolean isNewLinkToModem = false;
+        String inputLine;
+        boolean isNewTime = false;
+        boolean isNewUsTXPower = false;
+        boolean isNewUsRXPower = false;
+        boolean isNewUsSNR = false;
+        boolean isNewDsSNR = false;
+        boolean isNewMicroReflex = false;
 
-        Map<Address, Set<Link>> interfaceModems = new HashMap<>();
         while ((inputLine = in.readLine()) != null)
 
         {
             if (inputLine.matches(".*query_string.*")) {
-                street = CleanerForParser.streetCleaning(inputLine);
-                isNewStreet = true;
+                time = CleanerForParserModemEntity.timeCleaning(inputLine);
+                isNewTime = true;
             } else if (inputLine.matches(".*search_by_id\" target=\"BLANK\"><small>.*")) {
-                houseNumber = CleanerForParser.housesCleaning(inputLine);
+                houseNumber = CleanerForParserModemEntity.housesCleaning(inputLine);
                 isNewHouse = true;
             } else if (inputLine.matches(".*act.measures_history.php\\?mac=.*")) {
-                linkToMAC = CleanerForParser.modemsCleaning(inputLine);
+                linkToMAC = CleanerForParserModemEntity.modemsCleaning(inputLine);
                 isNewLinkToModem = true;
             }
             if (isNewStreet & isNewHouse & isNewLinkToModem) {
@@ -87,7 +81,6 @@ public class ModemMeasurementsReader {
                 interfaceModems.put(new Address(street, houseNumber), null);
             }
         }
-
 
         return measurements;
     }

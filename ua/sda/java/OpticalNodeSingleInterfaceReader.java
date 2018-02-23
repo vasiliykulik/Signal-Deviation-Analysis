@@ -67,13 +67,13 @@ public class OpticalNodeSingleInterfaceReader {
 
         {
             if (inputLine.matches(".*query_string.*")) {
-                street = CleanerForParser.streetCleaning(inputLine);
+                street = CleanerForParserModemEntity.streetCleaning(inputLine);
                 isNewStreet = true;
             } else if (inputLine.matches(".*search_by_id\" target=\"BLANK\"><small>.*")) {
-                houseNumber = CleanerForParser.housesCleaning(inputLine);
+                houseNumber = CleanerForParserModemEntity.housesCleaning(inputLine);
                 isNewHouse = true;
             } else if (inputLine.matches(".*act.measures_history.php\\?mac=.*")) {
-                linkToMAC = CleanerForParser.modemsCleaning(inputLine);
+                linkToMAC = CleanerForParserModemEntity.modemsCleaning(inputLine);
                 isNewLinkToModem = true;
             }
             if (isNewStreet & isNewHouse & isNewLinkToModem) {

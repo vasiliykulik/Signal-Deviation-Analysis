@@ -4,15 +4,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *  The {@code CleanerForParser} class represents a set of static methods
+ *  The {@code CleanerForParserMeasurementEntity} class represents a set of static methods
  *  with engines that performs match operations
  *  to extract the necessary information for creating data structure(s)
- *  according to the business logic.
+ *  according to the business logic for Measurement entity.
  *  <p>
  *  This implementation uses a Pattern - Matcher bundle
  *  @author Vasiliy Kylik on 13.07.2017.
  */
-public class CleanerForParser {
+public class CleanerForParserMeasurementEntity {
 
   /**
    * Cleans input line to get the street name for Modem entity
