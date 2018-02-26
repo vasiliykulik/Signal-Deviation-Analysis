@@ -90,4 +90,8 @@ public class CleanerForParserMeasurementEntity {
   public static float microReflexCleaning(String inputLine) {
     return 0;
   }
+
+  public static String linkToInfoPageCleaning(String inputLine) {
+    return null;
+  }
 }

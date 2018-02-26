@@ -60,6 +60,7 @@ public class ModemMeasurementsReader {
         float usSNR = 0;
         float dsSNR = 0;
         float microReflex = 0;
+        String linkToInfoPage = "";
         boolean isNewTime = false;
         boolean isNewUsTXPower = false;
         boolean isNewUsRXPower = false;
@@ -92,7 +93,7 @@ public class ModemMeasurementsReader {
             }
 
             if (isNewTime & isNewUsTXPower & isNewUsRXPower & isNewUsSNR &isNewDsSNR & isNewMicroReflex) {
-                measurements.add(new Measurement(dateTime,usTXPower,usRXPower,usSNR,dsSNR,microReflex));
+                measurements.add(new Measurement(dateTime,usTXPower,usRXPower,usSNR,dsSNR,microReflex,linkToInfoPage));
                 isNewMicroReflex = false;
             }
         }

@@ -12,14 +12,16 @@ public class Measurement {
   private float usSNR;
   private float dsSNR;
   private float microReflex;
+  private String linkToInfoPage;
 
-  public Measurement(Date time, float usTXPower, float usRXPower, float usSNR, float dsSNR, float microReflex) {
+  public Measurement(Date time, float usTXPower, float usRXPower, float usSNR, float dsSNR, float microReflex, String linkToInfoPage) {
     this.time = time;
     this.usTXPower = usTXPower;
     this.usRXPower = usRXPower;
     this.usSNR = usSNR;
     this.dsSNR = dsSNR;
     this.microReflex = microReflex;
+    this.linkToInfoPage = linkToInfoPage;
   }
 
   public Date getTime() {
@@ -70,6 +72,14 @@ public class Measurement {
     this.microReflex = microReflex;
   }
 
+  public String getLinkToInfoPage() {
+    return linkToInfoPage;
+  }
+
+  public void setLinkToInfoPage(String linkToInfoPage) {
+    this.linkToInfoPage = linkToInfoPage;
+  }
+
   @Override
   public String toString() {
     return "Measurement{" +
@@ -79,6 +89,7 @@ public class Measurement {
             ", usSNR=" + usSNR +
             ", dsSNR=" + dsSNR +
             ", microReflex=" + microReflex +
+            ", linkToInfoPage='" + linkToInfoPage + '\'' +
             '}';
   }
 }
