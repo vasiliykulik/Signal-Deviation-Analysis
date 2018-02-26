@@ -27,7 +27,7 @@ import java.util.*;
  */
 public class ModemMeasurementsReader {
     /**
-     * Parses HTML page for a "TrafficLight" info to build a List of Modems
+     * Parses HTML page for a Measurements info to build a List of measurements
      * @param linkToURL link to single interface of Optical Node(s)
      * @param userName username to web interface
      * @param password password to web interface
@@ -52,9 +52,14 @@ public class ModemMeasurementsReader {
                 new InputStreamReader(con.getInputStream(), "koi8_r"));
 
         List<Measurement> measurements = new ArrayList<>();
-        Date date1 = new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( "28-12-2016 12:04:03" );
 
         String inputLine;
+        Date dateTime = new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( "00-00-0000 00:00:00" );
+        float usTXPower = 0;
+        float usRXPower = 0;
+        float usSNR = 0;
+        float dsSNR = 0;
+        float microReflex = 0;
         boolean isNewTime = false;
         boolean isNewUsTXPower = false;
         boolean isNewUsRXPower = false;
@@ -63,22 +68,32 @@ public class ModemMeasurementsReader {
         boolean isNewMicroReflex = false;
 
         while ((inputLine = in.readLine()) != null)
-
         {
             if (inputLine.matches(".*query_string.*")) {
-                time = CleanerForParserModemEntity.timeCleaning(inputLine);
+                dateTime = CleanerForParserMeasurementEntity.timeCleaning(inputLine);
                 isNewTime = true;
             } else if (inputLine.matches(".*search_by_id\" target=\"BLANK\"><small>.*")) {
-                houseNumber = CleanerForParserModemEntity.housesCleaning(inputLine);
-                isNewHouse = true;
+                usTXPower = CleanerForParserMeasurementEntity.usTXPowerCleaning(inputLine);
+                isNewUsTXPower = true;
             } else if (inputLine.matches(".*act.measures_history.php\\?mac=.*")) {
-                linkToMAC = CleanerForParserModemEntity.modemsCleaning(inputLine);
-                isNewLinkToModem = true;
+                usRXPower = CleanerForParserMeasurementEntity.usRXPowerCleaning(inputLine);
+                isNewUsRXPower = true;
+            }else if(inputLine.matches("")){
+                usSNR = CleanerForParserMeasurementEntity.usSNRCleaning(inputLine);
+                isNewUsSNR = true;
+            }else if(inputLine.matches("")){
+                dsSNR = CleanerForParserMeasurementEntity.dsSNRCleaning(inputLine);
+                isNewDsSNR = true;
+            }else if (inputLine.matches("")){
+                microReflex = CleanerForParserMeasurementEntity.microReflexCleaning(inputLine);
+                isNewMicroReflex = true;
+            }else if (inputLine.matches("")){
+                linkToInfoPage = CleanerForParserMeasurementEntity.linkToInfoPageCleaning (inputLine);
             }
-            if (isNewStreet & isNewHouse & isNewLinkToModem) {
-                modems.add(new Modem(street, houseNumber, linkToMAC));
-                isNewLinkToModem = false;
-                interfaceModems.put(new Address(street, houseNumber), null);
+
+            if (isNewTime & isNewUsTXPower & isNewUsRXPower & isNewUsSNR &isNewDsSNR & isNewMicroReflex) {
+                measurements.add(new Measurement(dateTime,usTXPower,usRXPower,usSNR,dsSNR,microReflex));
+                isNewMicroReflex = false;
             }
         }
 

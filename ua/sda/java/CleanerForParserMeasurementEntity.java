@@ -1,5 +1,6 @@
 
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,5 +61,33 @@ public class CleanerForParserMeasurementEntity {
     }
    // output = output.replace("period=5","period=30");
     return output;
+  }
+
+  public static Date timeCleaning(String inputLine) {
+  }
+
+  public static float usTXPowerCleaning(String inputLine) {
+    return 0;
+  }
+
+  public static float usRXPowerCleaning(String inputLine) {
+
+
+  }
+
+
+  public static float usSNRCleaning(String inputLine) {
+
+
+  }
+
+  public static float dsSNRCleaning(String inputLine) {
+
+
+  }
+
+
+  public static float microReflexCleaning(String inputLine) {
+    return 0;
   }
 }
