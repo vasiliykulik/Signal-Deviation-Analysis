@@ -1,16 +1,17 @@
-
-
 import entity.opticalnodeinterface.Address;
-import entity.opticalnodeinterface.Link;
+import entity.opticalnodeinterface.Measurement;
 import entity.opticalnodeinterface.Modem;
 import sun.misc.BASE64Encoder;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- *  The {@code OpticalNodeSingleInterfaceReader} class represents a dao
+ *  The {@code ModemMeasurementsReader} class represents a dao
  *  to obtain Addresses with Links to modems.
  *  <p>
  *  This implementation uses a
@@ -24,17 +25,15 @@ import java.util.*;
  *  BufferedReader to read HTML lines
  *  @author Vasiliy Kylik on 13.07.2017.
  */
-public class OpticalNodeSingleInterfaceReader {
+public class ModemMeasurementsReader {
     /**
      * Parses HTML page for a "TrafficLight" info to build a List of Modems
-     * @param urlString link to single interface of Optical Node(s)
+     * @param linkToURL link to single interface of Optical Node(s)
      * @param userName username to web interface
      * @param password password to web interface
      */
-    public List<Modem> getModemsUrls(String urlString, String userName, String password) throws Exception {
-
-        // open url connection
-        URL url = new URL(urlString);
+    public List<Measurement> getMeasurements(String linkToURL, String userName, String password) throws Exception {
+        URL url = new URL(linkToURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // set up url connection to get retrieve information back
@@ -52,23 +51,23 @@ public class OpticalNodeSingleInterfaceReader {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), "koi8_r"));
 
+        List<Measurement> measurements = new ArrayList<>();
+        Date date1 = new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( "28-12-2016 12:04:03" );
+
         String inputLine;
-        String street = "";
-        String houseNumber = "";
-        String linkToMAC = "";
-        List<Modem> modems = new ArrayList<>();
+        boolean isNewTime = false;
+        boolean isNewUsTXPower = false;
+        boolean isNewUsRXPower = false;
+        boolean isNewUsSNR = false;
+        boolean isNewDsSNR = false;
+        boolean isNewMicroReflex = false;
 
-        boolean isNewStreet = false;
-        boolean isNewHouse = false;
-        boolean isNewLinkToModem = false;
-
-        Map<Address, Set<Link>> interfaceModems = new HashMap<>();
         while ((inputLine = in.readLine()) != null)
 
         {
             if (inputLine.matches(".*query_string.*")) {
-                street = CleanerForParserModemEntity.streetCleaning(inputLine);
-                isNewStreet = true;
+                time = CleanerForParserModemEntity.timeCleaning(inputLine);
+                isNewTime = true;
             } else if (inputLine.matches(".*search_by_id\" target=\"BLANK\"><small>.*")) {
                 houseNumber = CleanerForParserModemEntity.housesCleaning(inputLine);
                 isNewHouse = true;
@@ -83,19 +82,6 @@ public class OpticalNodeSingleInterfaceReader {
             }
         }
 
-        for (
-                Address key : interfaceModems.keySet())
-
-        {
-            Set<Link> links = new HashSet<>();
-            for (Modem modem : modems) {
-                if (modem.getStreet().equals(key.getStreet()) & modem.getHouseNumber().equals(key.getHouseNumber())) {
-                    links.add(new Link(modem.getLinkToURL()));
-                }
-            }
-            interfaceModems.put(key, links);
-        }
-        in.close();
-        return modems;
+        return measurements;
     }
 }
