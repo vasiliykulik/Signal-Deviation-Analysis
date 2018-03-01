@@ -31,6 +31,8 @@ public class ModemMeasurementsReader {
      * @param linkToURL link to single interface of Optical Node(s)
      * @param userName username to web interface
      * @param password password to web interface
+     * @return {@code measurements }List of measurements for particularly taken modem;
+     * {@code isNewLinkToInfoPage} - parsed only ones, after that value only is assigned
      */
     public List<Measurement> getMeasurements(String linkToURL, String userName, String password) throws Exception {
         URL url = new URL(linkToURL);
@@ -67,6 +69,7 @@ public class ModemMeasurementsReader {
         boolean isNewUsSNR = false;
         boolean isNewDsSNR = false;
         boolean isNewMicroReflex = false;
+        boolean isNewLinkToInfoPage = false;
 
         while ((inputLine = in.readLine()) != null)
         {
@@ -88,8 +91,9 @@ public class ModemMeasurementsReader {
             }else if (inputLine.matches("")){
                 microReflex = CleanerForParserMeasurementEntity.microReflexCleaning(inputLine);
                 isNewMicroReflex = true;
-            }else if (inputLine.matches("")){
+            }else if (!isNewLinkToInfoPage && inputLine.matches("")){
                 linkToInfoPage = CleanerForParserMeasurementEntity.linkToInfoPageCleaning (inputLine);
+                isNewLinkToInfoPage = true;
             }
 
             if (isNewTime & isNewUsTXPower & isNewUsRXPower & isNewUsSNR &isNewDsSNR & isNewMicroReflex) {

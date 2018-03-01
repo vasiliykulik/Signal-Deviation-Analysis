@@ -71,21 +71,14 @@ public class CleanerForParserMeasurementEntity {
   }
 
   public static float usRXPowerCleaning(String inputLine) {
-
-
   }
 
 
   public static float usSNRCleaning(String inputLine) {
-
-
   }
 
   public static float dsSNRCleaning(String inputLine) {
-
-
   }
-
 
   public static float microReflexCleaning(String inputLine) {
     return 0;

@@ -10,26 +10,30 @@ import java.io.*;
 import java.util.*;
 
 /**
- *  The {@code OpticalNodeSingleInterfaceReader} class represents a dao
- *  to obtain Addresses with Links to modems.
- *  <p>
- *  This implementation uses a
- *  <p>
- *  URL and BASE64Encoder to create
- *  <p>
- *  HttpURLConnection to create
- *  <p>
- *  InputStreamReader to create
- *  <p>
- *  BufferedReader to read HTML lines
- *  @author Vasiliy Kylik on 13.07.2017.
+ * The {@code OpticalNodeSingleInterfaceReader} class represents a dao
+ * to obtain Addresses with Links to modems.
+ * <p>
+ * This implementation uses a
+ * <p>
+ * URL and BASE64Encoder to create
+ * <p>
+ * HttpURLConnection to create
+ * <p>
+ * InputStreamReader to create
+ * <p>
+ * BufferedReader to read HTML lines
+ *
+ * @author Vasiliy Kylik on 13.07.2017.
  */
 public class OpticalNodeSingleInterfaceReader {
     /**
      * Parses HTML page for a "TrafficLight" info to build a List of Modems
+     *
      * @param urlString link to single interface of Optical Node(s)
-     * @param userName username to web interface
-     * @param password password to web interface
+     * @param userName  username to web interface
+     * @param password  password to web interface
+     * @return {@code modems }List of taken modems
+     * @return {@code interfaceModems} additional possibility: interfaceModems Map of taken modems for future convenience
      */
     public List<Modem> getModemsUrls(String urlString, String userName, String password) throws Exception {
 
@@ -82,11 +86,9 @@ public class OpticalNodeSingleInterfaceReader {
                 interfaceModems.put(new Address(street, houseNumber), null);
             }
         }
-
+// Create additional HashMap data structure, for future convenience
         for (
-                Address key : interfaceModems.keySet())
-
-        {
+                Address key : interfaceModems.keySet()) {
             Set<Link> links = new HashSet<>();
             for (Modem modem : modems) {
                 if (modem.getStreet().equals(key.getStreet()) & modem.getHouseNumber().equals(key.getHouseNumber())) {
