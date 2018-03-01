@@ -16,7 +16,6 @@ public class Main {
         final String password = args[2];
 
         // Reading modems (street, houseNumber, linkToMAC) from "TraficLight"
-
         List<Modem> modems = new ArrayList<Modem>();
         OpticalNodeSingleInterfaceReader opticalNodeSingleInterfaceReader = new OpticalNodeSingleInterfaceReader();
         try {
