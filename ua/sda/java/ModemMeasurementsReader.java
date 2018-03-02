@@ -73,7 +73,7 @@ public class ModemMeasurementsReader {
 
         while ((inputLine = in.readLine()) != null)
         {
-            if (inputLine.matches(".*query_string.*")) {
+            if (inputLine.matches(".*align=\"center\"><td>.*")) {
                 dateTime = CleanerForParserMeasurementEntity.timeCleaning(inputLine);
                 isNewTime = true;
             } else if (inputLine.matches(".*search_by_id\" target=\"BLANK\"><small>.*")) {
