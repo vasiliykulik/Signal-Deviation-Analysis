@@ -33,26 +33,4 @@ public class CleanerForParserMeasurementEntity {
         }
         return output;
     }
-
-    public static float usTXPowerCleaning(String inputLine) {
-        return 0;
-    }
-
-    public static float usRXPowerCleaning(String inputLine) {
-    }
-
-
-    public static float usSNRCleaning(String inputLine) {
-    }
-
-    public static float dsSNRCleaning(String inputLine) {
-    }
-
-    public static float microReflexCleaning(String inputLine) {
-        return 0;
-    }
-
-    public static String linkToInfoPageCleaning(String inputLine) {
-        return null;
-    }
 }

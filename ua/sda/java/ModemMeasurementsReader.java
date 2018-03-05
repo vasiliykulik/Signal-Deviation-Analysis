@@ -11,26 +11,28 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- *  The {@code ModemMeasurementsReader} class represents a dao
- *  to obtain Addresses with Links to modems.
- *  <p>
- *  This implementation uses a
- *  <p>
- *  URL and BASE64Encoder to create
- *  <p>
- *  HttpURLConnection to create
- *  <p>
- *  InputStreamReader to create
- *  <p>
- *  BufferedReader to read HTML lines
- *  @author Vasiliy Kylik on 13.07.2017.
+ * The {@code ModemMeasurementsReader} class represents a dao
+ * to obtain Addresses with Links to modems.
+ * <p>
+ * This implementation uses a
+ * <p>
+ * URL and BASE64Encoder to create
+ * <p>
+ * HttpURLConnection to create
+ * <p>
+ * InputStreamReader to create
+ * <p>
+ * BufferedReader to read HTML lines
+ *
+ * @author Vasiliy Kylik on 13.07.2017.
  */
 public class ModemMeasurementsReader {
     /**
      * Parses HTML page for a Measurements info to build a List of measurements
+     *
      * @param linkToURL link to single interface of Optical Node(s)
-     * @param userName username to web interface
-     * @param password password to web interface
+     * @param userName  username to web interface
+     * @param password  password to web interface
      * @return {@code measurements }List of measurements for particularly taken modem;
      * {@code isNewLinkToInfoPage} - parsed only ones, after that value only is assigned
      */
@@ -56,7 +58,7 @@ public class ModemMeasurementsReader {
         List<Measurement> measurements = new ArrayList<>();
 
         String inputLine;
-        Date dateTime = new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( "00-00-0000 00:00:00" );
+        Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
         float usTXPower = 0;
         float usRXPower = 0;
         float usSNR = 0;
@@ -71,36 +73,14 @@ public class ModemMeasurementsReader {
         boolean isNewMicroReflex = false;
         boolean isNewLinkToInfoPage = false;
 
-        while ((inputLine = in.readLine()) != null)
-        {
+        // Take Html string to read one string table и разбей на строки таблицы
+        while ((inputLine = in.readLine()) != null) {
             if (inputLine.matches(".*align=\"center\"><td>.*")) {
                 dateTime = CleanerForParserMeasurementEntity.timeCleaning(inputLine);
                 isNewTime = true;
-            } else if (inputLine.matches(".*search_by_id\" target=\"BLANK\"><small>.*")) {
-                usTXPower = CleanerForParserMeasurementEntity.usTXPowerCleaning(inputLine);
-                isNewUsTXPower = true;
-            } else if (inputLine.matches(".*act.measures_history.php\\?mac=.*")) {
-                usRXPower = CleanerForParserMeasurementEntity.usRXPowerCleaning(inputLine);
-                isNewUsRXPower = true;
-            }else if(inputLine.matches("")){
-                usSNR = CleanerForParserMeasurementEntity.usSNRCleaning(inputLine);
-                isNewUsSNR = true;
-            }else if(inputLine.matches("")){
-                dsSNR = CleanerForParserMeasurementEntity.dsSNRCleaning(inputLine);
-                isNewDsSNR = true;
-            }else if (inputLine.matches("")){
-                microReflex = CleanerForParserMeasurementEntity.microReflexCleaning(inputLine);
-                isNewMicroReflex = true;
-            }else if (!isNewLinkToInfoPage && inputLine.matches("")){
-                linkToInfoPage = CleanerForParserMeasurementEntity.linkToInfoPageCleaning (inputLine);
-                isNewLinkToInfoPage = true;
-            }
-
-            if (isNewTime & isNewUsTXPower & isNewUsRXPower & isNewUsSNR &isNewDsSNR & isNewMicroReflex) {
-                measurements.add(new Measurement(dateTime,usTXPower,usRXPower,usSNR,dsSNR,microReflex,linkToInfoPage));
-                isNewMicroReflex = false;
             }
         }
+        // Take Html string to read one string table
 
         return measurements;
     }
