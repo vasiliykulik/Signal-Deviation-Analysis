@@ -73,7 +73,7 @@ public class ModemMeasurementsReader {
         boolean isNewMicroReflex = false;
         boolean isNewLinkToInfoPage = false;
 
-        // Take Html string to read one string table и разбей на строки таблицы
+        // HTML string to table row's
         while ((inputLine = in.readLine()) != null) {
             if (inputLine.matches(".*align=\"center\"><td>.*")) {
                 dateTime = CleanerForParserMeasurementEntity.timeCleaning(inputLine);
