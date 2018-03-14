@@ -15,6 +15,28 @@ import java.util.regex.Pattern;
  * @author Vasiliy Kylik on 15.01.2018.
  */
 public class CleanerForParserMeasurementEntity {
+
+    /**
+     * Cleans input line to get line with table from HTML
+     *
+     * @param inputLine the line that matches regex
+     *                  ("align="center"><td>" - first and every row, first meeting of such mark uses as a table start,
+     *                  start of row mark. This is necessary because the table is in one  html line )
+     *                  ("<tr><td colspan="11" align="center">" - end of table mark)
+     * @return the time of measurement
+     */
+    public static String htmlLineCleaning(String inputLine) throws ParseException {
+        String output = null;
+        Pattern p = Pattern.compile("align=\"center\"><td>(.*)</td><td bgcolor=");
+        Matcher m = p.matcher(inputLine);
+        if (m.find()) {
+            output = m.group(1);
+            //output = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
+        }
+        return output;
+    }
+
+
 	/**
 	 * Cleans input line to get the street name for Modem entity
 	 *

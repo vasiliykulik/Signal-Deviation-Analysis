@@ -65,6 +65,7 @@ public class ModemMeasurementsReader {
 		float dsSNR = 0;
 		float microReflex = 0;
 		String linkToInfoPage = "";
+        String table;
 		boolean isNewTime = false;
 		boolean isNewUsTXPower = false;
 		boolean isNewUsRXPower = false;
@@ -73,17 +74,19 @@ public class ModemMeasurementsReader {
 		boolean isNewMicroReflex = false;
 		boolean isNewLinkToInfoPage = false;
 
-		// TODO Take Html line with table of measurements to read one string table
+		// Take Html line with table of measurements to read one string table
 		// ("align="center"><td>" - first row mark, start of row mark)
 		// ("/a></td></tr>" - end of row mark)
 		// ("<tr><td colspan="11" align="center">" - end of table mark)
 		while ((inputLine = in.readLine()) != null) {
 			if (inputLine.matches(".*align=\"center\"><td>.*")) {
-				dateTime = CleanerForParserMeasurementEntity.timeCleaning(inputLine);
-				isNewTime = true;
+				table = CleanerForParserMeasurementEntity.htmlLineCleaning(inputLine);
+
 			}
 		}
 		// TODO cut HTML one line table into table row blocks and add to collection (List)
+        // Надо распарсить строку
+        List<String> tableRows;
 		// TODO while taking each table row, pull required fields ( using Matcher.group 9 positions (two last (2,1) needs to be taken only once, it is links)), creating objects and placing into List
 		// TODO check sorting by Date, sort if needed
 
