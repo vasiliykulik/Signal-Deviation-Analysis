@@ -27,6 +27,7 @@ public class CleanerForParserModemEntity {
 			output = (m.group(1));
 		}
 		return output;
+
 	}
 
 	/**
