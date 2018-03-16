@@ -6,70 +6,91 @@ import java.util.Date;
  * Created by Vasiliy Kylik on 12.07.2017.
  */
 public class Measurement {
-  private Date time;
-  private float usTXPower;
-  private float usRXPower;
-  private float usSNR;
-  private float dsSNR;
-  private float microReflex;
+
+  private Date dateTime;
+  private Float usTXPower;
+  private Float usRXPower;
+  private Float dsRxPower;
+  private Float usSNR;
+  private Float dsSNR;
+  private Float microReflex;
+  private String linkToCurrentMeasurement;
   private String linkToInfoPage;
 
-  public Measurement(Date time, float usTXPower, float usRXPower, float usSNR, float dsSNR, float microReflex, String linkToInfoPage) {
-    this.time = time;
+  public Measurement(Date dateTime, Float usTXPower, Float usRXPower, Float dsRxPower, Float usSNR, Float dsSNR, Float microReflex, String linkToCurrentMeasurement, String linkToInfoPage) {
+    this.dateTime = dateTime;
     this.usTXPower = usTXPower;
     this.usRXPower = usRXPower;
+    this.dsRxPower = dsRxPower;
     this.usSNR = usSNR;
     this.dsSNR = dsSNR;
     this.microReflex = microReflex;
+    this.linkToCurrentMeasurement = linkToCurrentMeasurement;
     this.linkToInfoPage = linkToInfoPage;
   }
 
-  public Date getTime() {
-    return time;
+  public Date getDateTime() {
+    return dateTime;
   }
 
-  public void setTime(Date time) {
-    this.time = time;
+  public void setDateTime(Date dateTime) {
+    this.dateTime = dateTime;
   }
 
-  public float getUsTXPower() {
+  public Float getUsTXPower() {
     return usTXPower;
   }
 
-  public void setUsTXPower(float usTXPower) {
+  public void setUsTXPower(Float usTXPower) {
     this.usTXPower = usTXPower;
   }
 
-  public float getUsRXPower() {
+  public Float getUsRXPower() {
     return usRXPower;
   }
 
-  public void setUsRXPower(float usRXPower) {
+  public void setUsRXPower(Float usRXPower) {
     this.usRXPower = usRXPower;
   }
 
-  public float getUsSNR() {
+  public Float getDsRxPower() {
+    return dsRxPower;
+  }
+
+  public void setDsRxPower(Float dsRxPower) {
+    this.dsRxPower = dsRxPower;
+  }
+
+  public Float getUsSNR() {
     return usSNR;
   }
 
-  public void setUsSNR(float usSNR) {
+  public void setUsSNR(Float usSNR) {
     this.usSNR = usSNR;
   }
 
-  public float getDsSNR() {
+  public Float getDsSNR() {
     return dsSNR;
   }
 
-  public void setDsSNR(float dsSNR) {
+  public void setDsSNR(Float dsSNR) {
     this.dsSNR = dsSNR;
   }
 
-  public float getMicroReflex() {
+  public Float getMicroReflex() {
     return microReflex;
   }
 
-  public void setMicroReflex(float microReflex) {
+  public void setMicroReflex(Float microReflex) {
     this.microReflex = microReflex;
+  }
+
+  public String getLinkToCurrentMeasurement() {
+    return linkToCurrentMeasurement;
+  }
+
+  public void setLinkToCurrentMeasurement(String linkToCurrentMeasurement) {
+    this.linkToCurrentMeasurement = linkToCurrentMeasurement;
   }
 
   public String getLinkToInfoPage() {
@@ -83,12 +104,14 @@ public class Measurement {
   @Override
   public String toString() {
     return "Measurement{" +
-            "time=" + time +
+            "dateTime=" + dateTime +
             ", usTXPower=" + usTXPower +
             ", usRXPower=" + usRXPower +
+            ", dsRxPower=" + dsRxPower +
             ", usSNR=" + usSNR +
             ", dsSNR=" + dsSNR +
             ", microReflex=" + microReflex +
+            ", linkToCurrentMeasurement='" + linkToCurrentMeasurement + '\'' +
             ", linkToInfoPage='" + linkToInfoPage + '\'' +
             '}';
   }

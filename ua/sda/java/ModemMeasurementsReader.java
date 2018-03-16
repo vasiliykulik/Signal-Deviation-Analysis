@@ -59,13 +59,7 @@ public class ModemMeasurementsReader {
 		List<Measurement> measurements = new ArrayList<>();
 
 		String inputLine;
-		Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
-		float usTXPower = 0;
-		float usRXPower = 0;
-		float usSNR = 0;
-		float dsSNR = 0;
-		float microReflex = 0;
-		String linkToInfoPage = "";
+
 		String [] tableRows = null;
 		String table= null;
 		boolean isNewTime = false;
