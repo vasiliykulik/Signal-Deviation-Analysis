@@ -16,7 +16,7 @@ public class Main {
 		final String password = args[2];
 
 		// Reading modems (street, houseNumber, linkToMAC) from "TrafficLight"
-		List<Modem> modems = new ArrayList<Modem>();
+		List<Modem> modems = new ArrayList<>();
 		OpticalNodeSingleInterfaceReader opticalNodeSingleInterfaceReader = new OpticalNodeSingleInterfaceReader();
 		try {
 			modems = opticalNodeSingleInterfaceReader.getModemsUrls(urlString, userName, password);
@@ -35,11 +35,9 @@ public class Main {
 				e.printStackTrace();
 			}
 
-			for (List<Measurement> measurement : measurements) {
+			/*for (List<Measurement> measurement : measurements) {
 				System.out.println(measurement.toString());
-			}
+			}*/
 		}
-
-
 	}
 }

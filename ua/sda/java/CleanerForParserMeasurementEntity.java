@@ -1,3 +1,5 @@
+import entity.opticalnodeinterface.Measurement;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +37,22 @@ public class CleanerForParserMeasurementEntity {
         }
         return output;
     }
+
+	/**
+	 * Cleans input line to get the Measurement entity
+	 *
+	 * @param inputLine row of measurement table, one element of tableRows
+	 * @return the Measurement entity
+	 */
+	public static Measurement measurementEntityCleaning(String inputLine) throws ParseException {
+		Date output = null;
+		Pattern p = Pattern.compile("align=\"center\"><td>(.*)</td><td bgcolor=");
+		Matcher m = p.matcher(inputLine);
+		if (m.find()) {
+			output = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
+		}
+		return output;
+	}
 
 
 	/**
