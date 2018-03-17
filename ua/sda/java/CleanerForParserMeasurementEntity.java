@@ -39,8 +39,6 @@ public class CleanerForParserMeasurementEntity {
 	}
 
 
-
-
 	/**
 	 * Cleans input line to get the street name for Modem entity
 	 *
@@ -59,7 +57,7 @@ public class CleanerForParserMeasurementEntity {
 	}
 
 	/**
-	 * Cleans input line to get the Measurement entity, very slow, linear complexity
+	 * Cleans input line to get the Measurement entity, optimized regex
 	 *
 	 * @param inputLine row of measurement table, one element of tableRows
 	 *                  field name, regex number, parameters name
@@ -92,29 +90,29 @@ public class CleanerForParserMeasurementEntity {
 		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/cable_info/act.mrtg_graphs_new.php?cmts=sub-20&ifaces=51020,51030,51010,51000" onclick="initAd()">1001</a></td>
 		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/cable_info/act.mrtg_graphs_new.php?cmts=sub-20&ifaces=5100--,5101--,5102--,5103--,5104--,5105--,5106--,5107--" onclick="initAd()">1</a></td>
 		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/cable_info/act.iface_info.php?cmts=sub-20&iface=51030" onclick="initAd()">Us 5/1/0/3/0</a></td>
-		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/cable_info/act.iface_info.php?cmts=sub-20&iface=5100--" onclick="initAd()">Ds 5100</a></td><td bgcolor="#8CFF40">47</td><td>7.5</td><td bgcolor="#8CFF40">32.3</td><td bgcolor="#8CFF40">1.6</td>
+		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/cable_info/act.iface_info.php?cmts=sub-20&iface=5100--" onclick="initAd()">Ds 5100</a></td>
+		// <td bgcolor="#8CFF40">47</td>
+		// <td>7.5</td>
+		// <td bgcolor="#8CFF40">32.3</td>
+		// <td bgcolor="#8CFF40">1.6</td>
 		// <td bgcolor="#8CFF40">37.3</td>
 		// <td>31</td>
-		// <td><font ><b>online</font></b></td><td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/modem/act.measures_online.php?mac=001DD3F6A317" >Сейчас</a></td><td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/?ACT=work.cubic&query_mac=001dd3f6a317" >Инфо</a></td></tr><tr bgcolor="#F0F0F0" )
+		// <td><font ><b>online</font></b></td>
+		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/modem/act.measures_online.php?mac=001DD3F6A317" >Сейчас</a></td>
+		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/?ACT=work.cubic&query_mac=001dd3f6a317" >Инфо</a></td></tr><tr bgcolor="#F0F0F0" )
 		// unusable information between td tags changed to *, requred fields to (.*)
 		// (.*)<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*>(.*)<.td><td>(.*)<.td><td.*>(.*)<.td><td.*>(.*)<.td><td.*>(.*)<.td><td>(.*)<.td><td>.*><a href=\"(.*)\".*<.td><td.*<a href=\"(.*)\".*"
 		Pattern p = Pattern.compile("" +
-				"(\\d\\d-\\d\\d-\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d)</td>" +
-				"<td bgcolor=\"#......\"><a href=\"http://work.volia.net/w2/work/modem/act.measures_history.php\\?mac=............&period=5\" onclick=\"initAd\\(\\)\">..............</a></td>" +
-				"<td bgcolor=\"#......\"><a href=\"http://work.volia.net/w2/work/cmts_info/act.cmts_info.php\\?cmts=.*\" onclick=\"initAd\\(\\)\">.*</a></td>" +
-				"<td.*</td><td" +
-				".*</td><td" +
-				".*</td><td" +
-				".*</td><td" +
-				".*>" +
-				"([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td><td>" +
-				"([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td><td.*>" +
-				"([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td><td.*>" +
-				"([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td><td.*>" +
-				"([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td><td>" +
-				"([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td><td>.*><a href=\\\"" +
-				"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\\\".*</td><td.*<a href=\\\"" +
-				"(http:\\/\\/work.volia.net\\/w2\\/\\?ACT=work.cubic&query_mac=............)\\\".*</td>.*");
+				"(\\d\\d-\\d\\d-\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d)</td>.*" +
+				"<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
+				"<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
+				"<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
+				"<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
+				"<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
+				"<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
+				"<td><font ><b>online</font></b></td>" +
+				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >Сейчас</a></td>" +
+				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/\\?ACT=work.cubic&query_mac=............)\" >Инфо</a></td></tr><tr bgcolor=\"#......\"");
 		Matcher m = p.matcher(inputLine);
 		if (m.find()) {
 			dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
