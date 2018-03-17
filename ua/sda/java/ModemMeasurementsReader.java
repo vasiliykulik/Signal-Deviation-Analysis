@@ -65,7 +65,6 @@ public class ModemMeasurementsReader {
 		boolean isNewUsSNR = false;
 		boolean isNewDsSNR = false;
 		boolean isNewMicroReflex = false;
-		boolean isNewLinkToInfoPage = false;
 
 		// Take Html line with table of measurements to read one string table
 		// ("align="center"><td>" - first row mark, start of row mark)
@@ -81,16 +80,33 @@ public class ModemMeasurementsReader {
 
 		if (htmlLineWithTable != null) {
 			tableRows.addAll(Arrays.asList(htmlLineWithTable.split("align=\"center\"><td>")));
-			//System.out.println(Arrays.asList(htmlLineWithTable.split("align=\"center\"><td>")));
+			//System.out.println(Arrays.asList(htmlLineWithTable.split("align=\"center\"><td>")));// test for Html line with table
 		/*	for(String ret:tableRows){
 				System.out.println(ret);
 			}*/
 		}
-		// TODO while taking each table row, pull required fields ( using Matcher.group 9 positions (two last (2,1) needs to be taken only once, it is links)), creating objects and placing into List
+		// while taking each table row, 9 zone regex (two last (1,2) needs to be taken only once, it is links)), creating objects and placing into List
+		// also checking for a 0 measurements
+		boolean isNewLinkToCurrentMeasurement = false;
+		boolean isNewLinkToInfoPage = false;
 		for (String retval : tableRows) {
-			measurements.add(CleanerForParserMeasurementEntity.measurementEntityCleaning(retval));
-			System.out.println(CleanerForParserMeasurementEntity.measurementEntityCleaning(retval));
+			if (!isNewLinkToCurrentMeasurement & !isNewLinkToInfoPage) {
+				Measurement measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);
+				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {
+					measurements.add(measurement);
+				}
+				isNewLinkToCurrentMeasurement = true;
+				isNewLinkToInfoPage = true;
+			}
+			if (measurements.get(0).getLinkToCurrentMeasurement() != null & measurements.get(0).getLinkToInfoPage() != null) {
+				Measurement measurement = CleanerForParserMeasurementEntity.
+						measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentMeasurement(), measurements.get(0).getLinkToInfoPage());
+				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {
+					measurements.add(measurement);
+				}
+			}
 		}
+			measurements.forEach(System.out::println);
 		// TODO check sorting by Date, sort if needed
 
 		return measurements;
