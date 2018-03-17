@@ -23,7 +23,7 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(modems.toString());
+		//System.out.println(modems.toString());
 
 		// Reading Measurements for each modem, adding List to List of List
 		List<List<Measurement>> measurements = new ArrayList<>();

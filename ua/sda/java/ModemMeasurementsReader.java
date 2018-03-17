@@ -82,18 +82,21 @@ public class ModemMeasurementsReader {
 		if (htmlLineWithTable != null) {
 			tableRows.addAll(Arrays.asList(htmlLineWithTable.split("align=\"center\"><td>")));
 			//System.out.println(Arrays.asList(htmlLineWithTable.split("align=\"center\"><td>")));
+			for(String ret:tableRows){
+				System.out.println(ret);
+			}
 		}
 		// TODO while taking each table row, pull required fields ( using Matcher.group 9 positions (two last (2,1) needs to be taken only once, it is links)), creating objects and placing into List
 		for (String retval : tableRows) {
 			measurements.add(CleanerForParserMeasurementEntity.measurementEntityCleaning(retval));
-			//System.out.println(CleanerForParserMeasurementEntity.measurementEntityCleaning(retval));
+			System.out.println(CleanerForParserMeasurementEntity.measurementEntityCleaning(retval));
 		}
-/*		if (tableRows != null) {
-			for(int i=0; i<=tableRows.length-1;i++){
-				measurements.add(CleanerForParserMeasurementEntity.measurementEntityCleaning(tableRows[i]));
-				System.out.println(CleanerForParserMeasurementEntity.measurementEntityCleaning(tableRows[i]));
+		// continue splitting, regex too slow
+		if (tableRows != null) {
+
+
 			}
-		}*/
+
 		// TODO check sorting by Date, sort if needed
 
 		return measurements;
