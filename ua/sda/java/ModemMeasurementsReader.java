@@ -1,3 +1,4 @@
+import entity.comparators.ComparatorMeasurement;
 import entity.opticalnodeinterface.Measurement;
 import sun.misc.BASE64Encoder;
 
@@ -106,9 +107,9 @@ public class ModemMeasurementsReader {
 				}
 			}
 		}
-			measurements.forEach(System.out::println);
-		// TODO check sorting by Date, sort if needed
 
+		// check sorting by Date, sort if needed
+		measurements.sort(new ComparatorMeasurement());
 		return measurements;
 	}
 }

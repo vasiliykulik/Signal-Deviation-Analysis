@@ -28,7 +28,7 @@ public class Main {
 		// Reading Measurements for each modem, adding List to List of List
 		List<List<Measurement>> measurements = new ArrayList<>();
 		ModemMeasurementsReader modemMeasurementsReader = new ModemMeasurementsReader();
-		int i=0;
+		int i = 0;
 		for (Modem modem : modems) {
 			try {
 				measurements.add(modemMeasurementsReader.getMeasurements(modem.getLinkToURL(), userName, password));
@@ -36,10 +36,10 @@ public class Main {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			/*for (List<Measurement> measurement : measurements) {
+			for (List<Measurement> measurement : measurements) {
 				System.out.println(measurement.toString());
-			}*/
+			}
 		}
+
 	}
 }

@@ -119,15 +119,16 @@ public class CleanerForParserMeasurementEntity {
 			dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
 			usTXPower = Float.valueOf(m.group(2));
 			usRXPower = Float.valueOf(m.group(3));
-			dsRxPower = Float.valueOf(m.group(4));
-			usSNR = Float.valueOf(m.group(5));
+			usSNR = Float.valueOf(m.group(4));
+			dsRxPower = Float.valueOf(m.group(5));
 			dsSNR = Float.valueOf(m.group(6));
 			microReflex = Float.valueOf(m.group(7));
 			linkToCurrentMeasurement = m.group(8);
 			linkToInfoPage = m.group(9);
 		}
-		return new Measurement(dateTime, usTXPower, usRXPower, dsRxPower, usSNR, dsSNR, microReflex, linkToCurrentMeasurement, linkToInfoPage);
+		return new Measurement(dateTime, usTXPower, usRXPower, usSNR, dsRxPower, dsSNR, microReflex, linkToCurrentMeasurement, linkToInfoPage);
 	}
+
 	public static Measurement measurementEntityCleaningWithLinks(String inputLine, String linkToCurrentMeasurement, String linkToInfoPage) throws ParseException {
 
 		Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
@@ -168,11 +169,11 @@ public class CleanerForParserMeasurementEntity {
 			dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
 			usTXPower = Float.valueOf(m.group(2));
 			usRXPower = Float.valueOf(m.group(3));
-			dsRxPower = Float.valueOf(m.group(4));
-			usSNR = Float.valueOf(m.group(5));
+			usSNR = Float.valueOf(m.group(4));
+			dsRxPower = Float.valueOf(m.group(5));
 			dsSNR = Float.valueOf(m.group(6));
 			microReflex = Float.valueOf(m.group(7));
 		}
-		return new Measurement(dateTime, usTXPower, usRXPower, dsRxPower, usSNR, dsSNR, microReflex, linkToCurrentMeasurement, linkToInfoPage);
+		return new Measurement(dateTime, usTXPower, usRXPower, usSNR, dsRxPower, dsSNR, microReflex, linkToCurrentMeasurement, linkToInfoPage);
 	}
 }
