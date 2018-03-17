@@ -25,11 +25,12 @@ public class CleanerForParserMeasurementEntity {
 	 *                  ("align="center"><td>" - first and every row, first meeting of such mark uses as a table start,
 	 *                  start of row mark. This is necessary because the table is in one  html line )
 	 *                  ("<tr><td colspan="11" align="center">" - end of table mark)
+	 *                  after regex optimization change end of table mark to <tr><td colspan="11" align="center">
 	 * @return the time of measurement
 	 */
 	public static String htmlLineCleaning(String inputLine) throws ParseException {
 		String output = null;
-		Pattern p = Pattern.compile("align=\"center\"><td>(.*)</td><td bgcolor=");
+		Pattern p = Pattern.compile("align=\"center\"><td>(.*)<tr><td colspan=\"11\" align=\"center\">");
 		Matcher m = p.matcher(inputLine);
 		if (m.find()) {
 			output = m.group(1);
@@ -57,7 +58,7 @@ public class CleanerForParserMeasurementEntity {
 	}
 
 	/**
-	 * Cleans input line to get the Measurement entity, optimized regex
+	 * Cleans input line to get the Measurement entity, optimized regex ()
 	 *
 	 * @param inputLine row of measurement table, one element of tableRows
 	 *                  field name, regex number, parameters name
@@ -112,7 +113,7 @@ public class CleanerForParserMeasurementEntity {
 				"<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
 				"<td><font ><b>online</font></b></td>" +
 				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >Сейчас</a></td>" +
-				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/\\?ACT=work.cubic&query_mac=............)\" >Инфо</a></td></tr><tr bgcolor=\"#......\"");
+				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/\\?ACT=work.cubic&query_mac=............).*");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
 		Matcher m = p.matcher(inputLine);
 		if (m.find()) {
 			dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
