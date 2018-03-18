@@ -41,6 +41,11 @@ public class Main {
 				System.out.println(measurement.toString());
 			}
 		}
+
+		for(List<Measurement> measurement:measurements){
+			measurement.get(0).getLinkToCurrentMeasurement();
+			measurement.get(0).getLinkToInfoPage();
+		}
 // TODO
 	}
 }
