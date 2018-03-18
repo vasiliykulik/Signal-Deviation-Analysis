@@ -1,6 +1,9 @@
 import entity.opticalnodeinterface.Measurement;
 import entity.opticalnodeinterface.Modem;
-import readers.*;
+import readers.CurrentMeasurementReader;
+import readers.LocationReader;
+import readers.ModemMeasurementsReader;
+import readers.OpticalNodeSingleInterfaceReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,10 @@ public class Main {
 			}
 		}
 
-		for(List<Measurement> measurement:measurements){
+		for (List<Measurement> measurement : measurements) {
+			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
+			LocationReader locationReader = LocationReader();
+
 			measurement.get(0).getLinkToCurrentMeasurement();
 			measurement.get(0).getLinkToInfoPage();
 		}
