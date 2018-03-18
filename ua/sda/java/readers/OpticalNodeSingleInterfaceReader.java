@@ -1,3 +1,6 @@
+package readers;
+
+import cleaners.CleanerForParserModemEntity;
 import entity.opticalnodeinterface.Address;
 import entity.opticalnodeinterface.Link;
 import entity.opticalnodeinterface.Modem;

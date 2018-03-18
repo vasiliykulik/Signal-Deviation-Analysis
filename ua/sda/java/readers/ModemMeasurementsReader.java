@@ -1,4 +1,7 @@
-import entity.comparators.ComparatorMeasurement;
+package readers;
+
+import cleaners.CleanerForParserMeasurementEntity;
+import comparators.ComparatorMeasurement;
 import entity.opticalnodeinterface.Measurement;
 import sun.misc.BASE64Encoder;
 

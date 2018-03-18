@@ -1,9 +1,8 @@
-package entity.comparators;
+package comparators;
 
 import entity.opticalnodeinterface.Measurement;
 
 import java.util.Comparator;
-import java.util.Date;
 
 /**
  * @author Vasiliy Kylik on(Rocket) on 18.03.2018.
