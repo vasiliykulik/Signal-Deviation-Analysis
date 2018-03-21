@@ -102,9 +102,9 @@ public class ModemMeasurementsReader {
 				isNewLinkToCurrentMeasurement = true;
 				isNewLinkToInfoPage = true;
 			}
-			if (measurements.get(0).getLinkToCurrentMeasurement() != null & measurements.get(0).getLinkToInfoPage() != null) {
+			if (measurements.get(0).getLinkToCurrentState() != null & measurements.get(0).getLinkToInfoPage() != null) {
 				Measurement measurement = CleanerForParserMeasurementEntity.
-						measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentMeasurement(), measurements.get(0).getLinkToInfoPage());
+						measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentState(), measurements.get(0).getLinkToInfoPage());
 				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {
 					measurements.add(measurement);
 				}

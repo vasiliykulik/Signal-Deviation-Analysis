@@ -14,10 +14,10 @@ public class Measurement {
 	private Float dsRxPower;
 	private Float dsSNR;
 	private Float microReflex;
-	private String linkToCurrentMeasurement;
+	private String linkToCurrentState;
 	private String linkToInfoPage;
 
-	public Measurement(Date dateTime, Float usTXPower, Float usRXPower, Float usSNR, Float dsRxPower, Float dsSNR, Float microReflex, String linkToCurrentMeasurement, String linkToInfoPage) {
+	public Measurement(Date dateTime, Float usTXPower, Float usRXPower, Float usSNR, Float dsRxPower, Float dsSNR, Float microReflex, String linkToCurrentState, String linkToInfoPage) {
 		this.dateTime = dateTime;
 		this.usTXPower = usTXPower;
 		this.usRXPower = usRXPower;
@@ -25,7 +25,7 @@ public class Measurement {
 		this.dsRxPower = dsRxPower;
 		this.dsSNR = dsSNR;
 		this.microReflex = microReflex;
-		this.linkToCurrentMeasurement = linkToCurrentMeasurement;
+		this.linkToCurrentState = linkToCurrentState;
 		this.linkToInfoPage = linkToInfoPage;
 	}
 
@@ -85,12 +85,12 @@ public class Measurement {
 		this.microReflex = microReflex;
 	}
 
-	public String getLinkToCurrentMeasurement() {
-		return linkToCurrentMeasurement;
+	public String getLinkToCurrentState() {
+		return linkToCurrentState;
 	}
 
-	public void setLinkToCurrentMeasurement(String linkToCurrentMeasurement) {
-		this.linkToCurrentMeasurement = linkToCurrentMeasurement;
+	public void setLinkToCurrentState(String linkToCurrentState) {
+		this.linkToCurrentState = linkToCurrentState;
 	}
 
 	public String getLinkToInfoPage() {
@@ -111,7 +111,7 @@ public class Measurement {
 				", dsRxPower=" + dsRxPower +
 				", dsSNR=" + dsSNR +
 				", microReflex=" + microReflex +
-				", linkToCurrentMeasurement='" + linkToCurrentMeasurement + '\'' +
+				", linkToCurrentState='" + linkToCurrentState + '\'' +
 				", linkToInfoPage='" + linkToInfoPage + '\'' +
 				'}';
 	}

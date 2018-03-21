@@ -49,7 +49,7 @@ public class Main {
 			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
 			LocationReader locationReader = LocationReader();
 
-			measurement.get(0).getLinkToCurrentMeasurement();
+			measurement.get(0).getLinkToCurrentState();
 			measurement.get(0).getLinkToInfoPage();
 		}
 // TODO
