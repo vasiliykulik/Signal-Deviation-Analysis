@@ -98,7 +98,7 @@ public class ModemMeasurementsReader {
 				Measurement measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);
 				// after adding List<Measurements> to Modem entity, it may be a case of not reading measurements- and this field will remain null
 				// but the expected behavior is skipping one measurement from the list
-				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {
+				if (correctMeasurement(measurement)) {
 					measurements.add(measurement);
 					isNewLinkToCurrentMeasurement = true;
 					isNewLinkToInfoPage = true;
@@ -107,12 +107,12 @@ public class ModemMeasurementsReader {
 			// case if first measurement not valid - so "measurements.get(0)" cause exception IndexOutOfBoundsException
 			// (check isNewLinkToCurrentMeasurement & isNewLinkToInfoPage flags) make sure that we have 0 index (first element in Collection)
 			if (isNewLinkToCurrentMeasurement
-					& isNewLinkToInfoPage
+					& isNewLinkToInfoPage & measurements.size() > 0
 					& measurements.get(0).getLinkToCurrentState() != null
 					& measurements.get(0).getLinkToInfoPage() != null) {
 				Measurement measurement = CleanerForParserMeasurementEntity.
 						measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentState(), measurements.get(0).getLinkToInfoPage());
-				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {
+				if (correctMeasurement(measurement)) {
 					measurements.add(measurement);
 				}
 			}
@@ -121,5 +121,17 @@ public class ModemMeasurementsReader {
 		// check sorting by Date, sort if needed
 		measurements.sort(new ComparatorMeasurement());
 		return measurements;
+	}
+
+	private boolean correctMeasurement(Measurement measurement) {
+		if (measurement.getUsTXPower() != 0f &
+				measurement.getUsRXPower() != 0f &
+				measurement.getUsSNR() != 0f &
+				measurement.getDsRxPower() != 0f &
+				measurement.getDsSNR() != 0f &
+				measurement.getMicroReflex() != 0f) {
+			return true;
+		}
+		return false;
 	}
 }
