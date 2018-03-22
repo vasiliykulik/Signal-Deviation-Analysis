@@ -96,13 +96,20 @@ public class ModemMeasurementsReader {
 		for (String retval : tableRows) {
 			if (!isNewLinkToCurrentMeasurement & !isNewLinkToInfoPage) {
 				Measurement measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);
+				// after adding List<Measurements> to Modem entity, it may be a case of not reading measurements- and this field will remain null
+				// but the expected behavior is skipping one measurement from the list
 				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {
 					measurements.add(measurement);
+					isNewLinkToCurrentMeasurement = true;
+					isNewLinkToInfoPage = true;
 				}
-				isNewLinkToCurrentMeasurement = true;
-				isNewLinkToInfoPage = true;
 			}
-			if (measurements.get(0).getLinkToCurrentState() != null & measurements.get(0).getLinkToInfoPage() != null) {
+			// case if first measurement not valid - so "measurements.get(0)" cause exception IndexOutOfBoundsException
+			// (check isNewLinkToCurrentMeasurement & isNewLinkToInfoPage flags) make sure that we have 0 index (first element in Collection)
+			if (isNewLinkToCurrentMeasurement
+					& isNewLinkToInfoPage
+					& measurements.get(0).getLinkToCurrentState() != null
+					& measurements.get(0).getLinkToInfoPage() != null) {
 				Measurement measurement = CleanerForParserMeasurementEntity.
 						measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentState(), measurements.get(0).getLinkToInfoPage());
 				if (measurement.getDsRxPower() != 0f & measurement.getDsSNR() != 0f & measurement.getUsRXPower() != 0f) {

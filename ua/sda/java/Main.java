@@ -1,7 +1,4 @@
-import entity.opticalnodeinterface.Measurement;
 import entity.opticalnodeinterface.Modem;
-import readers.CurrentMeasurementReader;
-import readers.LocationReader;
 import readers.ModemMeasurementsReader;
 import readers.OpticalNodeSingleInterfaceReader;
 
@@ -29,29 +26,31 @@ public class Main {
 		}
 		//System.out.println(modems.toString());
 
-		// Reading Measurements for each modem, adding List to List of List
-		List<List<Measurement>> measurements = new ArrayList<>();
+		// Reading Measurements for each modem, adding List to List of List - old version
+		// List<List<Measurement>> measurements = new ArrayList<>();
+		// Reading Measurements for each modem, setting List<Measurements> as a field to the modem
+
 		ModemMeasurementsReader modemMeasurementsReader = new ModemMeasurementsReader();
 		int i = 0;
 		for (Modem modem : modems) {
 			try {
-				measurements.add(modemMeasurementsReader.getMeasurements(modem.getLinkToURL(), userName, password));
+				modem.setMeasurements(modemMeasurementsReader.getMeasurements(modem.getLinkToMAC(), userName, password));
 				System.out.println(i++);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			for (List<Measurement> measurement : measurements) {
-				System.out.println(measurement.toString());
-			}
+		}
+		for (Modem eachModem : modems) {
+			System.out.println(eachModem.toString());
 		}
 
-		for (List<Measurement> measurement : measurements) {
+/*		for (List<Measurement> measurement : measurements) {
 			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
 			LocationReader locationReader = LocationReader();
 
 			measurement.get(0).getLinkToCurrentState();
 			measurement.get(0).getLinkToInfoPage();
-		}
+		}*/
 // TODO
 	}
 }

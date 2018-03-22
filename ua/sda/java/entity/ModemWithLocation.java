@@ -15,15 +15,18 @@ public class ModemWithLocation extends Modem {
 	private Integer interFloorLineNumber;
 	private Measurement currentMeasurement;
 
-	public ModemWithLocation(String street, String houseNumber, String linkToMAC, List measurements, Integer entranceNumber, Integer floorNumber, Integer interFloorLineNumber, Measurement currentMeasurement) {
-		super(street, houseNumber, linkToMAC);
-		this.measurements = measurements;
-		this.entranceNumber = entranceNumber;
-		this.floorNumber = floorNumber;
-		this.interFloorLineNumber = interFloorLineNumber;
-		this.currentMeasurement = currentMeasurement;
+	@Override
+	public String toString() {
+		return "ModemWithLocation{" +
+				"measurements=" + measurements +
+				", entranceNumber=" + entranceNumber +
+				", floorNumber=" + floorNumber +
+				", interFloorLineNumber=" + interFloorLineNumber +
+				", currentMeasurement=" + currentMeasurement +
+				'}';
 	}
 
+	@Override
 	public List getMeasurements() {
 		return measurements;
 	}
@@ -64,14 +67,12 @@ public class ModemWithLocation extends Modem {
 		this.currentMeasurement = currentMeasurement;
 	}
 
-	@Override
-	public String toString() {
-		return "ModemWithDislocation{" +
-				"measurements=" + measurements +
-				", entranceNumber=" + entranceNumber +
-				", floorNumber=" + floorNumber +
-				", interFloorLineNumber=" + interFloorLineNumber +
-				", currentMeasurement=" + currentMeasurement +
-				'}';
+	public ModemWithLocation(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, List measurements1, Integer entranceNumber, Integer floorNumber, Integer interFloorLineNumber, Measurement currentMeasurement) {
+		super(street, houseNumber, linkToMAC, measurements);
+		this.measurements = measurements1;
+		this.entranceNumber = entranceNumber;
+		this.floorNumber = floorNumber;
+		this.interFloorLineNumber = interFloorLineNumber;
+		this.currentMeasurement = currentMeasurement;
 	}
 }

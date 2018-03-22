@@ -85,7 +85,7 @@ public class CleanerForParserMeasurementEntity {
 		Float usSNR = 0f;
 		Float dsSNR = 0f;
 		Float microReflex = 0f;
-		String linkToCurrentState = null;
+		String linkToCurrentMeasurement = null;
 		String linkToInfoPage = null;
 		// (tableRow - 16-03-2018 14:07:44</td>
 		// <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/work/modem/act.measures_history.php?mac=001DD3F6A317&period=5" onclick="initAd()">001D.D3F6.A317</a></td>
@@ -125,10 +125,10 @@ public class CleanerForParserMeasurementEntity {
 			dsRxPower = Float.valueOf(m.group(5));
 			dsSNR = Float.valueOf(m.group(6));
 			microReflex = Float.valueOf(m.group(7));
-			linkToCurrentState = m.group(8);
+			linkToCurrentMeasurement = m.group(8);
 			linkToInfoPage = m.group(9);
 		}
-		return new Measurement(dateTime, usTXPower, usRXPower, usSNR, dsRxPower, dsSNR, microReflex, linkToCurrentState, linkToInfoPage);
+		return new Measurement(dateTime, usTXPower, usRXPower, usSNR, dsRxPower, dsSNR, microReflex, linkToCurrentMeasurement, linkToInfoPage);
 	}
 
 	public static Measurement measurementEntityCleaningWithLinks(String inputLine, String linkToCurrentMeasurement, String linkToInfoPage) throws ParseException {

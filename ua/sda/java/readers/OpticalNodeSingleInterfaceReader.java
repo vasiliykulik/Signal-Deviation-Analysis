@@ -83,7 +83,7 @@ public class OpticalNodeSingleInterfaceReader {
 				isNewLinkToModem = true;
 			}
 			if (isNewStreet & isNewHouse & isNewLinkToModem) {
-				modems.add(new Modem(street, houseNumber, linkToMAC));
+				modems.add(new Modem(street, houseNumber, linkToMAC,null));
 				isNewLinkToModem = false;
 				interfaceModems.put(new Address(street, houseNumber), null);
 			}
@@ -94,7 +94,7 @@ public class OpticalNodeSingleInterfaceReader {
 			Set<Link> links = new HashSet<>();
 			for (Modem modem : modems) {
 				if (modem.getStreet().equals(key.getStreet()) & modem.getHouseNumber().equals(key.getHouseNumber())) {
-					links.add(new Link(modem.getLinkToURL()));
+					links.add(new Link(modem.getLinkToMAC()));
 				}
 			}
 			interfaceModems.put(key, links);
