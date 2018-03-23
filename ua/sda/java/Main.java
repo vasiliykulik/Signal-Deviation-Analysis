@@ -38,10 +38,8 @@ public class Main {
 				System.out.println(i++);
 			} catch (Exception e) {
 				e.printStackTrace();
+				System.out.println(modem.getLinkToMAC());
 			}
-		}
-		for (Modem eachModem : modems) {
-			System.out.println(eachModem.toString());
 		}
 
 /*		for (List<Measurement> measurement : measurements) {
