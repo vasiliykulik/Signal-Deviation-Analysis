@@ -51,13 +51,26 @@ public class TestMeasurementsReader {
 				//  check for empty cells in measurements columns
 
 				Measurement measurement = null;
-				if (validation0.length == 13) {
+				if (true) {
 					measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);
 					// after adding List<Measurements> to Modem entity, it may be a case of not reading measurements- and this field will remain null
 					// but the expected behavior is skipping one measurement from the list
 					System.out.println("Look at First returned Measurement: ");
 					System.out.println(measurement);
-					measurements.add(measurement);
+					// TODO null measurements
+					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+					System.out.println(measurement.getLinkToCurrentState() + measurement.getLinkToInfoPage() + measurement.getDateTime() + measurement.getDsRxPower() +
+							measurement.getDsSNR() + measurement.getMicroReflex() + measurement.getUsRXPower() + measurement.getUsSNR() + measurement.getUsTXPower());
+					System.out.println(measurement);
+
+					if (measurement.getDsSNR()!=0.0&
+							measurement.getDsRxPower()!=0.0&
+							measurement.getMicroReflex()!=0.0&
+							measurement.getUsRXPower()!=0.0&measurement.getUsSNR()!=0.0&measurement.getUsTXPower()!=0.0) {
+						System.out.println("measurement is not NULL");
+						measurements.add(measurement);
+					}
+
 					System.out.println("Look at First added Measurement: ");
 					System.out.println(measurement);
 					isNewLinkToCurrentMeasurement = true;
