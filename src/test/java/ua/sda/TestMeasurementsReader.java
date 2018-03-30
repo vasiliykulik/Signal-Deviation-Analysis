@@ -26,10 +26,11 @@ public class TestMeasurementsReader {
 		List<String> tableRows = new ArrayList<>();
 		List<Measurement> measurements = new ArrayList<>();
 
+		// htmlLineWithTable thru regex from html page
 		while ((inputLine = br.readLine()) != null) {
 			if (inputLine.matches(".*align=\"center\"><td>.*")) {
 				htmlLineWithTable = CleanerForParserMeasurementEntity.htmlLineCleaning(inputLine);
-				System.out.println("Look at htmlLineWithTable: ");
+				System.out.println("htmlLineWithTable from HTML page, page have saved, and readed from file: ");
 				System.out.println(htmlLineWithTable);// test for Html line with table
 			}
 		}
