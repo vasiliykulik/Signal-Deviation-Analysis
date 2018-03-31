@@ -116,7 +116,7 @@ public class CleanerForParserMeasurementEntity {
                 "<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
                 "<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
                 "<td><font ><b>.*</font></b></td>" +
-                "<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >Сейчас</a></td>" +
+                "<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>" +
                 "<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/\\?ACT=work.cubic&query_mac=............).*");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
         Matcher m = p.matcher(inputLine);
         if (m.find()) {
