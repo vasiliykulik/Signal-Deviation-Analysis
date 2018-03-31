@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class TestMeasurementsReader {
 	public static void main(String[] args) throws IOException, ParseException {
-		FileReader fileReader = new FileReader("test\\resources\\testForMeasurementsNull1.html");
+		FileReader fileReader = new FileReader("src\\test\\resources\\testForMeasurementsNull1.html");
 		//  InputStreamReader on a FileInputStream.
 		BufferedReader br = new BufferedReader(fileReader);
 
@@ -50,7 +50,6 @@ public class TestMeasurementsReader {
 			String[] validation0 = retval.split("#");
 			if (!isNewLinkToCurrentMeasurement & !isNewLinkToInfoPage) {
 				//  check for empty cells in measurements columns
-
 				Measurement measurement = null;
 				if (true) {
 					measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);

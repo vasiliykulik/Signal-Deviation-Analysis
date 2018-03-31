@@ -79,7 +79,7 @@ public class CleanerForParserMeasurementEntity {
     public static Measurement measurementEntityCleaning(String inputLine) throws ParseException {
 
         Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
-        Float usTXPower = 0.0f;
+        Float usTXPower = 0f;
         Float usRXPower = 0f;
         Float dsRxPower = 0f;
         Float usSNR = 0f;
@@ -106,7 +106,7 @@ public class CleanerForParserMeasurementEntity {
         // unusable information between td tags changed to *, requred fields to (.*)
         // (.*)<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*>(.*)<.td><td>(.*)<.td><td.*>(.*)<.td><td.*>(.*)<.td><td.*>(.*)<.td><td>(.*)<.td><td>.*><a href=\"(.*)\".*<.td><td.*<a href=\"(.*)\".*"
         System.out.println("inputline from cleaner");
-       System.out.println(inputLine);
+        System.out.println(inputLine);
         Pattern p = Pattern.compile("" +
                 "(\\d\\d-\\d\\d-\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d)</td>.*" +
                 "<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +

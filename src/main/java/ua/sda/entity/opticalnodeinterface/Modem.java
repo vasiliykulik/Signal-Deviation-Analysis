@@ -12,6 +12,9 @@ public class Modem {
   private String linkToMAC;
   private List<Measurement> measurements;
 
+  public Modem() {
+  }
+
   public Modem(String street, String houseNumber, String linkToMAC, List<Measurement> measurements) {
     this.street = street;
     this.houseNumber = houseNumber;
