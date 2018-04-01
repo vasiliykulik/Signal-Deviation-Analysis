@@ -63,12 +63,17 @@ public class TestMeasurementsReader {
                 System.out.println(measurement.getLinkToCurrentState() + measurement.getLinkToInfoPage() + measurement.getDateTime() + measurement.getDsRxPower() +
                         measurement.getDsSNR() + measurement.getMicroReflex() + measurement.getUsRXPower() + measurement.getUsSNR() + measurement.getUsTXPower());
                 System.out.println(measurement);
-                measurements.add(measurement);
+                if (measurement.isNotNullMeasurement()) {
+                    measurements.add(measurement);
+                }
 
                 System.out.println("Look at First added Measurement: ");
                 System.out.println(measurement);
-                isNewLinkToCurrentMeasurement = true;
-                isNewLinkToInfoPage = true;
+                if (measurement.getLinkToCurrentState() != null & measurement.getLinkToInfoPage() != null) {
+                    isNewLinkToCurrentMeasurement = true;
+                    isNewLinkToInfoPage = true;
+                    continue;
+                }
             }
             // case if first measurement not valid - so "measurements.get(0)" cause exception IndexOutOfBoundsException
             // (check isNewLinkToCurrentMeasurement & isNewLinkToInfoPage flags) make sure that we have 0 index (first element in Collection)
@@ -76,6 +81,9 @@ public class TestMeasurementsReader {
             System.out.println("Look at measurements size: " + measurements.size());
             if (measurements.size() > 0) {
                 System.out.println("Look at measurement (0): " + measurements.get(0));
+                if (measurements.size() > 1) {
+                System.out.println("Look at measurement (1): " + measurements.get(1));
+            }
             }
             if (isNewLinkToCurrentMeasurement & isNewLinkToInfoPage & measurements.size() > 0) {
                 //  check for empty cells in measurements columns (color marker when cells are not empty)
@@ -84,7 +92,9 @@ public class TestMeasurementsReader {
                             measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentState(), measurements.get(0).getLinkToInfoPage());
                     System.out.println("Look at Next returned Measurement: ");
                     System.out.println(measurement);
-                    measurements.add(measurement);
+                    if (measurement.isNotNullMeasurement()) {
+                        measurements.add(measurement);
+                    }
                     System.out.println("Look at Next added Measurement: ");
                     System.out.println(measurement);
 
@@ -95,4 +105,5 @@ public class TestMeasurementsReader {
         // check sorting by Date, sort if needed
         measurements.sort(new ComparatorMeasurement());
     }
+
 }

@@ -138,7 +138,7 @@ public class CleanerForParserMeasurementEntity {
     public static Measurement measurementEntityCleaningWithLinks(String inputLine, String linkToCurrentMeasurement, String linkToInfoPage) throws ParseException {
 
         Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
-        Float usTXPower = 0.0f;
+        Float usTXPower = 0f;
         Float usRXPower = 0f;
         Float dsRxPower = 0f;
         Float usSNR = 0f;
