@@ -83,7 +83,7 @@ public class OpticalNodeSingleInterfaceReader {
 					isNewLinkToModem = true;
 				}
 				if (isNewStreet & isNewHouse & isNewLinkToModem) {
-					modems.add(new Modem(street, houseNumber, linkToMAC, null));
+					modems.add(new Modem(street, houseNumber, linkToMAC, null,null));
 					isNewLinkToModem = false;
 					interfaceModems.put(new Address(street, houseNumber), null);
 				}

@@ -11,39 +11,17 @@ public class Modem {
   private String houseNumber;
   private String linkToMAC;
   private List<Measurement> measurements;
+  private ModemLocation modemLocation;
 
   public Modem() {
   }
 
-  public Modem(String street, String houseNumber, String linkToMAC, List<Measurement> measurements) {
+  public Modem(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, ModemLocation modemLocation) {
     this.street = street;
     this.houseNumber = houseNumber;
     this.linkToMAC = linkToMAC;
     this.measurements = measurements;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Modem)) return false;
-
-    Modem modem = (Modem) o;
-
-    if (getStreet() != null ? !getStreet().equals(modem.getStreet()) : modem.getStreet() != null) return false;
-    if (getHouseNumber() != null ? !getHouseNumber().equals(modem.getHouseNumber()) : modem.getHouseNumber() != null)
-      return false;
-    if (getLinkToMAC() != null ? !getLinkToMAC().equals(modem.getLinkToMAC()) : modem.getLinkToMAC() != null)
-      return false;
-    return getMeasurements() != null ? getMeasurements().equals(modem.getMeasurements()) : modem.getMeasurements() == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = getStreet() != null ? getStreet().hashCode() : 0;
-    result = 31 * result + (getHouseNumber() != null ? getHouseNumber().hashCode() : 0);
-    result = 31 * result + (getLinkToMAC() != null ? getLinkToMAC().hashCode() : 0);
-    result = 31 * result + (getMeasurements() != null ? getMeasurements().hashCode() : 0);
-    return result;
+    this.modemLocation = modemLocation;
   }
 
   @Override
@@ -53,6 +31,7 @@ public class Modem {
             ", houseNumber='" + houseNumber + '\'' +
             ", linkToMAC='" + linkToMAC + '\'' +
             ", measurements=" + measurements +
+            ", modemLocation=" + modemLocation +
             '}';
   }
 
@@ -86,5 +65,13 @@ public class Modem {
 
   public void setMeasurements(List<Measurement> measurements) {
     this.measurements = measurements;
+  }
+
+  public ModemLocation getModemLocation() {
+    return modemLocation;
+  }
+
+  public void setModemLocation(ModemLocation modemLocation) {
+    this.modemLocation = modemLocation;
   }
 }
