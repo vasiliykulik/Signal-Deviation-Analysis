@@ -116,11 +116,10 @@ public class Measurement {
                 '}';
     }
 
+    // exclude usRXPower, dsRxPower because their values can be equal to zero
     public boolean isNotNullMeasurement() {
         return usTXPower != 0f &
-                usRXPower != 0f &
                 usSNR != 0f &
-                dsRxPower != 0f &
                 dsSNR != 0f &
                 microReflex != 0f;
     }
