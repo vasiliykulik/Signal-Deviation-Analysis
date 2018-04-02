@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class TestMeasurementsReader {
     public static void main(String[] args) throws IOException, ParseException {
-        FileReader fileReader = new FileReader("test\\resources\\testForMeasurementsNull2.html");
+        FileReader fileReader = new FileReader("src\\test\\resources\\testForMeasurementsNull2.html");
         //  InputStreamReader on a FileInputStream.
         BufferedReader br = new BufferedReader(fileReader);
 

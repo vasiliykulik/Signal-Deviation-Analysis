@@ -105,8 +105,8 @@ public class CleanerForParserMeasurementEntity {
         // <td bgcolor="#D8D8D8"><a href="http://work.volia.net/w2/?ACT=work.cubic&query_mac=001dd3f6a317" >Инфо</a></td></tr><tr bgcolor="#F0F0F0" )
         // unusable information between td tags changed to *, requred fields to (.*)
         // (.*)<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*<.td><td.*>(.*)<.td><td>(.*)<.td><td.*>(.*)<.td><td.*>(.*)<.td><td.*>(.*)<.td><td>(.*)<.td><td>.*><a href=\"(.*)\".*<.td><td.*<a href=\"(.*)\".*"
-        System.out.println("inputline from cleaner");
-        System.out.println(inputLine);
+       // System.out.println("inputline from cleaner");
+       // System.out.println(inputLine);
         Pattern p = Pattern.compile("" +
                 "(\\d\\d-\\d\\d-\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d)</td>.*" +
                 "<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
@@ -131,7 +131,7 @@ public class CleanerForParserMeasurementEntity {
             linkToInfoPage = m.group(9);
         }
         Measurement measurement = new Measurement(dateTime, usTXPower, usRXPower, usSNR, dsRxPower, dsSNR, microReflex, linkToCurrentMeasurement, linkToInfoPage);
-        System.out.println(measurement.toString());
+      //  System.out.println(measurement.toString());
         return measurement;
     }
 

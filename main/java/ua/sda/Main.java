@@ -38,6 +38,7 @@ public class Main {
 		for (Modem modem : modems) {
 			try {
 				modem.setMeasurements(modemMeasurementsReader.getMeasurements(modem.getLinkToMAC(), userName, password));
+				System.out.println(modem.toString());
 				System.out.println(i++);
 			} catch (Exception e) {
 				e.printStackTrace();
