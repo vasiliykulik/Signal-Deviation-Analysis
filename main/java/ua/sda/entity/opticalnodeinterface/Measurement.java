@@ -29,6 +29,10 @@ public class Measurement {
         this.linkToInfoPage = linkToInfoPage;
     }
 
+    public Measurement() {
+
+    }
+
     public Date getDateTime() {
         return dateTime;
     }

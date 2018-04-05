@@ -2,6 +2,7 @@ package ua.sda;
 
 
 import ua.sda.entity.opticalnodeinterface.Modem;
+import ua.sda.readers.CurrentMeasurementReader;
 import ua.sda.readers.ModemMeasurementsReader;
 import ua.sda.readers.OpticalNodeSingleInterfaceReader;
 
@@ -42,10 +43,23 @@ public class Main {
 				System.out.println(i++);
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println(modem.getLinkToMAC());
+
 			}
 		}
 
+		CurrentMeasurementReader currentMeasurementReader = new CurrentMeasurementReader();
+		// Read Current Measurement, and add it to measurements
+		for (Modem modem : modems) {
+
+			try {
+				modem.getMeasurements().add(0, currentMeasurementReader.readCurrentState(modem
+						.getMeasurements()
+						.get(0)
+						.getLinkToCurrentState(), userName, password));
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(modem.getLinkToMAC());
+			}
 /*		for (List<Measurement> measurement : measurements) {
 			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
 			LocationReader locationReader = LocationReader();
@@ -54,5 +68,6 @@ public class Main {
 			measurement.get(0).getLinkToInfoPage();
 		}*/
 // TODO
+		}
 	}
 }
