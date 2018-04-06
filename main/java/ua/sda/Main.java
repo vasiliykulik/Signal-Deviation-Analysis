@@ -61,7 +61,7 @@ public class Main {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println(" was thrown exception  (CurrentState) "+modem.getLinkToMAC());
+				System.out.println("(CurrentState exception) "+modem.getLinkToMAC());
 			}
 /*		for (List<Measurement> measurement : measurements) {
 			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
