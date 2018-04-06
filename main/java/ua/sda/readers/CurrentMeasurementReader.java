@@ -15,6 +15,20 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
  * @author Vasiliy Kylik on(Rocket) on 18.03.2018.
  */
 public class CurrentMeasurementReader {
+	/**
+	 * Parses HTML page for a CurrentState measurement
+	 * @return {@code measurement }measurement of current state;
+	 * new DateTime
+	 * 124 line - usTXPower
+	 * 128 line - usRXPower
+	 * 132 line - usSNR
+	 * 136 line - dsRxPower
+	 * 140 line - dsSNR
+	 * 144 line - microReflex
+	 * null linkToCurrentState
+	 * null linkToInfoPage
+	 * in.lines().count() (230 - offline, 237,223 - online, 78 - modem not found, 246 - not found)
+	 */
 
 
 	public Measurement readCurrentState(String linkToURL, String userName, String password) throws Exception {
