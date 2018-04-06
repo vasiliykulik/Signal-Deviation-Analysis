@@ -33,8 +33,8 @@ public class CurrentMeasurementReader {
 	 */
 
 
-	public Measurement readCurrentState(String linkToURL, String userName, String password) throws Exception {
-		URL url = new URL(linkToURL);
+	public Measurement readCurrentState(String linkToCurrentState, String userName, String password, String linkToInfo) throws Exception {
+		URL url = new URL(linkToCurrentState);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 		con.setRequestMethod("GET");
@@ -85,10 +85,10 @@ public class CurrentMeasurementReader {
 					currentState.setMicroReflex(cleanerForCurrentState(in.readLine()));
 				}
 			}
+			currentState.setLinkToCurrentState(linkToCurrentState);
+			currentState.setLinkToInfoPage(linkToInfo);
 			currentState.setDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(String.valueOf(new Date())));
-
 		}
-
 		return currentState;
 	}
 }
