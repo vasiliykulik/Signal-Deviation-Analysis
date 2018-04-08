@@ -1,6 +1,7 @@
 package ua.sda;
 
 
+import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.readers.CurrentMeasurementReader;
 import ua.sda.readers.ModemMeasurementsReader;
@@ -48,17 +49,19 @@ public class Main {
 		}
 
 		CurrentMeasurementReader currentMeasurementReader = new CurrentMeasurementReader();
-		// Read Current Measurement, and add it to measurements
+		// Read Current State Measurement, and add it to measurements
 		for (Modem modem : modems) {
 
 			try {
-				modem.getMeasurements().add(0, currentMeasurementReader.readCurrentState(modem
-						.getMeasurements()
-						.get(0)
-						.getLinkToCurrentState(), userName, password));
+				Measurement currentStateMeasurement = new Measurement();
+				currentStateMeasurement =currentMeasurementReader.readCurrentState(
+						modem.getMeasurements().get(0).getLinkToCurrentState(), userName, password, modem.getMeasurements().get(0).getLinkToInfoPage());
+				if(currentStateMeasurement.isNotNullMeasurement()){
+					modem.getMeasurements().add(0, currentStateMeasurement);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println(modem.getLinkToMAC());
+				System.out.println("(CurrentState exception) "+modem.getLinkToMAC());
 			}
 /*		for (List<Measurement> measurement : measurements) {
 			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
