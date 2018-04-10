@@ -56,7 +56,6 @@ public class CurrentMeasurementReader {
 			Float dsSNR = 0f;
 			Float microReflex = 0f;
 			String inputLine;
-			CleanerForCurrentState cleanerForCurrentState = new CleanerForCurrentState();
 			// Получаем страницу, если модем онлайн (in.lines().count() == 238 - 1 || in.lines().count() == 224 - 1))
 			// снимаем измерения
 			// проверяем можем ли мы снять измерения (если нет бросаем exception)
