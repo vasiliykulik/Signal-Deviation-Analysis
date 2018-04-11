@@ -25,39 +25,40 @@ public class TestCurrentStateReader {
         Float usSNR = 0f;
         Float dsSNR = 0f;
         Float microReflex = 0f;
-        String inputLine;
-        String cleanLine;
+
         String linkToCurrentStateStub = "linkToCurrentStateStub";
         String linkToInfoStub = "linkToInfoStub";
         Measurement currentState = new Measurement();
 
-/*
-        currentState.setDateTime(new Date());
-        System.out.println(new Date());
-        System.out.println(currentState.getDateTime());
-*/
-
+        String inputLine;
+        String cleanLine;
         while ((inputLine = br.readLine()) != null
             // && (br.lines().count() == 238 - 1 || br.lines().count() == 224 - 1)
                 ) {
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream TX Power </td>")) {
-                currentState.setUsTXPower(cleanerForCurrentState(br.readLine()));
+                cleanLine = br.readLine();
+                currentState.setUsTXPower(cleanerForCurrentState(cleanLine));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream RX Power, Iface PL </td>")) {
-                currentState.setUsRXPower(cleanerForCurrentState(br.readLine()));
+                cleanLine = br.readLine();
+                currentState.setUsRXPower(cleanerForCurrentState(cleanLine));
             }
             // "            <td bgcolor="#EEEEE0" colspan="2">  Upstream SNR </td>" - должно сходится
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
-                currentState.setUsSNR(cleanerForCurrentState(br.readLine()));
+                cleanLine = br.readLine();
+                currentState.setUsSNR(cleanerForCurrentState(cleanLine));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
-                currentState.setUsRXPower(cleanerForCurrentState(br.readLine()));
+                cleanLine = br.readLine();
+                currentState.setUsRXPower(cleanerForCurrentState(cleanLine));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
-                currentState.setDsSNR(cleanerForCurrentState(br.readLine()));
+                cleanLine = br.readLine();
+                currentState.setDsSNR(cleanerForCurrentState(cleanLine));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Micro Reflx </td>")) {
-                currentState.setMicroReflex(cleanerForCurrentState(br.readLine()));
+                cleanLine = br.readLine();
+                currentState.setMicroReflex(cleanerForCurrentState(cleanLine));
             }
         }
         currentState.setLinkToCurrentState(linkToCurrentStateStub);
