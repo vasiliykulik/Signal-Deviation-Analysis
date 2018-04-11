@@ -59,9 +59,7 @@ public class CurrentMeasurementReader {
 			// Получаем страницу, если модем онлайн (in.lines().count() == 238 - 1 || in.lines().count() == 224 - 1))
 			// снимаем измерения
 			// проверяем можем ли мы снять измерения (если нет бросаем exception)
-			if (in.lines().count() != 238 - 1 || in.lines().count() != 224 - 1){
-				throw new Exception("modem is not online");
-			}
+
 			while ((inputLine = in.readLine()) != null
 					// && (in.lines().count() == 238 - 1 || in.lines().count() == 224 - 1)
 					) {
@@ -72,7 +70,7 @@ public class CurrentMeasurementReader {
 					currentState.setUsRXPower(cleanerForCurrentState(in.readLine()));
 				}
 				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
-					currentState.setUsSNR(cleanerForCurrentState(in.readLine()));;
+					currentState.setUsSNR(cleanerForCurrentState(in.readLine()));
 				}
 				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
 					currentState.setUsRXPower (cleanerForCurrentState(in.readLine()));

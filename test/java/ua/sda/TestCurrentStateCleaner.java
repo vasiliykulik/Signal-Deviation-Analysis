@@ -8,10 +8,11 @@ import java.util.regex.Pattern;
  */
 public class TestCurrentStateCleaner {
     public static void main(String[] args) {
-        String strWithValue1 = "";
+        String strWithValue1 = "<td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 44 </font> </td>\n";
+        System.out.println(testCurrentStateCleaner(strWithValue1));
     }
 
-    private Float testCurrentStateCleaner(String strWithValue) {
+    private static Float testCurrentStateCleaner(String strWithValue) {
         Float value = 0f;
         Pattern p1 = Pattern.compile("<td bgcolor=\".*\" align=\"center\"> <font  > ([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d).*<\\/font> <\\/td>");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
         Matcher m = p1.matcher(strWithValue);

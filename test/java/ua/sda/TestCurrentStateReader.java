@@ -16,7 +16,7 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
  */
 public class TestCurrentStateReader {
     public static void main(String[] args) throws Exception {
-        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentState.html");
+        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentStateTest.html");
         BufferedReader br = new BufferedReader(fileReader);
 
         Float usTXPower = 0f;
@@ -26,27 +26,32 @@ public class TestCurrentStateReader {
         Float dsSNR = 0f;
         Float microReflex = 0f;
         String inputLine;
+        String cleanLine;
         String linkToCurrentStateStub = "linkToCurrentStateStub";
         String linkToInfoStub = "linkToInfoStub";
         Measurement currentState = new Measurement();
 
-        if (br.lines().count() != 238 - 1 || br.lines().count() != 224 - 1){
-            throw new Exception("modem is not online");
-        }
+/*
+        currentState.setDateTime(new Date());
+        System.out.println(new Date());
+        System.out.println(currentState.getDateTime());
+*/
+
         while ((inputLine = br.readLine()) != null
             // && (br.lines().count() == 238 - 1 || br.lines().count() == 224 - 1)
                 ) {
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream TX Power </td>")) {
-                currentState.setUsTXPower (cleanerForCurrentState(br.readLine()));
+                currentState.setUsTXPower(cleanerForCurrentState(br.readLine()));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream RX Power, Iface PL </td>")) {
                 currentState.setUsRXPower(cleanerForCurrentState(br.readLine()));
             }
+            // "            <td bgcolor="#EEEEE0" colspan="2">  Upstream SNR </td>" - должно сходится
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
-                currentState.setUsSNR(cleanerForCurrentState(br.readLine()));;
+                currentState.setUsSNR(cleanerForCurrentState(br.readLine()));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
-                currentState.setUsRXPower (cleanerForCurrentState(br.readLine()));
+                currentState.setUsRXPower(cleanerForCurrentState(br.readLine()));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
                 currentState.setDsSNR(cleanerForCurrentState(br.readLine()));
@@ -57,7 +62,7 @@ public class TestCurrentStateReader {
         }
         currentState.setLinkToCurrentState(linkToCurrentStateStub);
         currentState.setLinkToInfoPage(linkToInfoStub);
-        currentState.setDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(String.valueOf(new Date())));
-
+        currentState.setDateTime(new Date());
+        System.out.println(currentState);
     }
 }
