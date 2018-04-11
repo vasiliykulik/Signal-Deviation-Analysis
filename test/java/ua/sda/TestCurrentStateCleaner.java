@@ -15,6 +15,11 @@ public class TestCurrentStateCleaner {
         String strWithValue5 = "            <td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 36.5 </font> </td>\n";
         String strWithValue6 = "            <td bgcolor=\"white\" align=\"center\"> <font  > 30 </font> </td>\n";
         System.out.println(testCurrentStateCleaner(strWithValue1));
+        System.out.println(testCurrentStateCleaner(strWithValue2));
+        System.out.println(testCurrentStateCleaner(strWithValue3));
+        System.out.println(testCurrentStateCleaner(strWithValue4));
+        System.out.println(testCurrentStateCleaner(strWithValue5));
+        System.out.println(testCurrentStateCleaner(strWithValue6));
     }
 
     private static Float testCurrentStateCleaner(String strWithValue) {
