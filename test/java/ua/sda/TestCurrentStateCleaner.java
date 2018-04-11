@@ -8,7 +8,12 @@ import java.util.regex.Pattern;
  */
 public class TestCurrentStateCleaner {
     public static void main(String[] args) {
-        String strWithValue1 = "<td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 44 </font> </td>\n";
+        String strWithValue1 = "            <td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 44 </font> </td>\n";
+        String strWithValue2 = "            <td bgcolor=\"white\" align=\"center\"> <font  > 4.5 , (5) </font> </td>\n";
+        String strWithValue3 = "            <td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 32 </font> </td>\n";
+        String strWithValue4 = "            <td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 2.8 </font> </td>\n";
+        String strWithValue5 = "            <td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 36.5 </font> </td>\n";
+        String strWithValue6 = "            <td bgcolor=\"white\" align=\"center\"> <font  > 30 </font> </td>\n";
         System.out.println(testCurrentStateCleaner(strWithValue1));
     }
 
