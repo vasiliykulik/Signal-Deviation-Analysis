@@ -73,7 +73,7 @@ public class CurrentMeasurementReader {
 					currentState.setUsSNR(cleanerForCurrentState(in.readLine()));
 				}
 				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
-					currentState.setUsRXPower (cleanerForCurrentState(in.readLine()));
+					currentState.setDsRxPower (cleanerForCurrentState(in.readLine()));
 				}
 				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
 					currentState.setDsSNR(cleanerForCurrentState(in.readLine()));

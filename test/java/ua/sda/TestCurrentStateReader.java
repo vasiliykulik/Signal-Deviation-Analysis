@@ -16,7 +16,7 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
  */
 public class TestCurrentStateReader {
     public static void main(String[] args) throws Exception {
-        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentStateTest2field.html");
+        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentStateTest.html");
         BufferedReader br = new BufferedReader(fileReader);
 
         Float usTXPower = 0f;
