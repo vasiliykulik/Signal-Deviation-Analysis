@@ -16,7 +16,7 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
  */
 public class TestCurrentStateReader {
     public static void main(String[] args) throws Exception {
-        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentStateTest.html");
+        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentState.html");
         BufferedReader br = new BufferedReader(fileReader);
 
         Float usTXPower = 0f;
@@ -35,28 +35,28 @@ public class TestCurrentStateReader {
         while ((inputLine = br.readLine()) != null
             // && (br.lines().count() == 238 - 1 || br.lines().count() == 224 - 1)
                 ) {
-            if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream TX Power </td>")) {
+            if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Upstream TX Power </td>")) {
                 cleanLine = br.readLine();
                 currentState.setUsTXPower(cleanerForCurrentState(cleanLine));
             }
-            if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream RX Power, Iface PL </td>")) {
+            if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Upstream RX Power, Iface PL </td>")) {
                 cleanLine = br.readLine();
                 currentState.setUsRXPower(cleanerForCurrentState(cleanLine));
             }
             // "            <td bgcolor="#EEEEE0" colspan="2">  Upstream SNR </td>" - должно сходится
-            if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
+            if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
                 cleanLine = br.readLine();
                 currentState.setUsSNR(cleanerForCurrentState(cleanLine));
             }
-            if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
+            if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
                 cleanLine = br.readLine();
                 currentState.setDsRxPower(cleanerForCurrentState(cleanLine));
             }
-            if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
+            if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
                 cleanLine = br.readLine();
                 currentState.setDsSNR(cleanerForCurrentState(cleanLine));
             }
-            if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Micro Reflx </td>")) {
+            if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Micro Reflx </td>")) {
                 cleanLine = br.readLine();
                 currentState.setMicroReflex(cleanerForCurrentState(cleanLine));
             }
