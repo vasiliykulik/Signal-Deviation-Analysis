@@ -3,7 +3,9 @@ package ua.sda;
 
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
+import ua.sda.entity.opticalnodeinterface.ModemLocation;
 import ua.sda.readers.CurrentMeasurementReader;
+import ua.sda.readers.ModemLocationReader;
 import ua.sda.readers.ModemMeasurementsReader;
 import ua.sda.readers.OpticalNodeSingleInterfaceReader;
 
@@ -66,14 +68,22 @@ public class Main {
 				e.printStackTrace();
 				System.out.println("(CurrentState exception) " + modem.getLinkToMAC());
 			}
-/*		for (List<Measurement> measurement : measurements) {
-			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
-			LocationReader locationReader = LocationReader();
-
-			measurement.get(0).getLinkToCurrentState();
-			measurement.get(0).getLinkToInfoPage();
-		}*/
-// TODO
 		}
+
+		ModemLocationReader modemLocationReader = new ModemLocationReader();
+		for (Modem modem : modems) {
+			try {
+				ModemLocation modemLocation = new ModemLocation();
+				modemLocation = modemLocationReader.readModemLocation(modem.getMeasurements().get(0).getLinkToInfoPage(), userName, password);
+				if (modemLocation.isNotNullModemLocation()) {
+					modem.setModemLocation(modemLocation);
+					System.out.println(modemLocation);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("(LocationReader exception) " + modem.getLinkToMAC());
+			}
+		}
+// TODO
 	}
 }

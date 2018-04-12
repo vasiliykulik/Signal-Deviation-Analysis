@@ -9,6 +9,8 @@ public class ModemLocation {
 	private Integer interFloorLineNumber;
 	private String apartment;
 
+	public ModemLocation() {
+	}
 
 	public ModemLocation(Integer entranceNumber, Integer floorNumber, Integer interFloorLineNumber, String apartment) {
 		this.entranceNumber = entranceNumber;
@@ -57,5 +59,9 @@ public class ModemLocation {
 
 	public void setApartment(String apartment) {
 		this.apartment = apartment;
+	}
+
+	public boolean isNotNullModemLocation() {
+		return apartment != null;
 	}
 }
