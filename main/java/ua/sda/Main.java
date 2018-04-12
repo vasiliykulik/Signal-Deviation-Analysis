@@ -41,7 +41,7 @@ public class Main {
 			try {
 				modem.setMeasurements(modemMeasurementsReader.getMeasurements(modem.getLinkToMAC(), userName, password));
 				System.out.println(modem.toString());
-				System.out.println(i++);
+				System.out.println("measurements for " + i++ + " were taken");
 			} catch (Exception e) {
 				e.printStackTrace();
 
@@ -50,18 +50,21 @@ public class Main {
 
 		CurrentMeasurementReader currentMeasurementReader = new CurrentMeasurementReader();
 		// Read Current State Measurement, and add it to measurements
+		int j = 0;
+		int k = 0;
 		for (Modem modem : modems) {
-
 			try {
 				Measurement currentStateMeasurement = new Measurement();
-				currentStateMeasurement =currentMeasurementReader.readCurrentState(
+				currentStateMeasurement = currentMeasurementReader.readCurrentState(
 						modem.getMeasurements().get(0).getLinkToCurrentState(), userName, password, modem.getMeasurements().get(0).getLinkToInfoPage());
-				if(currentStateMeasurement.isNotNullMeasurement()){
+				if (currentStateMeasurement.isNotNullMeasurement()) {
 					modem.getMeasurements().add(0, currentStateMeasurement);
+					System.out.println("Current State added " + k++);
 				}
+				System.out.println("Current state Viewed " + j++);
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("(CurrentState exception) "+modem.getLinkToMAC());
+				System.out.println("(CurrentState exception) " + modem.getLinkToMAC());
 			}
 /*		for (List<Measurement> measurement : measurements) {
 			CurrentMeasurementReader currentMeasurementReader = CurrentMeasurementReader();
