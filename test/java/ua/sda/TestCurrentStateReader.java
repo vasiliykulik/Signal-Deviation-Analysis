@@ -16,7 +16,7 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
  */
 public class TestCurrentStateReader {
     public static void main(String[] args) throws Exception {
-        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentStateTest.html");
+        FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentStateTest2field.html");
         BufferedReader br = new BufferedReader(fileReader);
 
         Float usTXPower = 0f;
@@ -50,7 +50,7 @@ public class TestCurrentStateReader {
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
                 cleanLine = br.readLine();
-                currentState.setUsRXPower(cleanerForCurrentState(cleanLine));
+                currentState.setDsRxPower(cleanerForCurrentState(cleanLine));
             }
             if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
                 cleanLine = br.readLine();
