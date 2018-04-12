@@ -26,7 +26,7 @@ public class TestMeasurementsReader {
         List<String> tableRows = new ArrayList<>();
         List<Measurement> measurements = new ArrayList<>();
 
-        // htmlLineWithTable thru regex from html page
+        // htmlLineWithTable through regex from html page
         while ((inputLine = br.readLine()) != null) {
             if (inputLine.matches(".*align=\"center\"><td>.*")) {
                 htmlLineWithTable = CleanerForParserMeasurementEntity.htmlLineCleaning(inputLine);

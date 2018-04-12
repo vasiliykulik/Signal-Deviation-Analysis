@@ -37,7 +37,10 @@ public class ModemMeasurementsReader {
 	 * @param userName  username to web interface
 	 * @param password  password to web interface
 	 * @return {@code measurements }List of measurements for particularly taken modem;
-	 * {@code isNewLinkToInfoPage} - parsed only ones, after that value only is assigned
+	 * <br>{@code isNewLinkToInfoPage} - parsed only ones, after that value only is assigned
+	 * <br>{@code htmlLineWithTable} -  htmlLineWithTable through regex from html page. Take Html line with table of measurements to read one string table.
+	 * <br>{@code tableRows} -  cut HTML one line table into table row blocks and add to collection (List), implemented using array
+
 	 */
 	public List<Measurement> getMeasurements(String linkToURL, String userName, String password) throws Exception {
 		URL url = new URL(linkToURL);
@@ -64,17 +67,14 @@ public class ModemMeasurementsReader {
 			String htmlLineWithTable = null; // line with table
 			List<String> tableRows = new ArrayList<>(); //
 
-			// Take Html line with table of measurements to read one string table
 			// ("align="center"><td>" - first row mark, start of row mark)
 			// ("/a></td></tr>" - end of row mark)
 			// ("<tr><td colspan="11" align="center">" - end of table mark)
 			while ((inputLine = in.readLine()) != null) {
 				if (inputLine.matches(".*align=\"center\"><td>.*")) {
 					htmlLineWithTable = CleanerForParserMeasurementEntity.htmlLineCleaning(inputLine);
-					// System.out.println(htmlLineWithTable);// test for Html line with table
 				}
 			}
-			// cut HTML one line table into table row blocks and add to collection (List), implemented using array
 
 			if (htmlLineWithTable != null) {
 				tableRows.addAll(Arrays.asList(htmlLineWithTable.split("align=\"center\"><td>")));
@@ -86,24 +86,26 @@ public class ModemMeasurementsReader {
 			boolean isNewLinkToInfoPage = false;
 			for (String retval : tableRows) {
 				if (!isNewLinkToCurrentMeasurement & !isNewLinkToInfoPage) {
-					//  check for empty cells in measurements columns
-
 					Measurement measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);
-					// after adding List<Measurements> to Modem entity, it may be a case of not reading measurements- and this field will remain null
-					// but the expected behavior is skipping one measurement from the list
-					measurements.add(measurement);
-					isNewLinkToCurrentMeasurement = true;
-					isNewLinkToInfoPage = true;
+					if (measurement.isNotNullMeasurement()) {
+						measurements.add(measurement);
+					}
+					if (measurement.getLinkToCurrentState() != null & measurement.getLinkToInfoPage() != null) {
+						isNewLinkToCurrentMeasurement = true;
+						isNewLinkToInfoPage = true;
+						continue;
+					}
 
 				}
 				// case if first measurement not valid - so "measurements.get(0)" cause exception IndexOutOfBoundsException
 				// (check isNewLinkToCurrentMeasurement & isNewLinkToInfoPage flags) make sure that we have 0 index (first element in Collection)
 				if (isNewLinkToCurrentMeasurement & isNewLinkToInfoPage & measurements.size() > 0) {
-					//  check for empty cells in measurements columns (color marker when cells are not empty)
 					if (measurements.get(0).getLinkToCurrentState() != null & measurements.get(0).getLinkToInfoPage() != null) {
 						Measurement measurement = CleanerForParserMeasurementEntity.
 								measurementEntityCleaningWithLinks(retval, measurements.get(0).getLinkToCurrentState(), measurements.get(0).getLinkToInfoPage());
-						measurements.add(measurement);
+						if (measurement.isNotNullMeasurement()) {
+							measurements.add(measurement);
+						}
 					}
 				}
 			}
