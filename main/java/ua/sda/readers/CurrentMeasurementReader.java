@@ -63,22 +63,22 @@ public class CurrentMeasurementReader {
 			while ((inputLine = in.readLine()) != null
 					// && (in.lines().count() == 238 - 1 || in.lines().count() == 224 - 1)
 					) {
-				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream TX Power </td>")) {
+				if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Upstream TX Power </td>")) {
 					currentState.setUsTXPower (cleanerForCurrentState(in.readLine()));
 				}
-				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream RX Power, Iface PL </td>")) {
+				if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Upstream RX Power, Iface PL </td>")) {
 					currentState.setUsRXPower(cleanerForCurrentState(in.readLine()));
 				}
-				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
+				if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Upstream SNR </td>")) {
 					currentState.setUsSNR(cleanerForCurrentState(in.readLine()));
 				}
-				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
+				if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Downstream RX Power </td>")) {
 					currentState.setDsRxPower (cleanerForCurrentState(in.readLine()));
 				}
-				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
+				if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Downstream SNR </td>")) {
 					currentState.setDsSNR(cleanerForCurrentState(in.readLine()));
 				}
-				if (inputLine.matches("<td bgcolor=\"#......\" colspan=\"2\">  Micro Reflx </td>")) {
+				if (inputLine.matches(".*<td bgcolor=\"#......\" colspan=\"2\">  Micro Reflx </td>")) {
 					currentState.setMicroReflex(cleanerForCurrentState(in.readLine()));
 				}
 			}
