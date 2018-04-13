@@ -66,9 +66,7 @@ public class ModemLocationReader {
 			// tableRowsForInfo.get(3) - location ">5 - 2 - 2</";
 			// tableRowsForInfo.get(11) - apartment  "><a href=\"?ACT=work.cubic_info&address_id=27098960&F=search_by_id\">168";
 
-			modemLocation.setEntranceNumber(Character.getNumericValue(tableRowsForInfo.get(3).charAt(1)));
-			modemLocation.setFloorNumber (Character.getNumericValue(tableRowsForInfo.get(3).charAt(5)));
-			modemLocation.setInterFloorLineNumber(Character.getNumericValue(tableRowsForInfo.get(3).charAt(9)));
+			modemLocation = CleanerForModemLocation.locationCleaning(tableRowsForInfo.get(3));
 			modemLocation.setApartment(CleanerForModemLocation.apartmentNumberCleaning(tableRowsForInfo.get(11)));
 		}
 		return modemLocation;
