@@ -16,7 +16,7 @@ import java.util.List;
 public class TestModemLocationReader {
 	public static void main(String[] args) throws IOException {
 
-		FileReader fileReader = new FileReader("D:\\IdeaProjects\\Signal Deviation Analysis\\src\\test\\resources\\infoPageTest.html");
+		FileReader fileReader = new FileReader("test\\resources\\infoPageTest.html");
 		BufferedReader br = new BufferedReader(fileReader);
 
 		ModemLocation modemLocation = new ModemLocation();
