@@ -1,4 +1,4 @@
-package ua.sda.helper;
+package ua.sda.view.helper;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 14.04.2018.
