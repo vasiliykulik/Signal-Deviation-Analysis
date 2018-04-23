@@ -43,13 +43,13 @@ public class ConsoleHelper {
         int readChoice = readInt();
         switch (readChoice) {
             case 1:
-                retrieveDataView.customerView();
+                retrieveDataView.execute();
                 break;
             case 2:
-                analyzeDataView.customerView();
+                analyzeDataView.execute();
                 break;
             case 4:
-                dataView.customerView();
+                dataView.execute();
                 break;
             case 9:
                 System.out.println("Exiting....");

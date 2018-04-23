@@ -7,7 +7,7 @@ package ua.sda.view;
         String linkToInterface = readString();*/
 
 public class RetrieveDataView {
-    public void customerView() {
+    public void execute() {
 
     }
 }
