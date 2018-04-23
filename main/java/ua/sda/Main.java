@@ -19,9 +19,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		// the virtual database is a web resource protected using BASIC HTTP Authentication
-		final String urlString = args[0];
-		final String userName = args[1];
-		final String password = args[2];
+
+		final String userName = args[0];
+		final String password = args[1];
+		final String urlString = args[2];
 
 		// Reading modems (street, houseNumber, linkToMAC) from "TrafficLight"
 		List<Modem> modems = new ArrayList<>();
