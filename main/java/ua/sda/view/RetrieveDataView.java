@@ -6,7 +6,7 @@ package ua.sda.view;
 /*System.out.println("Paste link to TrafficLight");
         String linkToInterface = readString();*/
 
-public class ModemWithMeasurementsView {
+public class RetrieveDataView {
     public void customerView() {
 
     }
