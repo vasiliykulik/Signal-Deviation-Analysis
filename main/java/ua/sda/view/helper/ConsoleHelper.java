@@ -47,8 +47,10 @@ public class ConsoleHelper {
                 break;
             case 2:
                 saveDataView.customerView();
+                break;
             case 3:
                 readDataView.customerView();
+                break;
             case 4:
                 analyzeDataView.customerView();
                 break;
