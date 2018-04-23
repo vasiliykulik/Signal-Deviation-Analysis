@@ -16,8 +16,12 @@ public class ConsoleHelper {
     private RetrieveDataView retrieveDataView;
     private AnalyzeDataView analyzeDataView;
     private DataView dataView;
+    private String userName;
+    private String password;
 
-    public ConsoleHelper(String login, String password) {
+    public ConsoleHelper(String login, String pword) {
+        userName = login;
+        password = pword;
         retrieveDataView = new RetrieveDataView();
         analyzeDataView = new AnalyzeDataView();
         dataView = new DataView();

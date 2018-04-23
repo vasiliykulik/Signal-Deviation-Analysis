@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 14.04.2018.
+ * Main entry point, pass arguments L and P to consoleHelper constructor
  */
 public class SDAConsoleRunner {
 
