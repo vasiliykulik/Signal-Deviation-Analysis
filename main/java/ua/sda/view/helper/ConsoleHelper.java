@@ -1,9 +1,8 @@
 package ua.sda.view.helper;
 
 import ua.sda.view.AnalyzeDataView;
-import ua.sda.view.ReadDataView;
+import ua.sda.view.DataView;
 import ua.sda.view.RetrieveDataView;
-import ua.sda.view.SaveDataView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,14 +15,12 @@ import java.io.InputStreamReader;
 public class ConsoleHelper {
     private RetrieveDataView retrieveDataView;
     private AnalyzeDataView analyzeDataView;
-    private SaveDataView saveDataView;
-    private ReadDataView readDataView;
+    private DataView dataView;
 
     public ConsoleHelper(String login, String password) {
         retrieveDataView = new RetrieveDataView();
         analyzeDataView = new AnalyzeDataView();
-        saveDataView = new SaveDataView();
-        readDataView = new ReadDataView();
+        dataView = new DataView();
     }
 
     public static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -36,8 +33,7 @@ public class ConsoleHelper {
         System.out.println("To start work, select appropriate component, and press Enter: \n" +
                 " 1. Read the Modems with Measurements, Current States and Locations on the interface () from TrafficLight Link" +
                 ", (login and password are passed in the parameters) \n" +
-                " 2. Save Modems with Measurements, Current States and Locations to H2 DB for further access \n" +
-                " 3. Read Modems with Measurements, Current States and Locations from H2 DB \n" +
+                " 2. Save,Read Modems with Measurements, Current States and Locations to, from H2 DB (for further access) \n" +
                 " 4. Analyze measurements \n" +
                 " 9. Exit");
         int readChoice = readInt();
@@ -46,10 +42,7 @@ public class ConsoleHelper {
                 retrieveDataView.customerView();
                 break;
             case 2:
-                saveDataView.customerView();
-                break;
-            case 3:
-                readDataView.customerView();
+                DataView.customerView();
                 break;
             case 4:
                 analyzeDataView.customerView();
