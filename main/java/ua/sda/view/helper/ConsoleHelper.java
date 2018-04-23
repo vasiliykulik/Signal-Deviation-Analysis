@@ -33,8 +33,8 @@ public class ConsoleHelper {
         System.out.println("To start work, select appropriate component, and press Enter: \n" +
                 " 1. Read the Modems with Measurements, Current States and Locations on the interface () from TrafficLight Link" +
                 ", (login and password are passed in the parameters) \n" +
-                " 2. Save,Read Modems with Measurements, Current States and Locations to, from H2 DB (for further access) \n" +
-                " 4. Analyze measurements \n" +
+                " 2. Analyze measurements \n" +
+                " 3. Save,Read Modems with Measurements, Current States and Locations to, from H2 DB (for further access) \n" +
                 " 9. Exit");
         int readChoice = readInt();
         switch (readChoice) {
@@ -42,10 +42,10 @@ public class ConsoleHelper {
                 retrieveDataView.customerView();
                 break;
             case 2:
-                DataView.customerView();
+                analyzeDataView.customerView();
                 break;
             case 4:
-                analyzeDataView.customerView();
+                dataView.customerView();
                 break;
             case 9:
                 System.out.println("Exiting....");
