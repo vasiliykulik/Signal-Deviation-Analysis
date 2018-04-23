@@ -23,13 +23,11 @@ public class ConsoleHelper {
     }
 
     public void consoleHelp() throws IOException {
-        System.out.println("To start work, select appropriate component, and press Enter: \n 1. Read the Modems with Measurements, Current States and Locations on the interface,  (login and password are passed in the parameters)");
+        System.out.println("To start work, select appropriate component, and press Enter: \n 1. Read the Modems with Measurements, Current States and Locations on the interface,  (login and password are passed in the parameters) \n 9. Exit");
         int readChoice = readInt();
         switch (readChoice) {
             case 1:
-                System.out.println("Paste link to TrafficLight");
-                String linkToInterface = readString();
-                modemWithMeasurementsView.customerView(linkToInterface);
+                modemWithMeasurementsView.customerView();
                 break;
             case 9:
                 System.out.println("Exiting....");
