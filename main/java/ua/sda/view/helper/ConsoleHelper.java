@@ -43,7 +43,7 @@ public class ConsoleHelper {
         int readChoice = readInt();
         switch (readChoice) {
             case 1:
-                retrieveDataView.execute();
+                retrieveDataView.execute(userName, password);
                 break;
             case 2:
                 analyzeDataView.execute();

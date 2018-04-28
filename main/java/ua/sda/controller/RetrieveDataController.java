@@ -81,6 +81,6 @@ public class RetrieveDataController {
 				System.out.println("(LocationReader exception) " + modem.getLinkToMAC());
 			}
 		}
-		return null;
+		return modems;
 	}
 }
