@@ -20,12 +20,8 @@ public class RetrieveDataView {
         String linkToURL;
 
         writeMessage("" +
-                "0 - Read All \n" +
-                "1 - Read Modems\n" +
-                "2 - Read Measurements\n" +
-                "3 - Read Current State\n" +
-                "4 - Read Location\n" +
-                "5 - Exit to the main menu\n");
+                "0 - Read All (Modems, Measurements, Current State, Location) \n" +
+                "9 - Exit to the main menu\n");
 
         int choice = readInt();
 
@@ -37,15 +33,7 @@ public class RetrieveDataView {
                 Collection<Modem> modems = retrieveDataController.getAll();
                 modems.forEach(System.out::println);
                 break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
+            case 9:
                 writeMessage("\n Exit to the main menu...\n");
                 break;
             default:

@@ -38,7 +38,7 @@ public class ConsoleHelper {
                 " 1. Read the Modems with Measurements, Current States and Locations on the interface () from TrafficLight Link" +
                 ", (login and password are passed in the parameters) \n" +
                 " 2. Analyze measurements \n" +
-                " 3. Save,Read Modems with Measurements, Current States and Locations to, from H2 DB (for further access) \n" +
+                " 3. Save, Load Modems with Measurements, Current States and Locations to, from H2 DB (for further access) \n" +
                 " 9. Exit");
         int readChoice = readInt();
         switch (readChoice) {
