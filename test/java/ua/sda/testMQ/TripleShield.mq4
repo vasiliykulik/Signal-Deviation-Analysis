@@ -40,16 +40,16 @@ int start()
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
    int []
-   halfWave0Н4,
-   halfWave_1Н4,
-   halfWave_2Н4,
-   halfWave_3Н4,
+   halfWave0Н4, halfWave_1Н4, halfWave_2Н4, halfWave_3Н4,
+   halfWave0Н1, halfWave_1Н1, halfWave_2Н1, halfWave_3Н1,
+   halfWave0М15, halfWave_1М15, halfWave_2М15, halfWave_3М15,
 
    bool
-   what0HalfWaveMACDH4,
-   what_1HalfWaveMACDH4,
-   what_2HalfWaveMACDН4,
-   what_3HalfWaveMACDН4,
+   what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDН4, what_3HalfWaveMACDН4,
+   doubleCriterionChannelН4,
+   what0HalfWaveMACDН1, what_1HalfWaveMACDН1, what_2HalfWaveMACDН1, what_3HalfWaveMACDН1,
+   doubleCriterionChannelН1,
+   what0HalfWaveMACDМ15, what_1HalfWaveMACDМ15, what_2HalfWaveMACDМ15,
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
    if(Bars<100)
@@ -91,43 +91,43 @@ int start()
    а) what_3HalfWaveMACDН4
    б) складываем тики в массив halfWave_3Н4
 
-   если (what_1HalfWaveMACDH4 ==0 И what_3HalfWaveMACDН4 == 0) doubleCriterionChannelН4 = 0
+   if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4 == 0) doubleCriterionChannelН4 = 0
 
-   если (what_1HalfWaveMACDH4 ==1 И what_3HalfWaveMACDН4 == 1) doubleCriterionChannelН4 = 1
+   if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4 == 1) doubleCriterionChannelН4 = 1
 
    Идём по истории H1
-   1) какая0ПолуволнаMACDН1 (0 это положительная 1 это отрицательная)
-   а) складываем тики в массив полуволна0Н1
+   1) what0HalfWaveMACDН1 (0 это положительная 1 это отрицательная)
+   а) складываем тики в массив halfWave0Н1
    2) если произошло пересечение
-   а) какая_1ПолуволнаMACDН1
-   б) складываем тики в массив полуволна_1Н1
+   а) what_1HalfWaveMACDН1
+   б) складываем тики в массив halfWave_1Н1
    3) если произошло пересечение
-   а) какая_2ПолуволнаMACDН1
-   б) складываем тики в массив полуволна_2Н1
+   а) what_2HalfWaveMACDН1
+   б) складываем тики в массив halfWave_2Н1
    4) если произошло пересечение
-   а) какая_3ПолуволнаMACDН1
-   б) складываем тики в массив полуволна_3Н1
+   а) what_3HalfWaveMACDН1
+   б) складываем тики в массив halfWave_3Н1
 
-   если (какая_1ПолуволнаMACDН1 ==0 И какая_3ПолуволнаMACDН1==0) двойнойКритерийТрендН1 = 0
+   if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0) doubleCriterionChannelН1 = 0
 
-   если (какая_1ПолуволнаMACDН1 ==1 И какая_3ПолуволнаMACDН1==1) двойнойКритерийТрендН1 = 1
+   if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1) doubleCriterionChannelН1 = 1
 
    Идём по истории М15
-   1) какая0ПолуволнаMACDМ15
-   а) складываем тики в массив полуволна0М15
+   1) what0HalfWaveMACDМ15
+   а) складываем тики в массив halfWave0М15
    2) если произошло пересечение
-   а) какая_1ПолуволнаMACDМ15
-   б) складываем тики в массив полуволна_1М15
+   а) what_1HalfWaveMACDМ15
+   б) складываем тики в массив halfWave_1М15
    3) если произошло пересечение
-   а) какая_2ПолуволнаMACDМ15
-   б) складываем тики в массив полуволна_2М15
+   а) what_2HalfWaveMACDМ15
+   б) складываем тики в массив halfWave_2М15
    4) если произошло пересечение
-   а) какая_3ПолуволнаMACDМ15
-   б) складываем тики в массив полуволна_3М15
+   а) what_3HalfWaveMACDМ15
+   б) складываем тики в массив halfWave_3М15
 
-   если (какая_1ПолуволнаMACDМ15 ==0 И какая_3ПолуволнаMACDМ15==0) двойнойКритерийТочкаВходаМ15 = 0
+   если (what_1HalfWaveMACDМ15 ==0 И what_3HalfWaveMACDМ15==0) двойнойКритерийТочкаВходаМ15 = 0
 
-   если (какая_1ПолуволнаMACDМ15 ==1 И какая_3ПолуволнаMACDМ15==1) двойнойКритерийТочкаВходаМ15 = 1
+   если (what_1HalfWaveMACDМ15 ==1 И what_3HalfWaveMACDМ15==1) двойнойКритерийТочкаВходаМ15 = 1
 
    Идём по истории М5
    1) какая0ПолуволнаMACDМ5
@@ -189,7 +189,26 @@ int start()
 
    если(направлениеOsMAH1 == 0 И направлениеOsMAM15== 0 И направлениеOsMAM5 == 0 И направлениеOsMAM1 == 0) то весьOsMA ==0
 
-   если(направлениеOsMAH1 == 1 И направлениеOsMAM15== 1 И направлениеOsMAM5 == 1 И направлениеOsMAM1 == 1) то весьOsMA ==1*/
+   если(направлениеOsMAH1 == 1 И направлениеOsMAM15== 1 И направлениеOsMAM5 == 1 И направлениеOsMAM1 == 1) то весьOsMA ==1
+   End The algorithm of the trend criteria definition
+   */
+
+/*Logics Start The algorithm of the trend criteria definition*/
+
+
+if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4 == 0)
+{doubleCriterionChannelН4 = 0;}
+if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4 == 1)
+{doubleCriterionChannelН4 = 1;}
+if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0)
+{doubleCriterionChannelН1 = 0;}
+if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1)
+{doubleCriterionChannelН1 = 1;}
+
+
+
+/*Logics End The algorithm of the trend criteria definition*/
+
 
    buy=0;
    sell=0;
