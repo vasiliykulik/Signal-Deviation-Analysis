@@ -43,13 +43,21 @@ int start()
    halfWave0Н4, halfWave_1Н4, halfWave_2Н4, halfWave_3Н4,
    halfWave0Н1, halfWave_1Н1, halfWave_2Н1, halfWave_3Н1,
    halfWave0М15, halfWave_1М15, halfWave_2М15, halfWave_3М15,
+   halfWave0М5, halfWave_1М5, halfWave_2М5, halfWave_3М5,
+   halfWave0М1, halfWave_1М1, halfWave_2М1, halfWave_3М1
 
    bool
    what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDН4, what_3HalfWaveMACDН4,
    doubleCriterionChannelН4,
    what0HalfWaveMACDН1, what_1HalfWaveMACDН1, what_2HalfWaveMACDН1, what_3HalfWaveMACDН1,
-   doubleCriterionChannelН1,
-   what0HalfWaveMACDМ15, what_1HalfWaveMACDМ15, what_2HalfWaveMACDМ15,
+   doubleCriterionTrendН1,
+   what0HalfWaveMACDМ15, what_1HalfWaveMACDМ15, what_2HalfWaveMACDМ15, what_3HalfWaveMACDМ15,
+   doubleCriterionEntryPointМ15,
+   what0HalfWaveMACDМ5, what_1HalfWaveMACDМ5, what_2HalfWaveMACDМ5, what_3halfWaveMACDМ5,
+   doubleCriterionTheTimeOfEntryМ5,
+   what0HalfWaveMACDМ1, what_1halfWaveMACDМ1, what_2HalfWaveMACDМ1, what_3HalfWaveMACDМ1
+
+
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
    if(Bars<100)
@@ -91,9 +99,9 @@ int start()
    а) what_3HalfWaveMACDН4
    б) складываем тики в массив halfWave_3Н4
 
-   if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4 == 0) doubleCriterionChannelН4 = 0
+   if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4==0) doubleCriterionChannelН4 = 0
 
-   if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4 == 1) doubleCriterionChannelН4 = 1
+   if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4==1) doubleCriterionChannelН4 = 1
 
    Идём по истории H1
    1) what0HalfWaveMACDН1 (0 это положительная 1 это отрицательная)
@@ -108,9 +116,9 @@ int start()
    а) what_3HalfWaveMACDН1
    б) складываем тики в массив halfWave_3Н1
 
-   if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0) doubleCriterionChannelН1 = 0
+   if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0) doubleCriterionTrendН1 = 0
 
-   if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1) doubleCriterionChannelН1 = 1
+   if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1) doubleCriterionTrendН1 = 1
 
    Идём по истории М15
    1) what0HalfWaveMACDМ15
@@ -125,43 +133,43 @@ int start()
    а) what_3HalfWaveMACDМ15
    б) складываем тики в массив halfWave_3М15
 
-   если (what_1HalfWaveMACDМ15 ==0 И what_3HalfWaveMACDМ15==0) двойнойКритерийТочкаВходаМ15 = 0
+   if (what_1HalfWaveMACDМ15==0 && what_3HalfWaveMACDМ15==0) doubleCriterionEntryPointМ15 = 0
 
-   если (what_1HalfWaveMACDМ15 ==1 И what_3HalfWaveMACDМ15==1) двойнойКритерийТочкаВходаМ15 = 1
+   if (what_1HalfWaveMACDМ15==1 && what_3HalfWaveMACDМ15==1) doubleCriterionEntryPointМ15 = 1
 
    Идём по истории М5
-   1) какая0ПолуволнаMACDМ5
-   а) складываем тики в массив полуволна0М5
+   1) what0HalfWaveMACDМ5
+   а) складываем тики в массив halfWave0М5
    2) если произошло пересечение
-   а) какая_1ПолуволнаMACDМ5
-   б) складываем тики в массив полуволна_1М5
+   а) what_1HalfWaveMACDМ5
+   б) складываем тики в массив halfWave_1М5
    3) если произошло пересечение
-   а) какая_2ПолуволнаMACDМ5
-   б) складываем тики в массив полуволна_2М5
+   а) what_2HalfWaveMACDМ5
+   б) складываем тики в массив halfWave_2М5
    4) если произошло пересечение
-   а) какая_3ПолуволнаMACDМ5
-   б) складываем тики в массив полуволна_3М5
+   а) what_3halfWaveMACDМ5
+   б) складываем тики в массив halfWave_3М5
 
-   если (какая_1ПолуволнаMACDМ5 ==0 И какая_3ПолуволнаMACDМ5==0) двойнойКритерийМоментВходаМ5 = 0
+   if (what_1HalfWaveMACDМ5 ==0 && what_3halfWaveMACDМ5==0) {doubleCriterionTheTimeOfEntryМ5 = 0;}
 
-   если (какая_1ПолуволнаMACDМ5 ==1 И какая_3ПолуволнаMACDМ5==1) двойнойКритерийМоментВходаМ5 = 1
+   if (what_1HalfWaveMACDМ5 ==1 && what_3halfWaveMACDМ5==1) {doubleCriterionTheTimeOfEntryМ5 = 1;}
 
    Идём по истории М1
-   1) какая0ПолуволнаMACDМ1
-   а) складываем тики в массив полуволна0М1
+   1) what0HalfWaveMACDМ1
+   а) складываем тики в массив halfWave0М1
    2) если произошло пересечение
-   а) какая_1ПолуволнаMACDМ1
-   б) складываем тики в массив полуволна_1М1
+   а) what_1halfWaveMACDМ1
+   б) складываем тики в массив halfWave_1М1
    3) если произошло пересечение
-   а) какая_2ПолуволнаMACDМ1
-   б) складываем тики в массив полуволна_2М1
+   а) what_2HalfWaveMACDМ1
+   б) складываем тики в массив halfWave_2М1
    4) если произошло пересечение
-   а) какая_3ПолуволнаMACDМ1
-   б) складываем тики в массив полуволна_3М1
+   а) what_3HalfWaveMACDМ1
+   б) складываем тики в массив halfWave_3М1
 
-   если (какая_1ПолуволнаMACDМ1 ==0 И какая_3ПолуволнаMACDМ1==0) двойнойКритерийМ1 = 0
+   if (what_1halfWaveMACDМ1 ==0 && what_3HalfWaveMACDМ1==0) {doubleCriterionМ1 = 0;}
 
-   если (какая_1ПолуволнаMACDМ1 ==1 И какая_3ПолуволнаMACDМ1==1) двойнойКритерийМ1 = 1
+   if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
 
    если (Стохастик_1H1<Стохастик0H1) то направлениеСтохастикH1==0
    если (Стохастик_1М15<Стохастик0М15) то направлениеСтохастикМ15==0
@@ -196,14 +204,16 @@ int start()
 /*Logics Start The algorithm of the trend criteria definition*/
 
 
-if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4 == 0)
-{doubleCriterionChannelН4 = 0;}
-if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4 == 1)
-{doubleCriterionChannelН4 = 1;}
-if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0)
-{doubleCriterionChannelН1 = 0;}
-if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1)
-{doubleCriterionChannelН1 = 1;}
+if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4==0) {doubleCriterionChannelН4 = 0;}
+if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4==1) {doubleCriterionChannelН4 = 1;}
+if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0) {doubleCriterionTrendН1 = 0;}
+if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1) {doubleCriterionTrendН1 = 1;}
+if (what_1HalfWaveMACDМ15==0 && what_3HalfWaveMACDМ15==0) {doubleCriterionEntryPointМ15 = 0;}
+if (what_1HalfWaveMACDМ15==1 && what_3HalfWaveMACDМ15==1) {doubleCriterionEntryPointМ15 = 1;}
+if (what_1HalfWaveMACDМ5 ==0 && what_3halfWaveMACDМ5==0) {doubleCriterionTheTimeOfEntryМ5 = 0;}
+if (what_1HalfWaveMACDМ5 ==1 && what_3halfWaveMACDМ5==1) {doubleCriterionTheTimeOfEntryМ5 = 1;}
+if (what_1halfWaveMACDМ1 ==0 && what_3HalfWaveMACDМ1==0) {doubleCriterionМ1 = 0;}
+if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
 
 
 
@@ -224,8 +234,8 @@ if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1)
 /*
 Алгоритм открытия Позиции:
 
-если (двойнойКритерийТрендН1 == 0 И двойнойКритерийТочкаВходаМ15 == 0 И двойнойКритерийМоментВходаМ5 == 0 И двойнойКритерийМ1==0 И весьOsMA==0 И весьСтохастик == 0) открыть покупку
-если (двойнойКритерийТрендН1 == 1 И двойнойКритерийТочкаВходаМ15 == 1 И двойнойКритерийМоментВходаМ5 == 1 И двойнойКритерийМ1==1 И весьOsMA==1 И весьСтохастик == 1) открыть продажу
+если (doubleCriterionTrendН1 == 0 И doubleCriterionEntryPointМ15 == 0 И doubleCriterionTheTimeOfEntryМ5 == 0 И двойнойКритерийМ1==0 И весьOsMA==0 И весьСтохастик == 0) открыть покупку
+если (doubleCriterionTrendН1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И двойнойКритерийМ1==1 И весьOsMA==1 И весьСтохастик == 1) открыть продажу
 */
 
       // check for long position (BUY) possibility
