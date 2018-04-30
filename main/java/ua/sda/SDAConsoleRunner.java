@@ -14,6 +14,5 @@ public class SDAConsoleRunner {
     public static void main(String[] args) throws IOException {
         ConsoleHelper consoleHelper = new ConsoleHelper(args[0],args[1]);
         consoleHelper.consoleHelp();
-
     }
 }
