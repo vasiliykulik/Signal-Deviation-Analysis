@@ -55,8 +55,13 @@ int start()
    doubleCriterionEntryPointМ15,
    what0HalfWaveMACDМ5, what_1HalfWaveMACDМ5, what_2HalfWaveMACDМ5, what_3halfWaveMACDМ5,
    doubleCriterionTheTimeOfEntryМ5,
-   what0HalfWaveMACDМ1, what_1halfWaveMACDМ1, what_2HalfWaveMACDМ1, what_3HalfWaveMACDМ1
-
+   what0HalfWaveMACDМ1, what_1halfWaveMACDМ1, what_2HalfWaveMACDМ1, what_3HalfWaveMACDМ1,
+   Stochastic_1H1, Stochastic0H1, Stochastic_1М15, Stochastic0М15, Stochastic_1М5, StochasticМ05, Stochastic_1М1, Stochastic0М1,
+   directionStochasticH1, directionStochasticМ15, directionStochasticМ5, directionStochasticМ1,
+   allStochastic,
+   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1М15, OsMA05, OsMA_1М5, OsMA01, OsMA_1М1,
+   directionOsMAH1, directionOsMAМ15, directionOsMAМ5, directionOsMAМ1,
+   allOsMA,
 
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
@@ -171,33 +176,33 @@ int start()
 
    if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
 
-   если (Стохастик_1H1<Стохастик0H1) то направлениеСтохастикH1==0
-   если (Стохастик_1М15<Стохастик0М15) то направлениеСтохастикМ15==0
-   если (Стохастик_1М5<СтохастикМ05) то направлениеСтохастикМ5==0
-   если (Стохастик_1М1<Стохастик0М1) то направлениеСтохастикМ1==0
+   if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
+   if (Stochastic_1М15<Stochastic0М15) {directionStochasticМ15==0;}
+   if (Stochastic_1М5 <StochasticМ05)  {directionStochasticМ5== 0;}
+   if (Stochastic_1М1 <Stochastic0М1)  {directionStochasticМ1== 0;}
+   if (Stochastic_1H1 >Stochastic0H1)  {directionStochasticH1== 1;}
+   if (Stochastic_1М15>Stochastic0М15) {directionStochasticМ15==1;}
+   if (Stochastic_1М5 >StochasticМ05)  {directionStochasticМ5== 1;}
+   if (Stochastic_1М1 >Stochastic0М1)  {directionStochasticМ1== 1;}
 
-   если (Стохастик_1H1>Стохастик0H1) то направлениеСтохастикH1==1
-   если (Стохастик_1М15>Стохастик0М15) то направлениеСтохастикМ15==1
-   если (Стохастик_1М5>СтохастикМ05) то направлениеСтохастикМ5==1
-   если (Стохастик_1М1>Стохастик0М1) то направлениеСтохастикМ1==1
+   if(directionStochasticH1 == 0 И directionStochasticМ15== 0 И directionStochasticМ5 == 0 И directionStochasticМ1 == 0) то allStochastic ==0
 
-   если(направлениеСтохастикH1 == 0 И направлениеСтохастикМ15== 0 И направлениеСтохастикМ5 == 0 И направлениеСтохастикМ1 == 0) то весьСтохастик ==0
+   if(directionStochasticH1 == 1 И directionStochasticМ15== 1 И directionStochasticМ5 == 1 И directionStochasticМ1 == 1) то allStochastic ==1
 
-   если(направлениеСтохастикH1 == 1 И направлениеСтохастикМ15== 1 И направлениеСтохастикМ5 == 1 И направлениеСтохастикМ1 == 1) то весьСтохастик ==1
+   if (OsMA_1H1>OsMA0H1)  {directionOsMAH1== 0;}
+   if (OsMA_1М15>OsMA015) {directionOsMAМ15==0;}
+   if (OsMA_1М5>OsMA05)   {directionOsMAМ5== 0;}
+   if (OsMA_1М1>OsMA01)   {directionOsMAМ1== 0;}
 
-   если (OsMA_1H1>OsMA0H1) то направлениеOsMAH1==0
-   если (OsMA_1М15>OsMA015) то направлениеOsMAМ15==0
-   если (OsMA_1М5>OsMA05) то направлениеOsMAМ5==0
-   если (OsMA_1М1>OsMA01) то направлениеOsMAМ1==0
+   if (OsMA_1H1<OsMA0H1)  {directionOsMAH1== 1;}
+   if (OsMA_1М15<OsMA015) {directionOsMAМ15==1;}
+   if (OsMA_1М5<OsMA05)   {directionOsMAМ5== 1;}
+   if (OsMA_1М1<OsMA01)   {directionOsMAМ1== 1;}
 
-   если (OsMA_1H1<OsMA0H1) то направлениеOsMAH1==1
-   если (OsMA_1М15<OsMA015) то направлениеOsMAМ15==1
-   если (OsMA_1М5<OsMA05) то направлениеOsMAМ5==1
-   если (OsMA_1М1<OsMA01) то направлениеOsMAМ1==1
-
-   если(направлениеOsMAH1 == 0 И направлениеOsMAM15== 0 И направлениеOsMAM5 == 0 И направлениеOsMAM1 == 0) то весьOsMA ==0
-
-   если(направлениеOsMAH1 == 1 И направлениеOsMAM15== 1 И направлениеOsMAM5 == 1 И направлениеOsMAM1 == 1) то весьOsMA ==1
+   if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {llOsMA ==0
+;}
+   if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {llOsMA ==1
+;}
    End The algorithm of the trend criteria definition
    */
 
@@ -215,6 +220,29 @@ if (what_1HalfWaveMACDМ5 ==1 && what_3halfWaveMACDМ5==1) {doubleCriterionTheTi
 if (what_1halfWaveMACDМ1 ==0 && what_3HalfWaveMACDМ1==0) {doubleCriterionМ1 = 0;}
 if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
 
+   if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
+   if (Stochastic_1М15<Stochastic0М15) {directionStochasticМ15==0;}
+   if (Stochastic_1М5 <StochasticМ05)  {directionStochasticМ5== 0;}
+   if (Stochastic_1М1 <Stochastic0М1)  {directionStochasticМ1== 0;}
+   if (Stochastic_1H1 >Stochastic0H1)  {directionStochasticH1== 1;}
+   if (Stochastic_1М15>Stochastic0М15) {directionStochasticМ15==1;}
+   if (Stochastic_1М5 >StochasticМ05)  {directionStochasticМ5== 1;}
+   if (Stochastic_1М1 >Stochastic0М1)  {directionStochasticМ1== 1;}
+
+if(directionStochasticH1 == 0 && directionStochasticМ15== 0 && directionStochasticМ5 == 0 && directionStochasticМ1 == 0) {allStochastic ==0;}
+if(directionStochasticH1 == 1 && directionStochasticМ15== 1 && directionStochasticМ5 == 1 && directionStochasticМ1 == 1) {allStochastic ==1;}
+
+   if (OsMA_1H1>OsMA0H1)  {directionOsMAH1== 0;}
+   if (OsMA_1М15>OsMA015) {directionOsMAМ15==0;}
+   if (OsMA_1М5>OsMA05)   {directionOsMAМ5== 0;}
+   if (OsMA_1М1>OsMA01)   {directionOsMAМ1== 0;}
+   if (OsMA_1H1<OsMA0H1)  {directionOsMAH1== 1;}
+   if (OsMA_1М15<OsMA015) {directionOsMAМ15==1;}
+   if (OsMA_1М5<OsMA05)   {directionOsMAМ5== 1;}
+   if (OsMA_1М1<OsMA01)   {directionOsMAМ1== 1;}
+
+if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA ==0;}
+if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA ==1;}
 
 
 /*Logics End The algorithm of the trend criteria definition*/
@@ -234,8 +262,8 @@ if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 =
 /*
 Алгоритм открытия Позиции:
 
-если (doubleCriterionTrendН1 == 0 И doubleCriterionEntryPointМ15 == 0 И doubleCriterionTheTimeOfEntryМ5 == 0 И двойнойКритерийМ1==0 И весьOsMA==0 И весьСтохастик == 0) открыть покупку
-если (doubleCriterionTrendН1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И двойнойКритерийМ1==1 И весьOsMA==1 И весьСтохастик == 1) открыть продажу
+если (doubleCriterionTrendН1 == 0 И doubleCriterionEntryPointМ15 == 0 И doubleCriterionTheTimeOfEntryМ5 == 0 И двойнойКритерийМ1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
+если (doubleCriterionTrendН1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И двойнойКритерийМ1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
 */
 
       // check for long position (BUY) possibility
