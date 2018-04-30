@@ -44,7 +44,7 @@ int start()
    halfWave0Н1, halfWave_1Н1, halfWave_2Н1, halfWave_3Н1,
    halfWave0М15, halfWave_1М15, halfWave_2М15, halfWave_3М15,
    halfWave0М5, halfWave_1М5, halfWave_2М5, halfWave_3М5,
-   halfWave0М1, halfWave_1М1, halfWave_2М1, halfWave_3М1
+   halfWave0М1, halfWave_1М1, halfWave_2М1, halfWave_3М1;
 
    bool
    what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDН4, what_3HalfWaveMACDН4,
@@ -61,7 +61,7 @@ int start()
    allStochastic,
    OsMA0H1, OsMA_1H1, OsMA015, OsMA_1М15, OsMA05, OsMA_1М5, OsMA01, OsMA_1М1,
    directionOsMAH1, directionOsMAМ15, directionOsMAМ5, directionOsMAМ1,
-   allOsMA,
+   allOsMA;
 
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
@@ -248,8 +248,8 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
 /*Logics End The algorithm of the trend criteria definition*/
 
 
-   buy=0;
-   sell=0;
+   buy=1;
+   sell=1;
    total=OrdersTotal();
    if(total<1)
      {
@@ -259,15 +259,18 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
          Print("We have no money. Free Margin = ", AccountFreeMargin());
          return(0);
         }
-/*
-Алгоритм открытия Позиции:
 
-если (doubleCriterionTrendН1 == 0 И doubleCriterionEntryPointМ15 == 0 И doubleCriterionTheTimeOfEntryМ5 == 0 И двойнойКритерийМ1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
-если (doubleCriterionTrendН1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И двойнойКритерийМ1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
-*/
 
       // check for long position (BUY) possibility
-      if(buy ==1 && MacdPrevious<0 && MacdCurrent>0)
+      if(
+            /*
+            Алгоритм открытия Позиции:
+            для покупки если (doubleCriterionTrendН1 == 0 И doubleCriterionEntryPointМ15 == 0 И doubleCriterionTheTimeOfEntryМ5 == 0 И doubleCriterionМ1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
+            */
+            buy ==1 &&
+            // Criterion for buy position according to the TS
+            doubleCriterionTrendН1 == 0 && doubleCriterionEntryPointМ15 == 0 && doubleCriterionTheTimeOfEntryМ5 == 0 && doubleCriterionМ1==0 && allOsMA==0 && allStochastic == 0;
+        )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
          if(ticket>0)
@@ -278,7 +281,15 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
          return(0);
         }
       // check for short position (SELL) possibility
-      if(sell ==1 &&iOsMA(NULL,0,12,26,9,PRICE_OPEN,1)>0 && iOsMA(NULL,0,12,26,9,PRICE_OPEN,0)<0)
+      if(
+
+           /*
+           Алгоритм открытия Позиции:
+           для продажи если (doubleCriterionTrendН1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И doubleCriterionМ1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
+           */
+           sell ==1 &&
+           doubleCriterionTrendН1 == 1 && doubleCriterionEntryPointМ15 == 1 && doubleCriterionTheTimeOfEntryМ5 == 1 && doubleCriterionМ1==1 && allOsMA==1 && allStochastic == 1;
+      )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
          if(ticket>0)
