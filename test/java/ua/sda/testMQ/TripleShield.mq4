@@ -37,12 +37,21 @@ int start()
    buy,
    sell;
 
-   double[]halfWave0Н4;
+/* Variables Declaration  The algorithm of the trend criteria definition:*/
+
+   int []
+   halfWave0Н4,
+   halfWave_1Н4,
+   halfWave_2Н4,
+   halfWave_3Н4,
 
    bool
    what0HalfWaveMACDH4,
-   what_1HalfWaveMACDH4;
+   what_1HalfWaveMACDH4,
+   what_2HalfWaveMACDН4,
+   what_3HalfWaveMACDН4,
 
+/* End Variables Declaration  The algorithm of the trend criteria definition:*/
    if(Bars<100)
      {
       Print("bars less than 100");
@@ -67,24 +76,24 @@ int start()
    Macd302=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
    Macd303=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
 
-/*   Алгоритм определения критериев тренда:
+/*   The algorithm of the trend criteria definition:
 
    Идём по истории H4
    1) what0HalfWaveMACDH4 (0 это положительная 1 это отрицательная)
    а) складываем тики в массив halfWave0Н4
    2) если произошло пересечение
    а) what_1HalfWaveMACDH4
-   б) складываем тики в массив полуволна_1Н4
+   б) складываем тики в массив halfWave_1Н4
    3) если произошло пересечение
-   а) какая_2ПолуволнаMACDН4
-   б) складываем тики в массив полуволна_2Н4
+   а) what_2HalfWaveMACDН4
+   б) складываем тики в массив halfWave_2Н4
    4) если произошло пересечение
-   а) какая_3ПолуволнаMACDН4
-   б) складываем тики в массив полуволна_3Н4
+   а) what_3HalfWaveMACDН4
+   б) складываем тики в массив halfWave_3Н4
 
-   если (what_1HalfWaveMACDH4 ==0 И какая_3ПолуволнаMACDН4 ==0) двойнойКритерийКаналН4 = 0
+   если (what_1HalfWaveMACDH4 ==0 И what_3HalfWaveMACDН4 == 0) doubleCriterionChannelН4 = 0
 
-   если (what_1HalfWaveMACDH4 ==1 И какая_3ПолуволнаMACDН4==1) двойнойКритерийКаналН4 = 1
+   если (what_1HalfWaveMACDH4 ==1 И what_3HalfWaveMACDН4 == 1) doubleCriterionChannelН4 = 1
 
    Идём по истории H1
    1) какая0ПолуволнаMACDН1 (0 это положительная 1 это отрицательная)
