@@ -90,8 +90,11 @@ int start()
    Macd302=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
    Macd303=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
 
-/*   The algorithm of the trend criteria definition:
+   /*   The algorithm of the trend criteria detalization:
 
+   */
+
+/*   The algorithm of the trend criteria definition:
    Идём по истории H4
    1) what0HalfWaveMACDH4 (0 это положительная 1 это отрицательная)
    а) складываем тики в массив halfWave0Н4
@@ -200,8 +203,6 @@ int start()
    */
 
 /*Logics Start The algorithm of the trend criteria definition*/
-
-
 if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4==0) {doubleCriterionChannelН4 = 0;}
 if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4==1) {doubleCriterionChannelН4 = 1;}
 if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0) {doubleCriterionTrendН1 = 0;}
@@ -236,8 +237,6 @@ if(directionStochasticH1 == 1 && directionStochasticМ15== 1 && directionStochas
 
 if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA ==0;}
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA ==1;}
-
-
 /*Logics End The algorithm of the trend criteria definition*/
 
 
