@@ -47,6 +47,7 @@ int start()
    halfWave0М1, halfWave_1М1, halfWave_2М1, halfWave_3М1;
 
    bool
+   halfWavesCount,
    what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDН4, what_3HalfWaveMACDН4,
    doubleCriterionChannelН4,
    what0HalfWaveMACDН1, what_1HalfWaveMACDН1, what_2HalfWaveMACDН1, what_3HalfWaveMACDН1,

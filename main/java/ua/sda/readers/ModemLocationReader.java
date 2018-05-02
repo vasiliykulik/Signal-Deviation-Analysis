@@ -44,7 +44,7 @@ public class ModemLocationReader {
 
 		ModemLocation modemLocation = new ModemLocation();
 		try (BufferedReader in = new BufferedReader(
-				new InputStreamReader(con.getInputStream(), "koi8_r"))) {
+				new InputStreamReader(con.getInputStream(), "koi8_u"))) {
 
 			Integer entranceNumber = 0;
 			Integer floorNumber = 0;

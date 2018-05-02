@@ -59,7 +59,7 @@ public class CurrentMeasurementReader {
 
 		Measurement currentState = new Measurement();
 		try (BufferedReader in = new BufferedReader(
-				new InputStreamReader(con.getInputStream(), "koi8_r"))) {
+				new InputStreamReader(con.getInputStream(), "koi8_u"))) {
 
 			Float usTXPower = 0f;
 			Float usRXPower = 0f;

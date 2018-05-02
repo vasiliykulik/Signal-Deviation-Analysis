@@ -56,7 +56,7 @@ public class OpticalNodeSingleInterfaceReader {
 				"Basic " + encoder.encode(encodedPassword));
 
 		try (BufferedReader in = new BufferedReader(
-				new InputStreamReader(con.getInputStream(), "koi8_r"))) {
+				new InputStreamReader(con.getInputStream(), "koi8_u"))) {
 
 			String inputLine;
 			String street = "";
