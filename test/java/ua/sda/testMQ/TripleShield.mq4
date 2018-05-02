@@ -106,7 +106,6 @@ int start()
    б) складываем тики в массив halfWave_3Н4
 
    if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDН4==0) doubleCriterionChannelН4 = 0
-
    if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDН4==1) doubleCriterionChannelН4 = 1
 
    Идём по истории H1
@@ -123,7 +122,6 @@ int start()
    б) складываем тики в массив halfWave_3Н1
 
    if (what_1HalfWaveMACDН1 ==0 && what_3HalfWaveMACDН1==0) doubleCriterionTrendН1 = 0
-
    if (what_1HalfWaveMACDН1 ==1 && what_3HalfWaveMACDН1==1) doubleCriterionTrendН1 = 1
 
    Идём по истории М15
@@ -140,7 +138,6 @@ int start()
    б) складываем тики в массив halfWave_3М15
 
    if (what_1HalfWaveMACDМ15==0 && what_3HalfWaveMACDМ15==0) doubleCriterionEntryPointМ15 = 0
-
    if (what_1HalfWaveMACDМ15==1 && what_3HalfWaveMACDМ15==1) doubleCriterionEntryPointМ15 = 1
 
    Идём по истории М5
@@ -157,7 +154,6 @@ int start()
    б) складываем тики в массив halfWave_3М5
 
    if (what_1HalfWaveMACDМ5 ==0 && what_3halfWaveMACDМ5==0) {doubleCriterionTheTimeOfEntryМ5 = 0;}
-
    if (what_1HalfWaveMACDМ5 ==1 && what_3halfWaveMACDМ5==1) {doubleCriterionTheTimeOfEntryМ5 = 1;}
 
    Идём по истории М1
@@ -174,7 +170,6 @@ int start()
    б) складываем тики в массив halfWave_3М1
 
    if (what_1halfWaveMACDМ1 ==0 && what_3HalfWaveMACDМ1==0) {doubleCriterionМ1 = 0;}
-
    if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
 
    if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
@@ -187,7 +182,6 @@ int start()
    if (Stochastic_1М1 >Stochastic0М1)  {directionStochasticМ1== 1;}
 
    if(directionStochasticH1 == 0 И directionStochasticМ15== 0 И directionStochasticМ5 == 0 И directionStochasticМ1 == 0) то allStochastic ==0
-
    if(directionStochasticH1 == 1 И directionStochasticМ15== 1 И directionStochasticМ5 == 1 И directionStochasticМ1 == 1) то allStochastic ==1
 
    if (OsMA_1H1>OsMA0H1)  {directionOsMAH1== 0;}
@@ -200,10 +194,8 @@ int start()
    if (OsMA_1М5<OsMA05)   {directionOsMAМ5== 1;}
    if (OsMA_1М1<OsMA01)   {directionOsMAМ1== 1;}
 
-   if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {llOsMA ==0
-;}
-   if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {llOsMA ==1
-;}
+   if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {llOsMA ==0;}
+   if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {llOsMA ==1;}
    End The algorithm of the trend criteria definition
    */
 
@@ -289,6 +281,7 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
            для продажи если (doubleCriterionTrendН1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И doubleCriterionМ1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
            */
            sell ==1 &&
+           // Criterion for sell position according to the TS
            doubleCriterionTrendН1 == 1 && doubleCriterionEntryPointМ15 == 1 && doubleCriterionTheTimeOfEntryМ5 == 1 && doubleCriterionМ1==1 && allOsMA==1 && allStochastic == 1;
       )
         {
