@@ -161,8 +161,7 @@ x++;
   halfWavesCount =0;
   if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)>0){what0HalfWaveMACDH4 ==0;}
   else if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)<0){what0HalfWaveMACDH4 ==1;}
-  else Print("   ERROR Non Double Zero PERIOD_H4 ", halfWavesCount);
-
+  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", halfWavesCount);
   for (int i = 1;halfWavesCount=>4;i++){
 
   }
