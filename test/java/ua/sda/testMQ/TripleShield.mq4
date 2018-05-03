@@ -47,14 +47,13 @@ int start()
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
    int
-   j,k,m,p;
+   i,z,y,x, j,k,m,p;
 
-   int []
-   halfWave0H4, halfWave_1H4, halfWave_2H4, halfWave_3H4,
-   halfWave0H1, halfWave_1H1, halfWave_2H1, halfWave_3H1,
-   halfWave0M15, halfWave_1M15, halfWave_2M15, halfWave_3M15,
-   halfWave0M5, halfWave_1M5, halfWave_2M5, halfWave_3M5,
-   halfWave0M1, halfWave_1M1, halfWave_2M1, halfWave_3M1;
+   int halfWave0H4 [];  int halfWave_1H4 [];  int halfWave_2H4 [];  int halfWave_3H4 [];
+   int halfWave0H1 [];  int halfWave_1H1 [];  int halfWave_2H1 [];  int halfWave_3H1 [];
+   int halfWave0M15 []; int halfWave_1M15 []; int halfWave_2M15 []; int halfWave_3M15 [];
+   int halfWave0M5 [];  int halfWave_1M5 [];  int halfWave_2M5 [];  int halfWave_3M5 [];
+   int halfWave0M1 [];  int halfWave_1M1 [];  int halfWave_2M1 [];  int halfWave_3M1 [];
 
    bool
    halfWavesCount,
@@ -67,6 +66,7 @@ int start()
    what0HalfWaveMACDM5, what_1HalfWaveMACDM5, what_2HalfWaveMACDM5, what_3halfWaveMACDM5, what_4halfWaveMACDM5,
    doubleCriterionTheTimeOfEntryM5,
    what0HalfWaveMACDM1, what_1halfWaveMACDM1, what_2HalfWaveMACDM1, what_3HalfWaveMACDM1, what_4HalfWaveMACDM1,
+   doubleCriterionM1,
    Stochastic_1H1, Stochastic0H1, Stochastic_1M15, Stochastic0M15, Stochastic_1M5, StochasticM05, Stochastic_1M1, Stochastic0M1,
    directionStochasticH1, directionStochasticM15, directionStochasticM5, directionStochasticM1,
    allStochastic,
@@ -170,7 +170,7 @@ ArrayResize - в цикле не пойдет, так как есть
   else if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)<0){
     what0HalfWaveMACDH4 ==1;}
   else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", halfWavesCount);
-  for (i = 1;halfWavesCount=>4;i++){
+  for (i = 1;halfWavesCount>=4;i++){
     if (halfWavesCount==0 && what0HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
@@ -183,7 +183,6 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave0H4[j-1]=j;
             }
             Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
-            Println("halfWave0H4", halfWave0H4);
         }
     if (halfWavesCount==0 && what0HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
@@ -197,7 +196,6 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave0H4[j-1]=j;
             }
             Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
-            Println("halfWave0H4", halfWave0H4);
         }
     if (halfWavesCount==1 && what_1HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
@@ -208,12 +206,11 @@ ArrayResize - в цикле не пойдет, так как есть
             k=j+1;
             ArrayResize(halfWave_1H4,(i-2)-k);
             for(k; k>i-2; k++){
-                int z=0;
+                z=0;
                 halfWave_1H4[z]=k;
                 z++;
             }
             Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
-            Println("halfWave_1H4", halfWave_1H4);
         }
     if (halfWavesCount==1 && what_1HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
@@ -224,12 +221,11 @@ ArrayResize - в цикле не пойдет, так как есть
             k=j+1;
             ArrayResize(halfWave_1H4,(i-2)-k);
             for(k; k>i-2; k++){
-                int z=0;
+                z=0;
                 halfWave_1H4[z]=k;
                 z++;
             }
             Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
-            Println("halfWave_1H4", halfWave_1H4);
         }
     if (halfWavesCount==2 && what_2HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
@@ -240,13 +236,12 @@ ArrayResize - в цикле не пойдет, так как есть
             m=k+1;
             ArrayResize(halfWave_2H4,(i-2)-m);
             for(m; m>i-2; m++){
-                int y=0;
+                y=0;
                 halfWave_2H4[y]=m;
                 y++;
             }
-            Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
-            Println("halfWave0H4", halfWave0H4);
-         }
+            Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
+        }
     if (halfWavesCount==2 && what_2HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
@@ -256,12 +251,11 @@ ArrayResize - в цикле не пойдет, так как есть
             m=k+1;
             ArrayResize(halfWave_2H4,(i-2)-m);
             for(m; m>i-2; m++){
-                    int y=0;
+                    y=0;
                     halfWave_2H4[y]=m;
                     y++;
             }
             Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
-            Println("halfWave_2H4", halfWave_2H4);
         }
     if (halfWavesCount==3 && what_3HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
@@ -272,12 +266,11 @@ ArrayResize - в цикле не пойдет, так как есть
             p=m+1;
             ArrayResize(halfWave_1H4,(i-2)-p);
             for(p; p>i-2; p++){
-                int x=0;
+                x=0;
                 halfWave_3H4[x]=p;
                 x++;
             }
             Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
-            Println("halfWave_3H4", halfWave_3H4);
         }
     if (halfWavesCount==3 && what_3HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
@@ -288,12 +281,11 @@ ArrayResize - в цикле не пойдет, так как есть
             p=m+1;
             ArrayResize(halfWave_1H4,(i-2)-p);
             for(p; p>i-2; p++){
-                int x=0;
+                x=0;
                 halfWave_3H4[x]=p;
                 x++;
             }
             Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
-            Println("halfWave_3H4", halfWave_3H4);
         }
   }
 
@@ -468,7 +460,7 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
             */
             buy ==1 &&
             // Criterion for buy position according to the TS
-            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0;
+            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0
         )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
@@ -488,7 +480,7 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
            */
            sell ==1 &&
            // Criterion for sell position according to the TS
-           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1;
+           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1
       )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
