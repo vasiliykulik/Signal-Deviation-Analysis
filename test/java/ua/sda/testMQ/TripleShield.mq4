@@ -194,7 +194,7 @@ ArrayResize - в цикле не пойдет, так как есть
             Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j);
             Println("halfWave0Н4", halfWave0Н4);
         }
-    if (halfWavesCount==1 && what0HalfWaveMACDH4==1
+    if (halfWavesCount==1 && what_1HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
@@ -209,7 +209,7 @@ ArrayResize - в цикле не пойдет, так как есть
             Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
             Println("halfWave_1Н4", halfWave_1Н4);
         }
-    if (halfWavesCount==1 && what0HalfWaveMACDH4==0
+    if (halfWavesCount==1 && what_1HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
@@ -224,32 +224,35 @@ ArrayResize - в цикле не пойдет, так как есть
             Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
             Println("halfWave_1Н4", halfWave_1Н4);
         }
-    if (halfWavesCount==2 && what0HalfWaveMACDH4==0
+    if (halfWavesCount==2 && what_2HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             halfWavesCount++;
-            what_1HalfWaveMACDH4==1;
-            ArrayResize(halfWave0Н4,(i-2)-j);
+            what_3HalfWaveMACDH4==1;
+            ArrayResize(halfWave_2Н4,(i-2)-m);
             for(int m=k+1; m>i-2; m++){
-
-                halfWave0Н4[j-1]=j;
+                int y=0;
+                halfWave_2Н4[y]=m;
+                y++;
             }
             Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j);
             Println("halfWave0Н4", halfWave0Н4);
          }
-    if (halfWavesCount==2 && what0HalfWaveMACDH4==1
+    if (halfWavesCount==2 && what_2HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             halfWavesCount++;
-            what_1HalfWaveMACDH4==0;
-            ArrayResize(halfWave0Н4,(i-2)-j);
-            for(int j =1; j>i-2; j++){
-                halfWave0Н4[j-1]=j;
-            }
-            Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j);
-            Println("halfWave0Н4", halfWave0Н4);
+            what_3HalfWaveMACDH4==0;
+            ArrayResize(halfWave_2Н4,(i-2)-m);
+                for(int m=k+1; m>i-2; m++){
+                    int y=0;
+                    halfWave_2Н4[y]=m;
+                    y++;
+                }
+            Print("halfWave_2Н4", "ArrayResize(halfWave_2Н4,(i-2)-m) ", (i-2)-m);
+            Println("halfWave_2Н4", halfWave_2Н4);
         }
   }
 
