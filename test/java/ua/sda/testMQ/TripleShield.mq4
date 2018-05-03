@@ -22,20 +22,6 @@ extern double TrailingStop = 10000;
 //+------------------------------------------------------------------+
 int start()
   {
-   double
-
-   MacdCurrent,
-   MacdPrevious,
-   MacdPrevious1,
-   MacdPrevious2,
-   MacdPrevious3,
-   MacdSignal0,
-   MacdSignal1,
-   MacdSignal2,
-   Macd300,
-   Macd301,
-   Macd302,
-   Macd303;
 
    int
    cnt,
@@ -47,7 +33,10 @@ int start()
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
    int
+   countHalfWavesH4,
    i,z,y,x, j,k,m,p;
+   double
+   Macd_1H4,Macd_2H4;
 
    int halfWave0H4 [];  int halfWave_1H4 [];  int halfWave_2H4 [];  int halfWave_3H4 [];
    int halfWave0H1 [];  int halfWave_1H1 [];  int halfWave_2H1 [];  int halfWave_3H1 [];
@@ -56,7 +45,7 @@ int start()
    int halfWave0M1 [];  int halfWave_1M1 [];  int halfWave_2M1 [];  int halfWave_3M1 [];
 
    bool
-   countHalfWavesH4,
+
    what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDH4, what_3HalfWaveMACDH4, what_4HalfWaveMACDH4,
    doubleCriterionChannelH4,
    what0HalfWaveMACDH1, what_1HalfWaveMACDH1, what_2HalfWaveMACDH1, what_3HalfWaveMACDH1, what_4HalfWaveMACDH1,
@@ -87,18 +76,6 @@ int start()
       return(0);  // check TakeProfit
      }
 
-   MacdCurrent=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-   MacdPrevious=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-   MacdPrevious1=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-   MacdPrevious2=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_MAIN,3);
-   MacdPrevious3=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_MAIN,4);
-   MacdSignal0=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_SIGNAL,0);
-   MacdSignal1=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_SIGNAL,1);
-   MacdSignal2=iMACD(NULL,0,12,26,9,PRICE_OPEN,MODE_SIGNAL,2);
-   Macd300=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-   Macd301=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-   Macd302=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-   Macd303=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
 
    /*   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
@@ -165,10 +142,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
    */
   countHalfWavesH4 =0;
-  if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)>0){
-    what0HalfWaveMACDH4 ==0;}
-  else if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)<0){
-    what0HalfWaveMACDH4 ==1;}
+  int df = 7;
+  Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
+  Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
+  if (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
+  if (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
   else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", countHalfWavesH4);
   for (i = 1;countHalfWavesH4>=4;i++){
     if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0
@@ -176,7 +154,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             countHalfWavesH4++;
-            what_1HalfWaveMACDH4==1;
+            what_1HalfWaveMACDH4=1;
             j=1;
             ArrayResize(halfWave0H4,(i-2)-j);
             for(j; j>i-2; j++){
@@ -189,7 +167,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             countHalfWavesH4++;
-            what_1HalfWaveMACDH4==0;
+            what_1HalfWaveMACDH4=0;
             j=1;
             ArrayResize(halfWave0H4,(i-2)-j);
             for(j; j>i-2; j++){
@@ -202,7 +180,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             countHalfWavesH4++;
-            what_2HalfWaveMACDH4==0;
+            what_2HalfWaveMACDH4=0;
             k=j+1;
             ArrayResize(halfWave_1H4,(i-2)-k);
             for(k; k>i-2; k++){
@@ -217,7 +195,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             countHalfWavesH4++;
-            what_2HalfWaveMACDH4==1;
+            what_2HalfWaveMACDH4=1;
             k=j+1;
             ArrayResize(halfWave_1H4,(i-2)-k);
             for(k; k>i-2; k++){
@@ -232,7 +210,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             countHalfWavesH4++;
-            what_3HalfWaveMACDH4==1;
+            what_3HalfWaveMACDH4=1;
             m=k+1;
             ArrayResize(halfWave_2H4,(i-2)-m);
             for(m; m>i-2; m++){
@@ -247,7 +225,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             countHalfWavesH4++;
-            what_3HalfWaveMACDH4==0;
+            what_3HalfWaveMACDH4=0;
             m=k+1;
             ArrayResize(halfWave_2H4,(i-2)-m);
             for(m; m>i-2; m++){
@@ -262,7 +240,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             countHalfWavesH4++;
-            what_4HalfWaveMACDH4==0;
+            what_4HalfWaveMACDH4=0;
             p=m+1;
             ArrayResize(halfWave_1H4,(i-2)-p);
             for(p; p>i-2; p++){
@@ -277,7 +255,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             countHalfWavesH4++;
-            what_4HalfWaveMACDH4==1;
+            what_4HalfWaveMACDH4=1;
             p=m+1;
             ArrayResize(halfWave_1H4,(i-2)-p);
             for(p; p>i-2; p++){
