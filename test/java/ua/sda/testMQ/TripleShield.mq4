@@ -157,6 +157,9 @@ x++;
 }
 4а )переворачиваем условия для противоположной волны
 
+ArrayResize - в цикле не пойдет, так как есть
+и до массива не пойдет... Подумать и Сделать
+
    */
   halfWavesCount =0;
   if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)>0){
@@ -221,20 +224,21 @@ x++;
             Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
             Println("halfWave_1Н4", halfWave_1Н4);
         }
-    if (halfWavesCount==0 && what0HalfWaveMACDH4==0
+    if (halfWavesCount==2 && what0HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             halfWavesCount++;
             what_1HalfWaveMACDH4==1;
             ArrayResize(halfWave0Н4,(i-2)-j);
-            for(int j =1; j>i-2; j++){
+            for(int m=k+1; m>i-2; m++){
+
                 halfWave0Н4[j-1]=j;
             }
             Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j);
             Println("halfWave0Н4", halfWave0Н4);
          }
-    if (halfWavesCount==0 && what0HalfWaveMACDH4==1
+    if (halfWavesCount==2 && what0HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
