@@ -255,13 +255,45 @@ ArrayResize - в цикле не пойдет, так как есть
             what_3HalfWaveMACDH4==0;
             m=k+1;
             ArrayResize(halfWave_2Н4,(i-2)-m);
-                for(m; m>i-2; m++){
+            for(m; m>i-2; m++){
                     int y=0;
                     halfWave_2Н4[y]=m;
                     y++;
-                }
+            }
             Print("halfWave_2Н4", "ArrayResize(halfWave_2Н4,(i-2)-m) ", (i-2)-m);
             Println("halfWave_2Н4", halfWave_2Н4);
+        }
+    if (halfWavesCount==3 && what_1HalfWaveMACDH4==1
+        && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
+        && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
+        {
+            halfWavesCount++;
+            what_1HalfWaveMACDH4==0;
+            k=j+1;
+            ArrayResize(halfWave_1Н4,(i-2)-k);
+            for(k; k>i-2; k++){
+                int z=0;
+                halfWave_1Н4[z]=k;
+                z++;
+            }
+            Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
+            Println("halfWave_1Н4", halfWave_1Н4);
+        }
+    if (halfWavesCount==1 && what_1HalfWaveMACDH4==0
+        && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
+        && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
+        {
+            halfWavesCount++;
+            what_1HalfWaveMACDH4==1;
+            k=j+1;
+            ArrayResize(halfWave_1Н4,(i-2)-k);
+            for(k; k>i-2; k++){
+                int z=0;
+                halfWave_1Н4[z]=k;
+                z++;
+            }
+            Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
+            Println("halfWave_1Н4", halfWave_1Н4);
         }
   }
 
