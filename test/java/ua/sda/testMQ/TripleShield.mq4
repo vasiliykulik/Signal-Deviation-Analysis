@@ -146,7 +146,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
   Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
-  if (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
+  else if (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
   else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", countHalfWavesH4);
   for (i = 1;countHalfWavesH4>=4;i++){
     if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0
