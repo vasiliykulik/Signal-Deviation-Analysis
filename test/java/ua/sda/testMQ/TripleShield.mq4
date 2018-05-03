@@ -46,6 +46,9 @@ int start()
 
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
+   int
+   j,k;
+
    int []
    halfWave0Н4, halfWave_1Н4, halfWave_2Н4, halfWave_3Н4,
    halfWave0Н1, halfWave_1Н1, halfWave_2Н1, halfWave_3Н1,
@@ -174,8 +177,9 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             halfWavesCount++;
             what_1HalfWaveMACDH4==1;
+            j=1;
             ArrayResize(halfWave0Н4,(i-2)-j);
-            for(int j =1; j>i-2; j++){
+            for(j; j>i-2; j++){
                 halfWave0Н4[j-1]=j;
             }
             Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j);
@@ -187,8 +191,9 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             halfWavesCount++;
             what_1HalfWaveMACDH4==0;
+            j=1;
             ArrayResize(halfWave0Н4,(i-2)-j);
-            for(int j =1; j>i-2; j++){
+            for(j; j>i-2; j++){
                 halfWave0Н4[j-1]=j;
             }
             Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j);
@@ -200,8 +205,9 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             halfWavesCount++;
             what_1HalfWaveMACDH4==0;
+            k=j+1;
             ArrayResize(halfWave_1Н4,(i-2)-k);
-            for(int k=j+1; k>i-2; k++){
+            for(k; k>i-2; k++){
                 int z=0;
                 halfWave_1Н4[z]=k;
                 z++;
@@ -215,8 +221,9 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             halfWavesCount++;
             what_1HalfWaveMACDH4==1;
+            k=j+1;
             ArrayResize(halfWave_1Н4,(i-2)-k);
-            for(int k=j+1; k>i-2; k++){
+            for(k; k>i-2; k++){
                 int z=0;
                 halfWave_1Н4[z]=k;
                 z++;
@@ -230,8 +237,9 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             halfWavesCount++;
             what_3HalfWaveMACDH4==1;
+            m=k+1;
             ArrayResize(halfWave_2Н4,(i-2)-m);
-            for(int m=k+1; m>i-2; m++){
+            for(m; m>i-2; m++){
                 int y=0;
                 halfWave_2Н4[y]=m;
                 y++;
@@ -245,8 +253,9 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             halfWavesCount++;
             what_3HalfWaveMACDH4==0;
+            m=k+1;
             ArrayResize(halfWave_2Н4,(i-2)-m);
-                for(int m=k+1; m>i-2; m++){
+                for(m; m>i-2; m++){
                     int y=0;
                     halfWave_2Н4[y]=m;
                     y++;
