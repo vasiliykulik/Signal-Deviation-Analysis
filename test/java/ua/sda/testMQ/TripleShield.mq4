@@ -45,7 +45,7 @@ int start()
    sell;
 
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
-M
+
    int
    j,k,m,p;
 
