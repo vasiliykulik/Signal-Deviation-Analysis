@@ -6,7 +6,7 @@
 
 extern double TakeProfit = 1200;
 extern double StopLoss = 10000;
-extern double Lots = 0.01;
+extern double Lots = 1;
 extern double TrailingStop = 10000;
 
 /*
@@ -56,7 +56,7 @@ int start()
    int halfWave0M1 [];  int halfWave_1M1 [];  int halfWave_2M1 [];  int halfWave_3M1 [];
 
    bool
-   halfWavesCount,
+   countHalfWavesH4,
    what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDH4, what_3HalfWaveMACDH4, what_4HalfWaveMACDH4,
    doubleCriterionChannelH4,
    what0HalfWaveMACDH1, what_1HalfWaveMACDH1, what_2HalfWaveMACDH1, what_3HalfWaveMACDH1, what_4HalfWaveMACDH1,
@@ -105,7 +105,7 @@ Mеханизм распознания первой ПВ:
 Какие у меня критерии?
 1)
 У меня нет механизма распознавания 0-вой полуволны, У меня есть механизм распознавания критериев:
-halfWavesCount =0;
+countHalfWavesH4 =0;
 1) берем MACD тикa i+1 и i+2, соответствующего таймфрейма
 а) если они выше нуля - то what0HalfWaveMACDH4 ==0
 б) если они ниже нуля - то what0HalfWaveMACDH4 ==1
@@ -115,7 +115,7 @@ halfWavesCount =0;
 г) что делать с тиком 0? отдельные случаи ExceptionCases?... Точность MODE_MAIN - 4 символа после запятой, можно провести тестирование (поиск тиков по истории на всех таймфреймах - но я не видел в реальной жизни то есть в режиме PRICE_CLOSE значений 0.0000, кончечно такое значение абсолютно реально)
 Входим в цикл, и с тех же значений (то есть, стартового(1) значения), далее итерируем i, получаем значение (не для 0, начинаем с 11), а для 1,2,3,4,5,6,7,8,9
 
-1) если halfWavesCount ==0 && what0HalfWaveMACDH4==0 И тик i+3<0 И тик i+4<0 то (значит произошел переход) halfWavesCount ++ (будет 1); (значит можно обращаться к what_1HalfWaveMACDH4) И what_1HalfWaveMACDH4==1; И (складываем в массив тики ПолуВолны)
+1) если countHalfWavesH4 ==0 && what0HalfWaveMACDH4==0 И тик i+3<0 И тик i+4<0 то (значит произошел переход) countHalfWavesH4 ++ (будет 1); (значит можно обращаться к what_1HalfWaveMACDH4) И what_1HalfWaveMACDH4==1; И (складываем в массив тики ПолуВолны)
 Какие тики мне нужно сложить в массив 0 - вой ПолуВолны? тики от i = 1 до текущего i-2 и складывать их надо в прямом порядке, тоесть от 1 до i-2.
 for (int j=1; j>i-2;j++){ ( и j++ остановится на тике (-2 от текущего)), те будет равна последнему тику сложенному в массив
 ArrayResize(halfWave0H4,(i-2)-j);
@@ -127,8 +127,8 @@ Print(halfWave0H4);
 случай 1 - например на  i = 10, те 13 и 14 тике
 что дальше? следующая волна (те 1ая), тики в массиве
 1а) переворачиваем условия для противоположной волны
-2) если halfWavesCount ==1 (итерация, основное условие) && what_1HalfWaveMACDH4==1 (переворротное условие) И тик i+3>0 И тик i+4>0 то (значит произошел переход).
-halfWavesCount ++ (будет 2); (значит можно обращаться к what_2HalfWaveMACDH4) what_1HalfWaveMACDH4==2 (! здесь bool) и складываем в массив тики ПВ
+2) если countHalfWavesH4 ==1 (итерация, основное условие) && what_1HalfWaveMACDH4==1 (переворротное условие) И тик i+3>0 И тик i+4>0 то (значит произошел переход).
+countHalfWavesH4 ++ (будет 2); (значит можно обращаться к what_2HalfWaveMACDH4) what_1HalfWaveMACDH4==2 (! здесь bool) и складываем в массив тики ПВ
 какие тики нужно сложить? от первого тика
 складываем в массив halfWave_1H4
 в этот момент мы получаем сигнал о 2ой ПолуВолне (отсчет с 0ой) и складываем тики  -1 ПолуВолны (тоесть до данного момента i-2 от...) и так как j остановился на последнем тике той (предыдущей 0ой ПВ) то мне надо сложить в массив halfWave_1H4 тики от j+1 до i-2
@@ -139,8 +139,8 @@ halfWave_1H4[z] =k;
 z++;
 }
 2а) переворачиваем условия для противоположной волны
-3) если halfWavesCount ==2 && what_2HalfWaveMACDH4==0 (тк halfWavesCount ==2 то переменной what_2HalfWaveMACDH4 уже присвоено боевое значение) И тик i+3<0 И тик i+4<0 (значит произошел переход)
-halfWavesCount ++ (будет 3); what_2HalfWaveMACDH4==1
+3) если countHalfWavesH4 ==2 && what_2HalfWaveMACDH4==0 (тк countHalfWavesH4 ==2 то переменной what_2HalfWaveMACDH4 уже присвоено боевое значение) И тик i+3<0 И тик i+4<0 (значит произошел переход)
+countHalfWavesH4 ++ (будет 3); what_2HalfWaveMACDH4==1
 какие тики нужно сложить? от k+1 до i-2
 for(int m=k+1;m>i-2;m++){
 int y=0;
@@ -149,8 +149,8 @@ halfWave_2H4[y]=m;
 y++;
 }
 3а)переворачиваем условия для противоположной волны
-4) если halfWavesCount ==3 && what_3HalfWaveMACDH4==1 И тик i+3>0 И тик i+4>0
-то halfWavesCount ++ (будет 4); what_4HalfWaveMACDH4==0
+4) если countHalfWavesH4 ==3 && what_3HalfWaveMACDH4==1 И тик i+3>0 И тик i+4>0
+то countHalfWavesH4 ++ (будет 4); what_4HalfWaveMACDH4==0
 какие тики нужно сложить? от m+1 до i-2
 for(int p=m+1;p>i-2;p++){
 int x=0;
@@ -164,18 +164,18 @@ ArrayResize - в цикле не пойдет, так как есть
 и до массива не пойдет... Подумать и Сделать Переменную с которой начинается отсчет волны объявляюю и обсчитую инициализируя раньше
 
    */
-  halfWavesCount =0;
+  countHalfWavesH4 =0;
   if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)>0){
     what0HalfWaveMACDH4 ==0;}
   else if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)<0){
     what0HalfWaveMACDH4 ==1;}
-  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", halfWavesCount);
-  for (i = 1;halfWavesCount>=4;i++){
-    if (halfWavesCount==0 && what0HalfWaveMACDH4==0
+  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", countHalfWavesH4);
+  for (i = 1;countHalfWavesH4>=4;i++){
+    if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_1HalfWaveMACDH4==1;
             j=1;
             ArrayResize(halfWave0H4,(i-2)-j);
@@ -184,11 +184,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
-    if (halfWavesCount==0 && what0HalfWaveMACDH4==1
+    if (countHalfWavesH4==0 && what0HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_1HalfWaveMACDH4==0;
             j=1;
             ArrayResize(halfWave0H4,(i-2)-j);
@@ -197,11 +197,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
-    if (halfWavesCount==1 && what_1HalfWaveMACDH4==1
+    if (countHalfWavesH4==1 && what_1HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_2HalfWaveMACDH4==0;
             k=j+1;
             ArrayResize(halfWave_1H4,(i-2)-k);
@@ -212,11 +212,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
-    if (halfWavesCount==1 && what_1HalfWaveMACDH4==0
+    if (countHalfWavesH4==1 && what_1HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_2HalfWaveMACDH4==1;
             k=j+1;
             ArrayResize(halfWave_1H4,(i-2)-k);
@@ -227,11 +227,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
-    if (halfWavesCount==2 && what_2HalfWaveMACDH4==0
+    if (countHalfWavesH4==2 && what_2HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_3HalfWaveMACDH4==1;
             m=k+1;
             ArrayResize(halfWave_2H4,(i-2)-m);
@@ -242,11 +242,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
-    if (halfWavesCount==2 && what_2HalfWaveMACDH4==1
+    if (countHalfWavesH4==2 && what_2HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_3HalfWaveMACDH4==0;
             m=k+1;
             ArrayResize(halfWave_2H4,(i-2)-m);
@@ -257,11 +257,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
-    if (halfWavesCount==3 && what_3HalfWaveMACDH4==0
+    if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_4HalfWaveMACDH4==0;
             p=m+1;
             ArrayResize(halfWave_1H4,(i-2)-p);
@@ -272,11 +272,11 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
-    if (halfWavesCount==3 && what_3HalfWaveMACDH4==1
+    if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
-            halfWavesCount++;
+            countHalfWavesH4++;
             what_4HalfWaveMACDH4==1;
             p=m+1;
             ArrayResize(halfWave_1H4,(i-2)-p);
