@@ -109,7 +109,7 @@ halfWavesCount =0;
 в) в случае - если тик i+1 выше 0 и i+2 ниже 0 отдельные случаи ExceptionCases?...
 в1) в случае - если тик i+1 ниже 0 и i+2 выше 0 отдельные случаи ExceptionCases?...
 в2) в случае - если тик i+1 равен 0 или тик i+2 равен 0 отдельные случаи ExceptionCases?...
-г) что делать с тиком 0? отдельные случаи ExceptionCases?...
+г) что делать с тиком 0? отдельные случаи ExceptionCases?... Точность MODE_MAIN - 4 символа после запятой, можно провести тестирование (поиск тиков по истории на всех таймфреймах - но я не видел в реальной жизни то есть в режиме PRICE_CLOSE значений 0.0000, кончечно такое значение абсолютно реально)
 Входим в цикл, и с тех же значений (то есть, стартового(1) значения), далее итерируем i, получаем значение (не для 0, начинаем с 11), а для 1,2,3,4,5,6,7,8,9
 
 1) если halfWavesCount ==0 && what0HalfWaveMACDH4==0 И тик i+3<0 И тик i+4<0 то (значит произошел переход) halfWavesCount ++ (будет 1); (значит можно обращаться к what_1HalfWaveMACDH4) И what_1HalfWaveMACDH4==1; И (складываем в массив тики ПолуВолны)
@@ -159,11 +159,25 @@ x++;
 
    */
   halfWavesCount =0;
-  if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)>0){what0HalfWaveMACDH4 ==0;}
-  else if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)<0){what0HalfWaveMACDH4 ==1;}
+  if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)>0){
+    what0HalfWaveMACDH4 ==0;}
+  else if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)<0){
+    what0HalfWaveMACDH4 ==1;}
   else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", halfWavesCount);
   for (int i = 1;halfWavesCount=>4;i++){
-
+    if (halfWavesCount==0 && what0HalfWaveMACDH4==0
+     && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)
+     && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4))
+     {
+        halfWavesCount++;
+        what_1HalfWaveMACDH4==1;
+        ArrayResize(halfWave0Н4,(i-2)-j);
+        for(int j =1; j>i-2; j++){
+            halfWave0Н4[j-1]=j;
+        }
+        Print("halfWave0Н4", "ArrayResize(halfWave0Н4,(i-2)-j); ", (i-2)-j));
+        Print(halfWave0Н4);
+     }
   }
 
 
