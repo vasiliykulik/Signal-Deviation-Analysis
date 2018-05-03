@@ -47,7 +47,7 @@ int start()
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
    int
-   j,k;
+   j,k,m,p;
 
    int []
    halfWave0Н4, halfWave_1Н4, halfWave_2Н4, halfWave_3Н4,
@@ -161,7 +161,7 @@ x++;
 4а )переворачиваем условия для противоположной волны
 
 ArrayResize - в цикле не пойдет, так как есть
-и до массива не пойдет... Подумать и Сделать
+и до массива не пойдет... Подумать и Сделать Переменную с которой начинается отсчет волны объявляюю и обсчитую инициализируя раньше
 
    */
   halfWavesCount =0;
@@ -204,7 +204,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             halfWavesCount++;
-            what_1HalfWaveMACDH4==0;
+            what_2HalfWaveMACDH4==0;
             k=j+1;
             ArrayResize(halfWave_1Н4,(i-2)-k);
             for(k; k>i-2; k++){
@@ -220,7 +220,7 @@ ArrayResize - в цикле не пойдет, так как есть
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             halfWavesCount++;
-            what_1HalfWaveMACDH4==1;
+            what_2HalfWaveMACDH4==1;
             k=j+1;
             ArrayResize(halfWave_1Н4,(i-2)-k);
             for(k; k>i-2; k++){
@@ -263,37 +263,37 @@ ArrayResize - в цикле не пойдет, так как есть
             Print("halfWave_2Н4", "ArrayResize(halfWave_2Н4,(i-2)-m) ", (i-2)-m);
             Println("halfWave_2Н4", halfWave_2Н4);
         }
-    if (halfWavesCount==3 && what_1HalfWaveMACDH4==1
+    if (halfWavesCount==3 && what_3HalfWaveMACDH4==0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)>0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)>0)
         {
             halfWavesCount++;
-            what_1HalfWaveMACDH4==0;
-            k=j+1;
-            ArrayResize(halfWave_1Н4,(i-2)-k);
-            for(k; k>i-2; k++){
-                int z=0;
-                halfWave_1Н4[z]=k;
-                z++;
+            what_4HalfWaveMACDH4==0;
+            p=m+1;
+            ArrayResize(halfWave_1Н4,(i-2)-p);
+            for(p; p>i-2; p++){
+                int x=0;
+                halfWave_3Н4[x]=p;
+                x++;
             }
-            Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
-            Println("halfWave_1Н4", halfWave_1Н4);
+            Print("halfWave_3Н4", "ArrayResize(halfWave_3Н4,(i-2)-p) ", (i-2)-p);
+            Println("halfWave_3Н4", halfWave_3Н4);
         }
-    if (halfWavesCount==1 && what_1HalfWaveMACDH4==0
+    if (halfWavesCount==3 && what_3HalfWaveMACDH4==1
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3)<0
         && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4)<0)
         {
             halfWavesCount++;
-            what_1HalfWaveMACDH4==1;
-            k=j+1;
-            ArrayResize(halfWave_1Н4,(i-2)-k);
-            for(k; k>i-2; k++){
-                int z=0;
-                halfWave_1Н4[z]=k;
-                z++;
+            what_4HalfWaveMACDH4==1;
+            p=m+1;
+            ArrayResize(halfWave_1Н4,(i-2)-p);
+            for(p; p>i-2; p++){
+                int x=0;
+                halfWave_3Н4[x]=p;
+                x++;
             }
-            Print("halfWave_1Н4", "ArrayResize(halfWave_1Н4,(i-2)-k) ", (i-2)-k);
-            Println("halfWave_1Н4", halfWave_1Н4);
+            Print("halfWave_3Н4", "ArrayResize(halfWave_3Н4,(i-2)-p) ", (i-2)-p);
+            Println("halfWave_3Н4", halfWave_3Н4);
         }
   }
 
