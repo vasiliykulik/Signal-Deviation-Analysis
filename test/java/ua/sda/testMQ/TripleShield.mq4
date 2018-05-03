@@ -45,16 +45,16 @@ int start()
    sell;
 
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
-
+M
    int
    j,k,m,p;
 
-   int []H
+   int []
    halfWave0H4, halfWave_1H4, halfWave_2H4, halfWave_3H4,
    halfWave0H1, halfWave_1H1, halfWave_2H1, halfWave_3H1,
-   halfWave0М15, halfWave_1М15, halfWave_2М15, halfWave_3М15,
-   halfWave0М5, halfWave_1М5, halfWave_2М5, halfWave_3М5,
-   halfWave0М1, halfWave_1М1, halfWave_2М1, halfWave_3М1;
+   halfWave0M15, halfWave_1M15, halfWave_2M15, halfWave_3M15,
+   halfWave0M5, halfWave_1M5, halfWave_2M5, halfWave_3M5,
+   halfWave0M1, halfWave_1M1, halfWave_2M1, halfWave_3M1;
 
    bool
    halfWavesCount,
@@ -62,16 +62,16 @@ int start()
    doubleCriterionChannelH4,
    what0HalfWaveMACDH1, what_1HalfWaveMACDH1, what_2HalfWaveMACDH1, what_3HalfWaveMACDH1, what_4HalfWaveMACDH1,
    doubleCriterionTrendH1,
-   what0HalfWaveMACDМ15, what_1HalfWaveMACDМ15, what_2HalfWaveMACDМ15, what_3HalfWaveMACDМ15, what_4HalfWaveMACDМ15,
-   doubleCriterionEntryPointМ15,
-   what0HalfWaveMACDМ5, what_1HalfWaveMACDМ5, what_2HalfWaveMACDМ5, what_3halfWaveMACDМ5, what_4halfWaveMACDМ5,
-   doubleCriterionTheTimeOfEntryМ5,
-   what0HalfWaveMACDМ1, what_1halfWaveMACDМ1, what_2HalfWaveMACDМ1, what_3HalfWaveMACDМ1, what_4HalfWaveMACDМ1,
-   Stochastic_1H1, Stochastic0H1, Stochastic_1М15, Stochastic0М15, Stochastic_1М5, StochasticМ05, Stochastic_1М1, Stochastic0М1,
-   directionStochasticH1, directionStochasticМ15, directionStochasticМ5, directionStochasticМ1,
+   what0HalfWaveMACDM15, what_1HalfWaveMACDM15, what_2HalfWaveMACDM15, what_3HalfWaveMACDM15, what_4HalfWaveMACDM15,
+   doubleCriterionEntryPointM15,
+   what0HalfWaveMACDM5, what_1HalfWaveMACDM5, what_2HalfWaveMACDM5, what_3halfWaveMACDM5, what_4halfWaveMACDM5,
+   doubleCriterionTheTimeOfEntryM5,
+   what0HalfWaveMACDM1, what_1halfWaveMACDM1, what_2HalfWaveMACDM1, what_3HalfWaveMACDM1, what_4HalfWaveMACDM1,
+   Stochastic_1H1, Stochastic0H1, Stochastic_1M15, Stochastic0M15, Stochastic_1M5, StochasticM05, Stochastic_1M1, Stochastic0M1,
+   directionStochasticH1, directionStochasticM15, directionStochasticM5, directionStochasticM1,
    allStochastic,
-   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1М15, OsMA05, OsMA_1М5, OsMA01, OsMA_1М1,
-   directionOsMAH1, directionOsMAМ15, directionOsMAМ5, directionOsMAМ1,
+   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1,
+   directionOsMAH1, directionOsMAM15, directionOsMAM5, directionOsMAM1,
    allOsMA;
 
 
@@ -101,7 +101,7 @@ int start()
    Macd303=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
 
    /*   The algorithm of the trend criteria detalization:
-Механизм распознания первой ПВ:
+Mеханизм распознания первой ПВ:
 Какие у меня критерии?
 1)
 У меня нет механизма распознавания 0-вой полуволны, У меня есть механизм распознавания критериев:
@@ -334,75 +334,75 @@ ArrayResize - в цикле не пойдет, так как есть
    if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) doubleCriterionTrendH1 = 0
    if (what_1HalfWaveMACDH1 ==1 && what_3HalfWaveMACDH1==1) doubleCriterionTrendH1 = 1
 
-   Идём по истории М15
-   1) what0HalfWaveMACDМ15
-   а) складываем тики в массив halfWave0М15
+   Идём по истории M15
+   1) what0HalfWaveMACDM15
+   а) складываем тики в массив halfWave0M15
    2) если произошло пересечение
-   а) what_1HalfWaveMACDМ15
-   б) складываем тики в массив halfWave_1М15
+   а) what_1HalfWaveMACDM15
+   б) складываем тики в массив halfWave_1M15
    3) если произошло пересечение
-   а) what_2HalfWaveMACDМ15
-   б) складываем тики в массив halfWave_2М15
+   а) what_2HalfWaveMACDM15
+   б) складываем тики в массив halfWave_2M15
    4) если произошло пересечение
-   а) what_3HalfWaveMACDМ15
-   б) складываем тики в массив halfWave_3М15
+   а) what_3HalfWaveMACDM15
+   б) складываем тики в массив halfWave_3M15
 
-   if (what_1HalfWaveMACDМ15==0 && what_3HalfWaveMACDМ15==0) doubleCriterionEntryPointМ15 = 0
-   if (what_1HalfWaveMACDМ15==1 && what_3HalfWaveMACDМ15==1) doubleCriterionEntryPointМ15 = 1
+   if (what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0) doubleCriterionEntryPointM15 = 0
+   if (what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1) doubleCriterionEntryPointM15 = 1
 
-   Идём по истории М5
-   1) what0HalfWaveMACDМ5
-   а) складываем тики в массив halfWave0М5
+   Идём по истории M5
+   1) what0HalfWaveMACDM5
+   а) складываем тики в массив halfWave0M5
    2) если произошло пересечение
-   а) what_1HalfWaveMACDМ5
-   б) складываем тики в массив halfWave_1М5
+   а) what_1HalfWaveMACDM5
+   б) складываем тики в массив halfWave_1M5
    3) если произошло пересечение
-   а) what_2HalfWaveMACDМ5
-   б) складываем тики в массив halfWave_2М5
+   а) what_2HalfWaveMACDM5
+   б) складываем тики в массив halfWave_2M5
    4) если произошло пересечение
-   а) what_3halfWaveMACDМ5
-   б) складываем тики в массив halfWave_3М5
+   а) what_3halfWaveMACDM5
+   б) складываем тики в массив halfWave_3M5
 
-   if (what_1HalfWaveMACDМ5 ==0 && what_3halfWaveMACDМ5==0) {doubleCriterionTheTimeOfEntryМ5 = 0;}
-   if (what_1HalfWaveMACDМ5 ==1 && what_3halfWaveMACDМ5==1) {doubleCriterionTheTimeOfEntryМ5 = 1;}
+   if (what_1HalfWaveMACDM5 ==0 && what_3halfWaveMACDM5==0) {doubleCriterionTheTimeOfEntryM5 = 0;}
+   if (what_1HalfWaveMACDM5 ==1 && what_3halfWaveMACDM5==1) {doubleCriterionTheTimeOfEntryM5 = 1;}
 
-   Идём по истории М1
-   1) what0HalfWaveMACDМ1
-   а) складываем тики в массив halfWave0М1
+   Идём по истории M1
+   1) what0HalfWaveMACDM1
+   а) складываем тики в массив halfWave0M1
    2) если произошло пересечение
-   а) what_1halfWaveMACDМ1
-   б) складываем тики в массив halfWave_1М1
+   а) what_1halfWaveMACDM1
+   б) складываем тики в массив halfWave_1M1
    3) если произошло пересечение
-   а) what_2HalfWaveMACDМ1
-   б) складываем тики в массив halfWave_2М1
+   а) what_2HalfWaveMACDM1
+   б) складываем тики в массив halfWave_2M1
    4) если произошло пересечение
-   а) what_3HalfWaveMACDМ1
-   б) складываем тики в массив halfWave_3М1
+   а) what_3HalfWaveMACDM1
+   б) складываем тики в массив halfWave_3M1
 
-   if (what_1halfWaveMACDМ1 ==0 && what_3HalfWaveMACDМ1==0) {doubleCriterionМ1 = 0;}
-   if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
+   if (what_1halfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
+   if (what_1halfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
 
    if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
-   if (Stochastic_1М15<Stochastic0М15) {directionStochasticМ15==0;}
-   if (Stochastic_1М5 <StochasticМ05)  {directionStochasticМ5== 0;}
-   if (Stochastic_1М1 <Stochastic0М1)  {directionStochasticМ1== 0;}
+   if (Stochastic_1M15<Stochastic0M15) {directionStochasticM15==0;}
+   if (Stochastic_1M5 <StochasticM05)  {directionStochasticM5== 0;}
+   if (Stochastic_1M1 <Stochastic0M1)  {directionStochasticM1== 0;}
    if (Stochastic_1H1 >Stochastic0H1)  {directionStochasticH1== 1;}
-   if (Stochastic_1М15>Stochastic0М15) {directionStochasticМ15==1;}
-   if (Stochastic_1М5 >StochasticМ05)  {directionStochasticМ5== 1;}
-   if (Stochastic_1М1 >Stochastic0М1)  {directionStochasticМ1== 1;}
+   if (Stochastic_1M15>Stochastic0M15) {directionStochasticM15==1;}
+   if (Stochastic_1M5 >StochasticM05)  {directionStochasticM5== 1;}
+   if (Stochastic_1M1 >Stochastic0M1)  {directionStochasticM1== 1;}
 
-   if(directionStochasticH1 == 0 И directionStochasticМ15== 0 И directionStochasticМ5 == 0 И directionStochasticМ1 == 0) то allStochastic ==0
-   if(directionStochasticH1 == 1 И directionStochasticМ15== 1 И directionStochasticМ5 == 1 И directionStochasticМ1 == 1) то allStochastic ==1
+   if(directionStochasticH1 == 0 И directionStochasticM15== 0 И directionStochasticM5 == 0 И directionStochasticM1 == 0) то allStochastic ==0
+   if(directionStochasticH1 == 1 И directionStochasticM15== 1 И directionStochasticM5 == 1 И directionStochasticM1 == 1) то allStochastic ==1
 
    if (OsMA_1H1>OsMA0H1)  {directionOsMAH1== 0;}
-   if (OsMA_1М15>OsMA015) {directionOsMAМ15==0;}
-   if (OsMA_1М5>OsMA05)   {directionOsMAМ5== 0;}
-   if (OsMA_1М1>OsMA01)   {directionOsMAМ1== 0;}
+   if (OsMA_1M15>OsMA015) {directionOsMAM15==0;}
+   if (OsMA_1M5>OsMA05)   {directionOsMAM5== 0;}
+   if (OsMA_1M1>OsMA01)   {directionOsMAM1== 0;}
 
    if (OsMA_1H1<OsMA0H1)  {directionOsMAH1== 1;}
-   if (OsMA_1М15<OsMA015) {directionOsMAМ15==1;}
-   if (OsMA_1М5<OsMA05)   {directionOsMAМ5== 1;}
-   if (OsMA_1М1<OsMA01)   {directionOsMAМ1== 1;}
+   if (OsMA_1M15<OsMA015) {directionOsMAM15==1;}
+   if (OsMA_1M5<OsMA05)   {directionOsMAM5== 1;}
+   if (OsMA_1M1<OsMA01)   {directionOsMAM1== 1;}
 
    if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {llOsMA ==0;}
    if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {llOsMA ==1;}
@@ -414,33 +414,33 @@ if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDH4==0) {doubleCriterionChannel
 if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDH4==1) {doubleCriterionChannelH4 = 1;}
 if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) {doubleCriterionTrendH1 = 0;}
 if (what_1HalfWaveMACDH1 ==1 && what_3HalfWaveMACDH1==1) {doubleCriterionTrendH1 = 1;}
-if (what_1HalfWaveMACDМ15==0 && what_3HalfWaveMACDМ15==0) {doubleCriterionEntryPointМ15 = 0;}
-if (what_1HalfWaveMACDМ15==1 && what_3HalfWaveMACDМ15==1) {doubleCriterionEntryPointМ15 = 1;}
-if (what_1HalfWaveMACDМ5 ==0 && what_3halfWaveMACDМ5==0) {doubleCriterionTheTimeOfEntryМ5 = 0;}
-if (what_1HalfWaveMACDМ5 ==1 && what_3halfWaveMACDМ5==1) {doubleCriterionTheTimeOfEntryМ5 = 1;}
-if (what_1halfWaveMACDМ1 ==0 && what_3HalfWaveMACDМ1==0) {doubleCriterionМ1 = 0;}
-if (what_1halfWaveMACDМ1 ==1 && what_3HalfWaveMACDМ1==1) {doubleCriterionМ1 = 1;}
+if (what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0) {doubleCriterionEntryPointM15 = 0;}
+if (what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1) {doubleCriterionEntryPointM15 = 1;}
+if (what_1HalfWaveMACDM5 ==0 && what_3halfWaveMACDM5==0) {doubleCriterionTheTimeOfEntryM5 = 0;}
+if (what_1HalfWaveMACDM5 ==1 && what_3halfWaveMACDM5==1) {doubleCriterionTheTimeOfEntryM5 = 1;}
+if (what_1halfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
+if (what_1halfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
 
    if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
-   if (Stochastic_1М15<Stochastic0М15) {directionStochasticМ15==0;}
-   if (Stochastic_1М5 <StochasticМ05)  {directionStochasticМ5== 0;}
-   if (Stochastic_1М1 <Stochastic0М1)  {directionStochasticМ1== 0;}
+   if (Stochastic_1M15<Stochastic0M15) {directionStochasticM15==0;}
+   if (Stochastic_1M5 <StochasticM05)  {directionStochasticM5== 0;}
+   if (Stochastic_1M1 <Stochastic0M1)  {directionStochasticM1== 0;}
    if (Stochastic_1H1 >Stochastic0H1)  {directionStochasticH1== 1;}
-   if (Stochastic_1М15>Stochastic0М15) {directionStochasticМ15==1;}
-   if (Stochastic_1М5 >StochasticМ05)  {directionStochasticМ5== 1;}
-   if (Stochastic_1М1 >Stochastic0М1)  {directionStochasticМ1== 1;}
+   if (Stochastic_1M15>Stochastic0M15) {directionStochasticM15==1;}
+   if (Stochastic_1M5 >StochasticM05)  {directionStochasticM5== 1;}
+   if (Stochastic_1M1 >Stochastic0M1)  {directionStochasticM1== 1;}
 
-if(directionStochasticH1 == 0 && directionStochasticМ15== 0 && directionStochasticМ5 == 0 && directionStochasticМ1 == 0) {allStochastic ==0;}
-if(directionStochasticH1 == 1 && directionStochasticМ15== 1 && directionStochasticМ5 == 1 && directionStochasticМ1 == 1) {allStochastic ==1;}
+if(directionStochasticH1 == 0 && directionStochasticM15== 0 && directionStochasticM5 == 0 && directionStochasticM1 == 0) {allStochastic ==0;}
+if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochasticM5 == 1 && directionStochasticM1 == 1) {allStochastic ==1;}
 
    if (OsMA_1H1>OsMA0H1)  {directionOsMAH1== 0;}
-   if (OsMA_1М15>OsMA015) {directionOsMAМ15==0;}
-   if (OsMA_1М5>OsMA05)   {directionOsMAМ5== 0;}
-   if (OsMA_1М1>OsMA01)   {directionOsMAМ1== 0;}
+   if (OsMA_1M15>OsMA015) {directionOsMAM15==0;}
+   if (OsMA_1M5>OsMA05)   {directionOsMAM5== 0;}
+   if (OsMA_1M1>OsMA01)   {directionOsMAM1== 0;}
    if (OsMA_1H1<OsMA0H1)  {directionOsMAH1== 1;}
-   if (OsMA_1М15<OsMA015) {directionOsMAМ15==1;}
-   if (OsMA_1М5<OsMA05)   {directionOsMAМ5== 1;}
-   if (OsMA_1М1<OsMA01)   {directionOsMAМ1== 1;}
+   if (OsMA_1M15<OsMA015) {directionOsMAM15==1;}
+   if (OsMA_1M5<OsMA05)   {directionOsMAM5== 1;}
+   if (OsMA_1M1<OsMA01)   {directionOsMAM1== 1;}
 
 if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA ==0;}
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA ==1;}
@@ -464,11 +464,11 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
       if(
             /*
             Алгоритм открытия Позиции:
-            для покупки если (doubleCriterionTrendH1 == 0 И doubleCriterionEntryPointМ15 == 0 И doubleCriterionTheTimeOfEntryМ5 == 0 И doubleCriterionМ1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
+            для покупки если (doubleCriterionTrendH1 == 0 И doubleCriterionEntryPointM15 == 0 И doubleCriterionTheTimeOfEntryM5 == 0 И doubleCriterionM1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
             */
             buy ==1 &&
             // Criterion for buy position according to the TS
-            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointМ15 == 0 && doubleCriterionTheTimeOfEntryМ5 == 0 && doubleCriterionМ1==0 && allOsMA==0 && allStochastic == 0;
+            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0;
         )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
@@ -484,11 +484,11 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
 
            /*
            Алгоритм открытия Позиции:
-           для продажи если (doubleCriterionTrendH1 == 1 И doubleCriterionEntryPointМ15 == 1 И doubleCriterionTheTimeOfEntryМ5 == 1 И doubleCriterionМ1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
+           для продажи если (doubleCriterionTrendH1 == 1 И doubleCriterionEntryPointM15 == 1 И doubleCriterionTheTimeOfEntryM5 == 1 И doubleCriterionM1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
            */
            sell ==1 &&
            // Criterion for sell position according to the TS
-           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointМ15 == 1 && doubleCriterionTheTimeOfEntryМ5 == 1 && doubleCriterionМ1==1 && allOsMA==1 && allStochastic == 1;
+           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1;
       )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
@@ -505,11 +505,11 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
    // but it is more important to exit it correctly...
 
 /*   Алгоритм закрытия Позиции:
-   критерий закрытия (предварительно двойной М15)
+   критерий закрытия (предварительно двойной M15)
 
    Алгоритм ведения Позиции:
    критерий БезУбытка (взять из Безубытка - реализован в Трейлинг условии реализацией "Посвечный Безубыток")
-   критерий ведения (двойной М5)*/
+   критерий ведения (двойной M5)*/
 
    for(cnt=0;cnt<total;cnt++)
      {
