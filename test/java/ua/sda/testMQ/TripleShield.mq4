@@ -65,9 +65,9 @@ int start()
    doubleCriterionTrendH1,
    what0HalfWaveMACDM15, what_1HalfWaveMACDM15, what_2HalfWaveMACDM15, what_3HalfWaveMACDM15, what_4HalfWaveMACDM15,
    doubleCriterionEntryPointM15,
-   what0HalfWaveMACDM5, what_1HalfWaveMACDM5, what_2HalfWaveMACDM5, what_3halfWaveMACDM5, what_4halfWaveMACDM5,
+   what0HalfWaveMACDM5, what_1HalfWaveMACDM5, what_2HalfWaveMACDM5, what_3HalfWaveMACDM5, what_4HalfWaveMACDM5,
    doubleCriterionTheTimeOfEntryM5,
-   what0HalfWaveMACDM1, what_1halfWaveMACDM1, what_2HalfWaveMACDM1, what_3HalfWaveMACDM1, what_4HalfWaveMACDM1,
+   what0HalfWaveMACDM1, what_1HalfWaveMACDM1, what_2HalfWaveMACDM1, what_3HalfWaveMACDM1, what_4HalfWaveMACDM1,
    doubleCriterionM1,
    Stochastic_1H1, Stochastic0H1, Stochastic_1M15, Stochastic0M15, Stochastic_1M5, StochasticM05, Stochastic_1M1, Stochastic0M1,
    directionStochasticH1, directionStochasticM15, directionStochasticM5, directionStochasticM1,
@@ -400,6 +400,376 @@ ArrayResize - в цикле не пойдет, так как есть
 
 
 
+/*Algorithm, part for M15 Half Waves*/
+  countHalfWavesM15 =0;
+  Macd_1M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
+  Macd_2M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
+  if (Macd_1M15>0 && Macd_2M15>0){what0HalfWaveMACDM15 =0;}
+  else if (Macd_1M15<0 && Macd_2M15<0){what0HalfWaveMACDM15 =1;}
+  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_M15 ", countHalfWavesM15);
+  for (i = 1;countHalfWavesM15<=3;i++){
+  MacdIplus3M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
+  MacdIplus4M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
+
+    if (countHalfWavesM15==0 && what0HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
+        {
+            countHalfWavesM15++;
+            what_1HalfWaveMACDM15=1;
+            j=1;
+            resize0M15 = (i+2)-j;
+            ArrayResize(halfWave0M15,resize0M15);
+            for(j; j<i+2; j++){
+                halfWave0M15[j-1]=j;
+            }
+            Print("halfWave0M15", "ArrayResize(halfWave0M15,(i-2)-j); ", (i-2)-j);
+        }
+    if (countHalfWavesM15==0 && what0HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
+        {
+            countHalfWavesM15++;
+            what_1HalfWaveMACDM15=0;
+            j=1;
+            resize0M15 = (i+2)-j;
+            ArrayResize(halfWave0M15,resize0M15);
+            for(j; j<i+2; j++){
+                halfWave0M15[j-1]=j;
+            }
+            Print("halfWave0M15", "ArrayResize(halfWave0M15,(i-2)-j); ", (i-2)-j);
+        }
+    if (countHalfWavesM15==1 && what_1HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
+        {
+            countHalfWavesM15++;
+            what_2HalfWaveMACDM15=0;
+            k=j+1;
+            resize1M15 = (i+2)-k;
+            ArrayResize(halfWave_1M15,resize1M15);
+            z=0;
+            for(k; k<i+2; k++){
+                halfWave_1M15[z]=k;
+                z++;
+            }
+            Print("halfWave_1M15", "ArrayResize(halfWave_1M15,(i-2)-k) ", (i-2)-k);
+        }
+    if (countHalfWavesM15==1 && what_1HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
+        {
+            countHalfWavesM15++;
+            what_2HalfWaveMACDM15=1;
+            k=j+1;
+            resize1M15 = (i+2)-k;
+            ArrayResize(halfWave_1M15,resize1M15);
+            z=0;
+            for(k; k<i+2; k++){
+                halfWave_1M15[z]=k;
+                z++;
+            }
+            Print("halfWave_1M15", "ArrayResize(halfWave_1M15,(i-2)-k) ", (i-2)-k);
+        }
+    if (countHalfWavesM15==2 && what_2HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
+        {
+            countHalfWavesM15++;
+            what_3HalfWaveMACDM15=1;
+            m=k+1;
+            resize2M15 = (i+2)-m;
+            ArrayResize(halfWave_2M15,resize2M15);
+            y=0;
+            for(m; m<i+2; m++){
+                halfWave_2M15[y]=m;
+                y++;
+            }
+            Print("halfWave_2M15", "ArrayResize(halfWave_2M15,(i-2)-m); ", (i-2)-j);
+        }
+    if (countHalfWavesM15==2 && what_2HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
+        {
+            countHalfWavesM15++;
+            what_3HalfWaveMACDM15=0;
+            m=k+1;
+            resize2M15 = (i+2)-m;
+            ArrayResize(halfWave_2M15,resize2M15);
+            y=0;
+            for(m; m<i+2; m++){
+                    halfWave_2M15[y]=m;
+                    y++;
+            }
+            Print("halfWave_2M15", "ArrayResize(halfWave_2M15,(i-2)-m) ", (i-2)-m);
+        }
+    if (countHalfWavesM15==3 && what_3HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
+        {
+            countHalfWavesM15++;
+            what_4HalfWaveMACDM15=0;
+            p=m+1;
+            resize3M15 = (i+2)-p;
+            ArrayResize(halfWave_3M15,resize3M15);
+            x=0;
+            for(p; p<i+2; p++){
+                halfWave_3M15[x]=p;
+                x++;
+            }
+            Print("halfWave_3M15", "ArrayResize(halfWave_3M15,(i-2)-p) ", (i-2)-p);
+        }
+    if (countHalfWavesM15==3 && what_3HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
+        {
+            countHalfWavesM15++;
+            what_4HalfWaveMACDM15=1;
+            p=m+1;
+            resize3M15 = (i+2)-p;
+            ArrayResize(halfWave_3M15,resize3M15);
+            x=0;
+            for(p; p<i+2; p++){
+                halfWave_3M15[x]=p;
+                x++;
+            }
+            Print("halfWave_3M15", "ArrayResize(halfWave_3M15,(i-2)-p) ", (i-2)-p);
+        }
+  }
+
+
+/*Algorithm, part for M5 Half Waves*/
+  countHalfWavesM5 =0;
+  Macd_1M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
+  Macd_2M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
+  if (Macd_1M5>0 && Macd_2M5>0){what0HalfWaveMACDM5 =0;}
+  else if (Macd_1M5<0 && Macd_2M5<0){what0HalfWaveMACDM5 =1;}
+  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_M5 ", countHalfWavesM5);
+  for (i = 1;countHalfWavesM5<=3;i++){
+  MacdIplus3M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
+  MacdIplus4M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
+
+    if (countHalfWavesM5==0 && what0HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
+        {
+            countHalfWavesM5++;
+            what_1HalfWaveMACDM5=1;
+            j=1;
+            resize0M5 = (i+2)-j;
+            ArrayResize(halfWave0M5,resize0M5);
+            for(j; j<i+2; j++){
+                halfWave0M5[j-1]=j;
+            }
+            Print("halfWave0M5", "ArrayResize(halfWave0M5,(i-2)-j); ", (i-2)-j);
+        }
+    if (countHalfWavesM5==0 && what0HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
+        {
+            countHalfWavesM5++;
+            what_1HalfWaveMACDM5=0;
+            j=1;
+            resize0M5 = (i+2)-j;
+            ArrayResize(halfWave0M5,resize0M5);
+            for(j; j<i+2; j++){
+                halfWave0M5[j-1]=j;
+            }
+            Print("halfWave0M5", "ArrayResize(halfWave0M5,(i-2)-j); ", (i-2)-j);
+        }
+    if (countHalfWavesM5==1 && what_1HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
+        {
+            countHalfWavesM5++;
+            what_2HalfWaveMACDM5=0;
+            k=j+1;
+            resize1M5 = (i+2)-k;
+            ArrayResize(halfWave_1M5,resize1M5);
+            z=0;
+            for(k; k<i+2; k++){
+                halfWave_1M5[z]=k;
+                z++;
+            }
+            Print("halfWave_1M5", "ArrayResize(halfWave_1M5,(i-2)-k) ", (i-2)-k);
+        }
+    if (countHalfWavesM5==1 && what_1HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
+        {
+            countHalfWavesM5++;
+            what_2HalfWaveMACDM5=1;
+            k=j+1;
+            resize1M5 = (i+2)-k;
+            ArrayResize(halfWave_1M5,resize1M5);
+            z=0;
+            for(k; k<i+2; k++){
+                halfWave_1M5[z]=k;
+                z++;
+            }
+            Print("halfWave_1M5", "ArrayResize(halfWave_1M5,(i-2)-k) ", (i-2)-k);
+        }
+    if (countHalfWavesM5==2 && what_2HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
+        {
+            countHalfWavesM5++;
+            what_3HalfWaveMACDM5=1;
+            m=k+1;
+            resize2M5 = (i+2)-m;
+            ArrayResize(halfWave_2M5,resize2M5);
+            y=0;
+            for(m; m<i+2; m++){
+                halfWave_2M5[y]=m;
+                y++;
+            }
+            Print("halfWave_2M5", "ArrayResize(halfWave_2M5,(i-2)-m); ", (i-2)-j);
+        }
+    if (countHalfWavesM5==2 && what_2HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
+        {
+            countHalfWavesM5++;
+            what_3HalfWaveMACDM5=0;
+            m=k+1;
+            resize2M5 = (i+2)-m;
+            ArrayResize(halfWave_2M5,resize2M5);
+            y=0;
+            for(m; m<i+2; m++){
+                    halfWave_2M5[y]=m;
+                    y++;
+            }
+            Print("halfWave_2M5", "ArrayResize(halfWave_2M5,(i-2)-m) ", (i-2)-m);
+        }
+    if (countHalfWavesM5==3 && what_3HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
+        {
+            countHalfWavesM5++;
+            what_4HalfWaveMACDM5=0;
+            p=m+1;
+            resize3M5 = (i+2)-p;
+            ArrayResize(halfWave_3M5,resize3M5);
+            x=0;
+            for(p; p<i+2; p++){
+                halfWave_3M5[x]=p;
+                x++;
+            }
+            Print("halfWave_3M5", "ArrayResize(halfWave_3M5,(i-2)-p) ", (i-2)-p);
+        }
+    if (countHalfWavesM5==3 && what_3HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
+        {
+            countHalfWavesM5++;
+            what_4HalfWaveMACDM5=1;
+            p=m+1;
+            resize3M5 = (i+2)-p;
+            ArrayResize(halfWave_3M5,resize3M5);
+            x=0;
+            for(p; p<i+2; p++){
+                halfWave_3M5[x]=p;
+                x++;
+            }
+            Print("halfWave_3M5", "ArrayResize(halfWave_3M5,(i-2)-p) ", (i-2)-p);
+        }
+  }
+
+
+
+  /*Algorithm, part for M1 Half Waves*/
+    countHalfWavesM1 =0;
+    Macd_1M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
+    Macd_2M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
+    if (Macd_1M1>0 && Macd_2M1>0){what0HalfWaveMACDM1 =0;}
+    else if (Macd_1M1<0 && Macd_2M1<0){what0HalfWaveMACDM1 =1;}
+    else Print("   ERROR (Catched 0) Non Double Zero PERIOD_M1 ", countHalfWavesM1);
+    for (i = 1;countHalfWavesM1<=3;i++){
+    MacdIplus3M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
+    MacdIplus4M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
+
+      if (countHalfWavesM1==0 && what0HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
+          {
+              countHalfWavesM1++;
+              what_1HalfWaveMACDM1=1;
+              j=1;
+              resize0M1 = (i+2)-j;
+              ArrayResize(halfWave0M1,resize0M1);
+              for(j; j<i+2; j++){
+                  halfWave0M1[j-1]=j;
+              }
+              Print("halfWave0M1", "ArrayResize(halfWave0M1,(i-2)-j); ", (i-2)-j);
+          }
+      if (countHalfWavesM1==0 && what0HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
+          {
+              countHalfWavesM1++;
+              what_1HalfWaveMACDM1=0;
+              j=1;
+              resize0M1 = (i+2)-j;
+              ArrayResize(halfWave0M1,resize0M1);
+              for(j; j<i+2; j++){
+                  halfWave0M1[j-1]=j;
+              }
+              Print("halfWave0M1", "ArrayResize(halfWave0M1,(i-2)-j); ", (i-2)-j);
+          }
+      if (countHalfWavesM1==1 && what_1HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
+          {
+              countHalfWavesM1++;
+              what_2HalfWaveMACDM1=0;
+              k=j+1;
+              resize1M1 = (i+2)-k;
+              ArrayResize(halfWave_1M1,resize1M1);
+              z=0;
+              for(k; k<i+2; k++){
+                  halfWave_1M1[z]=k;
+                  z++;
+              }
+              Print("halfWave_1M1", "ArrayResize(halfWave_1M1,(i-2)-k) ", (i-2)-k);
+          }
+      if (countHalfWavesM1==1 && what_1HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
+          {
+              countHalfWavesM1++;
+              what_2HalfWaveMACDM1=1;
+              k=j+1;
+              resize1M1 = (i+2)-k;
+              ArrayResize(halfWave_1M1,resize1M1);
+              z=0;
+              for(k; k<i+2; k++){
+                  halfWave_1M1[z]=k;
+                  z++;
+              }
+              Print("halfWave_1M1", "ArrayResize(halfWave_1M1,(i-2)-k) ", (i-2)-k);
+          }
+      if (countHalfWavesM1==2 && what_2HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
+          {
+              countHalfWavesM1++;
+              what_3HalfWaveMACDM1=1;
+              m=k+1;
+              resize2M1 = (i+2)-m;
+              ArrayResize(halfWave_2M1,resize2M1);
+              y=0;
+              for(m; m<i+2; m++){
+                  halfWave_2M1[y]=m;
+                  y++;
+              }
+              Print("halfWave_2M1", "ArrayResize(halfWave_2M1,(i-2)-m); ", (i-2)-j);
+          }
+      if (countHalfWavesM1==2 && what_2HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
+          {
+              countHalfWavesM1++;
+              what_3HalfWaveMACDM1=0;
+              m=k+1;
+              resize2M1 = (i+2)-m;
+              ArrayResize(halfWave_2M1,resize2M1);
+              y=0;
+              for(m; m<i+2; m++){
+                      halfWave_2M1[y]=m;
+                      y++;
+              }
+              Print("halfWave_2M1", "ArrayResize(halfWave_2M1,(i-2)-m) ", (i-2)-m);
+          }
+      if (countHalfWavesM1==3 && what_3HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
+          {
+              countHalfWavesM1++;
+              what_4HalfWaveMACDM1=0;
+              p=m+1;
+              resize3M1 = (i+2)-p;
+              ArrayResize(halfWave_3M1,resize3M1);
+              x=0;
+              for(p; p<i+2; p++){
+                  halfWave_3M1[x]=p;
+                  x++;
+              }
+              Print("halfWave_3M1", "ArrayResize(halfWave_3M1,(i-2)-p) ", (i-2)-p);
+          }
+      if (countHalfWavesM1==3 && what_3HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
+          {
+              countHalfWavesM1++;
+              what_4HalfWaveMACDM1=1;
+              p=m+1;
+              resize3M1 = (i+2)-p;
+              ArrayResize(halfWave_3M1,resize3M1);
+              x=0;
+              for(p; p<i+2; p++){
+                  halfWave_3M1[x]=p;
+                  x++;
+              }
+              Print("halfWave_3M1", "ArrayResize(halfWave_3M1,(i-2)-p) ", (i-2)-p);
+          }
+    }
+
+
+
+
+
 
 /*   The algorithm of the trend criteria definition:
    Идём по истории H4
@@ -516,10 +886,10 @@ if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) {doubleCriterionTrendH1
 if (what_1HalfWaveMACDH1 ==1 && what_3HalfWaveMACDH1==1) {doubleCriterionTrendH1 = 1;}
 if (what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0) {doubleCriterionEntryPointM15 = 0;}
 if (what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1) {doubleCriterionEntryPointM15 = 1;}
-if (what_1HalfWaveMACDM5 ==0 && what_3halfWaveMACDM5==0) {doubleCriterionTheTimeOfEntryM5 = 0;}
-if (what_1HalfWaveMACDM5 ==1 && what_3halfWaveMACDM5==1) {doubleCriterionTheTimeOfEntryM5 = 1;}
-if (what_1halfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
-if (what_1halfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
+if (what_1HalfWaveMACDM5 ==0 && what_3HalfWaveMACDM5==0) {doubleCriterionTheTimeOfEntryM5 = 0;}
+if (what_1HalfWaveMACDM5 ==1 && what_3HalfWaveMACDM5==1) {doubleCriterionTheTimeOfEntryM5 = 1;}
+if (what_1HalfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
+if (what_1HalfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
 
    if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
    if (Stochastic_1M15<Stochastic0M15) {directionStochasticM15==0;}
