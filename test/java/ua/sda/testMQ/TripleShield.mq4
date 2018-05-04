@@ -5,7 +5,7 @@
 //+------------------------------------------------------------------+
 
 extern double TakeProfit = 2400;
-extern double StopLoss = 10000;
+extern double StopLoss = 1600;
 extern double Lots = 1;
 extern double TrailingStop = 10000;
 
