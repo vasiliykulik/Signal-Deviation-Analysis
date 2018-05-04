@@ -161,7 +161,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
   else if (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
-  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H4 ", countHalfWavesH4);
+  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
   for (i = 1;countHalfWavesH4<=3;i++){
   MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -176,7 +176,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0H4[j-1]=j;
             }
-            Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesH4==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -188,7 +188,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0H4[j-1]=j;
             }
-            Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesH4==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -202,7 +202,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1H4[z]=k;
                 z++;
             }
-            Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesH4==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -216,7 +216,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1H4[z]=k;
                 z++;
             }
-            Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesH4==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -230,7 +230,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_2H4[y]=m;
                 y++;
             }
-            Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
+            // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
     if (countHalfWavesH4==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -244,7 +244,7 @@ ArrayResize - в цикле не пойдет, так как есть
                     halfWave_2H4[y]=m;
                     y++;
             }
-            Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
+            // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
     if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -258,7 +258,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3H4[x]=p;
                 x++;
             }
-            Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
     if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -272,7 +272,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3H4[x]=p;
                 x++;
             }
-            Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
   }
 
@@ -283,7 +283,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1H1>0 && Macd_2H1>0){what0HalfWaveMACDH1 =0;}
   else if (Macd_1H1<0 && Macd_2H1<0){what0HalfWaveMACDH1 =1;}
-  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_H1 ", countHalfWavesH1);
+  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H1 ", countHalfWavesH1);
   for (i = 1;countHalfWavesH1<=3;i++){
   MacdIplus3H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -298,7 +298,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0H1[j-1]=j;
             }
-            Print("halfWave0H1", "ArrayResize(halfWave0H1,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0H1", "ArrayResize(halfWave0H1,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesH1==0 && what0HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0)
         {
@@ -310,7 +310,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0H1[j-1]=j;
             }
-            Print("halfWave0H1", "ArrayResize(halfWave0H1,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0H1", "ArrayResize(halfWave0H1,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesH1==1 && what_1HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0)
         {
@@ -324,7 +324,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1H1[z]=k;
                 z++;
             }
-            Print("halfWave_1H1", "ArrayResize(halfWave_1H1,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1H1", "ArrayResize(halfWave_1H1,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesH1==1 && what_1HalfWaveMACDH1==0 && MacdIplus3H1<0 && MacdIplus4H1<0)
         {
@@ -338,7 +338,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1H1[z]=k;
                 z++;
             }
-            Print("halfWave_1H1", "ArrayResize(halfWave_1H1,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1H1", "ArrayResize(halfWave_1H1,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesH1==2 && what_2HalfWaveMACDH1==0 && MacdIplus3H1<0 && MacdIplus4H1<0)
         {
@@ -352,7 +352,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_2H1[y]=m;
                 y++;
             }
-            Print("halfWave_2H1", "ArrayResize(halfWave_2H1,(i-2)-m); ", (i-2)-j);
+            // Print("halfWave_2H1", "ArrayResize(halfWave_2H1,(i-2)-m); ", (i-2)-j);
         }
     if (countHalfWavesH1==2 && what_2HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0)
         {
@@ -366,7 +366,7 @@ ArrayResize - в цикле не пойдет, так как есть
                     halfWave_2H1[y]=m;
                     y++;
             }
-            Print("halfWave_2H1", "ArrayResize(halfWave_2H1,(i-2)-m) ", (i-2)-m);
+            // Print("halfWave_2H1", "ArrayResize(halfWave_2H1,(i-2)-m) ", (i-2)-m);
         }
     if (countHalfWavesH1==3 && what_3HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0)
         {
@@ -380,7 +380,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3H1[x]=p;
                 x++;
             }
-            Print("halfWave_3H1", "ArrayResize(halfWave_3H1,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3H1", "ArrayResize(halfWave_3H1,(i-2)-p) ", (i-2)-p);
         }
     if (countHalfWavesH1==3 && what_3HalfWaveMACDH1==0 && MacdIplus3H1<0 && MacdIplus4H1<0)
         {
@@ -394,7 +394,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3H1[x]=p;
                 x++;
             }
-            Print("halfWave_3H1", "ArrayResize(halfWave_3H1,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3H1", "ArrayResize(halfWave_3H1,(i-2)-p) ", (i-2)-p);
         }
   }
 
@@ -406,7 +406,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1M15>0 && Macd_2M15>0){what0HalfWaveMACDM15 =0;}
   else if (Macd_1M15<0 && Macd_2M15<0){what0HalfWaveMACDM15 =1;}
-  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_M15 ", countHalfWavesM15);
+  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M15 ", countHalfWavesM15);
   for (i = 1;countHalfWavesM15<=3;i++){
   MacdIplus3M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -421,7 +421,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0M15[j-1]=j;
             }
-            Print("halfWave0M15", "ArrayResize(halfWave0M15,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0M15", "ArrayResize(halfWave0M15,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesM15==0 && what0HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
         {
@@ -433,7 +433,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0M15[j-1]=j;
             }
-            Print("halfWave0M15", "ArrayResize(halfWave0M15,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0M15", "ArrayResize(halfWave0M15,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesM15==1 && what_1HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
         {
@@ -447,7 +447,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1M15[z]=k;
                 z++;
             }
-            Print("halfWave_1M15", "ArrayResize(halfWave_1M15,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1M15", "ArrayResize(halfWave_1M15,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesM15==1 && what_1HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
         {
@@ -461,7 +461,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1M15[z]=k;
                 z++;
             }
-            Print("halfWave_1M15", "ArrayResize(halfWave_1M15,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1M15", "ArrayResize(halfWave_1M15,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesM15==2 && what_2HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
         {
@@ -475,7 +475,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_2M15[y]=m;
                 y++;
             }
-            Print("halfWave_2M15", "ArrayResize(halfWave_2M15,(i-2)-m); ", (i-2)-j);
+            // Print("halfWave_2M15", "ArrayResize(halfWave_2M15,(i-2)-m); ", (i-2)-j);
         }
     if (countHalfWavesM15==2 && what_2HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
         {
@@ -489,7 +489,7 @@ ArrayResize - в цикле не пойдет, так как есть
                     halfWave_2M15[y]=m;
                     y++;
             }
-            Print("halfWave_2M15", "ArrayResize(halfWave_2M15,(i-2)-m) ", (i-2)-m);
+            // Print("halfWave_2M15", "ArrayResize(halfWave_2M15,(i-2)-m) ", (i-2)-m);
         }
     if (countHalfWavesM15==3 && what_3HalfWaveMACDM15==1 && MacdIplus3M15>0 && MacdIplus4M15>0)
         {
@@ -503,7 +503,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3M15[x]=p;
                 x++;
             }
-            Print("halfWave_3M15", "ArrayResize(halfWave_3M15,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3M15", "ArrayResize(halfWave_3M15,(i-2)-p) ", (i-2)-p);
         }
     if (countHalfWavesM15==3 && what_3HalfWaveMACDM15==0 && MacdIplus3M15<0 && MacdIplus4M15<0)
         {
@@ -517,7 +517,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3M15[x]=p;
                 x++;
             }
-            Print("halfWave_3M15", "ArrayResize(halfWave_3M15,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3M15", "ArrayResize(halfWave_3M15,(i-2)-p) ", (i-2)-p);
         }
   }
 
@@ -528,7 +528,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1M5>0 && Macd_2M5>0){what0HalfWaveMACDM5 =0;}
   else if (Macd_1M5<0 && Macd_2M5<0){what0HalfWaveMACDM5 =1;}
-  else Print("   ERROR (Catched 0) Non Double Zero PERIOD_M5 ", countHalfWavesM5);
+  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M5 ", countHalfWavesM5);
   for (i = 1;countHalfWavesM5<=3;i++){
   MacdIplus3M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -543,7 +543,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0M5[j-1]=j;
             }
-            Print("halfWave0M5", "ArrayResize(halfWave0M5,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0M5", "ArrayResize(halfWave0M5,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesM5==0 && what0HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
         {
@@ -555,7 +555,7 @@ ArrayResize - в цикле не пойдет, так как есть
             for(j; j<i+2; j++){
                 halfWave0M5[j-1]=j;
             }
-            Print("halfWave0M5", "ArrayResize(halfWave0M5,(i-2)-j); ", (i-2)-j);
+            // Print("halfWave0M5", "ArrayResize(halfWave0M5,(i-2)-j); ", (i-2)-j);
         }
     if (countHalfWavesM5==1 && what_1HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
         {
@@ -569,7 +569,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1M5[z]=k;
                 z++;
             }
-            Print("halfWave_1M5", "ArrayResize(halfWave_1M5,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1M5", "ArrayResize(halfWave_1M5,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesM5==1 && what_1HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
         {
@@ -583,7 +583,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_1M5[z]=k;
                 z++;
             }
-            Print("halfWave_1M5", "ArrayResize(halfWave_1M5,(i-2)-k) ", (i-2)-k);
+            // Print("halfWave_1M5", "ArrayResize(halfWave_1M5,(i-2)-k) ", (i-2)-k);
         }
     if (countHalfWavesM5==2 && what_2HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
         {
@@ -597,7 +597,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_2M5[y]=m;
                 y++;
             }
-            Print("halfWave_2M5", "ArrayResize(halfWave_2M5,(i-2)-m); ", (i-2)-j);
+            // Print("halfWave_2M5", "ArrayResize(halfWave_2M5,(i-2)-m); ", (i-2)-j);
         }
     if (countHalfWavesM5==2 && what_2HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
         {
@@ -611,7 +611,7 @@ ArrayResize - в цикле не пойдет, так как есть
                     halfWave_2M5[y]=m;
                     y++;
             }
-            Print("halfWave_2M5", "ArrayResize(halfWave_2M5,(i-2)-m) ", (i-2)-m);
+            // Print("halfWave_2M5", "ArrayResize(halfWave_2M5,(i-2)-m) ", (i-2)-m);
         }
     if (countHalfWavesM5==3 && what_3HalfWaveMACDM5==1 && MacdIplus3M5>0 && MacdIplus4M5>0)
         {
@@ -625,7 +625,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3M5[x]=p;
                 x++;
             }
-            Print("halfWave_3M5", "ArrayResize(halfWave_3M5,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3M5", "ArrayResize(halfWave_3M5,(i-2)-p) ", (i-2)-p);
         }
     if (countHalfWavesM5==3 && what_3HalfWaveMACDM5==0 && MacdIplus3M5<0 && MacdIplus4M5<0)
         {
@@ -639,7 +639,7 @@ ArrayResize - в цикле не пойдет, так как есть
                 halfWave_3M5[x]=p;
                 x++;
             }
-            Print("halfWave_3M5", "ArrayResize(halfWave_3M5,(i-2)-p) ", (i-2)-p);
+            // Print("halfWave_3M5", "ArrayResize(halfWave_3M5,(i-2)-p) ", (i-2)-p);
         }
   }
 
@@ -651,7 +651,7 @@ ArrayResize - в цикле не пойдет, так как есть
     Macd_2M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
     if (Macd_1M1>0 && Macd_2M1>0){what0HalfWaveMACDM1 =0;}
     else if (Macd_1M1<0 && Macd_2M1<0){what0HalfWaveMACDM1 =1;}
-    else Print("   ERROR (Catched 0) Non Double Zero PERIOD_M1 ", countHalfWavesM1);
+    else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M1 ", countHalfWavesM1);
     for (i = 1;countHalfWavesM1<=3;i++){
     MacdIplus3M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
     MacdIplus4M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -666,7 +666,7 @@ ArrayResize - в цикле не пойдет, так как есть
               for(j; j<i+2; j++){
                   halfWave0M1[j-1]=j;
               }
-              Print("halfWave0M1", "ArrayResize(halfWave0M1,(i-2)-j); ", (i-2)-j);
+              //Print("halfWave0M1", "ArrayResize(halfWave0M1,(i-2)-j); ", (i-2)-j);
           }
       if (countHalfWavesM1==0 && what0HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
           {
@@ -678,7 +678,7 @@ ArrayResize - в цикле не пойдет, так как есть
               for(j; j<i+2; j++){
                   halfWave0M1[j-1]=j;
               }
-              Print("halfWave0M1", "ArrayResize(halfWave0M1,(i-2)-j); ", (i-2)-j);
+              //Print("halfWave0M1", "ArrayResize(halfWave0M1,(i-2)-j); ", (i-2)-j);
           }
       if (countHalfWavesM1==1 && what_1HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
           {
@@ -692,7 +692,7 @@ ArrayResize - в цикле не пойдет, так как есть
                   halfWave_1M1[z]=k;
                   z++;
               }
-              Print("halfWave_1M1", "ArrayResize(halfWave_1M1,(i-2)-k) ", (i-2)-k);
+              //Print("halfWave_1M1", "ArrayResize(halfWave_1M1,(i-2)-k) ", (i-2)-k);
           }
       if (countHalfWavesM1==1 && what_1HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
           {
@@ -706,7 +706,7 @@ ArrayResize - в цикле не пойдет, так как есть
                   halfWave_1M1[z]=k;
                   z++;
               }
-              Print("halfWave_1M1", "ArrayResize(halfWave_1M1,(i-2)-k) ", (i-2)-k);
+              //Print("halfWave_1M1", "ArrayResize(halfWave_1M1,(i-2)-k) ", (i-2)-k);
           }
       if (countHalfWavesM1==2 && what_2HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
           {
@@ -720,7 +720,7 @@ ArrayResize - в цикле не пойдет, так как есть
                   halfWave_2M1[y]=m;
                   y++;
               }
-              Print("halfWave_2M1", "ArrayResize(halfWave_2M1,(i-2)-m); ", (i-2)-j);
+              //Print("halfWave_2M1", "ArrayResize(halfWave_2M1,(i-2)-m); ", (i-2)-j);
           }
       if (countHalfWavesM1==2 && what_2HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
           {
@@ -734,7 +734,7 @@ ArrayResize - в цикле не пойдет, так как есть
                       halfWave_2M1[y]=m;
                       y++;
               }
-              Print("halfWave_2M1", "ArrayResize(halfWave_2M1,(i-2)-m) ", (i-2)-m);
+              //Print("halfWave_2M1", "ArrayResize(halfWave_2M1,(i-2)-m) ", (i-2)-m);
           }
       if (countHalfWavesM1==3 && what_3HalfWaveMACDM1==1 && MacdIplus3M1>0 && MacdIplus4M1>0)
           {
@@ -748,7 +748,7 @@ ArrayResize - в цикле не пойдет, так как есть
                   halfWave_3M1[x]=p;
                   x++;
               }
-              Print("halfWave_3M1", "ArrayResize(halfWave_3M1,(i-2)-p) ", (i-2)-p);
+              //Print("halfWave_3M1", "ArrayResize(halfWave_3M1,(i-2)-p) ", (i-2)-p);
           }
       if (countHalfWavesM1==3 && what_3HalfWaveMACDM1==0 && MacdIplus3M1<0 && MacdIplus4M1<0)
           {
@@ -762,7 +762,7 @@ ArrayResize - в цикле не пойдет, так как есть
                   halfWave_3M1[x]=p;
                   x++;
               }
-              Print("halfWave_3M1", "ArrayResize(halfWave_3M1,(i-2)-p) ", (i-2)-p);
+              //Print("halfWave_3M1", "ArrayResize(halfWave_3M1,(i-2)-p) ", (i-2)-p);
           }
     }
 
