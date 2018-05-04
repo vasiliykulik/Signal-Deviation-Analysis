@@ -34,7 +34,8 @@ int start()
 
    int
    countHalfWavesH4,
-   i,z,y,x, j,k,m,p,  resize;
+   i,z,y,x, j,k,m,p,
+     resize0H4, resize1H4, resize2H4, resize3H4;
    double
    Macd_1H4,Macd_2H4,MacdIplus3H4,MacdIplus4H4;
 
@@ -156,8 +157,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_1HalfWaveMACDH4=1;
             j=1;
-            resize = (i+2)-j;
-            ArrayResize(halfWave0H4,resize);
+            resize0H4 = (i+2)-j;
+            ArrayResize(halfWave0H4,resize0H4);
             for(j; j<i+2; j++){
                 halfWave0H4[j-1]=j;
             }
@@ -168,8 +169,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_1HalfWaveMACDH4=0;
             j=1;
-            resize = (i+2)-j;
-            ArrayResize(halfWave0H4,resize);
+            resize0H4 = (i+2)-j;
+            ArrayResize(halfWave0H4,resize0H4);
             for(j; j<i+2; j++){
                 halfWave0H4[j-1]=j;
             }
@@ -180,8 +181,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_2HalfWaveMACDH4=0;
             k=j+1;
-            resize = (i+2)-k;
-            ArrayResize(halfWave_1H4,resize);
+            resize1H4 = (i+2)-k;
+            ArrayResize(halfWave_1H4,resize1H4);
             z=0;
             for(k; k<i+2; k++){
                 halfWave_1H4[z]=k;
@@ -194,8 +195,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_2HalfWaveMACDH4=1;
             k=j+1;
-            resize = (i+2)-k;
-            ArrayResize(halfWave_1H4,resize);
+            resize1H4 = (i+2)-k;
+            ArrayResize(halfWave_1H4,resize1H4);
             z=0;
             for(k; k<i+2; k++){
                 halfWave_1H4[z]=k;
@@ -208,8 +209,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_3HalfWaveMACDH4=1;
             m=k+1;
-            resize = (i+2)-m;
-            ArrayResize(halfWave_2H4,resize);
+            resize2H4 = (i+2)-m;
+            ArrayResize(halfWave_2H4,resize2H4);
             y=0;
             for(m; m<i+2; m++){
                 halfWave_2H4[y]=m;
@@ -222,8 +223,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_3HalfWaveMACDH4=0;
             m=k+1;
-            resize = (i+2)-m;
-            ArrayResize(halfWave_2H4,resize);
+            resize2H4 = (i+2)-m;
+            ArrayResize(halfWave_2H4,resize2H4);
             y=0;
             for(m; m<i+2; m++){
                     halfWave_2H4[y]=m;
@@ -236,8 +237,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_4HalfWaveMACDH4=0;
             p=m+1;
-            resize = (i+2)-p;
-            ArrayResize(halfWave_1H4,resize);
+            resize3H4 = (i+2)-p;
+            ArrayResize(halfWave_3H4,resize3H4);
             x=0;
             for(p; p<i+2; p++){
                 halfWave_3H4[x]=p;
@@ -250,8 +251,8 @@ ArrayResize - в цикле не пойдет, так как есть
             countHalfWavesH4++;
             what_4HalfWaveMACDH4=1;
             p=m+1;
-            resize = (i+2)-p;
-            ArrayResize(halfWave_1H4,resize);
+            resize3H4 = (i+2)-p;
+            ArrayResize(halfWave_3H4,resize3H4);
             x=0;
             for(p; p<i+2; p++){
                 halfWave_3H4[x]=p;
