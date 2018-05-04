@@ -4,7 +4,7 @@
 //|                                           http://www.alpari.org/ |
 //+------------------------------------------------------------------+
 
-extern double TakeProfit = 1200;
+extern double TakeProfit = 2400;
 extern double StopLoss = 10000;
 extern double Lots = 1;
 extern double TrailingStop = 10000;
@@ -990,19 +990,19 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
          if(OrderType()==OP_BUY)   // long position is opened
            {
             // should it be closed?
-            /*if(MacdPrevious>0 && MacdCurrent<0)
+/*if(MacdPrevious>0 && MacdCurrent<0)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
                  return(0); // exit
                 }*/
             // check for trailing stop
-            if(TrailingStop>0&&!(OrderStopLoss()>OrderOpenPrice()))
+            if(TrailingStop>0)
               {
-               if(Bid>Low[1]&&Low[1]>OrderOpenPrice())
+               if(Bid>OrderOpenPrice()&& (Bid - OrderOpenPrice())> (Ask - Bid)*2)// если текущая цена БОЛЬШЕ цены открытия И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
                  {
-                  if(Low[1]>OrderStopLoss())
+                  if(Bid-((Bid - OrderOpenPrice())*0.5)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Low[1],OrderTakeProfit(),0,Green);
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*0.5),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
                      return(0);
                     }
                  }
@@ -1011,19 +1011,20 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
          else // go to short position
            {
             // should it be closed?
-            /*if(MacdPrevious<0 && MacdCurrent>0)
+/*if(MacdPrevious<0 && MacdCurrent>0)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
                  return(0); // exit
                 }*/
             // check for trailing stop
-            if(TrailingStop>0 && (OrderStopLoss()>OrderOpenPrice()||OrderStopLoss()==0))  // работает
+            if(TrailingStop>0)
               {
-               if(Ask<(High[1]+(Ask-Bid)*2)&&(High[1]+(Ask-Bid)*2)<OrderOpenPrice())
+              // ПРОДАЖА, Цена Открытия > Текущей цены, И (Цена Открытия - Текущая цена > Двойного Среда)
+               if(OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask - Bid)*2))// если текущая цена + двойной спред МЕНЬШЕ цены открытия (Уберу двойной спред) И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
                  {
-                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
+                  if(Ask+((OrderOpenPrice()-Ask)*0.5)<OrderStopLoss()|| (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*0.5),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
                      return(0);
                     }
                  }
