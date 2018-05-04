@@ -161,7 +161,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
   else if (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
-  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
+  // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
   for (i = 1;countHalfWavesH4<=3;i++){
   MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -283,7 +283,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1H1>0 && Macd_2H1>0){what0HalfWaveMACDH1 =0;}
   else if (Macd_1H1<0 && Macd_2H1<0){what0HalfWaveMACDH1 =1;}
-  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H1 ", countHalfWavesH1);
+  // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H1 ", countHalfWavesH1);
   for (i = 1;countHalfWavesH1<=3;i++){
   MacdIplus3H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -406,7 +406,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1M15>0 && Macd_2M15>0){what0HalfWaveMACDM15 =0;}
   else if (Macd_1M15<0 && Macd_2M15<0){what0HalfWaveMACDM15 =1;}
-  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M15 ", countHalfWavesM15);
+  // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M15 ", countHalfWavesM15);
   for (i = 1;countHalfWavesM15<=3;i++){
   MacdIplus3M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -528,7 +528,7 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_2M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
   if (Macd_1M5>0 && Macd_2M5>0){what0HalfWaveMACDM5 =0;}
   else if (Macd_1M5<0 && Macd_2M5<0){what0HalfWaveMACDM5 =1;}
-  else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M5 ", countHalfWavesM5);
+  // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M5 ", countHalfWavesM5);
   for (i = 1;countHalfWavesM5<=3;i++){
   MacdIplus3M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
   MacdIplus4M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
@@ -651,7 +651,7 @@ ArrayResize - в цикле не пойдет, так как есть
     Macd_2M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
     if (Macd_1M1>0 && Macd_2M1>0){what0HalfWaveMACDM1 =0;}
     else if (Macd_1M1<0 && Macd_2M1<0){what0HalfWaveMACDM1 =1;}
-    else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M1 ", countHalfWavesM1);
+    // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_M1 ", countHalfWavesM1);
     for (i = 1;countHalfWavesM1<=3;i++){
     MacdIplus3M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
     MacdIplus4M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
