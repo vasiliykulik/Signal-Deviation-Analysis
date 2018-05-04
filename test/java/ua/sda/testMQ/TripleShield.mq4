@@ -231,7 +231,7 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
-    if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4>0 && MacdIplus4H4>0)
+    if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
             countHalfWavesH4++;
             what_4HalfWaveMACDH4=0;
@@ -245,7 +245,7 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
-    if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4<0 && MacdIplus4H4<0)
+    if (countHalfWavesH4==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
             countHalfWavesH4++;
             what_4HalfWaveMACDH4=1;
