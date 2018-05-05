@@ -33,6 +33,7 @@ int start()
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
    int
+   begin, zz,
    countHalfWavesH4,
    countHalfWavesH1,
    countHalfWavesM15,
@@ -158,24 +159,30 @@ ArrayResize - в цикле не пойдет, так как есть
 
 /*Algorithm, part for H4 Half Waves*/
   countHalfWavesH4 =0;
-  Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
-  Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
-  if (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
-  else if (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
+  begin = 0;
+  while(!(Macd_1H4>0 && Macd_2H4>0) || !(Macd_1H4<0 && Macd_2H4<0)){
+  begin++;
+    Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
+    Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+    if        (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
+    else if   (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
+  }
   // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
-  for (i = 1;countHalfWavesH4<=3;i++){
-  MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+3);
-  MacdIplus4H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+4);
+  for (i = begin;countHalfWavesH4<=3;i++){
+  MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
+  MacdIplus4H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
 
     if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
             countHalfWavesH4++;
             what_1HalfWaveMACDH4=1;
-            j=1;
+            j=begin+1;
             resize0H4 = (i+2)-j;
             ArrayResize(halfWave0H4,resize0H4);
+            zz=0;
             for(j; j<i+2; j++){
-                halfWave0H4[j-1]=j;
+                halfWave0H4[zz]=j;
+                zz++;
             }
             // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
@@ -183,11 +190,13 @@ ArrayResize - в цикле не пойдет, так как есть
         {
             countHalfWavesH4++;
             what_1HalfWaveMACDH4=0;
-            j=1;
+            j=begin+1;
             resize0H4 = (i+2)-j;
             ArrayResize(halfWave0H4,resize0H4);
+            zz=0;
             for(j; j<i+2; j++){
-                halfWave0H4[j-1]=j;
+                halfWave0H4[zz]=j;
+                zz++;
             }
             // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
