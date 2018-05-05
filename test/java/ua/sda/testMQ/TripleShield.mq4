@@ -49,7 +49,10 @@ int start()
    Macd_1H1, Macd_2H1, MacdIplus3H1, MacdIplus4H1,
    Macd_1M15,Macd_2M15,MacdIplus3M15,MacdIplus4M15,
    Macd_1M5, Macd_2M5, MacdIplus3M5, MacdIplus4M5,
-   Macd_1M1, Macd_2M1, MacdIplus3M1, MacdIplus4M1;
+   Macd_1M1, Macd_2M1, MacdIplus3M1, MacdIplus4M1,
+   Stochastic_1H1, Stochastic_0H1, Stochastic_1M15, Stochastic_0M15,
+   Stochastic_1M5, Stochastic_M05, Stochastic_1M1, Stochastic_0M1,
+   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1;
 
    int halfWave0H4 [];  int halfWave_1H4 [];  int halfWave_2H4 [];  int halfWave_3H4 [];
    int halfWave0H1 [];  int halfWave_1H1 [];  int halfWave_2H1 [];  int halfWave_3H1 [];
@@ -69,10 +72,8 @@ int start()
    doubleCriterionTheTimeOfEntryM5,
    what0HalfWaveMACDM1, what_1HalfWaveMACDM1, what_2HalfWaveMACDM1, what_3HalfWaveMACDM1, what_4HalfWaveMACDM1,
    doubleCriterionM1,
-   Stochastic_1H1, Stochastic0H1, Stochastic_1M15, Stochastic0M15, Stochastic_1M5, StochasticM05, Stochastic_1M1, Stochastic0M1,
    directionStochasticH1, directionStochasticM15, directionStochasticM5, directionStochasticM1,
    allStochastic,
-   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1,
    directionOsMAH1, directionOsMAM15, directionOsMAM5, directionOsMAM1,
    allOsMA;
 
@@ -852,14 +853,14 @@ ArrayResize - в цикле не пойдет, так как есть
    if (what_1halfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
    if (what_1halfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
 
-   if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
-   if (Stochastic_1M15<Stochastic0M15) {directionStochasticM15==0;}
-   if (Stochastic_1M5 <StochasticM05)  {directionStochasticM5== 0;}
-   if (Stochastic_1M1 <Stochastic0M1)  {directionStochasticM1== 0;}
-   if (Stochastic_1H1 >Stochastic0H1)  {directionStochasticH1== 1;}
-   if (Stochastic_1M15>Stochastic0M15) {directionStochasticM15==1;}
-   if (Stochastic_1M5 >StochasticM05)  {directionStochasticM5== 1;}
-   if (Stochastic_1M1 >Stochastic0M1)  {directionStochasticM1== 1;}
+   if (Stochastic_1H1 <Stochastic_0H1)  {directionStochasticH1== 0;}
+   if (Stochastic_1M15<Stochastic_0M15) {directionStochasticM15==0;}
+   if (Stochastic_1M5 <Stochastic_M05)  {directionStochasticM5== 0;}
+   if (Stochastic_1M1 <Stochastic_0M1)  {directionStochasticM1== 0;}
+   if (Stochastic_1H1 >Stochastic_0H1)  {directionStochasticH1== 1;}
+   if (Stochastic_1M15>Stochastic_0M15) {directionStochasticM15==1;}
+   if (Stochastic_1M5 >Stochastic_M05)  {directionStochasticM5== 1;}
+   if (Stochastic_1M1 >Stochastic_0M1)  {directionStochasticM1== 1;}
 
    if(directionStochasticH1 == 0 И directionStochasticM15== 0 И directionStochasticM5 == 0 И directionStochasticM1 == 0) то allStochastic ==0
    if(directionStochasticH1 == 1 И directionStochasticM15== 1 И directionStochasticM5 == 1 И directionStochasticM1 == 1) то allStochastic ==1
@@ -891,14 +892,39 @@ if (what_1HalfWaveMACDM5 ==1 && what_3HalfWaveMACDM5==1) {doubleCriterionTheTime
 if (what_1HalfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
 if (what_1HalfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
 
-   if (Stochastic_1H1 <Stochastic0H1)  {directionStochasticH1== 0;}
-   if (Stochastic_1M15<Stochastic0M15) {directionStochasticM15==0;}
-   if (Stochastic_1M5 <StochasticM05)  {directionStochasticM5== 0;}
-   if (Stochastic_1M1 <Stochastic0M1)  {directionStochasticM1== 0;}
-   if (Stochastic_1H1 >Stochastic0H1)  {directionStochasticH1== 1;}
-   if (Stochastic_1M15>Stochastic0M15) {directionStochasticM15==1;}
-   if (Stochastic_1M5 >StochasticM05)  {directionStochasticM5== 1;}
-   if (Stochastic_1M1 >Stochastic0M1)  {directionStochasticM1== 1;}
+
+/*Вопрос какие Полуволны брать в расчет 0,1 или 1,2 (там где я брал MACD - я брал 1,2 - потомучто для
+критериев мне надо были завершенные волны)*/
+
+/*да и здесь обработка нулевых значений, может если 0 то принять предыдущую тенденцию?*/
+Stochastic_1H1  = iStochastic(NULL,PERIOD_H1,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_0H1  = iStochastic(NULL,PERIOD_H1,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_1M15 = iStochastic(NULL,PERIOD_M15,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_0M15 = iStochastic(NULL,PERIOD_M15,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_1M5  = iStochastic(NULL,PERIOD_M5,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_M05  = iStochastic(NULL,PERIOD_M5,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_1M1  = iStochastic(NULL,PERIOD_M1,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_0M1  = iStochastic(NULL,PERIOD_M1,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+
+OsMA0H1   = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
+OsMA_1H1  = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
+OsMA015   = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
+OsMA_1M15 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
+OsMA05    = iOsMA(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,0);
+OsMA_1M5  = iOsMA(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,1);
+OsMA01    = iOsMA(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,0);
+OsMA_1M1  = iOsMA(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,1);
+
+
+
+   if (Stochastic_1H1 <Stochastic_0H1)  {directionStochasticH1== 0;}
+   if (Stochastic_1M15<Stochastic_0M15) {directionStochasticM15==0;}
+   if (Stochastic_1M5 <Stochastic_M05)  {directionStochasticM5== 0;}
+   if (Stochastic_1M1 <Stochastic_0M1)  {directionStochasticM1== 0;}
+   if (Stochastic_1H1 >Stochastic_0H1)  {directionStochasticH1== 1;}
+   if (Stochastic_1M15>Stochastic_0M15) {directionStochasticM15==1;}
+   if (Stochastic_1M5 >Stochastic_M05)  {directionStochasticM5== 1;}
+   if (Stochastic_1M1 >Stochastic_0M1)  {directionStochasticM1== 1;}
 
 if(directionStochasticH1 == 0 && directionStochasticM15== 0 && directionStochasticM5 == 0 && directionStochasticM1 == 0) {allStochastic ==0;}
 if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochasticM5 == 1 && directionStochasticM1 == 1) {allStochastic ==1;}
