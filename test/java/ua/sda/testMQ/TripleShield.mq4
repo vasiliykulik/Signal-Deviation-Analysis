@@ -1009,16 +1009,16 @@ Print("start of H4 for block");}
 //Print("what_1HalfWaveMACDM15 = ",what_1HalfWaveMACDM15," what_3HalfWaveMACDM15 = ",what_3HalfWaveMACDM15);
 //Print("what_1HalfWaveMACDM5 = ",what_1HalfWaveMACDM5," what_3HalfWaveMACDM5 = ",what_3HalfWaveMACDM5);
 //Print("what_1HalfWaveMACDM1 = ",what_1HalfWaveMACDM1," what_3HalfWaveMACDM1 = ",what_3HalfWaveMACDM1);
-if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDH4==0) {doubleCriterionChannelH4 = 0;}
-if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDH4==1) {doubleCriterionChannelH4 = 1;}
-if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) {doubleCriterionTrendH1 = 0;}
-if (what_1HalfWaveMACDH1 ==1 && what_3HalfWaveMACDH1==1) {doubleCriterionTrendH1 = 1;}
-if (what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0) {doubleCriterionEntryPointM15 = 0;}
-if (what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1) {doubleCriterionEntryPointM15 = 1;}
-if (what_1HalfWaveMACDM5 ==0 && what_3HalfWaveMACDM5==0) {doubleCriterionTheTimeOfEntryM5 = 0;}
-if (what_1HalfWaveMACDM5 ==1 && what_3HalfWaveMACDM5==1) {doubleCriterionTheTimeOfEntryM5 = 1;}
-if (what_1HalfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 0;}
-if (what_1HalfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;}
+if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDH4==0) {doubleCriterionChannelH4 = 1;}
+if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDH4==1) {doubleCriterionChannelH4 = 0;}
+if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) {doubleCriterionTrendH1 = 1;}
+if (what_1HalfWaveMACDH1 ==1 && what_3HalfWaveMACDH1==1) {doubleCriterionTrendH1 = 0;}
+if (what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0) {doubleCriterionEntryPointM15 = 1;}
+if (what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1) {doubleCriterionEntryPointM15 = 0;}
+if (what_1HalfWaveMACDM5 ==0 && what_3HalfWaveMACDM5==0) {doubleCriterionTheTimeOfEntryM5 = 1;}
+if (what_1HalfWaveMACDM5 ==1 && what_3HalfWaveMACDM5==1) {doubleCriterionTheTimeOfEntryM5 = 0;}
+if (what_1HalfWaveMACDM1 ==0 && what_3HalfWaveMACDM1==0) {doubleCriterionM1 = 1;}
+if (what_1HalfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 0;}
 
 
 /*Вопрос какие Полуволны брать в расчет 0,1 или 1,2 (там где я брал MACD - я брал 1,2 - потомучто для
