@@ -166,6 +166,8 @@ ArrayResize - в цикле не пойдет, так как есть
 
   countHalfWavesH4 =0;
   begin = 0;
+  Macd_1H4=0;
+  Macd_2H4=0;
   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)){
 
       begin++;
@@ -197,10 +199,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
   // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
   for (i = begin;countHalfWavesH4<=3;i++){
-  Print("i= ",i);
   MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
   MacdIplus4H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
+  Print("i= ",i, " countHalfWavesH4 = ",countHalfWavesH4," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
+  Print("(countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
     if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
             countHalfWavesH4++;
@@ -318,11 +321,22 @@ ArrayResize - в цикле не пойдет, так как есть
 
 /*Algorithm, part for H1 Half Waves*/
   countHalfWavesH1 =0;
+  Print("H1 HalfWave");
   begin = 0;
+  Macd_1H1=0;
+  Macd_2H1=0;
   while(!(Macd_1H1>0 && Macd_2H1>0) && !(Macd_1H1<0 && Macd_2H1<0)){
+
   begin++;
+
     Macd_1H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
+    Print("Macd_1H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
+    Print(Macd_1H1);
+
     Macd_2H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+    Print("Macd_2H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
+    Print(Macd_2H1);
+
     if        (Macd_1H1>0 && Macd_2H1>0){what0HalfWaveMACDH1 =0;}
     else if   (Macd_1H1<0 && Macd_2H1<0){what0HalfWaveMACDH1 =1;}
   }
@@ -330,6 +344,7 @@ ArrayResize - в цикле не пойдет, так как есть
   for (i = begin;countHalfWavesH1<=3;i++){
   MacdIplus3H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
   MacdIplus4H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
+  Print("i= ",i, " countHalfWavesH1 = ",countHalfWavesH1," what0HalfWaveMACDH1 = ", what0HalfWaveMACDH1," MacdIplus3H1= ", MacdIplus3H1, " MacdIplus4H1= ", MacdIplus4H1 );
 
     if (countHalfWavesH1==0 && what0HalfWaveMACDH1==0 && MacdIplus3H1<0 && MacdIplus4H1<0)
         {
@@ -401,6 +416,8 @@ ArrayResize - в цикле не пойдет, так как есть
             }
             // Print("halfWave_2H1", "ArrayResize(halfWave_2H1,(i-2)-m); ", (i-2)-j);
         }
+        Print("(countHalfWavesH1==2 && what_2HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0) = ", (countHalfWavesH1==2 && what_2HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0));
+        Print("MacdIplus3H1>0 && MacdIplus4H1>0 ", MacdIplus3H1," ", MacdIplus4H1);
     if (countHalfWavesH1==2 && what_2HalfWaveMACDH1==1 && MacdIplus3H1>0 && MacdIplus4H1>0)
         {
             countHalfWavesH1++;
@@ -450,8 +467,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
 
 /*Algorithm, part for M15 Half Waves*/
+  Print("M15 HalfWave");
   countHalfWavesM15 =0;
   begin = 0;
+  Macd_1M15=0;
+  Macd_2M15=0;
   while(!(Macd_1M15>0 && Macd_2M15>0) && !(Macd_1M15<0 && Macd_2M15<0)){
   begin++;
     Macd_1M15=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
@@ -582,8 +602,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
 
 /*Algorithm, part for M5 Half Waves*/
+  Print("M5 HalfWave");
   countHalfWavesM5 =0;
   begin = 0;
+  Macd_1M5=0;
+  Macd_2M5=0;
   while(!(Macd_1M5>0 && Macd_2M5>0) && !(Macd_1M5<0 && Macd_2M5<0)){
   begin++;
     Macd_1M5=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
@@ -715,8 +738,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
 
   /*Algorithm, part for M1 Half Waves*/
+  Print("M1 HalfWave");
   countHalfWavesM1 =0;
   begin = 0;
+  Macd_1M1=0;
+  Macd_2M1=0;
   while(!(Macd_1M1>0 && Macd_2M1>0) && !(Macd_1M1<0 && Macd_2M1<0)){
   begin++;
     Macd_1M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
@@ -959,6 +985,12 @@ ArrayResize - в цикле не пойдет, так как есть
    */
 
 /*Logics Start The algorithm of the trend criteria definition*/
+
+Print("what_1HalfWaveMACDH4 = ",what_1HalfWaveMACDH4," what_3HalfWaveMACDH4 = ",what_3HalfWaveMACDH4);
+Print("what_1HalfWaveMACDH1 = ",what_1HalfWaveMACDH1," what_3HalfWaveMACDH1 = ",what_3HalfWaveMACDH1);
+Print("what_1HalfWaveMACDM15 = ",what_1HalfWaveMACDM15," what_3HalfWaveMACDM15 = ",what_3HalfWaveMACDM15);
+Print("what_1HalfWaveMACDM5 = ",what_1HalfWaveMACDM5," what_3HalfWaveMACDM5 = ",what_3HalfWaveMACDM5);
+Print("what_1HalfWaveMACDM1 = ",what_1HalfWaveMACDM1," what_3HalfWaveMACDM1 = ",what_3HalfWaveMACDM1);
 if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDH4==0) {doubleCriterionChannelH4 = 0;}
 if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDH4==1) {doubleCriterionChannelH4 = 1;}
 if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) {doubleCriterionTrendH1 = 0;}
