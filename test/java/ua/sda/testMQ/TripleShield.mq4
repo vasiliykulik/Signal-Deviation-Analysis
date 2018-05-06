@@ -52,7 +52,7 @@ void OnTick(void)
    Macd_1M5, Macd_2M5, MacdIplus3M5, MacdIplus4M5,
    Macd_1M1, Macd_2M1, MacdIplus3M1, MacdIplus4M1,
    Stochastic_1H1, Stochastic_0H1, Stochastic_1M15, Stochastic_0M15,
-   Stochastic_1M5, Stochastic_M05, Stochastic_1M1, Stochastic_0M1,
+   Stochastic_1M5, Stochastic_0M5, Stochastic_1M1, Stochastic_0M1,
    OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1;
 
    int halfWave0H4 [];  int halfWave_1H4 [];  int halfWave_2H4 [];  int halfWave_3H4 [];
@@ -959,11 +959,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
    if (Stochastic_1H1 <Stochastic_0H1)  {directionStochasticH1== 0;}
    if (Stochastic_1M15<Stochastic_0M15) {directionStochasticM15==0;}
-   if (Stochastic_1M5 <Stochastic_M05)  {directionStochasticM5== 0;}
+   if (Stochastic_1M5 <Stochastic_0M5)  {directionStochasticM5== 0;}
    if (Stochastic_1M1 <Stochastic_0M1)  {directionStochasticM1== 0;}
    if (Stochastic_1H1 >Stochastic_0H1)  {directionStochasticH1== 1;}
    if (Stochastic_1M15>Stochastic_0M15) {directionStochasticM15==1;}
-   if (Stochastic_1M5 >Stochastic_M05)  {directionStochasticM5== 1;}
+   if (Stochastic_1M5 >Stochastic_0M5)  {directionStochasticM5== 1;}
    if (Stochastic_1M1 >Stochastic_0M1)  {directionStochasticM1== 1;}
 
    if(directionStochasticH1 == 0 И directionStochasticM15== 0 И directionStochasticM5 == 0 И directionStochasticM1 == 0) то allStochastic ==0
@@ -1007,14 +1007,14 @@ if (what_1HalfWaveMACDM1 ==1 && what_3HalfWaveMACDM1==1) {doubleCriterionM1 = 1;
 критериев мне надо были завершенные волны)*/
 
 /*да и здесь обработка нулевых значений, может если 0 то принять предыдущую тенденцию?*/
-Stochastic_1H1  = iStochastic(NULL,PERIOD_H1,5,3,3,MODE_SMA,0,MODE_MAIN,0);
-Stochastic_0H1  = iStochastic(NULL,PERIOD_H1,5,3,3,MODE_SMA,0,MODE_MAIN,1);
-Stochastic_1M15 = iStochastic(NULL,PERIOD_M15,5,3,3,MODE_SMA,0,MODE_MAIN,0);
-Stochastic_0M15 = iStochastic(NULL,PERIOD_M15,5,3,3,MODE_SMA,0,MODE_MAIN,1);
-Stochastic_1M5  = iStochastic(NULL,PERIOD_M5,5,3,3,MODE_SMA,0,MODE_MAIN,0);
-Stochastic_M05  = iStochastic(NULL,PERIOD_M5,5,3,3,MODE_SMA,0,MODE_MAIN,1);
-Stochastic_1M1  = iStochastic(NULL,PERIOD_M1,5,3,3,MODE_SMA,0,MODE_MAIN,0);
-Stochastic_0M1  = iStochastic(NULL,PERIOD_M1,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_0H1  = iStochastic(NULL,PERIOD_H1,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_1H1  = iStochastic(NULL,PERIOD_H1,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_0M15 = iStochastic(NULL,PERIOD_M15,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_1M15 = iStochastic(NULL,PERIOD_M15,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_0M5  = iStochastic(NULL,PERIOD_M5,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_1M5  = iStochastic(NULL,PERIOD_M5,5,3,3,MODE_SMA,0,MODE_MAIN,1);
+Stochastic_0M1  = iStochastic(NULL,PERIOD_M1,5,3,3,MODE_SMA,0,MODE_MAIN,0);
+Stochastic_1M1  = iStochastic(NULL,PERIOD_M1,5,3,3,MODE_SMA,0,MODE_MAIN,1);
 
 OsMA0H1   = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
 OsMA_1H1  = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
@@ -1027,29 +1027,29 @@ OsMA_1M1  = iOsMA(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,1);
 
 
 
-   if (Stochastic_1H1 <Stochastic_0H1)  {directionStochasticH1== 0;}
-   if (Stochastic_1M15<Stochastic_0M15) {directionStochasticM15==0;}
-   if (Stochastic_1M5 <Stochastic_M05)  {directionStochasticM5== 0;}
-   if (Stochastic_1M1 <Stochastic_0M1)  {directionStochasticM1== 0;}
-   if (Stochastic_1H1 >Stochastic_0H1)  {directionStochasticH1== 1;}
-   if (Stochastic_1M15>Stochastic_0M15) {directionStochasticM15==1;}
-   if (Stochastic_1M5 >Stochastic_M05)  {directionStochasticM5== 1;}
-   if (Stochastic_1M1 >Stochastic_0M1)  {directionStochasticM1== 1;}
+   if (Stochastic_1H1  < Stochastic_0H1)  {directionStochasticH1=  0;}
+   if (Stochastic_1M15 < Stochastic_0M15) {directionStochasticM15= 0;}
+   if (Stochastic_1M5  < Stochastic_0M5)  {directionStochasticM5=  0;}
+   if (Stochastic_1M1  < Stochastic_0M1)  {directionStochasticM1=  0;}
+   if (Stochastic_1H1  > Stochastic_0H1)  {directionStochasticH1=  1;}
+   if (Stochastic_1M15 > Stochastic_0M15) {directionStochasticM15= 1;}
+   if (Stochastic_1M5  > Stochastic_0M5)  {directionStochasticM5=  1;}
+   if (Stochastic_1M1  > Stochastic_0M1)  {directionStochasticM1=  1;}
 
-if(directionStochasticH1 == 0 && directionStochasticM15== 0 && directionStochasticM5 == 0 && directionStochasticM1 == 0) {allStochastic ==0;}
-if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochasticM5 == 1 && directionStochasticM1 == 1) {allStochastic ==1;}
+if(directionStochasticH1 == 0 && directionStochasticM15== 0 && directionStochasticM5 == 0 && directionStochasticM1 == 0) {allStochastic = 0;}
+if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochasticM5 == 1 && directionStochasticM1 == 1) {allStochastic = 1;}
 
-   if (OsMA_1H1>OsMA0H1)  {directionOsMAH1== 0;}
-   if (OsMA_1M15>OsMA015) {directionOsMAM15==0;}
-   if (OsMA_1M5>OsMA05)   {directionOsMAM5== 0;}
-   if (OsMA_1M1>OsMA01)   {directionOsMAM1== 0;}
-   if (OsMA_1H1<OsMA0H1)  {directionOsMAH1== 1;}
-   if (OsMA_1M15<OsMA015) {directionOsMAM15==1;}
-   if (OsMA_1M5<OsMA05)   {directionOsMAM5== 1;}
-   if (OsMA_1M1<OsMA01)   {directionOsMAM1== 1;}
+   if (OsMA_1H1  < OsMA0H1)  {directionOsMAH1  =  0;}
+   if (OsMA_1M15 < OsMA015)  {directionOsMAM15 =  0;}
+   if (OsMA_1M5  < OsMA05)   {directionOsMAM5  =  0;}
+   if (OsMA_1M1  < OsMA01)   {directionOsMAM1  =  0;}
+   if (OsMA_1H1  > OsMA0H1)  {directionOsMAH1  =  1;}
+   if (OsMA_1M15 > OsMA015)  {directionOsMAM15 =  1;}
+   if (OsMA_1M5  > OsMA05)   {directionOsMAM5  =  1;}
+   if (OsMA_1M1  > OsMA01)   {directionOsMAM1  =  1;}
 
-if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA ==0;}
-if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA ==1;}
+if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA = 0;}
+if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;}
 /*Logics End The algorithm of the trend criteria definition*/
 
 
