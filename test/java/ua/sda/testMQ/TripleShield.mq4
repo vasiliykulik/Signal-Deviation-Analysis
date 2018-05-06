@@ -76,7 +76,8 @@ void OnTick(void)
    directionStochasticH1, directionStochasticM15, directionStochasticM5, directionStochasticM1,
    allStochastic,
    directionOsMAH1, directionOsMAM15, directionOsMAM5, directionOsMAM1,
-   allOsMA;
+   allOsMA,
+   checkOsMA,checkStochastic;
 
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
@@ -1036,8 +1037,8 @@ OsMA_1M1  = iOsMA(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,1);
    if (Stochastic_1M5  > Stochastic_0M5)  {directionStochasticM5=  1;}
    if (Stochastic_1M1  > Stochastic_0M1)  {directionStochasticM1=  1;}
 
-if(directionStochasticH1 == 0 && directionStochasticM15== 0 && directionStochasticM5 == 0 && directionStochasticM1 == 0) {allStochastic = 0;}
-if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochasticM5 == 1 && directionStochasticM1 == 1) {allStochastic = 1;}
+if(directionStochasticH1 == 0 && directionStochasticM15== 0 && directionStochasticM5 == 0 && directionStochasticM1 == 0) {allStochastic = 0; checkStochastic = 1;}
+if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochasticM5 == 1 && directionStochasticM1 == 1) {allStochastic = 1; checkStochastic = 1;}
 
    if (OsMA_1H1  < OsMA0H1)  {directionOsMAH1  =  0;}
    if (OsMA_1M15 < OsMA015)  {directionOsMAM15 =  0;}
@@ -1048,8 +1049,8 @@ if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochast
    if (OsMA_1M5  > OsMA05)   {directionOsMAM5  =  1;}
    if (OsMA_1M1  > OsMA01)   {directionOsMAM1  =  1;}
 
-if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA = 0;}
-if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;}
+if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA = 0;checkOsMA = 1;}
+if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;checkOsMA = 1;}
 /*Logics End The algorithm of the trend criteria definition*/
 
 
@@ -1074,7 +1075,7 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
             */
             buy ==1 &&
             // Criterion for buy position according to the TS
-            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0
+            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic = 1
         )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
@@ -1094,7 +1095,7 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
            */
            sell ==1 &&
            // Criterion for sell position according to the TS
-           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1
+           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic = 1
       )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
