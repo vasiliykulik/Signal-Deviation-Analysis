@@ -987,11 +987,11 @@ ArrayResize - в цикле не пойдет, так как есть
 
 /*Logics Start The algorithm of the trend criteria definition*/
 
-Print("what_1HalfWaveMACDH4 = ",what_1HalfWaveMACDH4," what_3HalfWaveMACDH4 = ",what_3HalfWaveMACDH4);
-Print("what_1HalfWaveMACDH1 = ",what_1HalfWaveMACDH1," what_3HalfWaveMACDH1 = ",what_3HalfWaveMACDH1);
-Print("what_1HalfWaveMACDM15 = ",what_1HalfWaveMACDM15," what_3HalfWaveMACDM15 = ",what_3HalfWaveMACDM15);
-Print("what_1HalfWaveMACDM5 = ",what_1HalfWaveMACDM5," what_3HalfWaveMACDM5 = ",what_3HalfWaveMACDM5);
-Print("what_1HalfWaveMACDM1 = ",what_1HalfWaveMACDM1," what_3HalfWaveMACDM1 = ",what_3HalfWaveMACDM1);
+//Print("what_1HalfWaveMACDH4 = ",what_1HalfWaveMACDH4," what_3HalfWaveMACDH4 = ",what_3HalfWaveMACDH4);
+//Print("what_1HalfWaveMACDH1 = ",what_1HalfWaveMACDH1," what_3HalfWaveMACDH1 = ",what_3HalfWaveMACDH1);
+//Print("what_1HalfWaveMACDM15 = ",what_1HalfWaveMACDM15," what_3HalfWaveMACDM15 = ",what_3HalfWaveMACDM15);
+//Print("what_1HalfWaveMACDM5 = ",what_1HalfWaveMACDM5," what_3HalfWaveMACDM5 = ",what_3HalfWaveMACDM5);
+//Print("what_1HalfWaveMACDM1 = ",what_1HalfWaveMACDM1," what_3HalfWaveMACDM1 = ",what_3HalfWaveMACDM1);
 if (what_1HalfWaveMACDH4 ==0 && what_3HalfWaveMACDH4==0) {doubleCriterionChannelH4 = 0;}
 if (what_1HalfWaveMACDH4 ==1 && what_3HalfWaveMACDH4==1) {doubleCriterionChannelH4 = 1;}
 if (what_1HalfWaveMACDH1 ==0 && what_3HalfWaveMACDH1==0) {doubleCriterionTrendH1 = 0;}
