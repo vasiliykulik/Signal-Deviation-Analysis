@@ -160,49 +160,49 @@ ArrayResize - в цикле не пойдет, так как есть
 /*Algorithm, part for H4 Half Waves*/
 
   Print("Test Vasiliy", !(Macd_1H4>0 && Macd_2H4>0) || !(Macd_1H4<0 && Macd_2H4<0));// будет 1
+  
 
-
-
-
+  
+  
   countHalfWavesH4 =0;
   begin = 0;
   Macd_1H4=0;
   Macd_2H4=0;
   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)){
-
+  
       begin++;
-
+      
       Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
       Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
       Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
       Print(Macd_1H4);
-
+      
       Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
       Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)");
       Print(Macd_1H4);
-
+      
       Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
       Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
       Print(Macd_2H4);
-
+      
       Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
       Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)");
       Print(Macd_2H4);
-
+      
       if        (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
       else if   (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
   }
-
-
-
-
-
+  
+  
+  
+  
+  
   // else Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
   for (i = begin;countHalfWavesH4<=3;i++){
   MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
   MacdIplus4H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
   Print("i= ",i, " countHalfWavesH4 = ",countHalfWavesH4," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
-
+  
   Print("(countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
     if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -326,17 +326,17 @@ ArrayResize - в цикле не пойдет, так как есть
   Macd_1H1=0;
   Macd_2H1=0;
   while(!(Macd_1H1>0 && Macd_2H1>0) && !(Macd_1H1<0 && Macd_2H1<0)){
-
+  
   begin++;
-
+  
     Macd_1H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
     Print("Macd_1H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
     Print(Macd_1H1);
-
+    
     Macd_2H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
     Print("Macd_2H1=iMACD(NULL,PERIOD_H1,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
     Print(Macd_2H1);
-
+    
     if        (Macd_1H1>0 && Macd_2H1>0){what0HalfWaveMACDH1 =0;}
     else if   (Macd_1H1<0 && Macd_2H1<0){what0HalfWaveMACDH1 =1;}
   }
@@ -604,7 +604,7 @@ ArrayResize - в цикле не пойдет, так как есть
 /*Algorithm, part for M5 Half Waves*/
   Print("M5 HalfWave");
   countHalfWavesM5 =0;
-  begin = 0;
+  begin = 0;  
   Macd_1M5=0;
   Macd_2M5=0;
   while(!(Macd_1M5>0 && Macd_2M5>0) && !(Macd_1M5<0 && Macd_2M5<0)){
