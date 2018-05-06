@@ -8,7 +8,7 @@ extern double TakeProfit = 2400;
 extern double StopLoss = 1600;
 extern double Lots = 1;
 extern double TrailingStop = 10000;
-
+int iteration;
 /*
 Обьекты:
 Тик
@@ -44,8 +44,7 @@ void OnTick(void)
      resize0H1, resize1H1, resize2H1, resize3H1,
      resize0M15, resize1M15, resize2M15, resize3M15,
      resize0M5, resize1M5, resize2M5, resize3M5,
-     resize0M1, resize1M1, resize2M1, resize3M1,
-     iteration;
+     resize0M1, resize1M1, resize2M1, resize3M1;
    double
    Macd_1H4, Macd_2H4, MacdIplus3H4, MacdIplus4H4,
    Macd_1H1, Macd_2H1, MacdIplus3H1, MacdIplus4H1,
@@ -175,30 +174,47 @@ ArrayResize - в цикле не пойдет, так как есть
       begin++;
 
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
-      Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
       // Print(Macd_1H4);
 
-      Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
-      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)");
-      // Print(Macd_1H4);
+      Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
 
+/*
+      if(iteration==15391){
+      Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,1)");
+      Print(Macd_1H4);
+      }
+*/
       Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
-      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
-      // Print(Macd_2H4);
+ /*
+      if(iteration==15391){
+      Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
+      Print(Macd_2H4);
+      }
 
       Macd_2H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
-      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)");
-      // Print(Macd_2H4);
+            if(iteration==15391){
+      Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,2)");
+      Print(Macd_2H4);
 
+      }
+*/
       if        (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
       else if   (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
+ /*     if(iteration==15391){
+      Print("Macd_1H4 = ", Macd_1H4, " Macd_2H4 = ", Macd_2H4, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
+      Print("Macd_1H4>0 = ", Macd_1H4>0, " Macd_2H4>0 = ", Macd_2H4>0, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
+      Print("Macd_1H4<0 = ", Macd_1H4<0, " Macd_2H4<0 = ", Macd_2H4<0, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
+      Print(begin);
+      }
+      */
   }
 
+/*
+if(iteration==15391){
+Print("start of H4 for block");}
 
-
-
-
+*/
   // else // Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
   for (i = begin;countHalfWavesH4<=3;i++){
   MacdIplus3H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
@@ -1052,8 +1068,8 @@ if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochast
 
 if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA = 0;checkOsMA = 1;}
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;checkOsMA = 1;}
-Print("iteration = ",iteration);
-iteration++;
+Print("iteration = ",iteration++);
+
 /*Logics End The algorithm of the trend criteria definition*/
 
 
