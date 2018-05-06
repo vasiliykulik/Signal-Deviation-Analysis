@@ -1052,7 +1052,8 @@ if(directionStochasticH1 == 1 && directionStochasticM15== 1 && directionStochast
 
 if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && directionOsMAM1 == 0) {allOsMA = 0;checkOsMA = 1;}
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;checkOsMA = 1;}
-Print("iteration = ",iteration++);
+Print("iteration = ",iteration);
+iteration++;
 /*Logics End The algorithm of the trend criteria definition*/
 
 
