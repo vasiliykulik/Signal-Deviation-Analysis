@@ -53,7 +53,8 @@ void OnTick(void)
    Macd_1M1, Macd_2M1, MacdIplus3M1, MacdIplus4M1,
    Stochastic_1H1, Stochastic_0H1, Stochastic_1M15, Stochastic_0M15,
    Stochastic_1M5, Stochastic_0M5, Stochastic_1M1, Stochastic_0M1,
-   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1;
+   OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1,
+   Macd_0_M1,Macd_1_M1;
 
    int halfWave0H4 [];  int halfWave_1H4 [];  int halfWave_2H4 [];  int halfWave_3H4 [];
    int halfWave0H1 [];  int halfWave_1H1 [];  int halfWave_2H1 [];  int halfWave_3H1 [];
@@ -893,7 +894,6 @@ Print("start of H4 for block");}
 
 
 
-
 /*   The algorithm of the trend criteria definition:
    Идём по истории H4
    1) what0HalfWaveMACDH4 (0 это положительная 1 это отрицательная)
@@ -1070,6 +1070,11 @@ if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && direc
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;checkOsMA = 1;}
 Print("iteration = ",iteration++);
 
+
+ Macd_0_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,0);
+ Macd_1_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
+
+
 /*Logics End The algorithm of the trend criteria definition*/
 
 
@@ -1094,7 +1099,7 @@ Print("iteration = ",iteration++);
             */
             buy ==1 &&
             // Criterion for buy position according to the TS
-            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1
+            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 && 0>Macd_1_M1 && Macd_0_M1>0
         )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
@@ -1114,7 +1119,7 @@ Print("iteration = ",iteration++);
            */
            sell ==1 &&
            // Criterion for sell position according to the TS
-           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1
+           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 && 0<Macd_1_M1 && Macd_0_M1<0
       )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
