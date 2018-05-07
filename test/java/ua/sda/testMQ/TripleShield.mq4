@@ -55,7 +55,8 @@ void OnTick(void)
    Stochastic_1H1, Stochastic_0H1, Stochastic_1M15, Stochastic_0M15,
    Stochastic_1M5, Stochastic_0M5, Stochastic_1M1, Stochastic_0M1,
    OsMA0H1, OsMA_1H1, OsMA015, OsMA_1M15, OsMA05, OsMA_1M5, OsMA01, OsMA_1M1,
-   Macd_0_M1,Macd_1_M1;
+   Macd_0_M1,Macd_1_M1,
+   temp, result1, result3;
 
    int halfWave0H4 [];  int halfWave_1H4 [];  int halfWave_2H4 [];  int halfWave_3H4 [];
    int halfWave0H1 [];  int halfWave_1H1 [];  int halfWave_2H1 [];  int halfWave_3H1 [];
@@ -1076,7 +1077,8 @@ Print("iteration = ",iteration++);
 
 // Criterion Direction H4
 if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionH4count=0; criterionDirectionH4count<resize1H4; criterionDirectionH4count){
         double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[criterionDirectionH4count]);
             if(result1<temp){result1 = temp;}
@@ -1089,7 +1091,8 @@ if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
 }
 
 if(what_1HalfWaveMACDH1==1 && what_3HalfWaveMACDH1==1){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionH1count=0; criterionDirectionH1count<resize1H1; criterionDirectionH1count){
         double temp = iHigh(NULL,PERIOD_H1,halfWave_1H1[criterionDirectionH1count]);
             if(result1>temp){result1 = temp;}
@@ -1103,7 +1106,8 @@ if(what_1HalfWaveMACDH1==1 && what_3HalfWaveMACDH1==1){
 
 // Criterion Direction H1
 if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionH4count=0; criterionDirectionH4count<resize1H4; criterionDirectionH4count){
         double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[criterionDirectionH4count]);
             if(result1<temp){result1 = temp;}
@@ -1116,7 +1120,8 @@ if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
 }
 
 if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionH4count=0; criterionDirectionH4count<resize1H4; criterionDirectionH4count){
         double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[criterionDirectionH4count]);
             if(result1>temp){result1 = temp;}
@@ -1131,7 +1136,8 @@ if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
 
 // Criterion Direction M15
 if(what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionM15count=0; criterionDirectionM15count<resize1M15; criterionDirectionM15count){
         double temp = iHigh(NULL,PERIOD_M15,halfWave_1M15[criterionDirectionM15count]);
             if(result1<temp){result1 = temp;}
@@ -1144,7 +1150,8 @@ if(what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0){
 }
 
 if(what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionM15count=0; criterionDirectionM15count<resize1M15; criterionDirectionM15count){
         double temp = iHigh(NULL,PERIOD_M15,halfWave_1M15[criterionDirectionM15count]);
             if(result1>temp){result1 = temp;}
@@ -1158,7 +1165,8 @@ if(what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1){
 
 // Criterion Direction M5
 if(what_1HalfWaveMACDM5==0 && what_3HalfWaveMACDM5==0){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionM5count=0; criterionDirectionM5count<resize1M5; criterionDirectionM5count){
         double temp = iHigh(NULL,PERIOD_M5,halfWave_1M5[criterionDirectionM5count]);
             if(result1<temp){result1 = temp;}
@@ -1171,7 +1179,8 @@ if(what_1HalfWaveMACDM5==0 && what_3HalfWaveMACDM5==0){
 }
 
 if(what_1HalfWaveMACDM5==1 && what_3HalfWaveMACDM5==1){
-    double result1, result3;
+    result1=0;
+    result3=0;
     for(criterionDirectionM5count=0; criterionDirectionM5count<resize1M5; criterionDirectionM5count){
         double temp = iHigh(NULL,PERIOD_M5,halfWave_1M5[criterionDirectionM5count]);
             if(result1>temp){result1 = temp;}
