@@ -45,7 +45,7 @@ void OnTick(void)
      resize0M15, resize1M15, resize2M15, resize3M15,
      resize0M5, resize1M5, resize2M5, resize3M5,
      resize0M1, resize1M1, resize2M1, resize3M1,
-     cDH4count, cDH1count, cDM15count, cDM5count, cDM1count;
+     criterionDirectionH4count, criterionDirectionH1count, criterionDirectionM15count, criterionDirectionM5count, criterionDirectionM1count;
    double
    Macd_1H4, Macd_2H4, MacdIplus3H4, MacdIplus4H4,
    Macd_1H1, Macd_2H1, MacdIplus3H1, MacdIplus4H1,
@@ -80,8 +80,8 @@ void OnTick(void)
    directionOsMAH1, directionOsMAM15, directionOsMAM5, directionOsMAM1,
    allOsMA,
    checkOsMA,checkStochastic,
-   cDH4, cDH1, cDM15, cDM5, cDM1,
-   cDH4Check, cDH1Check, cDM15Check, cDM5Check, cDM1Check;
+   criterionDirectionH4, criterionDirectionH1, criterionDirectionM15, criterionDirectionM5, criterionDirectionM1,
+   criterionDirectionH4Check, criterionDirectionH1Check, criterionDirectionM15Check, criterionDirectionM5Check, criterionDirectionM1Check;
 
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
@@ -1077,120 +1077,112 @@ Print("iteration = ",iteration++);
 // Criterion Direction H4
 if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionH4count=0; criterionDirectionH4count<resize1H4; criterionDirectionH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[criterionDirectionH4count])
             if(result1<temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionH4count=0; criterionDirectionH4count<resize3H4; criterionDirectionH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[criterionDirectionH4count])
         if(result3<temp){result3 = temp;}
     }
-    if(result3>result1){cDH4=0;cDH4Check=1;}
+    if(result3>result1){criterionDirectionH4=0;criterionDirectionH4Check=1;}
 }
 
-if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+if(what_1HalfWaveMACDH1==1 && what_3HalfWaveMACDH1==1){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionH1count=0; criterionDirectionH1count<resize1H1; criterionDirectionH1count){
+        double temp = iHigh(NULL,PERIOD_H1,halfWave_1H1[criterionDirectionH1count])
             if(result1>temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionH1count=0; criterionDirectionH1count<resize3H1; criterionDirectionH1count){
+        double temp = iHigh(NULL,PERIOD_H1,halfWave_3H1[criterionDirectionH1count])
         if(result3>temp){result3 = temp;}
     }
-    if(result3<result1){cDH4=1;cDH4Check=1;}
+    if(result3<result1){criterionDirectionH1=1;criterionDirectionH1Check=1;}
 }
 
 // Criterion Direction H1
 if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionH4count=0; criterionDirectionH4count<resize1H4; criterionDirectionH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[criterionDirectionH4count])
             if(result1<temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionH4count=0; criterionDirectionH4count<resize3H4; criterionDirectionH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[criterionDirectionH4count])
         if(result3<temp){result3 = temp;}
     }
-    if(result3>result1){cDH4=0;cDH4Check=1;}
+    if(result3>result1){criterionDirectionH4=0;criterionDirectionH4Check=1;}
 }
 
 if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionH4count=0; criterionDirectionH4count<resize1H4; criterionDirectionH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[criterionDirectionH4count])
             if(result1>temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionH4count=0; criterionDirectionH4count<resize3H4; criterionDirectionH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[criterionDirectionH4count])
         if(result3>temp){result3 = temp;}
     }
-    if(result3<result1){cDH4=1;cDH4Check=1;}
+    if(result3<result1){criterionDirectionH4=1;criterionDirectionH4Check=1;}
 }
 
 
 // Criterion Direction M15
-if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
+if(what_1HalfWaveMACDM15==0 && what_3HalfWaveMACDM15==0){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionM15count=0; criterionDirectionM15count<resize1M15; criterionDirectionM15count){
+        double temp = iHigh(NULL,PERIOD_M15,halfWave_1M15[criterionDirectionM15count])
             if(result1<temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionM15count=0; criterionDirectionM15count<resize3M15; criterionDirectionM15count){
+        double temp = iHigh(NULL,PERIOD_M15,halfWave_3M15[criterionDirectionM15count])
         if(result3<temp){result3 = temp;}
     }
-    if(result3>result1){cDH4=0;cDH4Check=1;}
+    if(result3>result1){criterionDirectionM15=0;criterionDirectionM15Check=1;}
 }
 
-if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+if(what_1HalfWaveMACDM15==1 && what_3HalfWaveMACDM15==1){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionM15count=0; criterionDirectionM15count<resize1M15; criterionDirectionM15count){
+        double temp = iHigh(NULL,PERIOD_M15,halfWave_1M15[criterionDirectionM15count])
             if(result1>temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionM15count=0; criterionDirectionM15count<resize3M15; criterionDirectionM15count){
+        double temp = iHigh(NULL,PERIOD_M15,halfWave_3M15[criterionDirectionM15count])
         if(result3>temp){result3 = temp;}
     }
-    if(result3<result1){cDH4=1;cDH4Check=1;}
+    if(result3<result1){criterionDirectionM15=1;criterionDirectionM15Check=1;}
 }
 
 // Criterion Direction M5
-if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
+if(what_1HalfWaveMACDM5==0 && what_3HalfWaveMACDM5==0){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionM5count=0; criterionDirectionM5count<resize1M5; criterionDirectionM5count){
+        double temp = iHigh(NULL,PERIOD_M5,halfWave_1M5[criterionDirectionM5count])
             if(result1<temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionM5count=0; criterionDirectionM5count<resize3M5; criterionDirectionM5count){
+        double temp = iHigh(NULL,PERIOD_M5,halfWave_3M5[criterionDirectionM5count])
         if(result3<temp){result3 = temp;}
     }
-    if(result3>result1){cDH4=0;cDH4Check=1;}
+    if(result3>result1){criterionDirectionM5=0;criterionDirectionM5Check=1;}
 }
 
-if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+if(what_1HalfWaveMACDM5==1 && what_3HalfWaveMACDM5==1){
     double result1, result3;
-    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+    for(criterionDirectionM5count=0; criterionDirectionM5count<resize1M5; criterionDirectionM5count){
+        double temp = iHigh(NULL,PERIOD_M5,halfWave_1M5[criterionDirectionM5count])
             if(result1>temp){result1 = temp;}
     }
-    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
-        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+    for(criterionDirectionM5count=0; criterionDirectionM5count<resize3M5; criterionDirectionM5count){
+        double temp = iHigh(NULL,PERIOD_M5,halfWave_3M5[criterionDirectionM5count])
         if(result3>temp){result3 = temp;}
     }
-    if(result3<result1){cDH4=1;cDH4Check=1;}
+    if(result3<result1){criterionDirectionM5=1;criterionDirectionM5Check=1;}
 }
 
-
-halfWave_1H1 [];
-halfWave_1M15 [];
-halfWave_1M5 [];
-
-halfWave_3H1 [];
-halfWave_3M15 []
-halfWave_3M5 [];
 
 // Рисуем критери
 //--- перерисуем график и подождем 1 секунду
