@@ -1070,9 +1070,14 @@ if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && direc
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;checkOsMA = 1;}
 Print("iteration = ",iteration++);
 
+// Рисуем критерии
 
- Macd_0_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,0);
- Macd_1_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_CLOSE,MODE_MAIN,1);
+//--- перерисуем график и подождем 1 секунду
+   ChartRedraw();
+
+
+ Macd_0_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ Macd_1_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
 
 /*Logics End The algorithm of the trend criteria definition*/
