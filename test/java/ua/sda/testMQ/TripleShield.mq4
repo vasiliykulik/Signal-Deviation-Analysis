@@ -44,7 +44,8 @@ void OnTick(void)
      resize0H1, resize1H1, resize2H1, resize3H1,
      resize0M15, resize1M15, resize2M15, resize3M15,
      resize0M5, resize1M5, resize2M5, resize3M5,
-     resize0M1, resize1M1, resize2M1, resize3M1;
+     resize0M1, resize1M1, resize2M1, resize3M1,
+     cDH4count, cDH1count, cDM15count, cDM5count, cDM1count;
    double
    Macd_1H4, Macd_2H4, MacdIplus3H4, MacdIplus4H4,
    Macd_1H1, Macd_2H1, MacdIplus3H1, MacdIplus4H1,
@@ -78,7 +79,9 @@ void OnTick(void)
    allStochastic,
    directionOsMAH1, directionOsMAM15, directionOsMAM5, directionOsMAM1,
    allOsMA,
-   checkOsMA,checkStochastic;
+   checkOsMA,checkStochastic,
+   cDH4, cDH1, cDM15, cDM5, cDM1,
+   cDH4Check, cDH1Check, cDM15Check, cDM5Check, cDM1Check;
 
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
@@ -1070,10 +1073,128 @@ if(directionOsMAH1 == 0 && directionOsMAM15== 0 && directionOsMAM5 == 0 && direc
 if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && directionOsMAM1 == 1) {allOsMA = 1;checkOsMA = 1;}
 Print("iteration = ",iteration++);
 
-// Рисуем критерии
 
+// Criterion Direction H4
+if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1<temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3<temp){result3 = temp;}
+    }
+    if(result3>result1){cDH4=0;cDH4Check=1;}
+}
+
+if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1>temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3>temp){result3 = temp;}
+    }
+    if(result3<result1){cDH4=1;cDH4Check=1;}
+}
+
+// Criterion Direction H1
+if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1<temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3<temp){result3 = temp;}
+    }
+    if(result3>result1){cDH4=0;cDH4Check=1;}
+}
+
+if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1>temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3>temp){result3 = temp;}
+    }
+    if(result3<result1){cDH4=1;cDH4Check=1;}
+}
+
+
+// Criterion Direction M15
+if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1<temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3<temp){result3 = temp;}
+    }
+    if(result3>result1){cDH4=0;cDH4Check=1;}
+}
+
+if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1>temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3>temp){result3 = temp;}
+    }
+    if(result3<result1){cDH4=1;cDH4Check=1;}
+}
+
+// Criterion Direction M5
+if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1<temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3<temp){result3 = temp;}
+    }
+    if(result3>result1){cDH4=0;cDH4Check=1;}
+}
+
+if(what_1HalfWaveMACDH4==1 && what_3HalfWaveMACDH4==1){
+    double result1, result3;
+    for(cDH4count=0; cDH4count<resize1H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_1H4[cDH4count])
+            if(result1>temp){result1 = temp;}
+    }
+    for(cDH4count=0; cDH4count<resize3H4; cDH4count){
+        double temp = iHigh(NULL,PERIOD_H4,halfWave_3H4[cDH4count])
+        if(result3>temp){result3 = temp;}
+    }
+    if(result3<result1){cDH4=1;cDH4Check=1;}
+}
+
+
+halfWave_1H1 [];
+halfWave_1M15 [];
+halfWave_1M5 [];
+
+halfWave_3H1 [];
+halfWave_3M15 []
+halfWave_3M5 [];
+
+// Рисуем критери
 //--- перерисуем график и подождем 1 секунду
-   ChartRedraw();
+
 
 
  Macd_0_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
