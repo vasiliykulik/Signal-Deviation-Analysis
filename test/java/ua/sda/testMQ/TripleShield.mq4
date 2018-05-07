@@ -32,11 +32,10 @@ void OnTick(void)
 
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
-string [] myPairs {"EURUSD", "GBPJPY", "GBPUSD", "USDCAD", "USDJPY"};
-int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver
+string myPairs []  = {"EURUSD", "GBPJPY", "GBPUSD", "USDCAD", "USDJPY"};
+int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
 resizeForPairDriver,pd,iPD,jPD;
 int pairDriver[];
-int resizeForPairDriver[];
 string myCurrentPair;
 double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver;
 
@@ -107,48 +106,49 @@ double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4
      }
 
      // Попробуем определить пару драйвер
-for(myPairsCount=0; myPairsCount<5;myPairsCount++){
+for(myPairsCount=0; myPairsCount<5; myPairsCount++){
 
-    myCurrentPair = myPairs[myPairsCount];
+      myCurrentPair = myPairs[myPairsCount];
 
-    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)){
-    beginPairDriver++;
-    Macd_1H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver);
-    Macd_2H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver+1);
-    if        (Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0){what0HalfWavePairDriver =0;}
-    else if   (Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0){what0HalfWavePairDriver =1;}
-
-for (iPD = beginPairDriver;countHalfWavesPairDriver<1;iPD++){
-  MacdIplus3H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
-  MacdIplus4H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
-    if (countHalfWavesPairDriver==0 && what0HalfWavePairDriver==0 && MacdIplus3H4PairDriver<0 && MacdIplus4H4PairDriver<0)
-        {
-            countHalfWavesPairDriver++;
-            what_1HalfWavePirDriver=1;
-            jPD=beginPairDriver+1;
-            resizeForPairDriver = (iPD+2)-jPD;
-            ArrayResize(pairDriver,resizeForPairDriver);
-            pd=0;
-            for(jPD; jPD<i+2; jPD++){
-                pairDriver[pd]=jPD;
-                pd++;
-            }
-        }
-    if (countHalfWavesPairDriver==0 && what0HalfWavePairDriver==1 && MacdIplus3H4PairDriver>0 && MacdIplus4H4PairDriver>0)
-        {
-            countHalfWavesPairDriver++;
-            what_1HalfWavePirDriver=0;
-            jPD=beginPairDriver+1;
-            resizeForPairDriver = (iPD+2)-jPD;
-            ArrayResize(pairDriver,resizeForPairDriver);
-            pd=0;
-            for(jPD; jPD<i+2; jPD++){
-                pairDriver[pd]=jPD;
-                pd++;
-            }
-        }
-  }
-}
+      while(!(Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0) && !(Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0)){
+      beginPairDriver++;
+      Macd_1H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver);
+      Macd_2H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver+1);
+      if        (Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0){what0HalfWavePairDriver =0;}
+      else if   (Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0){what0HalfWavePairDriver =1;}
+      countHalfWavesPairDriver=0;
+         for (iPD = beginPairDriver; countHalfWavesPairDriver<1; iPD++){
+            MacdIplus3H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,iPD+1);
+            MacdIplus4H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,iPD+2);
+            if (countHalfWavesPairDriver==0 && what0HalfWavePairDriver==0 && MacdIplus3H4PairDriver<0 && MacdIplus4H4PairDriver<0)
+               {
+                  countHalfWavesPairDriver++;
+                  what_1HalfWavePirDriver=1;
+                  jPD=beginPairDriver+1;
+                  resizeForPairDriver = (iPD+2)-jPD;
+                  ArrayResize(pairDriver,resizeForPairDriver);
+                  pd=0;
+                  for(jPD; jPD<iPD+2; jPD++){
+                      pairDriver[pd]=jPD;
+                      pd++;
+                  }
+               }
+            if (countHalfWavesPairDriver==0 && what0HalfWavePairDriver==1 && MacdIplus3H4PairDriver>0 && MacdIplus4H4PairDriver>0)
+               {
+                  countHalfWavesPairDriver++;
+                  what_1HalfWavePirDriver=0;
+                  jPD=beginPairDriver+1;
+                  resizeForPairDriver = (iPD+2)-jPD;
+                  ArrayResize(pairDriver,resizeForPairDriver);
+                  pd=0;
+                  for(jPD; jPD<iPD+2; jPD++){
+                     pairDriver[pd]=jPD;
+                     pd++;
+                  }
+               }
+         }
+                // Имеем для определения парыдрайвера массив
+      }
 }
 
    /*   The algorithm of the trend criteria detalization:
@@ -1259,8 +1259,8 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
 
 
 
- Macd_0_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
- Macd_1_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+ Macd_0_M1=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ Macd_1_M1=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
 
 /*Logics End The algorithm of the trend criteria definition*/
@@ -1287,7 +1287,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
             */
             buy ==1 &&
             // Criterion for buy position according to the TS
-            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
+            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && directionOsMAH1==0&& /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
         )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
@@ -1307,7 +1307,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
            */
            sell ==1 &&
            // Criterion for sell position according to the TS
-           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
+           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && directionOsMAH1==1&& /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
       )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
