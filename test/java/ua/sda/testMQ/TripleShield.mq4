@@ -33,8 +33,12 @@ void OnTick(void)
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
 string [] myPairs {"EURUSD", "GBPJPY", "GBPUSD", "USDCAD", "USDJPY"};
-int myPairsCount;
+int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver
+resizeForPairDriver,pd,iPD,jPD;
+int pairDriver[];
+int resizeForPairDriver[];
 string myCurrentPair;
+double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver;
 
 
    int
@@ -108,44 +112,44 @@ for(myPairsCount=0; myPairsCount<5;myPairsCount++){
     myCurrentPair = myPairs[myPairsCount];
 
     while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)){
-    begin++;
-    Macd_1H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
-    Macd_2H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
-    if        (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
-    else if   (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
+    beginPairDriver++;
+    Macd_1H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver);
+    Macd_2H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver+1);
+    if        (Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0){what0HalfWavePairDriver =0;}
+    else if   (Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0){what0HalfWavePairDriver =1;}
 
-for (i = begin;countHalfWavesH4<=3;i++){
-  MacdIplus3H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
-  MacdIplus4H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
-    if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+for (iPD = beginPairDriver;countHalfWavesPairDriver<1;iPD++){
+  MacdIplus3H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
+  MacdIplus4H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
+    if (countHalfWavesPairDriver==0 && what0HalfWavePairDriver==0 && MacdIplus3H4PairDriver<0 && MacdIplus4H4PairDriver<0)
         {
-            countHalfWavesH4++;
-            what_1HalfWaveMACDH4=1;
-            j=begin+1;
-            resize0H4 = (i+2)-j;
-            ArrayResize(halfWave0H4,resize0H4);
-            zz=0;
-            for(j; j<i+2; j++){
-                halfWave0H4[zz]=j;
-                zz++;
+            countHalfWavesPairDriver++;
+            what_1HalfWavePirDriver=1;
+            jPD=beginPairDriver+1;
+            resizeForPairDriver = (iPD+2)-jPD;
+            ArrayResize(pairDriver,resizeForPairDriver);
+            pd=0;
+            for(jPD; jPD<i+2; jPD++){
+                pairDriver[pd]=jPD;
+                pd++;
             }
         }
-    if (countHalfWavesH4==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+    if (countHalfWavesPairDriver==0 && what0HalfWavePairDriver==1 && MacdIplus3H4PairDriver>0 && MacdIplus4H4PairDriver>0)
         {
-            countHalfWavesH4++;
-            what_1HalfWaveMACDH4=0;
-            j=begin+1;
-            resize0H4 = (i+2)-j;
-            ArrayResize(halfWave0H4,resize0H4);
-            zz=0;
-            for(j; j<i+2; j++){
-                halfWave0H4[zz]=j;
-                zz++;
+            countHalfWavesPairDriver++;
+            what_1HalfWavePirDriver=0;
+            jPD=beginPairDriver+1;
+            resizeForPairDriver = (iPD+2)-jPD;
+            ArrayResize(pairDriver,resizeForPairDriver);
+            pd=0;
+            for(jPD; jPD<i+2; jPD++){
+                pairDriver[pd]=jPD;
+                pd++;
             }
         }
   }
 }
-
+}
 
    /*   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
