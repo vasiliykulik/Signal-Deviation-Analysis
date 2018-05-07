@@ -32,6 +32,11 @@ void OnTick(void)
 
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
+string [] myPairs {"EURUSD", "GBPJPY", "GBPUSD", "USDCAD", "USDJPY"};
+int myPairsCount;
+string myCurrentPair;
+
+
    int
    begin, zz,
    countHalfWavesH4,
@@ -96,6 +101,50 @@ void OnTick(void)
       Print("TakeProfit less than 10");
       return;  // check TakeProfit
      }
+
+     // Попробуем определить пару драйвер
+for(myPairsCount=0; myPairsCount<5;myPairsCount++){
+
+    myCurrentPair = myPairs[myPairsCount];
+
+    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)){
+    begin++;
+    Macd_1H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
+    Macd_2H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+    if        (Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4 =0;}
+    else if   (Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4 =1;}
+
+for (i = begin;countHalfWavesH4<=3;i++){
+  MacdIplus3H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
+  MacdIplus4H4=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
+    if (countHalfWavesH4==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+            countHalfWavesH4++;
+            what_1HalfWaveMACDH4=1;
+            j=begin+1;
+            resize0H4 = (i+2)-j;
+            ArrayResize(halfWave0H4,resize0H4);
+            zz=0;
+            for(j; j<i+2; j++){
+                halfWave0H4[zz]=j;
+                zz++;
+            }
+        }
+    if (countHalfWavesH4==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+            countHalfWavesH4++;
+            what_1HalfWaveMACDH4=0;
+            j=begin+1;
+            resize0H4 = (i+2)-j;
+            ArrayResize(halfWave0H4,resize0H4);
+            zz=0;
+            for(j; j<i+2; j++){
+                halfWave0H4[zz]=j;
+                zz++;
+            }
+        }
+  }
+}
 
 
    /*   The algorithm of the trend criteria detalization:
