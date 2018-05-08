@@ -34,10 +34,11 @@ void OnTick(void)
 
 string myPairs []  = {"EURUSD", "GBPJPY", "GBPUSD", "USDCAD", "USDJPY"};
 int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
-resizeForPairDriver,pd,iPD,jPD;
+resizeForPairDriver,pd,iPD,jPD, minMaxCount;
 int pairDriver[];
 string myCurrentPair;
-double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver;
+double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver,
+tempMin,tempMax,resultLow,resultHigh,resultDifference;
 
 
    int
@@ -105,11 +106,13 @@ double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4
       return;  // check TakeProfit
      }
 
+Sleep(3333);
      // Попробуем определить пару драйвер
 for(myPairsCount=0; myPairsCount<5; myPairsCount++){
-
+beginPairDriver=0;
       myCurrentPair = myPairs[myPairsCount];
-
+Macd_1H4PairDriver=0;
+Macd_2H4PairDriver=0;
       while(!(Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0) && !(Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0)){
       beginPairDriver++;
       Macd_1H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver);
@@ -117,6 +120,7 @@ for(myPairsCount=0; myPairsCount<5; myPairsCount++){
       if        (Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0){what0HalfWavePairDriver =0;}
       else if   (Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0){what0HalfWavePairDriver =1;}
       countHalfWavesPairDriver=0;
+      what_1HalfWavePirDriver=0;
          for (iPD = beginPairDriver; countHalfWavesPairDriver<1; iPD++){
             MacdIplus3H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,iPD+1);
             MacdIplus4H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,iPD+2);
@@ -147,8 +151,23 @@ for(myPairsCount=0; myPairsCount<5; myPairsCount++){
                   }
                }
          }
-                // Имеем для определения парыдрайвера массив
+                // Имеем для определения пары драйвера массив, каждый проход для каждой пары
+      resultLow = iLow(myCurrentPair,PERIOD_M15,pairDriver[0]);
+      resultHigh = iHigh(myCurrentPair,PERIOD_M15,pairDriver[0]);
+      for(minMaxCount=0; minMaxCount<resizeForPairDriver; minMaxCount++){
+        tempMin = iLow(myCurrentPair,PERIOD_M15,pairDriver[minMaxCount]);
+        tempMax = iHigh(myCurrentPair,PERIOD_M15,pairDriver[minMaxCount]);
+        if (resultLow>tempMin){resultLow = tempMin;}
+        if (resultHigh<tempMax){resultHigh = tempMax;}
       }
+        if(myCurrentPair=="EURUSD" || myCurrentPair=="GBPUSD" || myCurrentPair=="USDCAD"){
+            resultDifference = (resultHigh - resultLow)/0.00001;
+        }
+        if(myCurrentPair=="GBPJPY" || myCurrentPair=="USDJPY"){
+            resultDifference = (resultHigh - resultLow)/0.001;
+        }
+      }
+      Print("myCurrentPair = ", myCurrentPair, "; resultDifference = ", resultDifference);
 }
 
    /*   The algorithm of the trend criteria detalization:
