@@ -32,7 +32,7 @@ void OnTick(void)
 
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
-string myPairs []  = {"EURUSD", "GBPJPY", "GBPUSD", "USDCAD", "USDJPY"};
+string myPairs []  = {"USDJPY", "USDCAD", "GBPUSD", "GBPJPY", "EURUSD"};
 int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
 resizeForPairDriver,pd,iPD,jPD, minMaxCount;
 int pairDriver[];
