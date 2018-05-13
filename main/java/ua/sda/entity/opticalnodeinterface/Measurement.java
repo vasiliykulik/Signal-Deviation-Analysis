@@ -1,11 +1,15 @@
 package ua.sda.entity.opticalnodeinterface;
 
+import ua.sda.entity.BaseEntity;
+
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
  * Created by Vasiliy Kylik on 12.07.2017.
  */
-public class Measurement {
+@Entity
+public class Measurement extends BaseEntity {
 
     private Date dateTime;
     private Float usTXPower;

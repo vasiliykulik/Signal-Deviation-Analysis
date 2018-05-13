@@ -1,9 +1,14 @@
 package ua.sda.entity.opticalnodeinterface;
 
+import ua.sda.entity.BaseEntity;
+
+import javax.persistence.Entity;
+
 /**
  * @author Vasiliy Kylik on(Rocket) on 18.03.2018.
  */
-public class ModemLocation {
+@Entity
+public class ModemLocation extends BaseEntity {
 	private Integer entranceNumber;
 	private Integer floorNumber;
 	private Integer interFloorLineNumber;

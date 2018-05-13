@@ -1,11 +1,15 @@
 package ua.sda.entity.opticalnodeinterface;
 
+import ua.sda.entity.BaseEntity;
+
+import javax.persistence.Entity;
 import java.util.List;
 
 /**
  * Created by Vasiliy Kylik on 16.07.2017.
  */
-public class Modem {
+@Entity
+public class Modem extends BaseEntity {
 
   private String street;
   private String houseNumber;
