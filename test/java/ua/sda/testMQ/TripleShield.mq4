@@ -36,6 +36,7 @@ string myPairs []  = {"USDJPY", "USDCAD", "GBPUSD", "GBPJPY", "EURUSD"};
 int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
 resizeForPairDriver,pd,iPD,jPD, minMaxCount;
 int pairDriver[];
+int printResultDifference[];
 string myCurrentPair;
 double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver,
 tempMin,tempMax,resultLow,resultHigh,resultDifference;
@@ -167,8 +168,10 @@ Macd_2H4PairDriver=0;
             resultDifference = (resultHigh - resultLow)/0.001;
         }
       }
+      printResultDifference[myPairsCount] = resultDifference;
       Print("myCurrentPair = ", myCurrentPair, "; resultDifference = ", resultDifference);
 }
+      Print(" ", printResultDifference[4], " ", printResultDifference[3], " ", printResultDifference[2], " ", printResultDifference[1], " ", printResultDifference[0]);
 
    /*   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
