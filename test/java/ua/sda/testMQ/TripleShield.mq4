@@ -170,8 +170,8 @@ Macd_2H4PairDriver=0;
       }
       printResultDifference[myPairsCount] = resultDifference;
       Print("myCurrentPair = ", myCurrentPair, "; resultDifference = ", resultDifference);
-}
       Print(" ", printResultDifference[4], " ", printResultDifference[3], " ", printResultDifference[2], " ", printResultDifference[1], " ", printResultDifference[0]);
+}
 
    /*   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
