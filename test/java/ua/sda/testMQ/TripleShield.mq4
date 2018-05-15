@@ -36,7 +36,7 @@ string myPairs []  = {"USDJPY", "USDCAD", "GBPUSD", "GBPJPY", "EURUSD"};
 int myPairsCount, beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
 resizeForPairDriver,pd,iPD,jPD, minMaxCount;
 int pairDriver[];
-int printResultDifference[];
+int printResultDifference[5];
 string myCurrentPair;
 double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver,
 tempMin,tempMax,resultLow,resultHigh,resultDifference;
