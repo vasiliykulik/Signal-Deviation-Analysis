@@ -107,7 +107,6 @@ tempMin,tempMax,resultLow,resultHigh,resultDifference;
       return;  // check TakeProfit
      }
 
-Sleep(3333);
      // Попробуем определить пару драйвер
 for(myPairsCount=0; myPairsCount<5; myPairsCount++){
 beginPairDriver=0;
@@ -172,7 +171,7 @@ Macd_2H4PairDriver=0;
       Print("myCurrentPair = ", myCurrentPair, "; resultDifference = ", resultDifference);
 }
       Print(" ", printResultDifference[4], " ", printResultDifference[3], " ", printResultDifference[2], " ", printResultDifference[1], " ", printResultDifference[0]);
-
+Sleep(3333);
    /*   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
 Какие у меня критерии?
