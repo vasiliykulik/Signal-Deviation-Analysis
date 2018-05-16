@@ -1280,8 +1280,8 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
 
 
 
- Macd_0_M1=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
- Macd_1_M1=iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+ Macd_0_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ Macd_1_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
 
 /*Logics End The algorithm of the trend criteria definition*/
@@ -1307,8 +1307,9 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
             для покупки если (doubleCriterionTrendH1 == 0 И doubleCriterionEntryPointM15 == 0 И doubleCriterionTheTimeOfEntryM5 == 0 И doubleCriterionM1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
             */
             buy ==1 &&
+            doubleCriterionM1 == 0 && 0>Macd_1_M1 && Macd_0_M1>0
             // Criterion for buy position according to the TS
-            doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
+           // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
         )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
@@ -1327,8 +1328,9 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
            для продажи если (doubleCriterionTrendH1 == 1 И doubleCriterionEntryPointM15 == 1 И doubleCriterionTheTimeOfEntryM5 == 1 И doubleCriterionM1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
            */
            sell ==1 &&
+           doubleCriterionM1 == 1 && 0<Macd_1_M1 && Macd_0_M1<0
            // Criterion for sell position according to the TS
-           doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
+          // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
       )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
