@@ -2,6 +2,7 @@ package ua.sda.entity.opticalnodeinterface;
 
 import ua.sda.entity.BaseEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
@@ -10,74 +11,79 @@ import java.util.List;
  * Created by Vasiliy Kylik on 16.07.2017.
  */
 @Entity
-@Table(name="modems")
+@Table(name = "modems")
 public class Modem extends BaseEntity {
 
-  private String street;
-  private String houseNumber;
-  private String linkToMAC;
-  private List<Measurement> measurements;
-  private ModemLocation modemLocation;
+	@Column(name = "street")
+	private String street;
+	@Column(name = "houseNumber")
+	private String houseNumber;
+	@Column(name = "linkToMAC")
+	private String linkToMAC;
 
-  public Modem() {
-  }
+	@Ma
+	private List<Measurement> measurements;
+	private ModemLocation modemLocation;
 
-  public Modem(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, ModemLocation modemLocation) {
-    this.street = street;
-    this.houseNumber = houseNumber;
-    this.linkToMAC = linkToMAC;
-    this.measurements = measurements;
-    this.modemLocation = modemLocation;
-  }
+	public Modem() {
+	}
 
-  @Override
-  public String toString() {
-    return "Modem{" +
-            "street='" + street + '\'' +
-            ", houseNumber='" + houseNumber + '\'' +
-            ", linkToMAC='" + linkToMAC + '\'' +
-            ", measurements=" + measurements +
-            ", modemLocation=" + modemLocation +
-            '}';
-  }
+	public Modem(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, ModemLocation modemLocation) {
+		this.street = street;
+		this.houseNumber = houseNumber;
+		this.linkToMAC = linkToMAC;
+		this.measurements = measurements;
+		this.modemLocation = modemLocation;
+	}
 
-  public String getStreet() {
-    return street;
-  }
+	@Override
+	public String toString() {
+		return "Modem{" +
+				"street='" + street + '\'' +
+				", houseNumber='" + houseNumber + '\'' +
+				", linkToMAC='" + linkToMAC + '\'' +
+				", measurements=" + measurements +
+				", modemLocation=" + modemLocation +
+				'}';
+	}
 
-  public void setStreet(String street) {
-    this.street = street;
-  }
+	public String getStreet() {
+		return street;
+	}
 
-  public String getHouseNumber() {
-    return houseNumber;
-  }
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-  public void setHouseNumber(String houseNumber) {
-    this.houseNumber = houseNumber;
-  }
+	public String getHouseNumber() {
+		return houseNumber;
+	}
 
-  public String getLinkToMAC() {
-    return linkToMAC;
-  }
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+	}
 
-  public void setLinkToMAC(String linkToMAC) {
-    this.linkToMAC = linkToMAC;
-  }
+	public String getLinkToMAC() {
+		return linkToMAC;
+	}
 
-  public List<Measurement> getMeasurements() {
-    return measurements;
-  }
+	public void setLinkToMAC(String linkToMAC) {
+		this.linkToMAC = linkToMAC;
+	}
 
-  public void setMeasurements(List<Measurement> measurements) {
-    this.measurements = measurements;
-  }
+	public List<Measurement> getMeasurements() {
+		return measurements;
+	}
 
-  public ModemLocation getModemLocation() {
-    return modemLocation;
-  }
+	public void setMeasurements(List<Measurement> measurements) {
+		this.measurements = measurements;
+	}
 
-  public void setModemLocation(ModemLocation modemLocation) {
-    this.modemLocation = modemLocation;
-  }
+	public ModemLocation getModemLocation() {
+		return modemLocation;
+	}
+
+	public void setModemLocation(ModemLocation modemLocation) {
+		this.modemLocation = modemLocation;
+	}
 }

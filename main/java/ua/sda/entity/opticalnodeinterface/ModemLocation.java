@@ -2,6 +2,7 @@ package ua.sda.entity.opticalnodeinterface;
 
 import ua.sda.entity.BaseEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,9 +12,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "locations")
 public class ModemLocation extends BaseEntity {
+	@Column(name = "entranceNumber")
 	private Integer entranceNumber;
+	@Column(name = "floorNumber")
 	private Integer floorNumber;
+	@Column(name = "interFloorLineNumber")
 	private Integer interFloorLineNumber;
+	@Column(name = "apartment")
 	private String apartment;
 
 	public ModemLocation() {
