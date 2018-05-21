@@ -3,11 +3,13 @@ package ua.sda.entity.opticalnodeinterface;
 import ua.sda.entity.BaseEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Vasiliy Kylik on(Rocket) on 18.03.2018.
  */
 @Entity
+@Table(name = "locations")
 public class ModemLocation extends BaseEntity {
 	private Integer entranceNumber;
 	private Integer floorNumber;

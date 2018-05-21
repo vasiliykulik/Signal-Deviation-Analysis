@@ -3,12 +3,14 @@ package ua.sda.entity.opticalnodeinterface;
 import ua.sda.entity.BaseEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
 /**
  * Created by Vasiliy Kylik on 16.07.2017.
  */
 @Entity
+@Table(name="modems")
 public class Modem extends BaseEntity {
 
   private String street;
