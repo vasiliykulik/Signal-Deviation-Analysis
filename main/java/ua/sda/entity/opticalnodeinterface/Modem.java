@@ -2,9 +2,7 @@ package ua.sda.entity.opticalnodeinterface;
 
 import ua.sda.entity.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -21,8 +19,20 @@ public class Modem extends BaseEntity {
 	@Column(name = "linkToMAC")
 	private String linkToMAC;
 
-	@Ma
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "modem_mesurements",
+			joinColumns = @JoinColumn(name = "modemId"),
+			inverseJoinColumns = @JoinColumn(name = "measurementsId")
+	)
 	private List<Measurement> measurements;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "modem_location",
+			joinColumns = @JoinColumn(name = "modemId"),
+			inverseJoinColumns = @JoinColumn(name = "locationId")
+	)
 	private ModemLocation modemLocation;
 
 	public Modem() {
