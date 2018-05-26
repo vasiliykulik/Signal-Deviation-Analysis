@@ -24,66 +24,39 @@ CREATE TABLE IF NOT EXISTS locations (
   entranceNumber       INT    NULL,
   floorNumber          INT    NULL,
   interFloorLineNumber INT    NULL,
-  apartment            VARCHAR
+  apartment            VARCHAR NULL
 );
 
 
 
+CREATE TABLE IF NOT EXISTS modems_measurements (
+  modemId BIGINT NULL,
+  measurementsId     BIGINT NULL,
 
-CREATE TABLE IF NOT EXISTS projects (
-  id          BIGINT      NOT NULL PRIMARY KEY,
-  name        VARCHAR(45) NULL,
-  description VARCHAR(45) NULL,
-  teamId      BIGINT      NULL,
-
-  documentId  BIGINT      NULL,
-  CompanyId   BIGINT      NULL,
-
-  FOREIGN KEY (teamId)
-
-  REFERENCES teams (id)
+  FOREIGN KEY (modemId)
+  REFERENCES modems (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION,
-  FOREIGN KEY (documentId)
 
-  REFERENCES documents (id)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-  FOREIGN KEY (CompanyId) REFERENCES companies (id)
+  FOREIGN KEY (measurementsId)
+  REFERENCES measurements (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION
 );
 
 
-CREATE TABLE IF NOT EXISTS modem_mesurements (
-  developersId BIGINT NULL,
-  skillsId     BIGINT NULL,
+CREATE TABLE IF NOT EXISTS modems_location (
+  modemid   BIGINT NOT NULL,
+  locationid BIGINT NULL,
 
-  FOREIGN KEY (`developersId`)
+  FOREIGN KEY (modemid)
 
-  REFERENCES developers (id)
+  REFERENCES modems (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION,
 
-  FOREIGN KEY (skillsId)
-  REFERENCES skills (id)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION
-);
-
-
-CREATE TABLE IF NOT EXISTS developer_specialities (
-  developersId   BIGINT NOT NULL,
-  specialitiesId BIGINT NULL,
-
-  FOREIGN KEY (developersId)
-
-  REFERENCES developers (id)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-
-  FOREIGN KEY (specialitiesId)
-  REFERENCES specialities (id)
+  FOREIGN KEY (locationid)
+  REFERENCES locations (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION
 );

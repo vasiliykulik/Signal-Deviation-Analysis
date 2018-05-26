@@ -22,14 +22,14 @@ public class Modem extends BaseEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "modem_mesurements",
+			name = "modems_measurements",
 			joinColumns = @JoinColumn(name = "modemId"),
 			inverseJoinColumns = @JoinColumn(name = "measurementsId")
 	)
 	private List<Measurement> measurements;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "modem_location",
+			name = "modems_location",
 			joinColumns = @JoinColumn(name = "modemId"),
 			inverseJoinColumns = @JoinColumn(name = "locationId")
 	)
