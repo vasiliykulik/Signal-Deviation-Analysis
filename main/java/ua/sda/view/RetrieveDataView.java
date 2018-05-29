@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static ua.sda.storage.Storage.storageForModems;
 import static ua.sda.view.helper.ConsoleHelper.*;
 
 /**
@@ -18,11 +19,6 @@ import static ua.sda.view.helper.ConsoleHelper.*;
         String linkToInterface = readString();*/
 
 public class RetrieveDataView {
-    private List<Modem> modems = new ArrayList<>();
-
-    public List<Modem> getModems() {
-        return modems;
-    }
 
     public void execute(String userName, String password) throws IOException {
         RetrieveDataController retrieveDataController = new RetrieveDataController();
@@ -39,12 +35,17 @@ public class RetrieveDataView {
             case 0:
                 writeMessage("Enter URL to TrafficLight (Ctrl + V, Space and Enter) \n");
                 linkToURL = readString();
-                modems = retrieveDataController.getAll(userName, password, linkToURL);
-                modems.forEach(System.out::println);
+                List<Modem> modems = retrieveDataController.getAll(userName, password, linkToURL);
+                long start = System.nanoTime();
+                storageForModems = modems;
+                long finish = System.nanoTime();
+                System.out.println("storing modems in storageForModems (nanoTime())" + (finish - start));
+             //   modems.forEach(System.out::println);
                 break;
             case 9:
                 writeMessage("\n Exit to the main menu...\n");
-                consoleHelp();
+                ConsoleHelper consoleHelper = new ConsoleHelper(userName, password);
+                consoleHelper.consoleHelp();
                 break;
             default:
                 break;
