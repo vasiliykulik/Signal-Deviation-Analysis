@@ -1,8 +1,10 @@
 package ua.sda.analyzer;
 
 import ua.sda.entity.opticalnodeinterface.Measurement;
+import ua.sda.entity.opticalnodeinterface.Modem;
 
 import java.util.Collection;
+import java.util.stream.IntStream;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 15.05.2018.
@@ -11,48 +13,20 @@ public class SignalCalculateImpl implements SignalCalculate {
 
 
     @Override
-    public Integer minUpStreamSNR(Collection measurements) {
-        measurements.forEach
+    public Integer min(Modem modem) {
+        for(Measurement measurement:modem.getMeasurements()){
+            measurement.
+        }
         return null;
     }
 
     @Override
-    public Integer avgUpStreamSNR(Collection measurements) {
+    public Integer avg(Modem modem) {
         return null;
     }
 
     @Override
-    public Integer maxUpStreamSNR(Collection measurements) {
-        return null;
-    }
-
-    @Override
-    public Integer minDownStreamSNR(Collection measurements) {
-        return null;
-    }
-
-    @Override
-    public Integer avgDownStreamSNR(Collection measurements) {
-        return null;
-    }
-
-    @Override
-    public Integer maxDownStreamSNR(Collection measurements) {
-        return null;
-    }
-
-    @Override
-    public Integer minUpStreamTXPower(Collection measurements) {
-        return null;
-    }
-
-    @Override
-    public Integer avgUpStreamTXPower(Collection measurements) {
-        return null;
-    }
-
-    @Override
-    public Integer maxUpStreamTXPower(Collection measurements) {
+    public Integer max(Modem modem) {
         return null;
     }
 }
