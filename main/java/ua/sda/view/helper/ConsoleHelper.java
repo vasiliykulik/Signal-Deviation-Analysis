@@ -13,11 +13,16 @@ import java.io.InputStreamReader;
  * First layer of menu
  */
 public class ConsoleHelper {
-    private RetrieveDataView retrieveDataView;
-    private AnalyzeDataView analyzeDataView;
-    private DataView dataView;
-    private String userName;
-    private String password;
+    private static RetrieveDataView retrieveDataView;
+    private static AnalyzeDataView analyzeDataView;
+    private static DataView dataView;
+    private static String userName;
+
+    public static RetrieveDataView getRetrieveDataView() {
+        return retrieveDataView;
+    }
+
+    private static String password;
 
     public ConsoleHelper(String login, String pword) {
         userName = login;
@@ -25,7 +30,9 @@ public class ConsoleHelper {
         retrieveDataView = new RetrieveDataView();
         analyzeDataView = new AnalyzeDataView();
         dataView = new DataView();
+
     }
+
 
     public static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -33,7 +40,7 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public void consoleHelp() throws IOException {
+    public static void consoleHelp() throws IOException {
         System.out.println("To start work, select appropriate component, and press Enter: \n" +
                 " 1. Read the Modems with Measurements, Current States and Locations on the interface () from TrafficLight Link" +
                 ", (login and password are passed in the parameters) \n" +
@@ -48,8 +55,8 @@ public class ConsoleHelper {
             case 2:
                 analyzeDataView.execute();
                 break;
-            case 4:
-                dataView.execute();
+            case 3:
+                dataView.execute(retrieveDataView.getModems());
                 break;
             case 9:
                 System.out.println("Exiting....");

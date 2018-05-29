@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Vasiliy Kylik (Lightning) on 23.04.2018.
  */
 public class RetrieveDataController {
-    public Collection<Modem> getAll(String userName, String password, String urlString) {
+    public List<Modem> getAll(String userName, String password, String urlString) {
 
         // the virtual database is a web resource protected using BASIC HTTP Authentication
 

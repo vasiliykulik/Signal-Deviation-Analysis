@@ -5,7 +5,9 @@ import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static ua.sda.view.helper.ConsoleHelper.*;
 
@@ -16,6 +18,12 @@ import static ua.sda.view.helper.ConsoleHelper.*;
         String linkToInterface = readString();*/
 
 public class RetrieveDataView {
+    private List<Modem> modems = new ArrayList<>();
+
+    public List<Modem> getModems() {
+        return modems;
+    }
+
     public void execute(String userName, String password) throws IOException {
         RetrieveDataController retrieveDataController = new RetrieveDataController();
         String linkToURL;
@@ -31,18 +39,18 @@ public class RetrieveDataView {
             case 0:
                 writeMessage("Enter URL to TrafficLight (Ctrl + V, Space and Enter) \n");
                 linkToURL = readString();
-                Collection<Modem> modems = retrieveDataController.getAll(userName, password, linkToURL);
+                modems = retrieveDataController.getAll(userName, password, linkToURL);
                 modems.forEach(System.out::println);
                 break;
             case 9:
                 writeMessage("\n Exit to the main menu...\n");
-                ConsoleHelper consoleHelper = new ConsoleHelper(userName, password);
-                consoleHelper.consoleHelp();
+                consoleHelp();
                 break;
             default:
                 break;
         }
 
         execute(userName, password);
+
     }
 }
