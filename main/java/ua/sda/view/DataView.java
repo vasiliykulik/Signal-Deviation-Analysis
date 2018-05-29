@@ -1,15 +1,12 @@
 package ua.sda.view;
 
 import ua.sda.controllerdao.ModemDAOControllerImpl;
-import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
 
 import java.io.IOException;
-import java.util.List;
 
 import static ua.sda.storage.Storage.storageForModems;
 import static ua.sda.view.helper.ConsoleHelper.readInt;
-import static ua.sda.view.helper.ConsoleHelper.readString;
 import static ua.sda.view.helper.ConsoleHelper.writeMessage;
 
 /**
@@ -19,14 +16,14 @@ public class DataView {
     public void execute(String userName, String password) throws IOException {
         ModemDAOControllerImpl modemDAOController = new ModemDAOControllerImpl();
         writeMessage("" +
-                "0 - Save Modems to DataBase\n" +
-                "1 - Read Modems from DataBase\n" +
-                "2 - Remove Modems from DataBase\n" +
+                "1 - Save Modems to DataBase\n" +
+                "2 - Read Modems from DataBase\n" +
+                "3 - Remove Modems from DataBase\n" +
                 "9 - Exit to the main menu\n");
 
         int choice = readInt();
         switch (choice) {
-            case 0:
+            case 1:
                 writeMessage("Saving Modems to DataBase \n");
                 System.out.println("storageForModems.size() " + storageForModems.size());
                 long start = System.nanoTime();
@@ -36,7 +33,7 @@ public class DataView {
                 System.out.println("storing modems in DB saveDB() (nanoTime())" + (finish - start));
                 System.out.println("storageForModems.size() after saveDB() " + storageForModems.size());
                 break;
-            case 1:
+            case 2:
                 writeMessage("Reading Modems from DataBase\n");
                 System.out.println("storageForModems.size() " + storageForModems.size());
                 start = System.nanoTime();
@@ -45,7 +42,7 @@ public class DataView {
                 System.out.println("reading modems from readDB() (nanoTime())" + (finish - start));
                 System.out.println("storageForModems.size() after readDB() " + storageForModems.size());
                 break;
-            case 2:
+            case 3:
                 writeMessage("Removing Modems from DataBase\n");
                 start = System.nanoTime();
                 modemDAOController.removeFromDB();
