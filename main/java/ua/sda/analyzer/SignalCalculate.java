@@ -4,8 +4,8 @@ import ua.sda.entity.opticalnodeinterface.Modem;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 15.05.2018.
- * variant1  - Create object for return values
- * variant2  -
+    variant1  - Create object for return values
+    variant2  -
         г) возьмем max, min для USSNR, иду по значениям
         г1) рассмотрим случай когда USSNR упал, взял max SNR, взяли max dssnr, max us txpower (их сумму) max sum иду по SNR, и если текущ, SNR < max
         Определить диапазон с точностью до дБ
