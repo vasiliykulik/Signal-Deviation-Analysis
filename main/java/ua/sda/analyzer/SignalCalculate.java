@@ -4,6 +4,7 @@ import ua.sda.entity.opticalnodeinterface.Modem;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 15.05.2018.
+    variant 0 - две даты, найти наиболее близкую дату, (binary search) максимальна разница между US Level,  и между ds snr
     variant1  - Create object for return values
     variant2  -
         г) возьмем max, min для USSNR, иду по значениям
