@@ -1,12 +1,15 @@
 package ua.sda.view;
 
 import ua.sda.controllerdao.ModemDAOControllerImpl;
+import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
 
 import java.io.IOException;
+import java.util.List;
 
 import static ua.sda.storage.Storage.storageForModems;
 import static ua.sda.view.helper.ConsoleHelper.readInt;
+import static ua.sda.view.helper.ConsoleHelper.readString;
 import static ua.sda.view.helper.ConsoleHelper.writeMessage;
 
 /**
@@ -24,13 +27,15 @@ public class AnalyzeDataView {
         switch (choice) {
             case 1:
                 writeMessage("Enter two DateTime's\n good and affected states \n");
-                System.out.println("storageForModems.size() " + storageForModems.size());
+
+                writeMessage("Enter URL to TrafficLight (Ctrl + V, Space and Enter) \n");
+                linkToURL = readString();
+                List<Modem> modems = retrieveDataController.getAll(userName, password, linkToURL);
                 long start = System.nanoTime();
-                // for this ConsoleHelper become static
-                modemDAOController.save(storageForModems);
+                storageForModems = modems;
                 long finish = System.nanoTime();
-                System.out.println("storing modems in DB saveDB() (nanoTime())" + (finish - start));
-                System.out.println("storageForModems.size() after saveDB() " + storageForModems.size());
+                System.out.println("storing modems in storageForModems (nanoTime())" + (finish - start));
+                //   modems.forEach(System.out::println);
                 break;
             case 2:
                 writeMessage("Analyze measurements of modems\n");
