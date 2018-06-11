@@ -1,5 +1,6 @@
 package ua.sda.view;
 
+import ua.sda.controller.AnalyzeDataController;
 import ua.sda.controllerdao.ModemDAOControllerImpl;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
@@ -20,11 +21,12 @@ import static ua.sda.view.helper.ConsoleHelper.writeMessage;
  */
 public class AnalyzeDataView {
     public void execute(String userName, String password) throws IOException, ParseException {
-        Date goodTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");;
-        Date badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");;
+        AnalyzeDataController analyzeDataController = new AnalyzeDataController();
+        Date goodTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
+        Date badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
         ModemDAOControllerImpl modemDAOController = new ModemDAOControllerImpl();
         writeMessage("" +
-                "1 - Enter two DateTime's good and affected states\n" +
+                "1 - Find Differences between Good and affected state, Enter two DateTime's good and affected states\n" +
                 "2 - Analyze measurements of modems\n" +
                 "9 - Exit to the main menu\n");
 
@@ -35,17 +37,19 @@ public class AnalyzeDataView {
                         "use dd-MM-yyyy HH:mm:ss format and press Enter");
                 goodTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(readString());
                 badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(readString());
-
+                long start = System.nanoTime();
+                analyzeDataController.findDifferences(goodTimeDate, badTimeDate);
+                long finish = System.nanoTime();
+                System.out.println("two DateTime's (nanoTime())" + (finish - start));
                 //   modems.forEach(System.out::println);
                 break;
             case 2:
                 writeMessage("Analyze measurements of modems\n");
                 System.out.println("storageForModems.size() " + storageForModems.size());
                 start = System.nanoTime();
-                modemDAOController.readDB();
+                analyzeDataController.analyze(storageForModems);
                 finish = System.nanoTime();
-                System.out.println("reading modems from readDB() (nanoTime())" + (finish - start));
-                System.out.println("storageForModems.size() after readDB() " + storageForModems.size());
+                System.out.println("Analyze (nanoTime())" + (finish - start));
                 break;
             case 9:
                 writeMessage("\n Exit to the main menu...\n");
