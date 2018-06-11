@@ -14,6 +14,7 @@ public class AnalyzeDataController {
     /*Ввод двух дат
  Ввели две даты
  Задача: для каждой даты , для каждого модема найти наиболее близкую дату. и взять в эти моменты времени, ustxpower, и dssnr, взять разницу между ними.
+ TODO Implement DateTime Search
  Результат сложить в массив ModemDifferenceMeasurement, объектами.
  в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.*/
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
