@@ -14,12 +14,12 @@ public class SearchTest {
     public static void main(String[] args) {
 
         List<Integer> list = new ArrayList<>();
-        list.add(10);
-        list.add(20);
-        list.add(30);
-        list.add(40);
         list.add(50);
-        Integer search = 25;
+        list.add(40);
+        list.add(30);
+        list.add(20);
+        list.add(10);
+        Integer search = 11;
 
         int low = 0;
         int high = list.size() - 1;
@@ -36,7 +36,7 @@ public class SearchTest {
             else
                 System.out.println("mid = "+mid); // key found
         }
-        System.out.println("mid = "+ -(low + 1));  // key not found
+        System.out.println("-(low + 1) = "+ -(low + 1));  // key not found
 
     }
 }

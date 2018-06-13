@@ -148,6 +148,6 @@ public class Measurement extends BaseEntity implements Comparable<Measurement> {
 
 	@Override
 	public int compareTo(Measurement measurement) {
-		return this.getDateTime().compareTo(measurement.getDateTime());
+		return measurement.getDateTime().compareTo(this.getDateTime());
 	}
 }

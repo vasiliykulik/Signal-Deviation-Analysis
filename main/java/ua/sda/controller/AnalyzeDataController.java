@@ -19,7 +19,7 @@ public class AnalyzeDataController {
  Ввели две даты
  Задача: для каждой даты , для каждого модема найти наиболее близкую дату. и взять в эти моменты времени, ustxpower, и dssnr, взять разницу между ними.
  TODO Implement DateTime Search
- use Comparable thru Measurement compareto method for ascending sort (ComparatorMeasurement used for descending order)
+ use Comparable thru Measurement compareto method for descending order (ComparatorMeasurement used for descending order)
  Результат сложить в массив ModemDifferenceMeasurement, объектами.
  в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.*/
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
@@ -50,7 +50,7 @@ public class AnalyzeDataController {
      *         that this guarantees that the return value will be &gt;= 0 if
      *         and only if the key is found.
      *         Мне надо что бы возвращалось значение - good - that is мы считаем что до этого момента все было хорошо,
-     *         Коллекция отсортирована по восходящему порядку, that is need to return ьеньшее значение, предыдущее измерение,
+     *         Коллекция отсортирована по нисходящему порядку, новые даты вначале (тоесть большие вначале), that is need to return ьеньшее значение, предыдущее измерение,
      *         insertion point, as the point at which the key would be inserted into the list is great*/
     private int goodIndexedBinarySearch(List<Measurement> measurementList, Date date) {
         int low = 0;
@@ -68,7 +68,26 @@ public class AnalyzeDataController {
             else
                 return mid; // key found
         }
-        return -(low + 1);  // key not found
+        return (low);  // key not found, previous measurement would be returned, ascending order
+    }
+
+    private int badIndexedBinarySearch(List<Measurement> measurementList, Date date) {
+        int low = 0;
+        int high = measurementList.size() - 1;
+
+        while (low <= high) {
+            int mid = (low + high) >>> 1;
+            Measurement midVal = measurementList.get(mid);
+            int cmp = midVal.getDateTime().compareTo(date);
+
+            if (cmp < 0)
+                low = mid + 1;
+            else if (cmp > 0)
+                high = mid - 1;
+            else
+                return mid; // key found
+        }
+        return (low-1);  // key not found, next value would be returned , ascending order
     }
 
 

@@ -5,6 +5,7 @@ import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +21,7 @@ import static ua.sda.view.helper.ConsoleHelper.*;
 
 public class RetrieveDataView {
 
-    public void execute(String userName, String password) throws IOException {
+    public void execute(String userName, String password) throws IOException, ParseException {
         RetrieveDataController retrieveDataController = new RetrieveDataController();
         String linkToURL;
 

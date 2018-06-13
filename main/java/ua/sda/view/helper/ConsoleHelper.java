@@ -7,6 +7,7 @@ import ua.sda.view.RetrieveDataView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 14.04.2018.
@@ -35,7 +36,7 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public void consoleHelp() throws IOException {
+    public void consoleHelp() throws IOException, ParseException {
         System.out.println("To start work, select appropriate component, and press Enter: \n" +
                 " 1. Read the Modems with Measurements, Current States and Locations on the interface () from TrafficLight Link" +
                 ", (login and password are passed in the parameters) \n" +
