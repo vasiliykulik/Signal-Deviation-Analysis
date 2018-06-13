@@ -54,7 +54,7 @@ public class AnalyzeDataController {
      *         insertion point, as the point at which the key would be inserted into the list is great
      *         Соответственно переворачиваем условия if и compareTo метод в классе Measurement, что позволит нам работать с descending order что соответствует бизнес логике
      *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)*/
-    private int goodIndexedBinarySearch(List<Measurement> measurementList, Date date) {
+    private int goodMeasurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
         int low = 0;
         int high = measurementList.size() - 1;
 
@@ -73,7 +73,7 @@ public class AnalyzeDataController {
         return (low);  // key not found, previous measurement would be returned, ascending order
     }
 
-    private int badIndexedBinarySearch(List<Measurement> measurementList, Date date) {
+    private int badMeasurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
         int low = 0;
         int high = measurementList.size() - 1;
 
