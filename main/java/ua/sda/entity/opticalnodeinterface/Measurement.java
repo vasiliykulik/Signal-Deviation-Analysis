@@ -1,5 +1,6 @@
 package ua.sda.entity.opticalnodeinterface;
 
+import antlr.debug.MessageAdapter;
 import ua.sda.entity.BaseEntity;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "measurements")
-public class Measurement extends BaseEntity {
+public class Measurement extends BaseEntity implements Comparable<Measurement> {
 
 	@Column(name = "dateTime")
 	private Date dateTime;
@@ -48,6 +49,7 @@ public class Measurement extends BaseEntity {
 	public Measurement() {
 
 	}
+
 
 	public Date getDateTime() {
 		return dateTime;
@@ -142,5 +144,10 @@ public class Measurement extends BaseEntity {
 				usSNR != 0f &
 				dsSNR != 0f &
 				microReflex != 0f;
+	}
+
+	@Override
+	public int compareTo(Measurement measurement) {
+		return this.getDateTime().compareTo(measurement.getDateTime());
 	}
 }

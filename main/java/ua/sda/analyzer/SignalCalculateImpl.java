@@ -13,20 +13,47 @@ public class SignalCalculateImpl implements SignalCalculate {
 
 
     @Override
-    public Integer min(Modem modem) {
-        for(Measurement measurement:modem.getMeasurements()){
-            measurement.
-        }
+    public Integer minUpStreamSNR(Modem modem) {
         return null;
     }
 
     @Override
-    public Integer avg(Modem modem) {
+    public Integer avgUpStreamSNR(Modem modem) {
         return null;
     }
 
     @Override
-    public Integer max(Modem modem) {
+    public Integer maxUpStreamSNR(Modem modem) {
+        return null;
+    }
+
+    @Override
+    public Integer minDownStreamSNR(Modem modem) {
+        return null;
+    }
+
+    @Override
+    public Integer avgDownStreamSNR(Modem modem) {
+        return null;
+    }
+
+    @Override
+    public Integer maxDownStreamSNR(Modem modem) {
+        return null;
+    }
+
+    @Override
+    public Integer minUpStreamTXPower(Modem modem) {
+        return null;
+    }
+
+    @Override
+    public Integer avgUpStreamTXPower(Modem modem) {
+        return null;
+    }
+
+    @Override
+    public Integer maxUpStreamTXPower(Modem modem) {
         return null;
     }
 }
