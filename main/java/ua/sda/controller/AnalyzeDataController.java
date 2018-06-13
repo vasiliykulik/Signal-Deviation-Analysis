@@ -51,7 +51,9 @@ public class AnalyzeDataController {
      *         and only if the key is found.
      *         Мне надо что бы возвращалось значение - good - that is мы считаем что до этого момента все было хорошо,
      *         Коллекция отсортирована по нисходящему порядку, новые даты вначале (тоесть большие вначале), that is need to return ьеньшее значение, предыдущее измерение,
-     *         insertion point, as the point at which the key would be inserted into the list is great*/
+     *         insertion point, as the point at which the key would be inserted into the list is great
+     *         Соответственно переворачиваем условия if и compareTo метод в классе Measurement, что позволит нам работать с descending order что соответствует бизнес логике
+     *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)*/
     private int goodIndexedBinarySearch(List<Measurement> measurementList, Date date) {
         int low = 0;
         int high = measurementList.size() - 1;
@@ -61,9 +63,9 @@ public class AnalyzeDataController {
             Measurement midVal = measurementList.get(mid);
             int cmp = midVal.getDateTime().compareTo(date);
 
-            if (cmp < 0)
+            if (cmp > 0)
                 low = mid + 1;
-            else if (cmp > 0)
+            else if (cmp < 0)
                 high = mid - 1;
             else
                 return mid; // key found
@@ -80,15 +82,18 @@ public class AnalyzeDataController {
             Measurement midVal = measurementList.get(mid);
             int cmp = midVal.getDateTime().compareTo(date);
 
-            if (cmp < 0)
+            if (cmp > 0)
                 low = mid + 1;
-            else if (cmp > 0)
+            else if (cmp < 0)
                 high = mid - 1;
             else
                 return mid; // key found
         }
         return (low-1);  // key not found, next value would be returned , ascending order
     }
+
+    private int binarySearch()
+    {}
 
 
     /* Анализ Сигналов

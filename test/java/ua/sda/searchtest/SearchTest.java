@@ -1,9 +1,6 @@
 package ua.sda.searchtest;
 
-import ua.sda.entity.opticalnodeinterface.Measurement;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,14 +26,14 @@ public class SearchTest {
             Integer midVal = list.get(mid);
             int cmp = midVal.compareTo(search);
 
-            if (cmp < 0)
+            if (cmp > 0)
                 low = mid + 1;
-            else if (cmp > 0)
+            else if (cmp < 0)
                 high = mid - 1;
             else
                 System.out.println("mid = "+mid); // key found
         }
-        System.out.println("-(low + 1) = "+ -(low + 1));  // key not found
+        System.out.println("-(low + 1) = "+ -(low ));  // key not found
 
     }
 }
