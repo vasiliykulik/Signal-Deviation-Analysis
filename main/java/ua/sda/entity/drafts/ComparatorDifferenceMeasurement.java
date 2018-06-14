@@ -1,4 +1,4 @@
-package ua.sda.comparators;
+package ua.sda.entity.drafts;
 
 import ua.sda.entity.opticalnodeinterface.Measurement;
 

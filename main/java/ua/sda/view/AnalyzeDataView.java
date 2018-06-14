@@ -38,10 +38,10 @@ public class AnalyzeDataView {
                 goodTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(readString());
                 badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(readString());
                 long start = System.nanoTime();
-                analyzeDataController.findDifferences(goodTimeDate, badTimeDate);
+                // and without waiting print to console
+                analyzeDataController.findDifferences(goodTimeDate, badTimeDate).forEach(System.out::println);
                 long finish = System.nanoTime();
                 System.out.println("two DateTime's (nanoTime())" + (finish - start));
-                //   modems.forEach(System.out::println);
                 break;
             case 2:
                 writeMessage("Analyze measurements of modems\n");

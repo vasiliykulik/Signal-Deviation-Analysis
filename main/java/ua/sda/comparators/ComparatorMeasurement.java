@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 /**
  * @author Vasiliy Kylik on(Rocket) on 18.03.2018.
+ * for sorting Measurement in descending order
  */
 public class ComparatorMeasurement implements Comparator<Measurement> {
 

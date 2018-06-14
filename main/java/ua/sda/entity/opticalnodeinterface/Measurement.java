@@ -10,6 +10,8 @@ import java.util.Date;
 
 /**
  * Created by Vasiliy Kylik on 12.07.2017.
+ *
+ *
  */
 @Entity
 @Table(name = "measurements")

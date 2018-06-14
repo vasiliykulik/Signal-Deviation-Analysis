@@ -1,10 +1,10 @@
 package ua.sda.controller;
 
-import ua.sda.comparators.ComparatorDifferenceMeasurement;
-import ua.sda.entity.analyze.ModemDifferenceMeasurement;
+import ua.sda.entity.opticalnodeinterface.ModemDifferenceMeasurement;
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,16 +17,36 @@ import static ua.sda.storage.Storage.storageForModems;
 public class AnalyzeDataController {
     /*Ввод двух дат
  Ввели две даты
- Задача: для каждой даты , для каждого модема найти наиболее близкую дату. и взять в эти моменты времени, ustxpower, и dssnr, взять разницу между ними.
- TODO Implement DateTime Search
+ Задача: для каждой даты , для каждого модема найти наиболее близкую дату. и взять в эти моменты времени,
+  ustxpower, и dssnr, взять разницу между ними.
+ ok Implement DateTime Search
  use Comparable thru Measurement compareto method for descending order (ComparatorMeasurement used for descending order)
  Результат сложить в массив ModemDifferenceMeasurement, объектами.
  в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.*/
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
-        ComparatorDifferenceMeasurement comparatorDifferenceMeasurement = new ComparatorDifferenceMeasurement();
+        List<ModemDifferenceMeasurement> modemDifferenceMeasurements = new ArrayList<>();
+// for each Modem find two Measurements accrding to Date
+        for (Modem modem : storageForModems) {
 
-        goodIndexedBinarySearch(storageForModems.get(1).getMeasurements(), goodTimeDate);
-        return null;
+        }
+        measurementIndexedBinarySearch(storageForModems.get(1).getMeasurements(), goodTimeDate);
+
+        goodMeasurement(storageForModems, goodTimeDate);
+        badMeasurement(storageForModems, badTimeDate);
+
+        return modemDifferenceMeasurements;
+    }
+
+    /*Принимает List Measurement
+    * @return the index of search key or nearest previous (good return low)*/
+    private int goodMeasurement(List measurements, Date dateTime) {
+        return measurementIndexedBinarySearch(measurements, dateTime);
+    }
+
+    /*Принимает List Measurement
+    * @return the index of search key or nearest next (bad return low -1)*/
+    private int badMeasurement(List measurements, Date dateTime) {
+        return measurementIndexedBinarySearch(measurements, dateTime) - 1;
     }
 
     /*The list must be sorted into ascending order
@@ -54,8 +74,10 @@ public class AnalyzeDataController {
      *         insertion point, as the point at which the key would be inserted into the list is great
      *         Соответственно переворачиваем условия if и compareTo метод в классе Measurement, что позволит нам работать с descending order что соответствует бизнес логике
      *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)
-     *         TODO Получается два почти одинаковых метода. Сделать один метод поиска. И над два которые возвращают разное смещение по коллекции*/
-    private int goodMeasurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
+     *         TODO Получается два почти одинаковых метода. Сделать один метод поиска. И над два которые возвращают разное смещение по коллекции
+     *         good return low
+     *         bad return low -1*/
+    private int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
         int low = 0;
         int high = measurementList.size() - 1;
 
@@ -73,28 +95,6 @@ public class AnalyzeDataController {
         }
         return (low);  // key not found, previous measurement would be returned, ascending order
     }
-
-    private int badMeasurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
-        int low = 0;
-        int high = measurementList.size() - 1;
-
-        while (low <= high) {
-            int mid = (low + high) >>> 1;
-            Measurement midVal = measurementList.get(mid);
-            int cmp = midVal.getDateTime().compareTo(date);
-
-            if (cmp > 0)
-                low = mid + 1;
-            else if (cmp < 0)
-                high = mid - 1;
-            else
-                return mid; // key found
-        }
-        return (low-1);  // key not found, next value would be returned , ascending order
-    }
-
-    private int binarySearch()
-    {}
 
 
     /* Анализ Сигналов

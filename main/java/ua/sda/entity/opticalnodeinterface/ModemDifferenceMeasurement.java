@@ -1,4 +1,4 @@
-package ua.sda.entity.analyze;
+package ua.sda.entity.opticalnodeinterface;
 
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
