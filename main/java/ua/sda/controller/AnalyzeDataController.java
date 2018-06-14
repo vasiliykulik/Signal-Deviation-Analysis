@@ -53,7 +53,8 @@ public class AnalyzeDataController {
      *         Коллекция отсортирована по нисходящему порядку, новые даты вначале (тоесть большие вначале), that is need to return ьеньшее значение, предыдущее измерение,
      *         insertion point, as the point at which the key would be inserted into the list is great
      *         Соответственно переворачиваем условия if и compareTo метод в классе Measurement, что позволит нам работать с descending order что соответствует бизнес логике
-     *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)*/
+     *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)
+     *         TODO Получается два почти одинаковых метода. Сделать один метод поиска. И над два которые возвращают разное смещение по коллекции*/
     private int goodMeasurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
         int low = 0;
         int high = measurementList.size() - 1;
