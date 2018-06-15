@@ -1,39 +1,35 @@
 package ua.sda.entity.opticalnodeinterface;
 
-import ua.sda.entity.opticalnodeinterface.Measurement;
-import ua.sda.entity.opticalnodeinterface.Modem;
-import ua.sda.entity.opticalnodeinterface.ModemLocation;
-
 import java.util.List;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 11.06.2018.
  */
 public class ModemDifferenceMeasurement extends Modem {
-    float analyzeDifference;
+    float analyzedDifference;
 
-    public ModemDifferenceMeasurement(float analyzeDifference) {
-        this.analyzeDifference = analyzeDifference;
+    public ModemDifferenceMeasurement(float analyzedDifference) {
+        this.analyzedDifference = analyzedDifference;
     }
 
-    public ModemDifferenceMeasurement(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, ModemLocation modemLocation, float analyzeDifference) {
+    public ModemDifferenceMeasurement(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, ModemLocation modemLocation, float analyzedDifference) {
         super(street, houseNumber, linkToMAC, measurements, modemLocation);
-        this.analyzeDifference = analyzeDifference;
+        this.analyzedDifference = analyzedDifference;
     }
 
-    public float getAnalyzeDifference() {
+    public float getAnalyzedDifference() {
 
-        return analyzeDifference;
+        return analyzedDifference;
     }
 
-    public void setAnalyzeDifference(float analyzeDifference) {
-        this.analyzeDifference = analyzeDifference;
+    public void setAnalyzedDifference(float analyzedDifference) {
+        this.analyzedDifference = analyzedDifference;
     }
 
     @Override
     public String toString() {
         return "ModemDifferenceMeasurement{" +
-                "analyzeDifference=" + analyzeDifference +
+                "analyzedDifference=" + analyzedDifference +
                 '}';
     }
 }

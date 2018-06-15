@@ -12,47 +12,53 @@ import static ua.sda.storage.Storage.storageForModems;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 23.04.2018.
+ * <p>
+ * {@code AnalyzeDataController}
+ * <p>
+ * provide Data analysis:
+ * <p>List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate){}
+ * <p>List<ModemDifferenceMeasurement> analyze(List<Modem> modems){}
  */
 
 public class AnalyzeDataController {
-    /*Ввод двух дат
- Ввели две даты
- Задача: для каждой даты , для каждого модема найти наиболее близкую дату. и взять в эти моменты времени,
-  ustxpower, и dssnr, взять разницу между ними.
- ok Implement DateTime Search
- use Comparable thru Measurement compareto method for descending order (ComparatorMeasurement used for descending order)
- Результат сложить в массив ModemDifferenceMeasurement, объектами.
- в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.*/
+    /**
+     * Ввели две даты
+     * Задача: для каждой даты , для каждого модема найти наиболее близкую дату. и взять в эти моменты времени,
+     * ustxpower, и dssnr, взять разницу между ними.
+     * <p>ok Implement DateTime Search
+     * <p>use Comparable thru Measurement compareto method for descending order (ComparatorMeasurement used for descending order)
+     * <p>Результат сложить в массив ModemDifferenceMeasurement, объектами.
+     * в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.
+     *
+     * @return {@code modemDifferenceMeasurements }List of Modems for particularly taken modem
+     */
+
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
         List<ModemDifferenceMeasurement> modemDifferenceMeasurements = new ArrayList<>();
 // for each Modem find two Measurements accrding to Date
         for (Modem modem : storageForModems) {
-
+            int goodCase = goodMeasurement(modem.getMeasurements(), goodTimeDate);
+            int badCase = badMeasurement(modem.getMeasurements(), badTimeDate);
         }
         measurementIndexedBinarySearch(storageForModems.get(1).getMeasurements(), goodTimeDate);
 
-        goodMeasurement(storageForModems, goodTimeDate);
-        badMeasurement(storageForModems, badTimeDate);
 
         return modemDifferenceMeasurements;
     }
 
     /*Принимает List Measurement
-    * @return the index of search key or nearest previous (good return low)*/
-    private int goodMeasurement(List measurements, Date dateTime) {
+    * @return {@code measurementIndexedBinarySearch }the index of search key or nearest previous (good return low)*/
+    private int goodMeasurement(List<Measurement> measurements, Date dateTime) {
         return measurementIndexedBinarySearch(measurements, dateTime);
     }
 
     /*Принимает List Measurement
     * @return the index of search key or nearest next (bad return low -1)*/
-    private int badMeasurement(List measurements, Date dateTime) {
+    private int badMeasurement(List<Measurement> measurements, Date dateTime) {
         return measurementIndexedBinarySearch(measurements, dateTime) - 1;
     }
 
-    /*The list must be sorted into ascending order
-     * according to the {@linkplain Comparable natural ordering} of its
-     * elements (as by the {@link #sort(List)} method) prior to making this
-     * call.  If it is not sorted, the results are undefined.  If the list
+    /*If List is not sorted, the results are undefined.  If the list
      * contains multiple elements equal to the specified object, there is no
      * guarantee which one will be found.
      *
@@ -62,19 +68,13 @@ public class AnalyzeDataController {
      * this method will do an iterator-based binary search that performs
      * O(n) link traversals and O(log n) element comparisons.
      * @return the index of the search key, if it is contained in the list;
-     *         otherwise, <tt>(-(<i>insertion point</i>) - 1)</tt>.  The
-     *         <i>insertion point</i> is defined as the point at which the
-     *         key would be inserted into the list: the index of the first
-     *         element greater than the key, or <tt>list.size()</tt> if all
-     *         elements in the list are less than the specified key.  Note
-     *         that this guarantees that the return value will be &gt;= 0 if
-     *         and only if the key is found.
+     *         otherwise, return low
      *         Мне надо что бы возвращалось значение - good - that is мы считаем что до этого момента все было хорошо,
      *         Коллекция отсортирована по нисходящему порядку, новые даты вначале (тоесть большие вначале), that is need to return ьеньшее значение, предыдущее измерение,
      *         insertion point, as the point at which the key would be inserted into the list is great
      *         Соответственно переворачиваем условия if и compareTo метод в классе Measurement, что позволит нам работать с descending order что соответствует бизнес логике
      *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)
-     *         TODO Получается два почти одинаковых метода. Сделать один метод поиска. И над два которые возвращают разное смещение по коллекции
+     *         ok Получается два почти одинаковых метода. Сделать один метод поиска. И над два которые возвращают разное смещение по коллекции
      *         good return low
      *         bad return low -1*/
     private int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
@@ -93,7 +93,7 @@ public class AnalyzeDataController {
             else
                 return mid; // key found
         }
-        return (low);  // key not found, previous measurement would be returned, ascending order
+        return (low);  // key not found, previous measurement would be returned, descending order
     }
 
 
