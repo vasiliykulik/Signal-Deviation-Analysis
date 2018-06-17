@@ -1,15 +1,13 @@
 package ua.sda.analyzer;
 
-import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
-
-import java.util.Collection;
-import java.util.stream.IntStream;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 15.05.2018.
  */
 public class SignalCalculateImpl implements SignalCalculate {
+
+
 
 
     @Override
