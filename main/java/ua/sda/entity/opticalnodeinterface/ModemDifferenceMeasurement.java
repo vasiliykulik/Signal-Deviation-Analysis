@@ -12,6 +12,7 @@ public class ModemDifferenceMeasurement extends Modem {
         this.analyzedDifference = analyzedDifference;
     }
 
+
     public ModemDifferenceMeasurement(String street, String houseNumber, String linkToMAC, List<Measurement> measurements, ModemLocation modemLocation, float analyzedDifference) {
         super(street, houseNumber, linkToMAC, measurements, modemLocation);
         this.analyzedDifference = analyzedDifference;
