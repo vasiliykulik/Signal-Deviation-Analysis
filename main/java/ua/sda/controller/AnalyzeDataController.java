@@ -6,10 +6,7 @@ import ua.sda.entity.opticalnodeinterface.ModemDifferenceMeasurement;
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static ua.sda.storage.Storage.storageForModems;
 
@@ -40,7 +37,8 @@ public class AnalyzeDataController {
      * Результат сложить в массив ModemDifferenceMeasurement, объектами.
      * в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.
      *
-     * @return {@code modemDifferenceMeasurements }List of Modems for particularly taken modem
+     * @return {@code modemDifferenceMeasurements }List of Modems with difference of measurements, sorted by difference
+     * (m2 to m1, descending order)
      */
 
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
@@ -51,13 +49,16 @@ public class AnalyzeDataController {
         for (Modem modem : storageForModems) {
             int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
             int badCase = signalCalculate.findBadMeasurement(modem.getMeasurements(), badTimeDate);
-
-
+            // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
+            Float usTXPowerDifference = modem.getMeasurements().get(badCase).getUsTXPower() - modem.getMeasurements().get(goodCase).getUsTXPower();
+            Float dsSNRDifference = modem.getMeasurements().get(goodCase).getDsSNR() - modem.getMeasurements().get(badCase).getDsSNR();
+            Float difference = usTXPowerDifference + dsSNRDifference;
             ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement
-                    (modem, goodCase - badCase);
-            modemDifferenceMeasurements.add(modem)*/
+                    (modem, difference);
+            modemDifferenceMeasurements.add(modemDifferenceMeasurement);
         }
-        signalCalculate.measurementIndexedBinarySearch(storageForModems.get(1).getMeasurements(), goodTimeDate);
+        modemDifferenceMeasurements
+                .sort((ModemDifferenceMeasurement m1,ModemDifferenceMeasurement m2)-> m2.getAnalyzedDifference().compareTo(m1.getAnalyzedDifference()));
         return modemDifferenceMeasurements;
     }
 
