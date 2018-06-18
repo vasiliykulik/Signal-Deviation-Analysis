@@ -11,15 +11,20 @@ import java.util.List;
  */
 public class SignalCalculateImpl implements SignalCalculate {
 
-
-    /*Принимает List Measurement
-   * @return {@code measurementIndexedBinarySearch }the index of search key or nearest previous (good return low)*/
+    /**
+     * Принимает List Measurement
+     *
+     * @return {@code measurementIndexedBinarySearch }the index of search key or nearest previous (good return low);
+     */
     public int findGoodMeasurement(List<Measurement> measurements, Date dateTime) {
         return measurementIndexedBinarySearch(measurements, dateTime);
     }
 
-    /*Принимает List Measurement
-    * @return the index of search key or nearest next (bad return low -1)*/
+    /**
+     * Принимает List Measurement
+     *
+     * @return {@code measurementIndexedBinarySearch } the index of search key or nearest next (bad return low -1)
+     */
     public int findBadMeasurement(List<Measurement> measurements, Date dateTime) {
         return measurementIndexedBinarySearch(measurements, dateTime) - 1;
     }

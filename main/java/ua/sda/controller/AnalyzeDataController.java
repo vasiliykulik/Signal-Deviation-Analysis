@@ -51,6 +51,8 @@ public class AnalyzeDataController {
         for (Modem modem : storageForModems) {
             int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
             int badCase = signalCalculate.findBadMeasurement(modem.getMeasurements(), badTimeDate);
+
+
             ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement
                     (modem, goodCase - badCase);
             modemDifferenceMeasurements.add(modem)*/
