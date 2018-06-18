@@ -58,7 +58,10 @@ public class AnalyzeDataController {
             modemDifferenceMeasurements.add(modemDifferenceMeasurement);
         }
         modemDifferenceMeasurements
-                .sort((ModemDifferenceMeasurement m1,ModemDifferenceMeasurement m2)-> m2.getAnalyzedDifference().compareTo(m1.getAnalyzedDifference()));
+                .sort((ModemDifferenceMeasurement m1,ModemDifferenceMeasurement m2)
+                        -> m2.getAnalyzedDifference().compareTo(m1.getAnalyzedDifference()));
+        // TODO trim to 20 elements - trim by amlitude
+        modemDifferenceMeasurements.
         return modemDifferenceMeasurements;
     }
 
