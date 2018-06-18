@@ -6,9 +6,12 @@ import java.util.List;
  * Created by Vasiliy Kylik (Lightning) on 11.06.2018.
  */
 public class ModemDifferenceMeasurement extends Modem {
-    float analyzedDifference;
+    private float analyzedDifference;
 
-    public ModemDifferenceMeasurement(float analyzedDifference) {
+
+    // Constructor for ModemDifferenceMeasurement through Modem Entity
+    public ModemDifferenceMeasurement(Modem modem, float analyzedDifference) {
+        super(modem.getStreet(), modem.getHouseNumber(), modem.getLinkToMAC(), modem.getMeasurements(), modem.getModemLocation());
         this.analyzedDifference = analyzedDifference;
     }
 

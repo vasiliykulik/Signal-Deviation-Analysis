@@ -7,6 +7,7 @@ import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import static ua.sda.storage.Storage.storageForModems;
  */
 
 public class AnalyzeDataController {
-    SignalCalculate signalCalculate = new SignalCalculateImpl();
+    private SignalCalculate signalCalculate = new SignalCalculateImpl();
 
     /**
      * Ввели две даты
@@ -33,20 +34,26 @@ public class AnalyzeDataController {
      * <p>use Comparable thru Measurement compareto method for descending order (ComparatorMeasurement used for descending order)
      * <p>Результат сложить в массив ModemDifferenceMeasurement, объектами.
      * в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.
-     * Возвращаемая коллекция будет отсортирована по амплитуде разницы сигналов
+     * Возвращаемая коллекция будет отсортирована по амплитуде разницы сигналов.
+     * Задача: у каждого модема взять измерения, это будет descending order Collection, найти наиболее близкую дату.
+     * и взять в эти моменты времени, ustxpower, и dssnr, взять разницу между ними.
+     * Результат сложить в массив ModemDifferenceMeasurement, объектами.
+     * в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.
      *
      * @return {@code modemDifferenceMeasurements }List of Modems for particularly taken modem
      */
 
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
+        ArrayList<Modem> copyModems = new ArrayList<Modem>(storageForModems);
         List<ModemDifferenceMeasurement> modemDifferenceMeasurements = new ArrayList<>();
+
         // for each Modem find two Measurements according to Date
         for (Modem modem : storageForModems) {
             int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
             int badCase = signalCalculate.findBadMeasurement(modem.getMeasurements(), badTimeDate);
             ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement
-                    (modem,goodCase-badCase);
-            modemDifferenceMeasurements.add(modem)
+                    (modem, goodCase - badCase);
+            modemDifferenceMeasurements.add(modem)*/
         }
         signalCalculate.measurementIndexedBinarySearch(storageForModems.get(1).getMeasurements(), goodTimeDate);
         return modemDifferenceMeasurements;
