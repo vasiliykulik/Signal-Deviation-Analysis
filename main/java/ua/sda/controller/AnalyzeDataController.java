@@ -38,11 +38,10 @@ public class AnalyzeDataController {
      * в итоге будем иметь структуру данных с 10 объектами. на вывод. да мне нужны модемы, точнее мне нужны локации.
      *
      * @return {@code modemDifferenceMeasurements }List of Modems with difference of measurements, sorted by difference
-     * (m2 to m1, descending order)
+     * (m2 to m1, descending order) and cleared to 20 elements
      */
 
     public List<ModemDifferenceMeasurement> findDifferences(Date goodTimeDate, Date badTimeDate) {
-        ArrayList<Modem> copyModems = new ArrayList<Modem>(storageForModems);
         List<ModemDifferenceMeasurement> modemDifferenceMeasurements = new ArrayList<>();
 
         // for each Modem find two Measurements according to Date
@@ -58,10 +57,12 @@ public class AnalyzeDataController {
             modemDifferenceMeasurements.add(modemDifferenceMeasurement);
         }
         modemDifferenceMeasurements
-                .sort((ModemDifferenceMeasurement m1,ModemDifferenceMeasurement m2)
+                .sort((ModemDifferenceMeasurement m1, ModemDifferenceMeasurement m2)
                         -> m2.getAnalyzedDifference().compareTo(m1.getAnalyzedDifference()));
-        // TODO trim to 20 elements - trim by amlitude
-        modemDifferenceMeasurements.
+        // ok trim to 20 elements - trim by amplitude (while we will not implement)
+        if (modemDifferenceMeasurements.size() > 19) {
+            modemDifferenceMeasurements.subList(20, modemDifferenceMeasurements.size()).clear();
+        }
         return modemDifferenceMeasurements;
     }
 
@@ -78,6 +79,27 @@ public class AnalyzeDataController {
  Что я хочу получить?:
  десять Адресов с Локациями, для максимального падения сигналов обратный уровень и прямой snr*/
     public List<ModemDifferenceMeasurement> analyze(List<Modem> modems) {
-        return null;
+        List<ModemDifferenceMeasurement> modemAfterAnalyzeDifferenceMeasurements = new ArrayList<>();
+        for (Modem modem : storageForModems) {
+            int badCase = signalCalculate.findMinUSSNR(modem);
+            int goodCase = signalCalculate.findMaxUSSNR(modem);
+            // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
+            // getUsRXPower() - lower is Better,
+            Float usTXPowerDifference = modem.getMeasurements().get(badCase).getUsTXPower() - modem.getMeasurements().get(goodCase).getUsTXPower();
+            Float usRXPowerDifference = modem.getMeasurements().get(badCase).getUsRXPower() - modem.getMeasurements().get(goodCase).getUsRXPower();
+            Float dsSNRDifference = modem.getMeasurements().get(goodCase).getDsSNR() - modem.getMeasurements().get(badCase).getDsSNR();
+            Float difference = usTXPowerDifference + usRXPowerDifference + dsSNRDifference;
+            ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement
+                    (modem, difference);
+            modemAfterAnalyzeDifferenceMeasurements.add(modemDifferenceMeasurement);
+        }
+        modemAfterAnalyzeDifferenceMeasurements
+                .sort((ModemDifferenceMeasurement m1, ModemDifferenceMeasurement m2)
+                        -> m2.getAnalyzedDifference().compareTo(m1.getAnalyzedDifference()));
+        // ok trim to 20 elements - trim by amplitude (while we will not implement)
+        if (modemAfterAnalyzeDifferenceMeasurements.size() > 19) {
+            modemAfterAnalyzeDifferenceMeasurements.subList(20, modemAfterAnalyzeDifferenceMeasurements.size()).clear();
+        }
+        return modemAfterAnalyzeDifferenceMeasurements;
     }
 }

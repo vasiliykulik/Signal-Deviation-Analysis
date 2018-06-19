@@ -39,6 +39,7 @@ public class AnalyzeDataView {
                 badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(readString());
                 long start = System.nanoTime();
                 // and without waiting print to console
+                // TODO Test 20 elems in descending order
                 analyzeDataController.findDifferences(goodTimeDate, badTimeDate).forEach(System.out::println);
                 long finish = System.nanoTime();
                 System.out.println("two DateTime's (nanoTime())" + (finish - start));
