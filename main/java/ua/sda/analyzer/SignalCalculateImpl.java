@@ -1,7 +1,6 @@
 package ua.sda.analyzer;
 
 import ua.sda.entity.opticalnodeinterface.Measurement;
-import ua.sda.entity.opticalnodeinterface.Modem;
 
 import java.util.Date;
 import java.util.List;
