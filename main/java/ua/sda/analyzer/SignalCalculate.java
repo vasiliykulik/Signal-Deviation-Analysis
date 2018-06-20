@@ -28,20 +28,39 @@ import java.util.List;
  */
 public interface SignalCalculate {
     /**
-     * Принимает List Measurement
+     * Take List Measurement
      *
      * @return {@code measurementIndexedBinarySearch }the index of search key or nearest previous (good return low);
      */
     int findGoodMeasurement(List<Measurement> measurements, Date dateTime);
 
     /**
-     * Принимает List Measurement
+     * Take List Measurement
      *
      * @return {@code measurementIndexedBinarySearch } the index of search key or nearest next (bad return low -1)
      */
     int findBadMeasurement(List<Measurement> measurements, Date dateTime);
 
-    public int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date);
+    int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date);
 
+    /**
+     * Take modem
+     *
+     * @return {@code index of measurement with min USSNR if several } the index of search key or nearest next (bad return low -1)
+     */
+
+    /**
+     * Принимает List Measurement
+     *
+     * @return {@code measurementIndexedBinarySearch } the index of search key or nearest next (bad return low -1)
+     */
+    int findMinUSSNR(Modem modem);
+
+    /**
+     * Take modem
+     *
+     * @return {@code index of measurement with max USSNR if several } the index of search key or nearest next (bad return low -1)
+     */
+    int findMaxUSSNR(Modem modem);
 
 }
