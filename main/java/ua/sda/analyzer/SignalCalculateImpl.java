@@ -1,6 +1,7 @@
 package ua.sda.analyzer;
 
 import ua.sda.entity.opticalnodeinterface.Measurement;
+import ua.sda.entity.opticalnodeinterface.Modem;
 
 import java.util.Date;
 import java.util.List;
@@ -64,5 +65,15 @@ public class SignalCalculateImpl implements SignalCalculate {
                 return mid; // key found
         }
         return (low);  // key not found, previous measurement would be returned, descending order
+    }
+
+    @Override
+    public int findMinUSSNR(Modem modem) {
+        return 0;
+    }
+
+    @Override
+    public int findMaxUSSNR(Modem modem) {
+        return 0;
     }
 }

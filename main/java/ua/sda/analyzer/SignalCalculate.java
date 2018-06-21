@@ -46,20 +46,15 @@ public interface SignalCalculate {
     /**
      * Take modem
      *
-     * @return {@code index of measurement with min USSNR if several } the index of search key or nearest next (bad return low -1)
+     * @return {@code index of measurement with min USSNR if several }
      */
 
-    /**
-     * Принимает List Measurement
-     *
-     * @return {@code measurementIndexedBinarySearch } the index of search key or nearest next (bad return low -1)
-     */
     int findMinUSSNR(Modem modem);
 
     /**
      * Take modem
      *
-     * @return {@code index of measurement with max USSNR if several } the index of search key or nearest next (bad return low -1)
+     * @return {@code index of measurement with max USSNR if several }
      */
     int findMaxUSSNR(Modem modem);
 
