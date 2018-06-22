@@ -46,7 +46,7 @@ public interface SignalCalculate {
     /**
      * Take modem
      *
-     * @return {@code index of measurement with min USSNR if several }
+     * @return {@code index of measurement with min USSNR}
      */
 
     int findMinUSSNR(Modem modem);
@@ -54,7 +54,7 @@ public interface SignalCalculate {
     /**
      * Take modem
      *
-     * @return {@code index of measurement with max USSNR if several }
+     * @return {@code index of measurement with max USSNR}
      */
     int findMaxUSSNR(Modem modem);
 
