@@ -80,8 +80,14 @@ public class SignalCalculateImpl implements SignalCalculate {
         return 0;
     }
 
+    // Sort measurements in descending order by USSNR
     @Override
     public int findMaxUSSNR(Modem modem) {
+        List <Integer> indexMeasurement = new ArrayList<>();
+        modem.getMeasurements().sort((m1,m2)->m2.getUsSNR().compareTo(m1.getUsSNR()));
+        for(Measurement measurement:modem.getMeasurements()){
+
+        }
         return 0;
     }
 }
