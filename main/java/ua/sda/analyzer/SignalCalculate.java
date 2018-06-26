@@ -44,7 +44,13 @@ public interface SignalCalculate {
     int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date);
 
     /**
-     * Take modem
+     * Take modem<p>
+     * Sort measurements in ascending order by USSNR and so on
+     * find the worst value US SNR (a smaller value )
+     * if several equal values, next find the worst value DS SNR (a smaller value)
+     * if several equal values next find the worst value MicroReflx
+     * next find the worst value US TX POWER (a larger value)
+     * next find the worst value (a larger value) of US RX Power ()
      *
      * @return {@code index of measurement with min USSNR}
      */
@@ -52,7 +58,13 @@ public interface SignalCalculate {
     int findMinUSSNR(Modem modem);
 
     /**
-     * Take modem
+     * Take modem<p>
+     * Sort measurements in descending order by USSNR and so on
+     * find the best value US SNR (a larger value)
+     * if several equal values, next find the best value DS SNR (a larger value)
+     * next find the best value MicroReflx
+     * next find the best value US TX POWER (a smaller value)
+     * next find the best value(a smaller value) of US RX Power
      *
      * @return {@code index of measurement with max USSNR}
      */
