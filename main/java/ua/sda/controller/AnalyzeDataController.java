@@ -81,6 +81,7 @@ public class AnalyzeDataController {
     public List<ModemDifferenceMeasurement> analyze(List<Modem> modems) {
         List<ModemDifferenceMeasurement> modemAfterAnalyzeDifferenceMeasurements = new ArrayList<>();
         for (Modem modem : storageForModems) {
+            // index of measurement in List
             int badCase = signalCalculate.findMinUSSNR(modem);
             int goodCase = signalCalculate.findMaxUSSNR(modem);
             // getUsTXPower() - lower is Better, getDsSNR() - higher is Better

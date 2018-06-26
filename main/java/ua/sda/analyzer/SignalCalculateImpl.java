@@ -1,5 +1,7 @@
 package ua.sda.analyzer;
 
+import ua.sda.comparators.ComparatorFindMaxSNR;
+import ua.sda.comparators.ComparatorFindMinSNR;
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
@@ -71,23 +73,19 @@ public class SignalCalculateImpl implements SignalCalculate {
     // Sort measurements in ascending order by USSNR
     @Override
     public int findMinUSSNR(Modem modem) {
-        List <Integer> indexMeasurement = new ArrayList<>();
+        List<Integer> indexMeasurement = new ArrayList<>();
         // retrieve sorted List Measurements by USSNR in Ascending order
-        modem.getMeasurements().sort((m1,m2)->m1.getUsSNR().compareTo(m2.getUsSNR()));
-        for(Measurement measurement:modem.getMeasurements()){
-
-        }
+        modem.getMeasurements().sort(new ComparatorFindMinSNR());
+        // sort and return index of first element
         return 0;
     }
 
     // Sort measurements in descending order by USSNR
     @Override
     public int findMaxUSSNR(Modem modem) {
-        List <Integer> indexMeasurement = new ArrayList<>();
-        modem.getMeasurements().sort((m1,m2)->m2.getUsSNR().compareTo(m1.getUsSNR()));
-        for(Measurement measurement:modem.getMeasurements()){
-
-        }
+        List<Integer> indexMeasurement = new ArrayList<>();
+        modem.getMeasurements().sort(new ComparatorFindMaxSNR());
+        // sort and return index of first element
         return 0;
     }
 }

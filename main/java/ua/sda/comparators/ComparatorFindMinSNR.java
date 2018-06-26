@@ -23,7 +23,7 @@ import java.util.Comparator;
 public class ComparatorFindMinSNR implements Comparator<Measurement> {
     @Override
     public int compare(Measurement o1, Measurement o2) {
-        // from smaller to larger for ascending order
+        // from smaller to larger, for ascending order
         int result = o1.getUsSNR().compareTo(o2.getUsSNR());
         if (result != 0) {
             return result;
@@ -36,7 +36,7 @@ public class ComparatorFindMinSNR implements Comparator<Measurement> {
         if (result != 0) {
             return result;
         }
-        // from larger to smaller for ascending order
+        // from larger to smaller, for ascending order
         result = o2.getUsTXPower().compareTo(o1.getUsTXPower());
         if (result != 0) {
             return result;
