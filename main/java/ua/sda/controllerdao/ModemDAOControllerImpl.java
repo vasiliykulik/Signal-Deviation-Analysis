@@ -1,5 +1,6 @@
 package ua.sda.controllerdao;
 
+import org.hibernate.SessionFactory;
 import ua.sda.dao.HibernateDAOImpl;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
