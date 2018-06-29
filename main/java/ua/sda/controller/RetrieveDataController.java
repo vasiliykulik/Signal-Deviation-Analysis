@@ -1,5 +1,7 @@
 package ua.sda.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.entity.opticalnodeinterface.ModemLocation;
@@ -16,6 +18,7 @@ import java.util.List;
  * Created by Vasiliy Kylik (Lightning) on 23.04.2018.
  */
 public class RetrieveDataController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetrieveDataController.class);
     public List<Modem> getAll(String userName, String password, String urlString) {
 
         // the virtual database is a web resource protected using BASIC HTTP Authentication
@@ -64,6 +67,7 @@ public class RetrieveDataController {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("(CurrentState exception) " + modem.getLinkToMAC());
+                LOGGER.error("(CurrentState exception) " + modem.getLinkToMAC() + e);
             }
         }
 

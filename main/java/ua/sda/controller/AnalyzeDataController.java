@@ -1,5 +1,7 @@
 package ua.sda.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.sda.analyzer.SignalCalculate;
 import ua.sda.analyzer.SignalCalculateImpl;
 import ua.sda.entity.opticalnodeinterface.ModemDifferenceMeasurement;
@@ -21,6 +23,7 @@ import static ua.sda.storage.Storage.storageForModems;
  */
 
 public class AnalyzeDataController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnalyzeDataController.class);
     private SignalCalculate signalCalculate = new SignalCalculateImpl();
 
     /**

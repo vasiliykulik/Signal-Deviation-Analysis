@@ -34,7 +34,9 @@ public class SignalCalculateImpl implements SignalCalculate {
   public int findBadMeasurement(List<Measurement> measurements, Date dateTime) {
     int result = measurementIndexedBinarySearch(measurements, dateTime) - 1;
     if (result < 0) {
-      LOGGER.error("ArrayIndexOutOfBoundsException: -1");
+      System.out.println("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1");
+      LOGGER.error("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1"
+              + measurements.get(0).getLinkToCurrentState() + " Link to modems current state");
       return 0;
     }
     return result;
@@ -58,7 +60,10 @@ public class SignalCalculateImpl implements SignalCalculate {
    *         для good будет low - более раннее, а для bad - будет low -1 более позднее (на шкале вемени при descending order)
    *         ok Получается два почти одинаковых метода. Сделать один метод поиска. И над два которые возвращают разное смещение по коллекции
    *         good return low
-   *         bad return low -1*/
+   *         bad return low -1
+   *         Lets look at case when
+   *         "ArrayIndexOutOfBoundsException: -1, returning 0 instead -1"
+   *         */
   public int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date) {
     int low = 0;
     int high = measurementList.size() - 1;
