@@ -39,7 +39,7 @@ public class AnalyzeDataView {
                 badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(readString());
                 long start = System.nanoTime();
                 // and without waiting print to console
-                // TODO Test 20 elems in descending order
+                // ok Test 20 elems in descending order
                 analyzeDataController.findDifferences(goodTimeDate, badTimeDate).forEach(System.out::println);
                 long finish = System.nanoTime();
                 System.out.println("two DateTime's (nanoTime())" + (finish - start));
@@ -48,7 +48,7 @@ public class AnalyzeDataView {
                 writeMessage("Analyze measurements of modems\n");
                 System.out.println("storageForModems.size() " + storageForModems.size());
                 start = System.nanoTime();
-                analyzeDataController.analyze(storageForModems);
+                analyzeDataController.analyze(storageForModems).forEach(System.out::println);
                 finish = System.nanoTime();
                 System.out.println("Analyze (nanoTime())" + (finish - start));
                 break;

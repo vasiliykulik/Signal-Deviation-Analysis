@@ -48,6 +48,8 @@ public class AnalyzeDataController {
         for (Modem modem : storageForModems) {
             int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
             int badCase = signalCalculate.findBadMeasurement(modem.getMeasurements(), badTimeDate);
+            System.out.println("good case index"+ goodCase);// debug
+            System.out.println("bad case index"+ badCase);// debug
             // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
             Float usTXPowerDifference = modem.getMeasurements().get(badCase).getUsTXPower() - modem.getMeasurements().get(goodCase).getUsTXPower();
             Float dsSNRDifference = modem.getMeasurements().get(goodCase).getDsSNR() - modem.getMeasurements().get(badCase).getDsSNR();

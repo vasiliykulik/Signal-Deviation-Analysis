@@ -1,7 +1,10 @@
 package ua.sda.analyzer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.sda.comparators.ComparatorFindMaxSNR;
 import ua.sda.comparators.ComparatorFindMinSNR;
+import ua.sda.dao.HibernateDAOImpl;
 import ua.sda.entity.opticalnodeinterface.Measurement;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
@@ -13,7 +16,7 @@ import java.util.List;
  * Created by Vasiliy Kylik (Lightning) on 15.05.2018.
  */
 public class SignalCalculateImpl implements SignalCalculate {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(SignalCalculateImpl.class);
     /**
      * Принимает List Measurement
      *
@@ -29,7 +32,12 @@ public class SignalCalculateImpl implements SignalCalculate {
      * @return {@code measurementIndexedBinarySearch } the index of search key or nearest next (bad return low -1)
      */
     public int findBadMeasurement(List<Measurement> measurements, Date dateTime) {
-        return measurementIndexedBinarySearch(measurements, dateTime) - 1;
+        int result = measurementIndexedBinarySearch(measurements, dateTime) - 1;
+        if(result<0){
+            LOGGER.error("ArrayIndexOutOfBoundsException: -1");
+            return 0;
+        }
+        return result;
     }
 
     /*If List is not sorted, the results are undefined.  If the list

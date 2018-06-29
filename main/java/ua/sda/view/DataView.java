@@ -29,7 +29,12 @@ public class DataView {
                 System.out.println("storageForModems.size() " + storageForModems.size());
                 long start = System.nanoTime();
                 // for this ConsoleHelper become static
-                modemDAOController.save(storageForModems);
+                try {
+                    modemDAOController.save(storageForModems);
+                }catch (NullPointerException e){
+                    System.err.println("Caught NullPointerException, trying to save empty storageForModems in DB");
+                    e.printStackTrace();
+                }
                 long finish = System.nanoTime();
                 System.out.println("storing modems in DB saveDB() (nanoTime())" + (finish - start));
                 System.out.println("storageForModems.size() after saveDB() " + storageForModems.size());
