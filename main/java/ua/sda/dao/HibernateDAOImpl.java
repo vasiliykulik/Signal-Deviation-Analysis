@@ -65,7 +65,7 @@ public class HibernateDAOImpl implements ModemDAO {
         try (Session session = sessionFactory.openSession()) {
             try {
                 session.beginTransaction();
-                session.delete(session.createQuery("DELETE FROM Modem"));
+                session.createQuery("DELETE FROM Modem m").executeUpdate();
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
