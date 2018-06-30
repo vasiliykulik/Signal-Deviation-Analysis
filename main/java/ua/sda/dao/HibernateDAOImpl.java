@@ -62,15 +62,30 @@ public class HibernateDAOImpl implements ModemDAO {
 
     @Override
     public void removeFromDB() {
+        List<Modem> modemList = new ArrayList<>();
+        int i =0;
+        int j=0;
         try (Session session = sessionFactory.openSession()) {
             try {
-                session.beginTransaction();
-                session.createQuery("DELETE FROM Modem m").executeUpdate();
-                session.getTransaction().commit();
+                modemList = session.createQuery("FROM Modem").list();
+                System.out.println("Number of modems read from DB for deleting "+modemList.size());
             } catch (Exception e) {
-                session.getTransaction().rollback();
-                LOGGER.error("Exception occurred while deleting modems from DB" + " , rollback " + e);
+                LOGGER.error("Exception occurred while reading modems from DB " + e);
             }
+            for(Modem modem:modemList){
+                try {
+                    session.beginTransaction();
+                    session.delete(modem);
+                    session.getTransaction().commit();
+                    i++;
+                } catch (Exception e) {
+                    session.getTransaction().rollback();
+                    LOGGER.error("Exception occurred while deleting modems from DB" + " , rollback " + e);
+                    j++;
+                }
+            }
+          System.out.println("Successfully removed "+i);
+          System.out.println("Failed to remove "+j);
         }
     }
 }
