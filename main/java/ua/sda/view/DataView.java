@@ -1,5 +1,8 @@
 package ua.sda.view;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ua.sda.controller.AnalyzeDataController;
 import ua.sda.controllerdao.ModemDAOControllerImpl;
 import ua.sda.view.helper.ConsoleHelper;
 
@@ -14,6 +17,8 @@ import static ua.sda.view.helper.ConsoleHelper.writeMessage;
  * Created by Vasiliy Kylik (Lightning) on 23.04.2018.
  */
 public class DataView {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
+
     public void execute(String userName, String password) throws IOException, ParseException {
         ModemDAOControllerImpl modemDAOController = new ModemDAOControllerImpl();
         writeMessage("" +
@@ -31,7 +36,7 @@ public class DataView {
                 // for this ConsoleHelper become static
                 try {
                     modemDAOController.save(storageForModems);
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     System.err.println("Caught NullPointerException, trying to save empty storageForModems in DB");
                     e.printStackTrace();
                 }
@@ -41,9 +46,14 @@ public class DataView {
                 break;
             case 2:
                 writeMessage("Reading Modems from DataBase\n");
-                System.out.println("storageForModems.size() " + storageForModems.size());
                 start = System.nanoTime();
-                modemDAOController.readDB();
+                try {
+                    storageForModems.isEmpty();
+                } catch (NullPointerException e) {
+                    LOGGER.warn("storageForModems not Empty, but still continue reading from DataBase");
+                } finally {
+                  storageForModems = modemDAOController.readDB();
+                }
                 finish = System.nanoTime();
                 System.out.println("reading modems from readDB() (nanoTime())" + (finish - start));
                 System.out.println("storageForModems.size() after readDB() " + storageForModems.size());

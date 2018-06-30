@@ -46,11 +46,12 @@ public class HibernateDAOImpl implements ModemDAO {
     }
 
     @Override
-    public Collection<Modem> readDB() {
+    public List<Modem> readDB() {
         List<Modem> modemList = new ArrayList<>();
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             try {
                 modemList = session.createQuery("FROM Modem").list();
+                System.out.println("Number of modems read from DB "+modemList.size());
             } catch (Exception e) {
                 LOGGER.error("Exception occurred while reading modems from DB " + e);
             }
@@ -61,7 +62,7 @@ public class HibernateDAOImpl implements ModemDAO {
 
     @Override
     public void removeFromDB() {
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             try {
                 session.beginTransaction();
                 session.delete(session.createQuery("DELETE FROM Modem"));

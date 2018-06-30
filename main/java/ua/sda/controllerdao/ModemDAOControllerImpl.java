@@ -19,7 +19,7 @@ public class ModemDAOControllerImpl implements ModemDAOController {
         hibernateDAO.save(modems);
     }
 
-    public Collection<Modem> readDB() {
+    public List<Modem> readDB() {
         return hibernateDAO.readDB();
     }
 
