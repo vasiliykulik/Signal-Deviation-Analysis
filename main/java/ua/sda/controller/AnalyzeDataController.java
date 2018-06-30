@@ -95,8 +95,7 @@ public class AnalyzeDataController {
             Float usRXPowerDifference = modem.getMeasurements().get(badCase).getUsRXPower() - modem.getMeasurements().get(goodCase).getUsRXPower();
             Float dsSNRDifference = modem.getMeasurements().get(goodCase).getDsSNR() - modem.getMeasurements().get(badCase).getDsSNR();
             Float difference = usTXPowerDifference + usRXPowerDifference + dsSNRDifference;
-            ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement
-                    (modem, difference);
+            ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement(modem, difference);
             modemAfterAnalyzeDifferenceMeasurements.add(modemDifferenceMeasurement);
         }
         modemAfterAnalyzeDifferenceMeasurements

@@ -20,14 +20,14 @@ public class Modem extends BaseEntity {
 	private String linkToMAC;
 
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "modems_measurements",
 			joinColumns = @JoinColumn(name = "modemId"),
 			inverseJoinColumns = @JoinColumn(name = "measurementsId")
 	)
 	private List<Measurement> measurements;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "modems_location",
 			joinColumns = @JoinColumn(name = "modemId"),
