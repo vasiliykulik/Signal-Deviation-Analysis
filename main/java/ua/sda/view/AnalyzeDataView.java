@@ -60,6 +60,6 @@ public class AnalyzeDataView {
             default:
                 break;
         }
-
+execute(userName,password);
     }
 }

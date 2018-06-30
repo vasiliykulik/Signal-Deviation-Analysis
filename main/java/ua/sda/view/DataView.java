@@ -73,6 +73,6 @@ public class DataView {
             default:
                 break;
         }
-
+execute(userName,password);
     }
 }
