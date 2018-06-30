@@ -33,7 +33,11 @@ public class ModemDifferenceMeasurement extends Modem {
     @Override
     public String toString() {
         return "ModemDifferenceMeasurement{" +
-                "analyzedDifference=" + analyzedDifference +
+                "street='" + this.getStreet() + '\'' +
+                ", houseNumber='" + this.getHouseNumber() + '\'' +
+                ", measurements=" + this.getModemLocation() +
+                ", analyzedDifference=" + analyzedDifference +
+                ", linkToMAC='" + this.getLinkToMAC() + '\'' +
                 '}';
     }
 }

@@ -88,12 +88,14 @@ public class AnalyzeDataController {
         for (Modem modem : storageForModems) {
             // index of measurement in List
             int badCase = signalCalculate.findMinUSSNR(modem);
+            Measurement badCaseMeasurement = modem.getMeasurements().get(badCase);
             int goodCase = signalCalculate.findMaxUSSNR(modem);
+            Measurement goodCaseMeasurement = modem.getMeasurements().get(goodCase);
             // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
             // getUsRXPower() - lower is Better,
-            Float usTXPowerDifference = modem.getMeasurements().get(badCase).getUsTXPower() - modem.getMeasurements().get(goodCase).getUsTXPower();
-            Float usRXPowerDifference = modem.getMeasurements().get(badCase).getUsRXPower() - modem.getMeasurements().get(goodCase).getUsRXPower();
-            Float dsSNRDifference = modem.getMeasurements().get(goodCase).getDsSNR() - modem.getMeasurements().get(badCase).getDsSNR();
+            Float usTXPowerDifference = badCaseMeasurement.getUsTXPower() - goodCaseMeasurement.getUsTXPower();
+            Float usRXPowerDifference = badCaseMeasurement.getUsRXPower() - goodCaseMeasurement.getUsRXPower();
+            Float dsSNRDifference = goodCaseMeasurement.getDsSNR() - badCaseMeasurement.getDsSNR();
             Float difference = usTXPowerDifference + usRXPowerDifference + dsSNRDifference;
             ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement(modem, difference);
             modemAfterAnalyzeDifferenceMeasurements.add(modemDifferenceMeasurement);
