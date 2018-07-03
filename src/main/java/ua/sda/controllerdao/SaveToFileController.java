@@ -16,12 +16,15 @@ import java.util.List;
 public class SaveToFileController {
   public void writeToTxt(List<ModemDifferenceMeasurement> modems) {
     List<String> lines = new ArrayList<>();
-    Path file = Paths.get("result " + modems.get(0).getStreet() + " " + modems.get(0).getHouseNumber());
+    // TODO House number might be with slash, replace \ or / onto "slash"
+    Path file = Paths.get("result " + modems.get(0).getStreet() //+ " " + modems.get(0).getHouseNumber()
+             +".txt");
     for (ModemDifferenceMeasurement modem:modems){
       lines.add(modem.toString());
     }
     try {
       Files.write(file,lines, Charset.forName("UTF-8"));
+      System.out.println("File Saved Successfully");
     } catch (IOException e) {
       System.out.println("Failed to save File" + e);
     }
