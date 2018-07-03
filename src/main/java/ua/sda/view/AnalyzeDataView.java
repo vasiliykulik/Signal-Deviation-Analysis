@@ -2,12 +2,15 @@ package ua.sda.view;
 
 import ua.sda.controller.AnalyzeDataController;
 import ua.sda.controllerdao.ModemDAOControllerImpl;
+import ua.sda.controllerdao.SaveToFileController;
 import ua.sda.entity.opticalnodeinterface.Modem;
+import ua.sda.entity.opticalnodeinterface.ModemDifferenceMeasurement;
 import ua.sda.view.helper.ConsoleHelper;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,12 +25,13 @@ import static ua.sda.view.helper.ConsoleHelper.writeMessage;
 public class AnalyzeDataView {
     public void execute(String userName, String password) throws IOException, ParseException {
         AnalyzeDataController analyzeDataController = new AnalyzeDataController();
+        SaveToFileController saveToFileController = new SaveToFileController();
         Date goodTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
         Date badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
         ModemDAOControllerImpl modemDAOController = new ModemDAOControllerImpl();
         writeMessage("" +
                 "1 - Find Differences between Good and affected state, Enter two DateTime's good and affected states\n" +
-                "2 - Analyze measurements of modems\n" +
+                "2 - Analyze measurements of modems, and save to txt file\n" +
                 "9 - Exit to the main menu\n");
 
         int choice = readInt();
@@ -47,8 +51,11 @@ public class AnalyzeDataView {
             case 2:
                 writeMessage("Analyze measurements of modems\n");
                 System.out.println("storageForModems.size() " + storageForModems.size());
+                List<ModemDifferenceMeasurement> resultList = new ArrayList<>();
                 start = System.nanoTime();
-                analyzeDataController.analyze(storageForModems).forEach(System.out::println);
+                resultList = analyzeDataController.analyze(storageForModems);
+                resultList.forEach(System.out::println);
+                saveToFileController.writeToTxt(resultList);
                 finish = System.nanoTime();
                 System.out.println("Analyze (nanoTime())" + (finish - start));
                 break;
