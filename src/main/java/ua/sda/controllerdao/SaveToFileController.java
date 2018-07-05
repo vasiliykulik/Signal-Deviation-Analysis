@@ -20,7 +20,7 @@ public class SaveToFileController {
     Path file = Paths.get("result " + modems.get(0).getStreet() //+ " " + modems.get(0).getHouseNumber()
              +".txt");
     for (ModemDifferenceMeasurement modem:modems){
-      lines.add(modem.toString());
+      lines.add(modem.toStringToTxtFile());
     }
     try {
       Files.write(file,lines, Charset.forName("UTF-8"));

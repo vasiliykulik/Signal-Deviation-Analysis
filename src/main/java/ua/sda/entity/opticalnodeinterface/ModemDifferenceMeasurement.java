@@ -42,6 +42,17 @@ public class ModemDifferenceMeasurement extends Modem {
                 ", linkToMAC='" + this.getLinkToMAC() + '\'' +
                 '}';
     }
+
+    public String toStringToTxtFile() {
+        return this.getStreet() + '\'' +
+                ", " + this.getHouseNumber() + '\'' +
+                ", " + this.getModemLocation().getEntranceNumber() +
+                "-"+ this.getModemLocation().getFloorNumber() +
+                "-"+ this.getModemLocation().getInterFloorLineNumber() +
+                " ap "+ this.getModemLocation().getApartment() +
+                ", US, DS Difference= " + analyzedDifference +
+                '}';
+    }
  /*   @Override
     public String toString() {
         return "ModemDifferenceMeasurement{" +
