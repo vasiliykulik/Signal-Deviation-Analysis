@@ -141,11 +141,12 @@ public class Measurement extends BaseEntity implements Comparable<Measurement> {
 	}
 
 	// exclude usRXPower, dsRxPower because their values can be equal to zero
+	// 06.07.2018 microreflex might have 0 value
+	// exclude & microReflex != 0f, since the value can be zero (one time for a three month (90 * 180 cases))
 	public boolean isNotNullMeasurement() {
 		return usTXPower != 0f &
 				usSNR != 0f &
-				dsSNR != 0f &
-				microReflex != 0f;
+				dsSNR != 0f ;
 	}
 
 	@Override
