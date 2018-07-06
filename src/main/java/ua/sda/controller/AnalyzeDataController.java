@@ -49,16 +49,18 @@ public class AnalyzeDataController {
 
         // for each Modem find two Measurements according to Date
         for (Modem modem : storageForModems) {
-            int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
             int badCase = signalCalculate.findBadMeasurement(modem.getMeasurements(), badTimeDate);
-            System.out.println("good case index"+ goodCase);// debug
+            Measurement badCaseMeasurement = modem.getMeasurements().get(badCase);
+            int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
+            Measurement goodCaseMeasurement = modem.getMeasurements().get(goodCase);
             System.out.println("bad case index"+ badCase);// debug
+            System.out.println("good case index"+ goodCase);// debug
             // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
-            Float usTXPowerDifference = modem.getMeasurements().get(badCase).getUsTXPower() - modem.getMeasurements().get(goodCase).getUsTXPower();
-            Float dsSNRDifference = modem.getMeasurements().get(goodCase).getDsSNR() - modem.getMeasurements().get(badCase).getDsSNR();
-            Float difference = usTXPowerDifference + dsSNRDifference;
-            ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement
-                    (modem, difference);
+            Float usTXPowerDifference = badCaseMeasurement.getUsTXPower() - goodCaseMeasurement.getUsTXPower();
+            Float usRXPowerDifference = badCaseMeasurement.getUsRXPower() - goodCaseMeasurement.getUsRXPower();
+            Float dsSNRDifference = goodCaseMeasurement.getDsSNR() - badCaseMeasurement.getDsSNR();
+            Float difference = usTXPowerDifference + usRXPowerDifference + dsSNRDifference;
+            ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement(modem, difference);
             modemDifferenceMeasurements.add(modemDifferenceMeasurement);
         }
         modemDifferenceMeasurements

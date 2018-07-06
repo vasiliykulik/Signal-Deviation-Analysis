@@ -34,9 +34,8 @@ public class SignalCalculateImpl implements SignalCalculate {
   public int findBadMeasurement(List<Measurement> measurements, Date dateTime) {
     int result = measurementIndexedBinarySearch(measurements, dateTime) - 1;
     if (result < 0) {
-      System.out.println("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1");
-      LOGGER.error("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1"
-              + measurements.get(0).getLinkToCurrentState() + " Link to modems current state");
+      System.out.println("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1" + measurements.get(0).getLinkToCurrentState() + " Link to modems current state");
+     // LOGGER.error("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1"+ measurements.get(0).getLinkToCurrentState() + " Link to modems current state");
       return 0;
     }
     return result;
