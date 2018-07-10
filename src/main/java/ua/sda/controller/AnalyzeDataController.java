@@ -50,16 +50,22 @@ public class AnalyzeDataController {
         // for each Modem find two Measurements according to Date
         for (Modem modem : storageForModems) {
             int badCase = signalCalculate.findBadMeasurement(modem.getMeasurements(), badTimeDate);
+            if (badCase<0){
+                System.out.println("badCase < 0");
+                continue;
+            }
             Measurement badCaseMeasurement = modem.getMeasurements().get(badCase);
             int goodCase = signalCalculate.findGoodMeasurement(modem.getMeasurements(), goodTimeDate);
+            if (goodCase<0){
+                System.out.println("goodCase < 0");
+                continue;
+            }
             Measurement goodCaseMeasurement = modem.getMeasurements().get(goodCase);
             // for handling -1 position issue
             // 10-07-2018 10:00 Testing
-            // 06-07-2018 01:00
-            // 10-07-2018 10:00
-            if (badCase<0 || goodCase<0){
-                continue;
-            }
+            // 06-07-2018 01:00:00
+            // 10-07-2018 10:00:00
+
             System.out.println("bad case index"+ badCase);// debug
             System.out.println("good case index"+ goodCase);// debug
             // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
