@@ -27,17 +27,17 @@ public class SignalCalculateImpl implements SignalCalculate {
   }
 
   /**
-   * Принимает List Measurement
+   * Method parameter List Measurement, Date
    *
    * @return {@code measurementIndexedBinarySearch } the index of search key or nearest next (bad return low -1)
    */
   public int findBadMeasurement(List<Measurement> measurements, Date dateTime) {
     int result = measurementIndexedBinarySearch(measurements, dateTime) - 1;
-    if (result < 0) {
+/*    if (result < 0) {
       System.out.println("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1" + measurements.get(0).getLinkToCurrentState() + " Link to modems current state");
      // LOGGER.error("ArrayIndexOutOfBoundsException: -1, returning 0 instead -1"+ measurements.get(0).getLinkToCurrentState() + " Link to modems current state");
       return 0;
-    }
+    }*/
     return result;
   }
 
