@@ -41,7 +41,6 @@ public interface SignalCalculate {
      */
     int findBadMeasurement(List<Measurement> measurements, Date dateTime);
 
-    int measurementIndexedBinarySearch(List<Measurement> measurementList, Date date);
 
     /**
      * Take modem<p>
