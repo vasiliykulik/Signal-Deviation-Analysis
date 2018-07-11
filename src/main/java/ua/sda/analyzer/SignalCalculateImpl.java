@@ -17,7 +17,9 @@ import java.util.List;
 public class SignalCalculateImpl implements SignalCalculate {
   private static final Logger LOGGER = LoggerFactory.getLogger(SignalCalculateImpl.class);
 
-
+    /*use two methods, two binary search - for the good case (if not found) return prev value, for the bad case (if not found return next value)
+    * @return the index of the search key
+    */
   public int findBadMeasurement(List<Measurement> measurements, Date dateTime) {
     int low =0;
     int high = measurements.size()-1;
