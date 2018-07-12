@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author Vasiliy Kylik on 13.07.2017.
  */
-public class ModemMeasurementsReader {
+public class ModemMeasurementsReader implements MeasurementsReader {
 	/**
 	 * Parses HTML page for a Measurements info to build a List of measurements
 	 *
