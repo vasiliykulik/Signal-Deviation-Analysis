@@ -1,13 +1,11 @@
 package ua.sda.view;
 
-import ua.sda.controller.RetrieveDataController;
+import ua.sda.controller.RetrieveDataControllerImpl;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static ua.sda.storage.Storage.storageForModems;
@@ -22,7 +20,7 @@ import static ua.sda.view.helper.ConsoleHelper.*;
 public class RetrieveDataView {
 
     public void execute(String userName, String password) throws IOException, ParseException {
-        RetrieveDataController retrieveDataController = new RetrieveDataController();
+        RetrieveDataControllerImpl retrieveDataController = new RetrieveDataControllerImpl();
         String linkToURL;
 
         writeMessage("" +
