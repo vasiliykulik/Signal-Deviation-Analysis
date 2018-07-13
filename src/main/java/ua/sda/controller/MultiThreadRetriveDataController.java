@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class MultiThreadRetriveDataController implements RetrieveDataController {
   @Override
+  // synchronize, on this
   public List<Modem> getAll(String userName, String password, String urlString) {
     List<Modem> modems = new ArrayList<>();
     return modems;
