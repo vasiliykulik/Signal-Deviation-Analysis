@@ -1,5 +1,6 @@
-package ua.sda.controller;
+package ua.sda.controller.multithread;
 
+import ua.sda.controller.RetrieveDataController;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
 import java.util.ArrayList;
