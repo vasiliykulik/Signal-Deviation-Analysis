@@ -1,7 +1,9 @@
 package ua.sda.controller.multithread;
 
 import ua.sda.entity.opticalnodeinterface.Modem;
+import ua.sda.entity.opticalnodeinterface.MultiThreadedMeasurements;
 import ua.sda.readers.OpticalNodeSingleInterfaceReader;
+import ua.sda.readers.multithread.MultiThreadModemMeasurementsReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +15,28 @@ import java.util.concurrent.Future;
 /**
  * @author Vasiliy Kylik on(Rocket) on 12.07.2018.
  */
-class
 
-public class MultiThreadRetrieveDataController implements Callable<List<Modem>> {
+class MultiThreadModemMeasurementsReader implements Callable<MultiThreadedMeasurements> {
+
+    private String userName;
+    private String password;
+    private String linkToMAC;
+
+    public MultiThreadModemMeasurementsReader(String userName, String password, String linkToMAC) {
+        this.userName = userName;
+        this.password = password;
+        this.linkToMAC = linkToMAC;
+    }
+
+
+    @Override
+    public MultiThreadedMeasurements call() throws Exception {
+
+        return null;
+    }
+}
+
+public class MultiThreadRetrieveDataController {
     private List<Modem> modems = new ArrayList<>();
     private String userName;
     private String password;
@@ -35,15 +56,15 @@ public class MultiThreadRetrieveDataController implements Callable<List<Modem>> 
         OpticalNodeSingleInterfaceReader opticalNodeSingleInterfaceReader = new OpticalNodeSingleInterfaceReader();
         try {
             modems = opticalNodeSingleInterfaceReader.getModemsUrls(urlString, userName, password);
-            call();
+            getMeasurements();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    @Override
-    public List<Modem> call() throws Exception {
+
+    public List<Modem> getMeasurements() throws Exception {
         ExecutorService exec = Executors.newCachedThreadPool();
         ArrayList<Future<List<MultiThreadedMeasurements>>> futureResults = new ArrayList<>();
         for (Modem modem : modems) {
