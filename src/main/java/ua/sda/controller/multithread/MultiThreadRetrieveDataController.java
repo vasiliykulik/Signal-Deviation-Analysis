@@ -2,6 +2,7 @@ package ua.sda.controller.multithread;
 
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.entity.multithreadentities.MultiThreadedMeasurements;
+import ua.sda.exceptions.MultiThreadingReadMeasurementsException;
 import ua.sda.readers.ModemMeasurementsReader;
 import ua.sda.readers.OpticalNodeSingleInterfaceReader;
 
@@ -99,7 +100,7 @@ public class MultiThreadRetrieveDataController {
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
 
             try {
-                modemsMeasurements.get(findIndexOfModem(measurementList.get().getLinkToMac()))
+                modemsMeasurements.get(findIndexOfModem(measurementList.get().getLinkToMAC()))
                         .setMeasurements(measurementList.get().getListOfMeasurements());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -112,9 +113,15 @@ public class MultiThreadRetrieveDataController {
 
     private boolean isMeasurementsNull(List<Modem> testModemsForMeasurements) {
         for (Modem modem : testModemsForMeasurements) {
-            modem.getMeasurements() == null
+            try{
+                if(modem.getMeasurements()==null){
+                    throw new MultiThreadingReadMeasurementsException
+                            ("Failed to read Measurements in MultiThreaded Section");
+                }
+            }catch (MultiThreadingReadMeasurementsException e){
+                System.err.println(e.getMessage());
 
-
+            }
         }
     }
 
