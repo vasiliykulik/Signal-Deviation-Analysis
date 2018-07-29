@@ -1,4 +1,6 @@
-package ua.sda.entity.opticalnodeinterface;
+package ua.sda.entity.multithreadentities;
+
+import ua.sda.entity.opticalnodeinterface.Measurement;
 
 import java.util.List;
 
@@ -31,6 +33,9 @@ public class MultiThreadedMeasurements {
 
     public void setListOfMeasurements(List<Measurement> listOfMeasurements) {
         this.listOfMeasurements = listOfMeasurements;
+    }
+
+    public MultiThreadedMeasurements() {
     }
 
     public MultiThreadedMeasurements(String linkToMAC, List<Measurement> listOfMeasurements) {
