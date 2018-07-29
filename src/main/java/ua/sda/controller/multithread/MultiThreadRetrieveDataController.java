@@ -100,7 +100,7 @@ public class MultiThreadRetrieveDataController {
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
 
             try {
-                modemsMeasurements.get(findIndexOfModem(measurementList.get().getLinkToMAC()))
+                modemsMeasurements.get(findIndexOfModem(modemsMeasurements, measurementList.get().getLinkToMAC()))
                         .setMeasurements(measurementList.get().getListOfMeasurements());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -109,6 +109,11 @@ public class MultiThreadRetrieveDataController {
         isMeasurementsNull(modemsMeasurements);
 
         return modemsMeasurements;
+    }
+
+    // we will not apply the sorting, we will check every time
+    private int findIndexOfModem(String linkToMAC) {
+        return 0;
     }
 
     private boolean isMeasurementsNull(List<Modem> testModemsForMeasurements) {
