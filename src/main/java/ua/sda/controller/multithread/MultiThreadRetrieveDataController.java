@@ -3,12 +3,10 @@ package ua.sda.controller.multithread;
 import ua.sda.entity.multithreadentities.MultiThreadedMeasurements;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.exceptions.MultiThreadingReadMeasurementsException;
-import ua.sda.readers.ModemMeasurementsReader;
 import ua.sda.readers.OpticalNodeSingleInterfaceReader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -16,42 +14,6 @@ import java.util.concurrent.Future;
 /**
  * @author Vasiliy Kylik on(Rocket) on 12.07.2018.
  */
-
-/**
- * The {@code MultiThreadModemMeasurementsReader} class represents a dao
- * to obtain measurements for one Specific modem
- *
- * @author Vasiliy Kylik on 13.07.2017.
- */
-class MultiThreadModemMeasurementsReader implements Callable<MultiThreadedMeasurements> {
-
-    private String userName;
-    private String password;
-    private String linkToMAC;
-
-    public MultiThreadModemMeasurementsReader(String userName, String password, String linkToMAC) {
-        this.userName = userName;
-        this.password = password;
-        this.linkToMAC = linkToMAC;
-    }
-
-    /**
-     * Parses HTML page for a Measurements info to build a List of measurements
-     *
-     * @return {@code measurements } MultiThreadedMeasurements entity consist of
-     * <br>{@code List<Measurements>} - measurements
-     * <br>{@code String linkToMAC} -  field for binding measurements to modem
-     */
-    @Override
-    public MultiThreadedMeasurements call() throws Exception {
-        MultiThreadedMeasurements measurements = new MultiThreadedMeasurements();
-        measurements.setLinkToMAC(linkToMAC);
-        ModemMeasurementsReader modemMeasurementsReader = new ModemMeasurementsReader();
-        measurements.setListOfMeasurements(modemMeasurementsReader
-                .getMeasurements(linkToMAC, userName, password));
-        return measurements;
-    }
-}
 
 public class MultiThreadRetrieveDataController {
     private List<Modem> modems = new ArrayList<>();
@@ -86,7 +48,7 @@ public class MultiThreadRetrieveDataController {
         return null;
     }
 
-    private List<Modem> getCurrentStates(List<Modem> CurrentStates) {
+    private List<Modem> getCurrentStates(List<Modem> currentStates) {
         return null;
     }
 
