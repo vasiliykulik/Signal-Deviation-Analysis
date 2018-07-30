@@ -74,10 +74,20 @@ public class MultiThreadRetrieveDataController {
         try {
             modems = opticalNodeSingleInterfaceReader.getModemsUrls(urlString, userName, password);
             getMeasurements(modems);
+            getCurrentStates(modems);
+            getLocations(modems);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return modems;
+    }
+
+    private List<Modem> getLocations(List<Modem> modemsLocations) {
+        return null;
+    }
+
+    private List<Modem> getCurrentStates(List<Modem> CurrentStates) {
+        return null;
     }
 
     /**
