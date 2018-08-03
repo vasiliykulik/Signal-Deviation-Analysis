@@ -1,5 +1,6 @@
 package ua.sda.controller.multithread;
 
+import ua.sda.entity.multithreadentities.MultiThreadedCurrentState;
 import ua.sda.entity.multithreadentities.MultiThreadedMeasurements;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.exceptions.MultiThreadingReadMeasurementsException;
@@ -49,6 +50,11 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getCurrentStates(List<Modem> currentStates) {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
+        for(Modem modem : currentStates){
+            futureResults.add(exec.submit(new MTModemCurrentStateReader(modem.getLinkToMAC(),userName,password)));
+        }
         return null;
     }
 
@@ -88,8 +94,9 @@ public class MultiThreadRetrieveDataController {
             if (modem.getLinkToMAC().equals(linkToMAC)) {
                 return modemsMeasurements.indexOf(modem);
             }
-
         }
+
+        // NullPointerException will be thrown
         return -1;
     }
 
