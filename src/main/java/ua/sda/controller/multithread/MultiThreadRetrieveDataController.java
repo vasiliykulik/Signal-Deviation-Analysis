@@ -53,8 +53,12 @@ public class MultiThreadRetrieveDataController {
         ExecutorService exec = Executors.newCachedThreadPool();
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
         for(Modem modem : currentStates){
-            futureResults.add(exec.submit(new MTModemCurrentStateReader(modem.getLinkToMAC(),userName,password)));
+            futureResults.add(exec.submit(new MTModemCurrentStateReader(modem.getLinkToMAC(),
+                    modem.getMeasurements().get(0).getLinkToCurrentState(),userName,password,
+                    modem.getMeasurements().get(0).getLinkToInfoPage())));
         }
+        exec.shutdown();
+
         return null;
     }
 

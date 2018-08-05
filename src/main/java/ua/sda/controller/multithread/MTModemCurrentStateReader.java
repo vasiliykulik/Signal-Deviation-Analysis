@@ -1,6 +1,7 @@
 package ua.sda.controller.multithread;
 
 import ua.sda.entity.multithreadentities.MultiThreadedCurrentState;
+import ua.sda.readers.CurrentMeasurementReader;
 
 import java.util.concurrent.Callable;
 
@@ -15,11 +16,15 @@ public class MTModemCurrentStateReader implements Callable<MultiThreadedCurrentS
     private String userName;
     private String password;
     private String linkToMAC;
+    private String linkToCurrentState;
+    private String linkToInfoPage;
 
-    public MTModemCurrentStateReader(String userName, String password, String linkToMAC) {
+    public MTModemCurrentStateReader(String userName, String password, String linkToMAC, String linkToCurrentState, String linkToInfoPage) {
         this.userName = userName;
         this.password = password;
         this.linkToMAC = linkToMAC;
+        this.linkToCurrentState = linkToCurrentState;
+        this.linkToInfoPage = linkToInfoPage;
     }
 
     /**
@@ -31,6 +36,11 @@ public class MTModemCurrentStateReader implements Callable<MultiThreadedCurrentS
      */
     @Override
     public MultiThreadedCurrentState call() throws Exception {
-        return null;
+        MultiThreadedCurrentState currentState = new MultiThreadedCurrentState();
+        currentState.setLinkToMAC(linkToMAC);
+        CurrentMeasurementReader currentMeasurementReader = new CurrentMeasurementReader();
+        currentState.setCurrentState(currentMeasurementReader
+                .readCurrentState(linkToCurrentState, userName, password, linkToInfoPage));
+        return currentState;
     }
 }
