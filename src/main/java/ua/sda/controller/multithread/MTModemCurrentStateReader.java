@@ -33,6 +33,8 @@ public class MTModemCurrentStateReader implements Callable<MultiThreadedCurrentS
      * @return {@code currentState } MultiThreadedMeasurement entity consist of
      * <br>{@code Measurement} - currentState measurement
      * <br>{@code String linkToMAC} -  field for binding currentState measurement to modem
+     * <br>{@code String linkToCurrentState} -  retrieved data due business logic
+     * <br>{@code String linkToInfoPage} -  for creating currentMeasurement entity
      */
     @Override
     public MultiThreadedCurrentState call() throws Exception {

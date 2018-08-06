@@ -8,6 +8,7 @@ import ua.sda.readers.OpticalNodeSingleInterfaceReader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -49,17 +50,24 @@ public class MultiThreadRetrieveDataController {
         return null;
     }
 
-    private List<Modem> getCurrentStates(List<Modem> currentStates) {
+    private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
         ExecutorService exec = Executors.newCachedThreadPool();
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
-        for(Modem modem : currentStates){
+        for (Modem modem : modemsCurrentStates) {
             futureResults.add(exec.submit(new MTModemCurrentStateReader(modem.getLinkToMAC(),
-                    modem.getMeasurements().get(0).getLinkToCurrentState(),userName,password,
+                    modem.getMeasurements().get(0).getLinkToCurrentState(), userName, password,
                     modem.getMeasurements().get(0).getLinkToInfoPage())));
         }
         exec.shutdown();
-
-        return null;
+        for (Future<MultiThreadedCurrentState> currentState : futureResults) {
+            try{
+                modemsCurrentStates.get(findIndexOfModem(modemsCurrentStates, currentState.get().getLinkToMAC()))
+                        .getMeasurements().add(currentState.get().getCurrentState());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return modemsCurrentStates;
     }
 
     /**
