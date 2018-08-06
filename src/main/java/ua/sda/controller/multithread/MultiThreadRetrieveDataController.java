@@ -1,6 +1,7 @@
 package ua.sda.controller.multithread;
 
 import ua.sda.entity.multithreadentities.MultiThreadedCurrentState;
+import ua.sda.entity.multithreadentities.MultiThreadedLocation;
 import ua.sda.entity.multithreadentities.MultiThreadedMeasurements;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.exceptions.MultiThreadingReadMeasurementsException;
@@ -47,6 +48,22 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getLocations(List<Modem> modemsLocations) {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
+        for(Modem modem : modemsLocations){
+            futureResults.add(exec.submit(new MTModemLocationReader(modem.getLinkToMAC(),
+                    modem.getMeasurements().get(0).getLinkToInfoPage(),userName,password)));
+        }
+        exec.shutdown();
+        for(Future<MultiThreadedLocation> location:futureResults){
+            try{
+                modemsLocations.get(findIndexOfModem(modemsLocations,location.get().getLinkToMAC()))
+                        .setModemLocation(location.get().getLocation());
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
@@ -101,10 +118,10 @@ public class MultiThreadRetrieveDataController {
     }
 
     // we will not apply the sorting, we will check every time
-    private int findIndexOfModem(List<Modem> modemsMeasurements, String linkToMAC) {
-        for (Modem modem : modemsMeasurements) {
+    private int findIndexOfModem(List<Modem> modems, String linkToMAC) {
+        for (Modem modem : modems) {
             if (modem.getLinkToMAC().equals(linkToMAC)) {
-                return modemsMeasurements.indexOf(modem);
+                return modems.indexOf(modem);
             }
         }
 
