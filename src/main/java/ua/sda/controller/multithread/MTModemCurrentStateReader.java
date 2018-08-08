@@ -28,7 +28,7 @@ public class MTModemCurrentStateReader implements Callable<MultiThreadedCurrentS
     }
 
     /**
-     * Parses HTML page for a CurrentMeasurement for add it to a List of measurements for specific Modem
+     * Parses HTML page for a CurrentMeasurement for adding it to a List of measurements for specific Modem
      *
      * @return {@code currentState } MultiThreadedMeasurement entity consist of
      * <br>{@code Measurement} - currentState measurement
