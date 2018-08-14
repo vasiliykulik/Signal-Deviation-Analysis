@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
  *
  * @author Vasiliy Kylik on 13.07.2017.
  */
-class MultiThreadModemMeasurementsReader implements Callable<MultiThreadedMeasurements> {
+public class MultiThreadModemMeasurementsReader implements Callable<MultiThreadedMeasurements> {
 
     private String userName;
     private String password;
