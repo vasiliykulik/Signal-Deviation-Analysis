@@ -1,6 +1,7 @@
 package ua.sda.view.helper;
 
 import ua.sda.view.AnalyzeDataView;
+import ua.sda.view.ConcurrencyRetrieveDataView;
 import ua.sda.view.DataView;
 import ua.sda.view.RetrieveDataView;
 
@@ -16,6 +17,7 @@ import java.text.ParseException;
 public class ConsoleHelper {
     private RetrieveDataView retrieveDataView;
     private AnalyzeDataView analyzeDataView;
+    private ConcurrencyRetrieveDataView concurrencyRetrieveDataView;
     private DataView dataView;
     private String userName;
     private String password;
@@ -25,6 +27,7 @@ public class ConsoleHelper {
         password = pword;
         retrieveDataView = new RetrieveDataView();
         analyzeDataView = new AnalyzeDataView();
+        concurrencyRetrieveDataView = new ConcurrencyRetrieveDataView();
         dataView = new DataView();
 
     }
@@ -40,6 +43,7 @@ public class ConsoleHelper {
         System.out.println("To start work, select appropriate component, and press Enter: \n" +
                 " 1. Read the Modems with Measurements, Current States and Locations on the interface () from TrafficLight Link" +
                 ", (login and password are passed in the parameters) \n" +
+                " 11. Concurrency Read \n" +
                 " 2. Analyze measurements \n" +
                 " 3. Save, Load Modems with Measurements, Current States and Locations to, from H2 DB (for further access) \n" +
                 " 9. Exit");
@@ -47,6 +51,9 @@ public class ConsoleHelper {
         switch (readChoice) {
             case 1:
                 retrieveDataView.execute(userName, password);
+                break;
+            case 11:
+                concurrencyRetrieveDataView.execute(userName,password);
                 break;
             case 2:
                 analyzeDataView.execute(userName, password);
