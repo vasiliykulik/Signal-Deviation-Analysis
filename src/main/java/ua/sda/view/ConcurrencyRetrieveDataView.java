@@ -1,6 +1,5 @@
 package ua.sda.view;
 
-import ua.sda.controller.RetrieveDataControllerImpl;
 import ua.sda.controller.multithread.MultiThreadRetrieveDataController;
 import ua.sda.entity.opticalnodeinterface.Modem;
 import ua.sda.view.helper.ConsoleHelper;
@@ -10,16 +9,13 @@ import java.text.ParseException;
 import java.util.List;
 
 import static ua.sda.storage.Storage.storageForModems;
-import static ua.sda.view.helper.ConsoleHelper.readInt;
-import static ua.sda.view.helper.ConsoleHelper.readString;
-import static ua.sda.view.helper.ConsoleHelper.writeMessage;
+import static ua.sda.view.helper.ConsoleHelper.*;
 
 /**
  * Created by Vasiliy Kylik (Lightning) on 17.08.2018.
  */
 public class ConcurrencyRetrieveDataView {
     public void execute(String userName, String password) throws IOException, ParseException {
-        MultiThreadRetrieveDataController multiThreadRetrieveDataController = new MultiThreadRetrieveDataController();
         String linkToURL;
 
         writeMessage("" +
@@ -33,7 +29,8 @@ public class ConcurrencyRetrieveDataView {
             case 0:
                 writeMessage("Enter URL to TrafficLight (Ctrl + V, Space and Enter) \n");
                 linkToURL = readString();
-                List<Modem> modems = multiThreadRetrieveDataController.getAll(userName, password, linkToURL);
+                MultiThreadRetrieveDataController multiThreadRetrieveDataController = new MultiThreadRetrieveDataController(userName, password, linkToURL);
+                List<Modem> modems = multiThreadRetrieveDataController.getAll();
                 long start = System.nanoTime();
                 storageForModems = modems;
                 long finish = System.nanoTime();
