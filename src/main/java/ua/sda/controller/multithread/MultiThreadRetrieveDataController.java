@@ -48,7 +48,7 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getLocations(List<Modem> modemsLocations) {
-        ExecutorService exec = Executors.newCachedThreadPool();
+        ExecutorService exec = Executors.newFixedThreadPool(4);
         ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
         for(Modem modem : modemsLocations){
             futureResults.add(exec.submit(new MTModemLocationReader(modem.getLinkToMAC(),
@@ -68,7 +68,7 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
-        ExecutorService exec = Executors.newCachedThreadPool();
+        ExecutorService exec = Executors.newFixedThreadPool(4);
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
         for (Modem modem : modemsCurrentStates) {
             futureResults.add(exec.submit(new MTModemCurrentStateReader(modem.getLinkToMAC(),
@@ -97,7 +97,7 @@ public class MultiThreadRetrieveDataController {
      * <br>{@code String linkToMAC} -  field for binding measurements to modem
      */
     public List<Modem> getMeasurements(List<Modem> modemsMeasurements) throws Exception {
-        ExecutorService exec = Executors.newCachedThreadPool();
+        ExecutorService exec = Executors.newFixedThreadPool(4);
         ArrayList<Future<MultiThreadedMeasurements>> futureResults = new ArrayList<>();
         for (Modem modem : modemsMeasurements) {
             futureResults.add(exec.submit(new MultiThreadModemMeasurementsReader(modem.getLinkToMAC(), userName, password)));
