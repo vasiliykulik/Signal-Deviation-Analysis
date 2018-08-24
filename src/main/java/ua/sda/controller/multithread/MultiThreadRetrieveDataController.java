@@ -106,8 +106,14 @@ public class MultiThreadRetrieveDataController {
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
 
             try {
-                modemsMeasurements.get(findIndexOfModem(modemsMeasurements, measurementList.get().getLinkToMAC()))
-                        .setMeasurements(measurementList.get().getListOfMeasurements());
+                modemsMeasurements.
+                        get(findIndexOfModem(modemsMeasurements, measurementList
+                                .get()
+                                .getLinkToMAC()))
+                        .setMeasurements(
+                                measurementList
+                                        .get()
+                                        .getListOfMeasurements());
             } catch (Exception e) {
                 e.printStackTrace();
             }
