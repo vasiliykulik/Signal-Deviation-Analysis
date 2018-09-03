@@ -57,7 +57,11 @@ public class RetrieveDataControllerImpl implements RetrieveDataController {
             try {
                 Measurement currentStateMeasurement;
                 currentStateMeasurement = currentMeasurementReader.readCurrentState(
-                        modem.getMeasurements().get(0).getLinkToCurrentState(), userName, password, modem.getMeasurements().get(0).getLinkToInfoPage());
+                        modem.getMeasurements()
+                                .get(0)
+                                .getLinkToCurrentState(), userName, password, modem.getMeasurements()
+                                .get(0)
+                                .getLinkToInfoPage());
                 if (currentStateMeasurement.isNotNullMeasurement()) {
                     modem.getMeasurements().add(0, currentStateMeasurement);
                     System.out.println("Current State  added " + k++);

@@ -1,0 +1,176 @@
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=koi8-u">
+    <title>Work::Поиск адресов</title>
+    <link rel="stylesheet" type="text/css" href="https://work.volia.com/bm3/styles/work/index.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="https://work.volia.com/bm3/styles/smoothness/jquery-ui.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="https://work.volia.com/bm3/styles/jquery.button.css" media="screen" />
+    <script type="text/javascript" src="https://work.volia.com/bm3/js/jquery/jquery-1.4.4.js"></script>
+    <script type="text/javascript" src="https://work.volia.com/bm3/js/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://work.volia.com/bm3/js/jquery/jquery.form.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://work.volia.com/bm3/styles/work/index.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r">
+    <script type="text/javascript" src="https://work.volia.com/bm3/js/ajaxpage/ajaxpage.js"></script><script type="text/javascript" src="https://work.volia.com/bm3/js/DataGrid.js"></script>
+    <link rel="stylesheet" href="https://work.volia.com/bm3/js/dhtmlwindow/dhtmlwindow.css" type="text/css" />
+    <script type="text/javascript" src="https://work.volia.com/bm3/js/dhtmlwindow/dhtmlwindow.js"></script>
+</head>
+<!-- PAGE -->
+<!-- HEADER -->
+<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+<a name="top"></a>
+<table id="_HEADER" border="0" width="100%" style="background-color: #e8f2e1">
+    <tr>
+        <td colspan="2"><a href="https://work.volia.com/w2/" class="path_menu"><img src="https://work.volia.com/bm3/styles/work/images/home.gif">  Главная</a> > <a class="path_menu" href="https://work.volia.com/w2/?ACT=work.cubic_info">Поиск адресов</a></td>
+        <!--
+              <td align="right" width="300" nowrap>  <div class="ta_m ta_r c_white">Василий Соловей  </div></td>
+        -->
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td width="80%">
+
+        </td><td>  </td>
+    </tr>
+</table>
+
+
+<center>
+    <form action="?ACT=work.cubic_info" method="get" name="search_form" id="search_form">
+        <table  border="0"  bgcolor="#eaecea" cellpadding="4" cellspacing="2">
+
+
+            <td align="left" bgcolor="#eaecea" valign="top"><font id="quickform_row_label" style="font-family:Verdana;font-size:16px;margin-bottom:5px;">Город</font><BR>	<select name="city_id">
+                <option value="24849330" selected="selected">Київ</option>
+                <option value="206355662">Львів</option>
+                <option value="227139905">Вінниця</option>
+                <option value="361647939">Запоріжжя</option>
+                <option value="539700288">Харків</option>
+                <option value="520091587">Суми</option>
+                <option value="540590549">Полтава</option>
+                <option value="375525020">Хмельницький</option>
+                <option value="2386303897">Фастів</option>
+            </select></td>
+
+
+            <td align="left" bgcolor="#eaecea" valign="top"><font id="quickform_row_label" style="font-family:Verdana;font-size:16px;margin-bottom:5px;">Название улицы</font><BR>	<input size="50" maxlength="50" name="query_string" type="text" value="" /></td>
+
+
+            <td align="left" bgcolor="#eaecea" valign="top"><font id="quickform_row_label" style="font-family:Verdana;font-size:16px;margin-bottom:5px;">Дом</font><BR>	<input size="10" maxlength="20" name="query_string_house" type="text" value="" /></td>
+
+
+            <td align="left" bgcolor="#eaecea" valign="top"><font id="quickform_row_label" style="font-family:Verdana;font-size:16px;margin-bottom:5px;">Поиск по MAC-у</font><BR>	<input size="20" maxlength="50" name="query_mac" type="text" value="18a6f7701808" /></td>
+
+
+            <td align="left" bgcolor="#eaecea" valign="top"><font id="quickform_row_label" style="font-family:Verdana;font-size:16px;margin-bottom:5px;">Поиск по контракту</font><BR>	<input size="20" maxlength="50" name="code" type="text" /></td>
+
+
+            <td align="left" bgcolor="#eaecea" valign="top"><font id="quickform_row_label" style="font-family:Verdana;font-size:16px;margin-bottom:5px;"></font><BR>	<input value="  Найти  " type="submit" /></td>
+            <input name="ACT" type="hidden" value="work.cubic" />
+
+        </table>
+    </form></center><div align="right"><hr></div><table width="100%" class="php_data_grid" bgcolor="white"><colgroup><col span="8"/><col width="240"/></colgroup><thead><tr><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=lou">ЛОУ - Каскад</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=sector">Подъезд - Этаж - Стояк</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=city_name">Город</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=street">Улица</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=house_n">Дом</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=flat_n">Кв.</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=mac">МАС</a></th><th rowspan="1" class="bottom"><a href="/w2/index.php?ACT=work.cubic&query_mac=18a6f7701808&order=code">Договор</a></th><th rowspan="1" class="bottom">...</th></tr></thead><tbody><tr><td>12\39 - 1</td><td>1 - 1 - 1</td><td>Київ</td><td><a href="?ACT=work.cubic_info&city_id=24849330&query_string=Кіото&query_string_house=&query_mac=&ACT=work.cubic_info">Кіото</a>  <small></small></td><td><a href="?ACT=work.cubic_info&street_id=25210506&house_id=26820030&F=search_by_id">11</a></td><td><a href="?ACT=work.cubic_info&address_id=27213515&F=search_by_id">1</a></td><td><div id="mac18a6f7701808" class='b_purple bg_rose'>18A6F7701808</div></td><td>900043269</td><td>
+    <a href="?ACT=work.cubic_info&street_id=25210506&house_id=26820030&F=search_by_id&mac=18a6f7701808&F2=info&company=volia.kiev">Инфо</a> |
+    <a href="?ACT=work.cubic_info&street_id=25210506&house_id=26820030&F=search_by_id&mac=18a6f7701808&F2=measures&company=volia.kiev">Сейчас</a>
+    <a onClick="hiCELL('mac18a6f7701808'); ajaxwin=dhtmlwindow.open('iface_params_box_18a6f7701808', 'iframe', 'https://work.volia.com/w2/work/modem/act.measures_online.php?mac=18a6f7701808&company=volia.kiev', 'MAC: 18a6f7701808', 'width=520px,height=710px,resize=1,minimize=0,scrolling=1,left=5,top=5', 'recal');">+</a> |
+    <a href="?ACT=work.cubic_info&street_id=25210506&house_id=26820030&F=search_by_id&mac=18a6f7701808&F2=measures_history&company=volia.kiev">Измерения</a>
+    <a onClick="hiCELL('mac18a6f7701808'); ajaxwin=dhtmlwindow.open('iface_params_box2_18a6f7701808', 'iframe', 'https://work.volia.com/w2/work/modem/act.measures_history.php?oper=measures&mac=18a6f7701808&company=volia.kiev', 'MAC: 18a6f7701808', 'width=720px,height=610px,resize=1,minimize=0,scrolling=1,left=5,top=5', 'recal');">+</a>
+</td></tr></tbody></table><div align="right"><hr> </div><div id="search_result"></div><div id="cust_info"><table border="0" width="100%"><tr><td valign="top">.
+    <form action="/w2/index.php" method="get" name="cust_info_form_1" id="cust_info_form_1">
+        <table width="100%"  border="0"  bgcolor="#C0C0C0" cellpadding="2" cellspacing="0">
+
+            <tr>
+                <td background="https://work.volia.com/bm3/styles/work/images/dg_bg.gif" style="white-space: nowrap; background-color: #CDCDC1;" align="left" valign="center" colspan="2" height="28"><div id="quickform_header" style="font-family:Verdana;font-size:18px;"><div align=center>Основная информация</div></div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  MAC адрес модема</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">18a6f7701808</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Адрес</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">Кіото 11 1</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Номер договора</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">900043269</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Абонент</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">Максимів Микола Миколайович</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Телефоны</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B"></div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  E-mail</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">aolamaksymiv@yandex.ru</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Тарифная модель</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">204800/8192 Скорость по умолчанию</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  CPE</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">1</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Дата подключения</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">2016-11-01 00:00:00</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Баланс</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">-61.25</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Состояние</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B"><div style="background:#7FFF00">Подключено</div></div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Причина изменения</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B"></div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Последняя команда</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">CHANGE_PROFILE</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Выполнена</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">2017-06-01 00:00:00</div></td>
+            </tr>
+        </table>
+    </form></td><td valign="top">..
+    <form action="/w2/index.php" method="get" name="cust_info_form_2" id="cust_info_form_2">
+        <table width="100%"  border="0"  bgcolor="#C0C0C0" cellpadding="2" cellspacing="0">
+
+            <tr>
+                <td background="https://work.volia.com/bm3/styles/work/images/dg_bg.gif" style="white-space: nowrap; background-color: #CDCDC1;" align="left" valign="center" colspan="2" height="28"><div id="quickform_header" style="font-family:Verdana;font-size:18px;"><div align=center>Расположение</div></div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  Район</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">Деснянський</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  ПГС</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">Лісовий пр., 15А</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  ЛОУ</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">12\39</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  каскад</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">1</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  подъезд</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">1</div></td>
+            </tr>
+            <tr>
+                <td align="right" bgcolor="#F0F0F0" valign="top" nowrap width="50%"><div id="quickform_row_label" style="font-family:Tahoma;font-size:14px;margin-right:5px">  этаж</div></td>
+                <td valign="top" bgcolor="white" nowrap align="left">	 <div id="quickform_row_value" style="font-family:Tahoma;font-size:14px;margin-left:5px;color:#5E610B">1</div></td>
+            </tr>
+        </table>
+    </form><table width="100%" class="php_data_grid" bgcolor="white"><colgroup><col span="5"/></colgroup><thead><tr><th rowspan="1" class="bottom">Начало</th><th rowspan="1" class="bottom">Окончание</th><th rowspan="1" class="bottom">Название</th><th rowspan="1" class="bottom">Описание</th><th rowspan="1" class="bottom">Комментарий</th></tr></thead><tbody><tr><td>2016-11-01 00:00:00</td><td></td><td>Надання в користування кабельного модема  (modem_null)</td><td></td><td></td></tr><tr><td class="i">2017-01-30 00:00:00</td><td class="i"></td><td class="i">Воля Smart HD (IP) (IP_Smart_HD)</td><td class="i"></td><td class="i"></td></tr><tr><td>2017-06-15 00:00:00</td><td>2017-06-15 00:00:00</td><td>Ограничение в предоставлении услуги ЦТВ за долг</td><td>Ночная блокировка</td><td></td></tr><tr><td class="i">2017-06-15 00:00:00</td><td class="i">2017-06-15 00:00:00</td><td class="i">Ограничение в предоставлении услуги Интернет за долг</td><td class="i">Ночная блокировка</td><td class="i"></td></tr><tr><td>2018-04-02 00:00:00</td><td>2018-04-30 00:00:00</td><td>Вільний перехід</td><td></td><td></td></tr></tbody></table></td></tr></table><a href="javascript:ajaxpage('webservice.php?ACT=work.cubic.cust_requests&addressid=27213515&contractid=3344617522', 'cust_requests');">История обращений +</a></div><div id="cust_requests"></div><br><br><br><br><br> <a name="cust_info_place" id="cust_info_place"></a>
