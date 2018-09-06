@@ -78,7 +78,12 @@ public class RetrieveDataControllerImpl implements RetrieveDataController {
         for (Modem modem : modems) {
             try {
                 ModemLocation modemLocation;
-                modemLocation = modemLocationReader.readModemLocation(modem.getMeasurements().get(0).getLinkToInfoPage(), userName, password);
+                modemLocation = modemLocationReader
+                        .readModemLocation
+                                (modem
+                                        .getMeasurements()
+                                        .get(0)
+                                        .getLinkToInfoPage(),userName, password);
                 if (modemLocation.isNotNullModemLocation()) {
                     modem.setModemLocation(modemLocation);
                     System.out.println(modemLocation);

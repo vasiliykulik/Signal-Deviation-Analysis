@@ -49,4 +49,5 @@ public class ConcurrencyRetrieveDataView {
         execute(userName, password);
 
     }
+
 }
