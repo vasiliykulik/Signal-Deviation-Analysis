@@ -118,7 +118,7 @@ String currentTesting20180914 = "23-03-2018 06:07:44</td><td bgcolor=\"#D8D8D8\"
 				"<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
 				"<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
 				"<td><font ><b>.*</font></b></td>" +
-				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>");
+				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.com\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>");
 		Matcher m8 = p8.matcher(currentTesting);
 		if (m8.find()) {
 			Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m8.group(1));
@@ -141,8 +141,8 @@ String currentTesting20180914 = "23-03-2018 06:07:44</td><td bgcolor=\"#D8D8D8\"
 				"<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
 				"<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
 				"<td><font ><b>.*</font></b></td>" +
-				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>" +
-				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.net\\/w2\\/\\?ACT=work.cubic&query_mac=............).*");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
+				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.com\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>" +
+				"<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.com\\/w2\\/\\?ACT=work.cubic&query_mac=............).*");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
 		Matcher m9 = p9.matcher(currentTesting);
 		if (m9.find()) {
 			Date dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m9.group(1));
