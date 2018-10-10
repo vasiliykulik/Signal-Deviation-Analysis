@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Created by Vasiliy Kylik (Lightning) on 10.04.2018.
  */
 /**
- * Проверяем обработку текущего измерения
+ * Тестовый Cleaner для Current State, String-и со значениями (беруться через readLine после строки с именем параметра )
  **/
 public class TestCurrentStateCleaner {
     public static void main(String[] args) {

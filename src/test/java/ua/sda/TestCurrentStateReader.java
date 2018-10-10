@@ -12,7 +12,7 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
  * Created by Vasiliy Kylik (Lightning) on 10.04.2018.
  */
 
-/*Проверяем*/
+/*Проверяем Reader и Cleaner (боевой) для Current State, файл с HTML кодом страницы*/
 public class TestCurrentStateReader {
 	public static void main(String[] args) throws Exception {
 		FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentState.html");

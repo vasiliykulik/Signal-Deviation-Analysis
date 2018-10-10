@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @author Vasiliy Kylik on(Rocket) on 12.04.2018.
  */
+/*Проверяем Reader с боевым Cleaner для Location,  подаем файл с HTML кодом страницы*/
 public class TestModemLocationReader {
     public static void main(String[] args) throws IOException {
 

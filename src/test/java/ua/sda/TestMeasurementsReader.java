@@ -16,7 +16,7 @@ import java.util.List;
  * @author Vasiliy Kylik on(Rocket) on 26.03.2018.
  */
 
-/*Проверяем*/
+/*Проверяем Reader для страницы измерений,  подаем файл с HTML кодом страницы*/
 public class TestMeasurementsReader {
     public static void main(String[] args) throws IOException, ParseException {
         FileReader fileReader = new FileReader("src\\test\\resources\\testForMeasurementsNull3.html");

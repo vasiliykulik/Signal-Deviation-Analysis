@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 /**
  * @author Vasiliy Kylik on(Rocket) on 26.03.2018.
  */
+/*Проверяем Cleaner для одного Measurement,  подаем одну строку измерений, подаем через String*/
+
 public class TestMeasurementsCleaner {
 	public static void main(String[] args) throws ParseException {
 
