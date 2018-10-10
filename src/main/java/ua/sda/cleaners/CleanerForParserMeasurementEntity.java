@@ -116,8 +116,8 @@ public class CleanerForParserMeasurementEntity {
                 "<td bgcolor=\"#......\">([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
                 "<td>([0-9][0-9].[0-9]|[0-9][0-9]|[0-9].[0-9]|[0-9]|-[0-9][0-9].[0-9]|-[0-9][0-9]|-[0-9].[0-9]|-[0-9]|.\\d|-.\\d)</td>" +
                 "<td><font ><b>.*</font></b></td>" +
-                "<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.com\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>" +
-                "<td bgcolor=\"#......\"><a href=\\\"(http:\\/\\/work.volia.com\\/w2\\/\\?ACT=work.cubic&query_mac=............).*");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
+                "<td bgcolor=\"#......\"><a href=\\\"(https:\\/\\/work.volia.com\\/w2\\/work\\/modem\\/act.measures_online.php\\?mac=............)\" >.*</a></td>" +
+                "<td bgcolor=\"#......\"><a href=\\\"(https:\\/\\/work.volia.com\\/w2\\/\\?ACT=work.cubic&query_mac=............).*");// " >Инфо</a></td></tr><tr bgcolor="#......" wildcard instead this statement because last row have no end marker as previous rows
         Matcher m = p.matcher(inputLine);
         if (m.find()) {
             dateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(m.group(1));
