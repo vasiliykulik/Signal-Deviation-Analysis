@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 /**
  * Created by Vasiliy Kylik (Lightning) on 10.04.2018.
  */
+/**
+ * Проверяем обработку текущего измерения
+ **/
 public class TestCurrentStateCleaner {
     public static void main(String[] args) {
         String strWithValue1 = "            <td bgcolor=\"#8CFF40\" align=\"center\"> <font  > 44 </font> </td>\n";
