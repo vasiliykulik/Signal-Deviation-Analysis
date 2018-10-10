@@ -82,6 +82,7 @@ public class ModemMeasurementsReader implements MeasurementsReader {
 
 			// while taking each table row, 9 zone regex (two last (1,2) needs to be taken only once, it is links)), creating objects and placing into List
 			// also checking for a 0 measurements
+			// retval -
 			boolean isNewLinkToCurrentMeasurement = false;
 			boolean isNewLinkToInfoPage = false;
 			for (String retval : tableRows) {
