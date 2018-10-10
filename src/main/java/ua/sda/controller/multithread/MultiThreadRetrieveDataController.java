@@ -59,11 +59,12 @@ public class MultiThreadRetrieveDataController {
     public List<Modem> getMeasurements(List<Modem> modemsMeasurements) throws Exception {
         ExecutorService exec = Executors.newFixedThreadPool(4);
         ArrayList<Future<MultiThreadedMeasurements>> futureResults = new ArrayList<>();
-        /*Здесь я хочу наполнить futureResults измерениями*/
+        /*Здесь мы хотим наполнить futureResults измерениями*/
         for (Modem modem : modemsMeasurements) {
             futureResults.add(exec.submit(new MultiThreadModemMeasurementsReader(userName, password, modem.getLinkToMAC())));
         }
         exec.shutdown();
+                /*а Здесь мы хотим измерения привязать к модему*/
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
 
             try {
