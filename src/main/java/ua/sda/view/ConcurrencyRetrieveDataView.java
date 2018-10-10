@@ -30,6 +30,7 @@ public class ConcurrencyRetrieveDataView {
                 writeMessage("Enter URL to TrafficLight (Ctrl + V, Space and Enter) \n");
                 linkToURL = readString();
                 MultiThreadRetrieveDataController multiThreadRetrieveDataController = new MultiThreadRetrieveDataController(userName, password, linkToURL);
+                // здесь хочу получить List модемов
                 List<Modem> modems = multiThreadRetrieveDataController.getAll();
                 long start = System.nanoTime();
                 storageForModems = modems;

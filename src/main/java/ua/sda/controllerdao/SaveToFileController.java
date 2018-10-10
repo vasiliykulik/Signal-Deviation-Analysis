@@ -24,7 +24,7 @@ public class SaveToFileController {
     }
     try {
       Files.write(file,lines, Charset.forName("UTF-8"));
-      System.out.println("File Saved Successfully");
+      System.out.println("File Saved Successfully " + file);
     } catch (IOException e) {
       System.out.println("Failed to save File" + e);
     }

@@ -9,7 +9,6 @@ import ua.sda.readers.OpticalNodeSingleInterfaceReader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -47,46 +46,6 @@ public class MultiThreadRetrieveDataController {
         return modems;
     }
 
-    private List<Modem> getLocations(List<Modem> modemsLocations) {
-        ExecutorService exec = Executors.newFixedThreadPool(4);
-        ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
-        for(Modem modem : modemsLocations){
-            futureResults.add(exec.submit(new MTModemLocationReader(modem.getLinkToMAC(),
-                    modem.getMeasurements().get(0).getLinkToInfoPage(),userName,password)));
-        }
-        exec.shutdown();
-        for(Future<MultiThreadedLocation> location:futureResults){
-            try{
-                modemsLocations.get(findIndexOfModem(modemsLocations,location.get().getLinkToMAC()))
-                        .setModemLocation(location.get().getLocation());
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
-        ExecutorService exec = Executors.newFixedThreadPool(4);
-        ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
-        for (Modem modem : modemsCurrentStates) {
-            futureResults.add(exec.submit(new MTModemCurrentStateReader(modem.getLinkToMAC(),
-                    modem.getMeasurements().get(0).getLinkToCurrentState(), userName, password,
-                    modem.getMeasurements().get(0).getLinkToInfoPage())));
-        }
-        exec.shutdown();
-        for (Future<MultiThreadedCurrentState> currentState : futureResults) {
-            try{
-                modemsCurrentStates.get(findIndexOfModem(modemsCurrentStates, currentState.get().getLinkToMAC()))
-                        .getMeasurements().add(currentState.get().getCurrentState());
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        return modemsCurrentStates;
-    }
-
     /**
      * Using ExecutorService, read measurements for modems
      * while iterating over the collection futureResults , take from each object listOfMeasurements and
@@ -96,11 +55,13 @@ public class MultiThreadRetrieveDataController {
      * <br>{@code List<Measurements>} - measurements
      * <br>{@code String linkToMAC} -  field for binding measurements to modem
      */
+    /*Приходит List<Modem> modemsMeasurements с URL*/
     public List<Modem> getMeasurements(List<Modem> modemsMeasurements) throws Exception {
         ExecutorService exec = Executors.newFixedThreadPool(4);
         ArrayList<Future<MultiThreadedMeasurements>> futureResults = new ArrayList<>();
+        /*Здесь я хочу наполнить futureResults измерениями*/
         for (Modem modem : modemsMeasurements) {
-            futureResults.add(exec.submit(new MultiThreadModemMeasurementsReader(modem.getLinkToMAC(), userName, password)));
+            futureResults.add(exec.submit(new MultiThreadModemMeasurementsReader(userName, password, modem.getLinkToMAC())));
         }
         exec.shutdown();
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
@@ -122,6 +83,47 @@ public class MultiThreadRetrieveDataController {
 
         return modemsMeasurements;
     }
+
+    private List<Modem> getLocations(List<Modem> modemsLocations) {
+        ExecutorService exec = Executors.newFixedThreadPool(4);
+        ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
+        for (Modem modem : modemsLocations) {
+            futureResults.add(exec.submit(new MTModemLocationReader(
+                    userName, password, modem.getLinkToMAC(), modem.getMeasurements().get(0).getLinkToInfoPage())));
+        }
+        exec.shutdown();
+        for (Future<MultiThreadedLocation> location : futureResults) {
+            try {
+                modemsLocations.get(findIndexOfModem(modemsLocations, location.get().getLinkToMAC()))
+                        .setModemLocation(location.get().getLocation());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
+        ExecutorService exec = Executors.newFixedThreadPool(4);
+        ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
+        for (Modem modem : modemsCurrentStates) {
+            futureResults.add(exec.submit(new MTModemCurrentStateReader(userName, password, modem.getLinkToMAC(),
+                    modem.getMeasurements().get(0).getLinkToCurrentState(),
+                    modem.getMeasurements().get(0).getLinkToInfoPage())));
+        }
+        exec.shutdown();
+        for (Future<MultiThreadedCurrentState> currentState : futureResults) {
+            try {
+                modemsCurrentStates.get(findIndexOfModem(modemsCurrentStates, currentState.get().getLinkToMAC()))
+                        .getMeasurements().add(currentState.get().getCurrentState());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return modemsCurrentStates;
+    }
+
 
     // we will not apply the sorting, we will check every time
     private int findIndexOfModem(List<Modem> modems, String linkToMAC) {
