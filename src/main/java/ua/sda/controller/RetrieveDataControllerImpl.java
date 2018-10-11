@@ -54,8 +54,8 @@ public class RetrieveDataControllerImpl implements RetrieveDataController {
         int j = 0;
         int k = 0;
         for (Modem modem : modems) {
+            Measurement currentStateMeasurement = new Measurement();
             try {
-                Measurement currentStateMeasurement;
                 currentStateMeasurement = currentMeasurementReader.readCurrentState(
                         modem.getMeasurements()
                                 .get(0)
@@ -71,6 +71,8 @@ public class RetrieveDataControllerImpl implements RetrieveDataController {
                 e.printStackTrace();
                 System.out.println("(CurrentState exception) " + modem.getLinkToMAC());
                 LOGGER.error("(CurrentState exception) " + modem.getLinkToMAC() + e);
+                System.out.println(currentStateMeasurement);
+                LOGGER.error("(CurrentState exception) " + currentStateMeasurement);
             }
         }
 

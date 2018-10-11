@@ -15,7 +15,7 @@ import static ua.sda.cleaners.CleanerForCurrentState.cleanerForCurrentState;
 /*Проверяем Reader и Cleaner (боевой) для Current State, файл с HTML кодом страницы*/
 public class TestCurrentStateReader {
 	public static void main(String[] args) throws Exception {
-		FileReader fileReader = new FileReader("C:\\Users\\Молния\\IdeaProjects\\Signal-Deviation-Analysis\\test\\resources\\CurrentState.html");
+		FileReader fileReader = new FileReader("src\\test\\resources\\case_US_0_currentState.html");
 		BufferedReader br = new BufferedReader(fileReader);
 
 		Float usTXPower = 0f;
@@ -61,6 +61,8 @@ public class TestCurrentStateReader {
 		currentState.setLinkToCurrentState(linkToCurrentStateStub);
 		currentState.setLinkToInfoPage(linkToInfoStub);
 		currentState.setDateTime(new Date());
+		currentState.isNotNullMeasurement();
+		System.out.println(currentState.isNotNullMeasurement() + " currentState.isNotNullMeasurement()");
 		System.out.println(currentState);
 	}
 }
