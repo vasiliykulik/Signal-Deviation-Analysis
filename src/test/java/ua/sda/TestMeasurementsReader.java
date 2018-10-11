@@ -21,7 +21,7 @@ import java.util.List;
 * ret - строка с измерением после split-а*/
 public class TestMeasurementsReader {
     public static void main(String[] args) throws IOException, ParseException {
-        FileReader fileReader = new FileReader("src\\test\\resources\\testForMeasurementsNull3.html");
+        FileReader fileReader = new FileReader("src\\test\\resources\\case_US_0_measurements.html");
         //  InputStreamReader on a FileInputStream.
         BufferedReader br = new BufferedReader(fileReader);
 
