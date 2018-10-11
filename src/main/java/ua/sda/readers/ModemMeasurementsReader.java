@@ -91,7 +91,7 @@ public class ModemMeasurementsReader implements MeasurementsReader {
 					if (measurement.isNotNullMeasurement()) {
 						measurements.add(measurement);
 					}
-					if (measurement.getLinkToCurrentState() != null & measurement.getLinkToInfoPage() != null) {
+					if (measurement.getLinkToCurrentState() != null & measurement.getLinkToInfoPage() != null & measurement.isNotNullMeasurement()) {
 						isNewLinkToCurrentMeasurement = true;
 						isNewLinkToInfoPage = true;
 						continue;

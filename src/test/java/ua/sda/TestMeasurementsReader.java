@@ -54,15 +54,17 @@ public class TestMeasurementsReader {
         System.out.println("-------------------------------------------------------------------------------------------------------");
         boolean isNewLinkToCurrentMeasurement = false;
         boolean isNewLinkToInfoPage = false;
+        int it = 0;
         for (String retval : tableRows) {
             if (!isNewLinkToCurrentMeasurement & !isNewLinkToInfoPage) {
+
                 //  check for empty cells in measurements columns
                 Measurement measurement = CleanerForParserMeasurementEntity.measurementEntityCleaning(retval);
                 // after adding List<Measurements> to Modem entity, it may be a case of not reading measurements- and this field will remain null
                 // but the expected behavior is skipping one measurement from the list
                 System.out.println("Look at First returned Measurement: ");
                 System.out.println(measurement);
-                // TODO null measurements
+
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println(measurement.getLinkToCurrentState() + measurement.getLinkToInfoPage() + measurement.getDateTime() + measurement.getDsRxPower() +
                         measurement.getDsSNR() + measurement.getMicroReflex() + measurement.getUsRXPower() + measurement.getUsSNR() + measurement.getUsTXPower());
@@ -73,11 +75,13 @@ public class TestMeasurementsReader {
 
                 System.out.println("Look at First added Measurement: ");
                 System.out.println(measurement);
-                if (measurement.getLinkToCurrentState() != null & measurement.getLinkToInfoPage() != null) {
+                //  null measurements handling  try this "& measurement.isNotNullMeasurement()"
+                if (measurement.getLinkToCurrentState() != null & measurement.getLinkToInfoPage() != null & measurement.isNotNullMeasurement()) {
                     isNewLinkToCurrentMeasurement = true;
                     isNewLinkToInfoPage = true;
                     continue;
                 }
+                it++;
             }
             // case if first measurement not valid - so "measurements.get(0)" cause exception IndexOutOfBoundsException
             // (check isNewLinkToCurrentMeasurement & isNewLinkToInfoPage flags) make sure that we have 0 index (first element in Collection)
@@ -86,8 +90,8 @@ public class TestMeasurementsReader {
             if (measurements.size() > 0) {
                 System.out.println("Look at measurement (0): " + measurements.get(0));
                 if (measurements.size() > 1) {
-                System.out.println("Look at measurement (1): " + measurements.get(1));
-            }
+                    System.out.println("Look at measurement (1): " + measurements.get(1));
+                }
             }
             if (isNewLinkToCurrentMeasurement & isNewLinkToInfoPage & measurements.size() > 0) {
                 //  check for empty cells in measurements columns (color marker when cells are not empty)

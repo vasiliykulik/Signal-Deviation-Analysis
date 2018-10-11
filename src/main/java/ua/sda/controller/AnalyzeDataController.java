@@ -109,7 +109,8 @@ public class AnalyzeDataController {
             // getUsTXPower() - lower is Better, getDsSNR() - higher is Better
             // getUsRXPower() - lower is Better,
             Float usTXPowerDifference = badCaseMeasurement.getUsTXPower() - goodCaseMeasurement.getUsTXPower();
-            Float usRXPowerDifference = badCaseMeasurement.getUsRXPower() - goodCaseMeasurement.getUsRXPower();
+            // back count
+            Float usRXPowerDifference = goodCaseMeasurement.getUsRXPower() - badCaseMeasurement.getUsRXPower();
             Float dsSNRDifference = goodCaseMeasurement.getDsSNR() - badCaseMeasurement.getDsSNR();
             Float difference = usTXPowerDifference + usRXPowerDifference + dsSNRDifference;
             ModemDifferenceMeasurement modemDifferenceMeasurement = new ModemDifferenceMeasurement(modem, difference);
