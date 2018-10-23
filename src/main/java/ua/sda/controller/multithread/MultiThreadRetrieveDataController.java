@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 /**
  * @author Vasiliy Kylik on(Rocket) on 12.07.2018.
  */
-
+/**<p>The task for this class is to collect, check and return data in a multithreaded mode.*/
 public class MultiThreadRetrieveDataController {
     private List<Modem> modems = new ArrayList<>();
     private String userName;
