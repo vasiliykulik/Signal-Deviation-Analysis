@@ -1401,11 +1401,13 @@ Print("start of H4 for bllock");}
         }
 
       // check for long position (BUY) possibility
+      bool isBuy=shouldIBuy();
       if(
          /*
             Цена над МА 133, 333, MACD M15 вверх, Н1 OsMA в отрицательной зоне. Покупаем. Проверка М15 на симметричность.
             */
          buy==1 &&
+
          iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
@@ -1413,7 +1415,9 @@ Print("start of H4 for bllock");}
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
-         shouldIBuy()
+
+         isBuy==true
+
          // Criterion for buy position according to the TS
          // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
          )
@@ -1427,11 +1431,13 @@ Print("start of H4 for bllock");}
          return;
         }
       // check for short position (SELL) possibility
+      bool isSell=shouldISell();
       if(
 
          /*
            Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность.*/
          sell==1 &&
+
          iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
@@ -1439,7 +1445,8 @@ Print("start of H4 for bllock");}
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
-         shouldISell()
+
+         isSell==true
 
          // Criterion for sell position according to the TS
          // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
@@ -1525,26 +1532,36 @@ bool shouldIBuy(void)
    double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
    double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
-   if(macd0>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0)
+   if(macd0>0 && macd1<0)
      {
+//      Print("macd0>0 && macd1<0 : in Buy Section",macd0>0 && macd1<0);
       double iCloseFinish= iClose(NULL,PERIOD_M15,0);
       double iCloseStart = 0;
-      for(int i=1;iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i)>0;i++)
+      int i=1;
+      int k=0;
+
+      for(int i=1;k==0;i++)
         {
-         if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i)>0)
+//       Print("i= ",i," in Buy Section");
+         double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
+         if(macdStart>0)
            {
-            double iCloseStart=iClose(NULL,PERIOD_M15,i);
-            break;
+            iCloseStart=iClose(NULL,PERIOD_M15,i);
+            k=1;
+      //      Print("Find Start : in Buy Section, iCloseStart<iCloseFinish ",iCloseStart<iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
            }
         }
+//      Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
       if(iCloseStart!=0)
         {
+//         Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
          if(iCloseStart<iCloseFinish)
            {
             isBuy=true;
            }
         }
      }
+//     Print("return isBuy = ", isBuy);
    return isBuy;
   }
 //+------------------------------------------------------------------+
@@ -1557,26 +1574,34 @@ bool  shouldISell(void)
    double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
    if(macd0<0 && macd1>0)
      {
+//      Print("macd0>0 && macd1<0 : in Sell Section",macd0<0 && macd1>0);
       double iCloseFinish= iClose(NULL,PERIOD_M15,0);
       double iCloseStart = 0;
-      for(int i=1;iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i)<0;i++)
+      int i=1;
+      int k=0;
+      for(int i=1;k==0;i++)
         {
-         if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i)<0)
+//         Print("i= ",i," in Sell Section");
+         double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
+         if(macdStart<0)
            {
-            double iCloseStart=iClose(NULL,PERIOD_M15,i);
-            break;
+            iCloseStart=iClose(NULL,PERIOD_M15,i);
+            k=1;
+     //       Print("Find Start : in Sell Section, iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
            }
         }
+//      Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
       if(iCloseStart!=0)
         {
-         if(iCloseStart<iCloseFinish)
+//         Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
+         if(iCloseStart>iCloseFinish)
            {
             isSell=true;
            }
         }
      }
+//   Print("return isSell = ", isSell);
    return isSell;
 
   }
 // the end.
-
