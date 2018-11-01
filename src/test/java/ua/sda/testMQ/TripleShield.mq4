@@ -1321,6 +1321,15 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
             Цена над МА 133, 333, MACD M15 вверх, Н1 OsMA в отрицательной зоне. Покупаем. Проверка М15 на симметричность.
             */
             buy ==1 &&
+            iClose(NULL,PERIOD_M15,0)> iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+            iClose(NULL,PERIOD_M15,0)> iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+            iClose(NULL,PERIOD_H1,0)> iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+            iClose(NULL,PERIOD_H1,0)> iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+            iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
+            iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
+            iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
+
+
             doubleCriterionM1 == 0 && 0>Macd_1_M1 && Macd_0_M1>0
             // Criterion for buy position according to the TS
            // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
@@ -1340,7 +1349,14 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
            /*
            Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность.*/
            sell ==1 &&
-           doubleCriterionM1 == 1 && 0<Macd_1_M1 && Macd_0_M1<0
+            iClose(NULL,PERIOD_M15,0)< iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+            iClose(NULL,PERIOD_M15,0)< iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+            iClose(NULL,PERIOD_H1,0)< iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+            iClose(NULL,PERIOD_H1,0)< iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+            iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
+            iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
+            iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
+
            // Criterion for sell position according to the TS
           // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
       )
@@ -1357,7 +1373,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
    // it is important to enter the market correctly,
    // but it is more important to exit it correctly...
 
- // Block 12  Алгоритм закрытия Позиции:
+ /* Block 12  Алгоритм закрытия Позиции:
    критерий закрытия (предварительно двойной M15)
 
    Алгоритм ведения Позиции:
@@ -1415,5 +1431,19 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
            }
         }
      }
+  }
+  bool shouldIBuy(void){
+  bool isBuy;
+    if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0){
+        double iCloseFinish = iClose(NULL,PERIOD_M15,0);
+        for(i=0;;i++){
+
+        }
+    }
+    return isBuy;
+  }
+
+  bool  shouldISell(void){
+
   }
 // the end.
