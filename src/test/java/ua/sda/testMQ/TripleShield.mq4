@@ -1,8 +1,12 @@
 //+------------------------------------------------------------------+
-//|                                                 TripleShield.mq4 |
-//|                                  Copyright © 2018, Vasiliy Kylik |
-//|                                           http://www.alpari.org/ |
+//|                                                       TS_5.5.mq4 |
+//|                                                    Vasiliy Kulik |
+//|                                                       alpari.com |
 //+------------------------------------------------------------------+
+#property copyright "Vasiliy Kulik"
+#property link      "alpari.com"
+#property version   "5.5"
+#property strict
 
 extern double TakeProfit = 2400;
 extern double StopLoss = 1600;
@@ -15,7 +19,18 @@ int iteration;
 ПолуВолна OsMa (у меня реализовано по простому - direction по двум тикам)
 ПолуВолна MACD (у меня реализовано по простому - наличие критерия в ту или иную сторону)
 Двойной критерий (у меня реализовано по простому - только сам факт наличия)
-и допилен Stochastic по принципу OsMA
+и допилен Stochastic по принципу OsMA.
+
+Навигация по комментам Block
+// Block 1 Попробуем определить пару драйвер
+/* Block 2 The algorithm of the trend criteria detalization: Mеханизм распознания первой ПВ: Какие у меня критерии?
+/* Block 3 Algorithm, part for H4 Half Waves*/
+/* Block 8 The algorithm of the trend criteria definition:
+// Block 9 Criterion Direction H4
+// Block 10 Не реализован, пока не нужєн? Рисуем критерии
+// Block 11 Logics End The algorithm of the trend criteria definition
+// Block 12  Алгоритм закрытия Позиции:
+
 */
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -107,7 +122,7 @@ tempMin,tempMax,resultLow,resultHigh,resultDifference;
       return;  // check TakeProfit
      }
 
-     // Попробуем определить пару драйвер
+     // Block 1 Попробуем определить пару драйвер
 for(myPairsCount=0; myPairsCount<5; myPairsCount++){
 beginPairDriver=0;
       myCurrentPair = myPairs[myPairsCount];
@@ -172,7 +187,7 @@ Macd_2H4PairDriver=0;
 }
       Print(" ", printResultDifference[4], " ", printResultDifference[3], " ", printResultDifference[2], " ", printResultDifference[1], " ", printResultDifference[0]);
 Sleep(3333);
-   /*   The algorithm of the trend criteria detalization:
+   /* Block 2   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
 Какие у меня критерии?
 1)
@@ -237,7 +252,7 @@ ArrayResize - в цикле не пойдет, так как есть
 
    */
 
-/*Algorithm, part for H4 Half Waves*/
+/* Block 3 Algorithm, part for H4 Half Waves*/
 
   // Print("Test Vasiliy", !(Macd_1H4>0 && Macd_2H4>0) || !(Macd_1H4<0 && Macd_2H4<0));// будет 1
 
@@ -291,7 +306,7 @@ ArrayResize - в цикле не пойдет, так как есть
 
 /*
 if(iteration==15391){
-Print("start of H4 for block");}
+Print("start of H4 for bllock");}
 
 */
   // else // Print("   ERROR (Catched 0) MACD equals 0,0000 PERIOD_H4 ", countHalfWavesH4);
@@ -416,7 +431,7 @@ Print("start of H4 for block");}
   }
 
 
-/*Algorithm, part for H1 Half Waves*/
+/* Block 4 Algorithm, part for H1 Half Waves*/
   countHalfWavesH1 =0;
   // Print("H1 HalfWave");
   begin = 0;
@@ -563,7 +578,7 @@ Print("start of H4 for block");}
 
 
 
-/*Algorithm, part for M15 Half Waves*/
+/* Block 5 Algorithm, part for M15 Half Waves*/
   // Print("M15 HalfWave");
   countHalfWavesM15 =0;
   begin = 0;
@@ -698,7 +713,7 @@ Print("start of H4 for block");}
 
 
 
-/*Algorithm, part for M5 Half Waves*/
+/* Block 6 Algorithm, part for M5 Half Waves*/
   // Print("M5 HalfWave");
   countHalfWavesM5 =0;
   begin = 0;
@@ -834,7 +849,7 @@ Print("start of H4 for block");}
 
 
 
-  /*Algorithm, part for M1 Half Waves*/
+  /* Block 7 Algorithm, part for M1 Half Waves*/
   // Print("M1 HalfWave");
   countHalfWavesM1 =0;
   begin = 0;
@@ -972,7 +987,7 @@ Print("start of H4 for block");}
 
 
 
-/*   The algorithm of the trend criteria definition:
+/* Block 8   The algorithm of the trend criteria definition:
    Идём по истории H4
    1) what0HalfWaveMACDH4 (0 это положительная 1 это отрицательная)
    а) складываем тики в массив halfWave0H4
@@ -1149,7 +1164,7 @@ if(directionOsMAH1 == 1 && directionOsMAM15== 1 && directionOsMAM5 == 1 && direc
 Print("iteration = ",iteration++);
 
 
-// Criterion Direction H4
+// Block 9 Criterion Direction H4
 if(what_1HalfWaveMACDH4==0 && what_3HalfWaveMACDH4==0){
 result1 = iHigh(NULL,PERIOD_H4,halfWave_1H4[0]);
 result3 = iHigh(NULL,PERIOD_H4,halfWave_3H4[0]);
@@ -1275,7 +1290,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
 }
 
 
-// Рисуем критери
+// Block 10 Не реализован, пока не нужєн? Рисуем критерии
 //--- перерисуем график и подождем 1 секунду
 
 
@@ -1284,7 +1299,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
  Macd_1_M1=iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
 
-/*Logics End The algorithm of the trend criteria definition*/
+ // Block 11 Logics End The algorithm of the trend criteria definition
 
 
    buy=1;
@@ -1303,8 +1318,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
       // check for long position (BUY) possibility
       if(
             /*
-            Алгоритм открытия Позиции:
-            для покупки если (doubleCriterionTrendH1 == 0 И doubleCriterionEntryPointM15 == 0 И doubleCriterionTheTimeOfEntryM5 == 0 И doubleCriterionM1==0 И allOsMA==0 И allStochastic == 0) открыть покупку
+            Цена над МА 133, 333, MACD M15 вверх, Н1 OsMA в отрицательной зоне. Покупаем. Проверка М15 на симметричность.
             */
             buy ==1 &&
             doubleCriterionM1 == 0 && 0>Macd_1_M1 && Macd_0_M1>0
@@ -1324,9 +1338,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
       if(
 
            /*
-           Алгоритм открытия Позиции:
-           для продажи если (doubleCriterionTrendH1 == 1 И doubleCriterionEntryPointM15 == 1 И doubleCriterionTheTimeOfEntryM5 == 1 И doubleCriterionM1==1 И allOsMA==1 И allStochastic == 1) открыть продажу
-           */
+           Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность.*/
            sell ==1 &&
            doubleCriterionM1 == 1 && 0<Macd_1_M1 && Macd_0_M1<0
            // Criterion for sell position according to the TS
@@ -1345,7 +1357,7 @@ result3 = iLow(NULL,PERIOD_M5,halfWave_3M5[0]);
    // it is important to enter the market correctly,
    // but it is more important to exit it correctly...
 
-/*   Алгоритм закрытия Позиции:
+ // Block 12  Алгоритм закрытия Позиции:
    критерий закрытия (предварительно двойной M15)
 
    Алгоритм ведения Позиции:
