@@ -1522,7 +1522,10 @@ Print("start of H4 for bllock");}
 bool shouldIBuy(void)
   {
    bool isBuy=false;
-   if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0)
+   double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+   double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+
+   if(macd0>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0)
      {
       double iCloseFinish= iClose(NULL,PERIOD_M15,0);
       double iCloseStart = 0;
@@ -1550,7 +1553,9 @@ bool shouldIBuy(void)
 bool  shouldISell(void)
   {
    bool isSell=false;
-   if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0)
+   double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+   double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+   if(macd0<0 && macd1>0)
      {
       double iCloseFinish= iClose(NULL,PERIOD_M15,0);
       double iCloseStart = 0;
@@ -1574,3 +1579,4 @@ bool  shouldISell(void)
 
   }
 // the end.
+
