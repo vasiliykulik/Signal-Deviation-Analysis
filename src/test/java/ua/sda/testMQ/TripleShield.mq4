@@ -1618,10 +1618,30 @@ bool  shouldISell(void)
 bool isBuySymmetric=false;
 double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
 double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
+if(osma0>0){
+    int i=0;
+    int k=0;
+    // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его отрицательной волны,
+    // не был больше чем два соседних, и останавливаемся когда полуволна опять выходит в положительную зону
+    for(i=0;k==0;i++){
+        double osmaStart = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+        // Перешли к отрицательной Полуволне
+        double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+        double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+        while(osmaStart < 0)
+        if (osmaStart < 0){
+            if(osmaStart>osmaPrev && osmaStart>osmaNext){
+                k=1;
+            }
 
+        }
+    }
+}
+return isBuySymmetric;
   }
 // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
   bool shouldISellSymetric(void){
+  bool isSellSymmetric=false;
 
   }
 // the end.
