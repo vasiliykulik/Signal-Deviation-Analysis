@@ -1402,9 +1402,10 @@ Print("start of H4 for bllock");}
 
       // check for long position (BUY) possibility
       bool isBuy=shouldIBuy();
+      bool isBuySymetric=shouldIBuySymetric();
       if(
          /*
-            Цена над МА 133, 333, MACD M15 вверх, Н1 OsMA в отрицательной зоне. Покупаем. Проверка М15 на симметричность.
+            Цена над МА 133, 333, MACD M15 вверх, Н1 OsMA в отрицательной зоне. Покупаем. Проверка М15 на симметричностьпо цене
             */
          buy==1 &&
 
@@ -1416,8 +1417,11 @@ Print("start of H4 for bllock");}
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
 
-         isBuy==true
-
+         isBuy==true &&
+         // при покупке OsMA М15 был выше 0
+         iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)>0 &&
+         // что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
+         isBuySymetric==true
          // Criterion for buy position according to the TS
          // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
          )
@@ -1432,10 +1436,11 @@ Print("start of H4 for bllock");}
         }
       // check for short position (SELL) possibility
       bool isSell=shouldISell();
+      bool isSellSymetric=shouldISellSymetric();
       if(
 
          /*
-           Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность.*/
+           Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность по цене.*/
          sell==1 &&
 
          iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
@@ -1447,7 +1452,10 @@ Print("start of H4 for bllock");}
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
 
          isSell==true
-
+         // при покупке OsMA М15 был ниже 0
+         iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
+         // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
+         isSellSymetric==true
          // Criterion for sell position according to the TS
          // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
          )
@@ -1488,11 +1496,11 @@ Print("start of H4 for bllock");}
             // check for trailing stop
             if(TrailingStop>0)
               {
-               if(Bid>OrderOpenPrice() && (Bid-OrderOpenPrice())>(Ask-Bid)*2)// если текущая цена БОЛЬШЕ цены открытия И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
+               if(Bid>Low[1] && Low[1]>OrderOpenPrice())
                  {
-                  if(Bid-((Bid-OrderOpenPrice())*0.5)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
+                  if(Low[1]>OrderStopLoss())
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid-OrderOpenPrice())*0.5),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Low[1],OrderTakeProfit(),0,Green);
                      return;
                     }
                  }
@@ -1509,12 +1517,11 @@ Print("start of H4 for bllock");}
             // check for trailing stop
             if(TrailingStop>0)
               {
-               // ПРОДАЖА, Цена Открытия > Текущей цены, И (Цена Открытия - Текущая цена > Двойного Среда)
-               if(OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask-Bid)*2))// если текущая цена + двойной спред МЕНЬШЕ цены открытия (Уберу двойной спред) И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
+               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                  {
-                  if(Ask+((OrderOpenPrice()-Ask)*0.5)<OrderStopLoss() || (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
+                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*0.5),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
+                     OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                      return;
                     }
                  }
@@ -1534,7 +1541,7 @@ bool shouldIBuy(void)
 
    if(macd0>0 && macd1<0)
      {
-//      Print("macd0>0 && macd1<0 : in Buy Section",macd0>0 && macd1<0);
+      //      Print("macd0>0 && macd1<0 : in Buy Section",macd0>0 && macd1<0);
       double iCloseFinish= iClose(NULL,PERIOD_M15,0);
       double iCloseStart = 0;
       int i=1;
@@ -1542,19 +1549,19 @@ bool shouldIBuy(void)
 
       for(int i=1;k==0;i++)
         {
-//       Print("i= ",i," in Buy Section");
+         //       Print("i= ",i," in Buy Section");
          double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
          if(macdStart>0)
            {
             iCloseStart=iClose(NULL,PERIOD_M15,i);
             k=1;
-      //      Print("Find Start : in Buy Section, iCloseStart<iCloseFinish ",iCloseStart<iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
+            //      Print("Find Start : in Buy Section, iCloseStart<iCloseFinish ",iCloseStart<iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
            }
         }
-//      Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
+      //      Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
       if(iCloseStart!=0)
         {
-//         Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
+         //         Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
          if(iCloseStart<iCloseFinish)
            {
             isBuy=true;
@@ -1574,26 +1581,26 @@ bool  shouldISell(void)
    double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
    if(macd0<0 && macd1>0)
      {
-//      Print("macd0>0 && macd1<0 : in Sell Section",macd0<0 && macd1>0);
+      //      Print("macd0>0 && macd1<0 : in Sell Section",macd0<0 && macd1>0);
       double iCloseFinish= iClose(NULL,PERIOD_M15,0);
       double iCloseStart = 0;
       int i=1;
       int k=0;
       for(int i=1;k==0;i++)
         {
-//         Print("i= ",i," in Sell Section");
+         //         Print("i= ",i," in Sell Section");
          double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
          if(macdStart<0)
            {
             iCloseStart=iClose(NULL,PERIOD_M15,i);
             k=1;
-     //       Print("Find Start : in Sell Section, iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
+            //       Print("Find Start : in Sell Section, iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
            }
         }
-//      Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
+      //      Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
       if(iCloseStart!=0)
         {
-//         Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
+         //         Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
          if(iCloseStart>iCloseFinish)
            {
             isSell=true;
@@ -1602,6 +1609,16 @@ bool  shouldISell(void)
      }
 //   Print("return isSell = ", isSell);
    return isSell;
+
+  }
+
+
+
+  bool shouldIBuySymetric(void){
+
+  }
+
+  bool shouldISellSymetric(void){
 
   }
 // the end.
