@@ -1417,6 +1417,7 @@ Print("start of H4 for bllock");}
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
 
+         // цена выхода из ПолуВолны выше цены входа
          isBuy==true &&
          // при покупке OsMA М15 был выше 0
          iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)>0 &&
@@ -1451,6 +1452,7 @@ Print("start of H4 for bllock");}
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
 
+         // цена выхода из ПолуВолны выше цены входа
          isSell==true &&
          // при покупке OsMA М15 был ниже 0
          iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
