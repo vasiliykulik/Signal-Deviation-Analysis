@@ -1613,11 +1613,14 @@ bool  shouldISell(void)
   }
 
 
-
+// что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
   bool shouldIBuySymetric(void){
+bool isBuySymmetric=false;
+double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
+double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
 
   }
-
+// что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
   bool shouldISellSymetric(void){
 
   }
