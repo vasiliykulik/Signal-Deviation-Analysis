@@ -150,11 +150,16 @@ void OnTick(void)
          iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&*/
+
+         // Возможно Н4 каналом - двумя тиками OsMA возможно отфильтровать Pivot 0 и 1. !!! CLOSE
+         iOsMA(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,0)>iOsMA(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,1)
+         // Критерий Замаха OsMA на Н1
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
+         // Критерий ПВ М15
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
 
-         // цена выхода из ПолуВолны выше цены входа
+         // цена выхода из ПолуВолны выше цены входа для М15
          isBuy==true &&
          // при покупке OsMA М15 был выше 0
          iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)>0 &&
@@ -185,11 +190,17 @@ void OnTick(void)
          iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&*/
+
+         // Возможно Н4 каналом - двумя тиками OsMA возможно отфильтровать Pivot 0 и 1. !!! CLOSE
+         iOsMA(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,0)<iOsMA(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,1)
+
+         // Критерий Замаха OsMA на Н1
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
+         // Критерий ПВ М15
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
 
-         // цена выхода из ПолуВолны выше цены входа
+         // цена выхода из ПолуВолны выше цены входа для М15
          isSell==true &&
          // при продаже OsMA М15 был ниже 0
          iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
