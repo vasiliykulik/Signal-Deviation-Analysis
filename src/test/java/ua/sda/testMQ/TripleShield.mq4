@@ -1451,7 +1451,7 @@ Print("start of H4 for bllock");}
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
 
-         isSell==true
+         isSell==true &&
          // при покупке OsMA М15 был ниже 0
          iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
          // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
@@ -1613,35 +1613,75 @@ bool  shouldISell(void)
   }
 
 
-// что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
+  // что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
   bool shouldIBuySymetric(void){
-bool isBuySymmetric=false;
-double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
-double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
-if(osma0>0){
-    int i=0;
-    int k=0;
-    // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его отрицательной волны,
-    // не был больше чем два соседних, и останавливаемся когда полуволна опять выходит в положительную зону
-    for(i=0;k==0;i++){
-        double osmaStart = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
-        // Перешли к отрицательной Полуволне
-        double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
-        double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
-        while(osmaStart < 0)
-        if (osmaStart < 0){
-            if(osmaStart>osmaPrev && osmaStart>osmaNext){
-                k=1;
-            }
+    bool isBuySymmetric=false;
+    double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
+    double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
+    if(osma0>0){
+        bool firstTransition=false;
+        bool secondTransition=false;
+            // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его отрицательной волны,
+            // не был больше чем два соседних, и останавливаемся когда полуволна опять выходит в положительную зону
+            for(int i=0;secondTransition == false;i++){
+                double osmaStart = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+                double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+                double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+                // Перешли к отрицательной Полуволне
+                if (osmaStart < 0){
+                    firstTransition = true;
+                    if(firstTransition==true && secondTransition==false){
+                        if(osmaStart>osmaPrev && osmaStart>osmaNext){
+                            isBuySymmetric=false;
+                            break;
+                        }
+                    }
 
-        }
+                }
+                //значит перешли ко второй полуволне которая положительная
+                if(firstTransition==true && osmaStart>0){
+                    secondTransition=true;
+                    isBuySymmetric=true;
+                    break;
+                }
+            }
     }
-}
-return isBuySymmetric;
+    return isBuySymmetric;
   }
 // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
-  bool shouldISellSymetric(void){
-  bool isSellSymmetric=false;
+ bool shouldISellSymetric(void){
+ bool isSellSymmetric=false;
+    double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
+    double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
+    if(osma0<0){
+        bool firstTransition=false;
+        bool secondTransition=false;
+            // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его положительной волны,
+            // не был меньше чем два соседних, и останавливаемся когда полуволна опять выходит в отрицательную зону
+            for(int i=0;secondTransition == false;i++){
+                double osmaStart = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+                double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+                double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+                // Перешли к отрицательной Полуволне
+                if (osmaStart > 0){
+                    firstTransition = true;
+                    if(firstTransition==true && secondTransition==false){
+                        if(osmaStart<osmaPrev && osmaStart<osmaNext){
+                            isSellSymmetric=false;
+                            break;
+                        }
+                    }
+
+                }
+                //значит перешли ко второй полуволне которая положительная
+                if(firstTransition==true && osmaStart<0){
+                    secondTransition=true;
+                    isSellSymmetric=true;
+                    break;
+                }
+            }
+    }
+    return isSellSymmetric;
 
   }
 // the end.
