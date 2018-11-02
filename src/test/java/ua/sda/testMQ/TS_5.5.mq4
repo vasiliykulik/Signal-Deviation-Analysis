@@ -146,10 +146,10 @@ void OnTick(void)
             */
          buy==1 &&
 
-         iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+/*         iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
-         iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&*/
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
@@ -181,17 +181,17 @@ void OnTick(void)
            Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность по цене.*/
          sell==1 &&
 
-         iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+/*         iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
          iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
-         iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &*/&
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
          iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
 
          // цена выхода из ПолуВолны выше цены входа
          isSell==true &&
-         // при покупке OsMA М15 был ниже 0
+         // при продаже OsMA М15 был ниже 0
          iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
          // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
          isSellSymetric==true
