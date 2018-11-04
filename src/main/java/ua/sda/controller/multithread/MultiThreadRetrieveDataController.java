@@ -57,7 +57,7 @@ public class MultiThreadRetrieveDataController {
      */
     /*Приходит List<Modem> modemsMeasurements с URL*/
     public List<Modem> getMeasurements(List<Modem> modemsMeasurements) throws Exception {
-        ExecutorService exec = Executors.newFixedThreadPool(4);
+        ExecutorService exec = Executors.newFixedThreadPool(10);
         ArrayList<Future<MultiThreadedMeasurements>> futureResults = new ArrayList<>();
         /*Здесь мы хотим наполнить futureResults измерениями*/
         for (Modem modem : modemsMeasurements) {
@@ -86,7 +86,7 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getLocations(List<Modem> modemsLocations) {
-        ExecutorService exec = Executors.newFixedThreadPool(4);
+        ExecutorService exec = Executors.newFixedThreadPool(10);
         ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
         for (Modem modem : modemsLocations) {
             futureResults.add(exec.submit(new MTModemLocationReader(
@@ -106,7 +106,7 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
-        ExecutorService exec = Executors.newFixedThreadPool(4);
+        ExecutorService exec = Executors.newFixedThreadPool(10);
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
         for (Modem modem : modemsCurrentStates) {
             futureResults.add(exec.submit(new MTModemCurrentStateReader(userName, password, modem.getLinkToMAC(),
