@@ -33,9 +33,6 @@ int iteration;
 // Block 10 Не реализован, пока не нужєн? Рисуем критерии
 // Block 11 Logics End The algorithm of the trend criteria definition
 // Block 12  Алгоритм закрытия Позиции:
-// Block 13  TS 5.6 Listener
-/* Block 14  Блок Закрытия, в закрытии проверяем, по наступлению новой ПВ уровень цен предыдущих двух ПолуВолн
-и по max  уровню цены max ПВ модифицируем тейк*/
 
 */
 //+------------------------------------------------------------------+
@@ -126,49 +123,8 @@ void OnTick(void)
       return;  // check TakeProfit
      }
 
-bool isDoubleSymmetricM5BuyReady=false;
-bool isDoubleSymmetricM15BuyReady=false;
-bool isDoubleSymmetricH1BuyReady=false;
-bool isDoubleSymmetricH4BuyReady=false;
-bool isDoubleSymmetricM5SellReady=false;
-bool isDoubleSymmetricM15SellReady=false;
-bool isDoubleSymmetricH1SellReady=false;
-bool isDoubleSymmetricH4SellReady=false;
-
-
-
-// Block 13  TS 5.6 Listener
-//  for buy если M5 пересекает и MA 83 Н1
-    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-    // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-    isDoubleSymmetricM5BuyReady  = isBuySymmetric("PERIOD_M5");
-    }
-    if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricM15BuyReady  = isBuySymmetric("PERIOD_M15");
-    }
-    if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH1BuyReady  = isBuySymmetric("PERIOD_H1");
-    }
-    if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH4BuyReady  = isBuySymmetric("PERIOD_H4");
-    }
-    //  for sell
-        if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-        // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-            isDoubleSymmetricM5SellReady  = isSellSymmetric("PERIOD_M5");
-        }
-        if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricM15SellReady  = isSellSymmetric("PERIOD_M15");
-        }
-        if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH1SellReady  = isSellSymmetric("PERIOD_H1");
-        }
-        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
-        }
-
-
 // Block 11 Logics End The algorithm of the trend criteria definition
+
    buy=1;
    sell=1;
    total=OrdersTotal();
@@ -185,8 +141,17 @@ isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
       bool isBuy=shouldIBuy();
       bool isBuySymetric=shouldIBuySymetric();
       if(
-        //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
+         /*
+            Цена над МА 133, 333, MACD M15 вверх, Н1 OsMA в отрицательной зоне. Покупаем. Проверка М15 на симметричностьпо цене
+            */
          buy==1 &&
+
+/*         iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_M15,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&*/
+
+
          // Критерий Замаха OsMA на Н1
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
          // Критерий ПВ М15
@@ -216,7 +181,16 @@ isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
       bool isSellSymetric=shouldISellSymetric();
       if(
 
+         /*
+           Цена под МА 133, 333, MACD M15 вниз, Н1 OsMA в положительной зоне. Продаем. Проверка М15 на симметричность по цене.*/
          sell==1 &&
+
+/*         iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0) &&
+         iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0) &&*/
+
+
          // Критерий Замаха OsMA на Н1
          iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
          // Критерий ПВ М15
@@ -303,9 +277,9 @@ isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
         }
      }
   }
+
 //+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
+// Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 bool shouldIBuy(void)
   {
    bool isBuy=false;
@@ -345,13 +319,13 @@ bool shouldIBuy(void)
    return isBuy;
   }
 //+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
+// Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 bool  shouldISell(void)
   {
    bool isSell=false;
    double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
    double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+   // Проверим завершилась ли волна OsMA
    if(macd0<0 && macd1>0)
      {
       //      Print("macd0>0 && macd1<0 : in Sell Section",macd0<0 && macd1>0);
@@ -391,7 +365,9 @@ bool  shouldISell(void)
     bool isBuySymmetric=false;
     double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
     double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
+       // Проверим завершилась ли волна OsMA
     if(osma0>0){
+    // firstTransition - start, firstTransition to secondTransition - first HalfWawe, thirdTransition to fourthTransition - secondHalfWave
         bool firstTransition=false;
         bool secondTransition=false;
             // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его отрицательной волны,
@@ -427,6 +403,7 @@ bool  shouldISell(void)
     double osma0 = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
     double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
     if(osma0<0){
+        // firstTransition - start, firstTransition to secondTransition - first HalfWawe, thirdTransition to fourthTransition - secondHalfWave
         bool firstTransition=false;
         bool secondTransition=false;
             // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его положительной волны,
@@ -457,25 +434,4 @@ bool  shouldISell(void)
     return isSellSymmetric;
 
   }
-// Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
-  bool isSymmetricBuy(string period){
-
-  }
- bool isSymmetricSell(string period){
-
-    }
 // the end.
-
-class ProccessedDataForBuy{
-protected string period;
-protected bool isDoubleSymmetric;
-protected double max;
-protected double filter;
-}
-
-class ProccessedDataForSell{
-protected string period;
-protected bool isDoubleSymmetric;
-protected double min;
-protected double filter;
-}
