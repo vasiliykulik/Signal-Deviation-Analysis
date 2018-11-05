@@ -16,7 +16,10 @@ import java.util.concurrent.Future;
 /**
  * @author Vasiliy Kylik on(Rocket) on 12.07.2018.
  */
-/**<p>The task for this class is to collect, check and return data in a multithreaded mode.*/
+
+/**
+ * <p>The task for this class is to collect, check and return data in a multithreaded mode.
+ */
 public class MultiThreadRetrieveDataController {
     private List<Modem> modems = new ArrayList<>();
     private String userName;
@@ -43,6 +46,7 @@ public class MultiThreadRetrieveDataController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Read links to measurements from Traffiс Light");
         return modems;
     }
 
@@ -57,16 +61,21 @@ public class MultiThreadRetrieveDataController {
      */
     /*Приходит List<Modem> modemsMeasurements с URL*/
     public List<Modem> getMeasurements(List<Modem> modemsMeasurements) throws Exception {
-        ExecutorService exec = Executors.newFixedThreadPool(50);// 50 threads for stable connect for vpn and old wifi's
+        ExecutorService exec = Executors.newFixedThreadPool(12);// 25 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedMeasurements>> futureResults = new ArrayList<>();
         /*Здесь мы хотим наполнить futureResults измерениями*/
         for (Modem modem : modemsMeasurements) {
             futureResults.add(exec.submit(new MultiThreadModemMeasurementsReader(userName, password, modem.getLinkToMAC())));
-            }
+        }
         exec.shutdown();
         System.out.println("Added modems in future results for measurement Reading");
+        int i=0;
                 /*а Здесь мы хотим измерения привязать к модему*/
+
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
+
+            System.out.println("Try to get "+ i + " modem from future results");
+            i++;
 
             try {
                 modemsMeasurements.
@@ -88,7 +97,7 @@ public class MultiThreadRetrieveDataController {
     }
 
     private void getLocations(List<Modem> modemsLocations) {
-        ExecutorService exec = Executors.newFixedThreadPool(50);// 50 threads for stable connect for vpn and old wifi's
+        ExecutorService exec = Executors.newFixedThreadPool(200);// 25 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
         for (Modem modem : modemsLocations) {
             futureResults.add(exec.submit(new MTModemLocationReader(
@@ -108,7 +117,7 @@ public class MultiThreadRetrieveDataController {
     }
 
     private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
-        ExecutorService exec = Executors.newFixedThreadPool(50); // 50 threads for stable connect for vpn and old wifi's
+        ExecutorService exec = Executors.newFixedThreadPool(200); // 25 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
         for (Modem modem : modemsCurrentStates) {
             futureResults.add(exec.submit(new MTModemCurrentStateReader(userName, password, modem.getLinkToMAC(),
@@ -150,7 +159,7 @@ public class MultiThreadRetrieveDataController {
             try {
                 if (modem.getMeasurements() == null) {
                     throw new MultiThreadingReadMeasurementsException
-                            ("Failed to read Measurements in MultiThreaded Section");
+                            ("Failed to read Measurements in MultiThreaded Section. NullMeasurements");
                 }
             } catch (MultiThreadingReadMeasurementsException e) {
                 System.err.println(e.getMessage());
