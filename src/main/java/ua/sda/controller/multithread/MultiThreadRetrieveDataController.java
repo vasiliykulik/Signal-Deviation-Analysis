@@ -57,13 +57,14 @@ public class MultiThreadRetrieveDataController {
      */
     /*Приходит List<Modem> modemsMeasurements с URL*/
     public List<Modem> getMeasurements(List<Modem> modemsMeasurements) throws Exception {
-        ExecutorService exec = Executors.newFixedThreadPool(10);
+        ExecutorService exec = Executors.newFixedThreadPool(50);// 50 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedMeasurements>> futureResults = new ArrayList<>();
         /*Здесь мы хотим наполнить futureResults измерениями*/
         for (Modem modem : modemsMeasurements) {
             futureResults.add(exec.submit(new MultiThreadModemMeasurementsReader(userName, password, modem.getLinkToMAC())));
-        }
+            }
         exec.shutdown();
+        System.out.println("Added modems in future results for measurement Reading");
                 /*а Здесь мы хотим измерения привязать к модему*/
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
 
@@ -80,13 +81,14 @@ public class MultiThreadRetrieveDataController {
                 e.printStackTrace();
             }
         }
+        System.out.println("Measurements obtained from future results");
         isMeasurementsNull(modemsMeasurements);
 
         return modemsMeasurements;
     }
 
-    private List<Modem> getLocations(List<Modem> modemsLocations) {
-        ExecutorService exec = Executors.newFixedThreadPool(10);
+    private void getLocations(List<Modem> modemsLocations) {
+        ExecutorService exec = Executors.newFixedThreadPool(50);// 50 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedLocation>> futureResults = new ArrayList<>();
         for (Modem modem : modemsLocations) {
             futureResults.add(exec.submit(new MTModemLocationReader(
@@ -102,11 +104,11 @@ public class MultiThreadRetrieveDataController {
                 e.printStackTrace();
             }
         }
-        return null;
+        System.out.println("Locations obtained from future results");
     }
 
     private List<Modem> getCurrentStates(List<Modem> modemsCurrentStates) {
-        ExecutorService exec = Executors.newFixedThreadPool(10);
+        ExecutorService exec = Executors.newFixedThreadPool(50); // 50 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
         for (Modem modem : modemsCurrentStates) {
             futureResults.add(exec.submit(new MTModemCurrentStateReader(userName, password, modem.getLinkToMAC(),
@@ -126,6 +128,7 @@ public class MultiThreadRetrieveDataController {
                 e.printStackTrace();
             }
         }
+        System.out.println("Current state's obtained from future results");
         return modemsCurrentStates;
     }
 
