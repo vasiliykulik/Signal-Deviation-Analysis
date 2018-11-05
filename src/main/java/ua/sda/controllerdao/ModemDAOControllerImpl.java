@@ -1,6 +1,7 @@
 package ua.sda.controllerdao;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.service.spi.ServiceException;
 import ua.sda.dao.HibernateDAOImpl;
 import ua.sda.entity.opticalnodeinterface.Modem;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by Vasiliy Kylik (Lightning) on 29.05.2018.
  */
 public class ModemDAOControllerImpl implements ModemDAOController {
-    HibernateDAOImpl hibernateDAO = new HibernateDAOImpl(new Configuration().configure().buildSessionFactory());
+        HibernateDAOImpl hibernateDAO = new HibernateDAOImpl(new Configuration().configure().buildSessionFactory());
 
     public void save(List<Modem> modems) {
         hibernateDAO.save(modems);

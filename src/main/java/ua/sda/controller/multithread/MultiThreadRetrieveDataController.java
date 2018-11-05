@@ -74,8 +74,11 @@ public class MultiThreadRetrieveDataController {
 
         for (Future<MultiThreadedMeasurements> measurementList : futureResults) {
 
-            System.out.println("Try to get "+ i + " modem from future results");
-            i++;
+            if (i%10==0) { // show only each 10th notification
+                System.out.println("Getting "+ i + " modem from future results, where "
+                        + futureResults.size() + " modems");
+            }
+                i++;
 
             try {
                 modemsMeasurements.

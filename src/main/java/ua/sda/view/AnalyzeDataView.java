@@ -1,5 +1,6 @@
 package ua.sda.view;
 
+import org.hibernate.service.spi.ServiceException;
 import ua.sda.controller.AnalyzeDataController;
 import ua.sda.controllerdao.ModemDAOControllerImpl;
 import ua.sda.controllerdao.SaveToFileController;
@@ -28,7 +29,11 @@ public class AnalyzeDataView {
         SaveToFileController saveToFileController = new SaveToFileController();
         Date goodTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
         Date badTimeDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse("00-00-0000 00:00:00");
-        ModemDAOControllerImpl modemDAOController = new ModemDAOControllerImpl();
+        try {
+            ModemDAOControllerImpl modemDAOController = new ModemDAOControllerImpl();
+        }catch (ServiceException e){
+            System.err.println(" For working with DataBase please start it ");
+        }
         writeMessage("" +
                 "1 - Find Differences between Good and affected state, Enter two DateTime's good and affected states\n" +
                 "2 - Analyze measurements of modems, and save to txt file\n" +
