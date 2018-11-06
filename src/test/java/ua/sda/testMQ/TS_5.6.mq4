@@ -37,7 +37,7 @@ int iteration;
 /* Block 14  Блок Закрытия, в закрытии проверяем, по наступлению новой ПВ уровень цен предыдущих двух ПолуВолн
 и по max  уровню цены max ПВ модифицируем тейк*/
 
-*/
+
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -141,30 +141,30 @@ bool isDoubleSymmetricH4SellReady=false;
 //  for buy если M5 пересекает и MA 83 Н1
     if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
     // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-    isDoubleSymmetricM5BuyReady  = isBuySymmetric("PERIOD_M5");
+    isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M5");
     }
     if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricM15BuyReady  = isBuySymmetric("PERIOD_M15");
+isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M15");
     }
     if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH1BuyReady  = isBuySymmetric("PERIOD_H1");
+isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H1");
     }
     if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH4BuyReady  = isBuySymmetric("PERIOD_H4");
+isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H4");
     }
     //  for sell
         if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
         // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-            isDoubleSymmetricM5SellReady  = isSellSymmetric("PERIOD_M5");
+            isDoubleSymmetricM5SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M5");
         }
         if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricM15SellReady  = isSellSymmetric("PERIOD_M15");
+isDoubleSymmetricM15SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M15");
         }
         if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH1SellReady  = isSellSymmetric("PERIOD_H1");
+isDoubleSymmetricH1SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H1");
         }
         if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
+isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H4");
         }
 
 
@@ -182,7 +182,9 @@ isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
         }
 
       // check for long position (BUY) possibility
+      // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
       bool isBuy=shouldIBuy();
+      // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
       bool isBuySymetric=shouldIBuySymetric();
       if(
         //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
@@ -212,7 +214,10 @@ isDoubleSymmetricH4SellReady  = isSellSymmetric("PERIOD_H4");
          return;
         }
       // check for short position (SELL) possibility
+      // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
       bool isSell=shouldISell();
+      // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
+
       bool isSellSymetric=shouldISellSymetric();
       if(
 
@@ -460,24 +465,59 @@ bool  shouldISell(void)
 
   }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
-  bool isSymmetricBuy(string period){
 
-  }
- bool isSymmetricSell(string period){
+ bool isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
 
     }
+      bool isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
+
+      }
 // the end.
 
 class ProccessedDataForBuy{
-protected string period;
-protected bool isDoubleSymmetric;
-protected double max;
-protected double filter;
+protected: string period;
+protected: bool isDoubleSymmetric;
+protected: double firstMax;
+protected: double secondMax;
+protected: double filter;
+public:
+    void              SetName(string period){this.period=period;}
+    string            GetName(){return (period);}
+
+    void              SetIsDoubleSymmetric(bool isDoubleSymmetric){this.isDoubleSymmetric=isDoubleSymmetric;}
+    bool              GetIsDoubleSymmetric(){return (isDoubleSymmetric);}
+
+    void              SetFirstMax(double firstMax){this.firstMax=firstMax;}
+    double            GetFirstMax(){return (firstMax);}
+
+    void              SetSecondMax(double secondMax){this.secondMax=secondMax;}
+    double            GetSecondMax(){return (secondMax);}
+
+    void              SetFilter(double filter){this.filter=filter;}
+    double            GetFilter(){return (filter);}
+
 }
 
 class ProccessedDataForSell{
-protected string period;
-protected bool isDoubleSymmetric;
-protected double min;
-protected double filter;
+protected: string period;
+protected: bool isDoubleSymmetric;
+protected: double firstMin;
+protected: double secondMin;
+protected: double filter;
+public:
+    void              SetName(string period){this.period=period;}
+    string            GetName(){return (period);}
+
+    void              SetIsDoubleSymmetric(bool isDoubleSymmetric){this.isDoubleSymmetric=isDoubleSymmetric;}
+    bool              GetIsDoubleSymmetric(){return (isDoubleSymmetric);}
+
+    void              SetFirstMin(double firstMin){this.firstMax=firstMin;}
+    double            GetFirstMin(){return (firstMin);}
+
+    void              SetSecondMin(double secondMin){this.secondMax=secondMin;}
+    double            GetsSecondMin(){return (secondMin);}
+
+    void              SetFilter(double filter){this.filter=filter;}
+    double            GetFilter(){return (filter);}
+
 }
