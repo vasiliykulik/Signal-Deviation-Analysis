@@ -146,36 +146,44 @@ bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
     && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
     // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
          isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M5");
+         period = "PERIOD_M5";
     }
     if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
     && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
         isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M15");
+        period = "PERIOD_M15";
     }
     if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
     && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
         isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H1");
+        period = "PERIOD_H1";
     }
     if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
     && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
         isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H4");
+        period = "PERIOD_H4";
     }
     //  for sell
     if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
     && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
     // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
         isDoubleSymmetricM5SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M5");
+        period = "PERIOD_M5";
     }
     if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
     && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
         isDoubleSymmetricM15SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M15");
+        period = "PERIOD_M15";
     }
     if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
     && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
         isDoubleSymmetricH1SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H1");
+        period = "PERIOD_H1";
     }
     if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
     && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
         isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H4");
+        period = "PERIOD_H4";
     }
 
 
