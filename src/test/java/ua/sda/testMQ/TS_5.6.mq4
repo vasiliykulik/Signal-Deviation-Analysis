@@ -466,10 +466,11 @@ bool  shouldISell(void)
   }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 
- bool isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
-
+ProccessedDataForBuy isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
+ProccessedDataForBuy proccessedDataForBuy;
+return proccessedDataForBuy;
     }
-      bool isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
+      ProccessedDataForSell isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
 
       }
 // the end.
@@ -481,6 +482,7 @@ protected: double firstMax;
 protected: double secondMax;
 protected: double filter;
 public:
+    ProccessedDataForSell *getProccessedDataForBuy();
     void              SetName(string period){this.period=period;}
     string            GetName(){return (period);}
 
@@ -496,7 +498,11 @@ public:
     void              SetFilter(double filter){this.filter=filter;}
     double            GetFilter(){return (filter);}
 
-}
+};
+ProccessedDataForBuy *ProccessedDataForBuy::getProccessedDataForBuy(void)
+  {
+   return(GetPointer(this));
+  }
 
 class ProccessedDataForSell{
 protected: string period;
@@ -505,6 +511,7 @@ protected: double firstMin;
 protected: double secondMin;
 protected: double filter;
 public:
+    ProccessedDataForSell *getProccessedDataForSell();
     void              SetName(string period){this.period=period;}
     string            GetName(){return (period);}
 
@@ -520,4 +527,52 @@ public:
     void              SetFilter(double filter){this.filter=filter;}
     double            GetFilter(){return (filter);}
 
-}
+};
+ProccessedDataForSell *ProccessedDataForSell::getProccessedDataForSell(void)
+  {
+   return(GetPointer(this));
+  }
+
+/*
+Ключевое слово this
+Переменная типа класса (объект) может передаваться как по ссылке, так и по указателю.
+ Указатель как и ссылка служит для того чтобы получать доступ к объекту.
+  После объявления указателя объекта необходимо применить к нему оператор new для его создания и инициализации.
+
+Зарезервированное слово this предназначено для получения ссылки объекта на самого себя,
+ доступной внутри методов класса или структуры. this всегда ссылается на объект,
+  в методе которого используется, а выражение GetPointer(this) даёт указатель объекта,
+   членом которого является функция, в которой осуществлен вызов функции GetPointer().
+    В MQL4 функции не могут возвращать объекты, но разрешено возвращать указатель объекта.
+
+Таким образом, если необходимо, чтобы функция вернула объект, то мы можем вернуть указатель
+ этого объекта в виде  GetPointer(this). Добавим в описание класса CDemoClass функцию getDemoClass(),
+  которая возвращает указатель объекта этого класса.
+*/
+class CDemoClass
+  {
+private:
+   double            m_array[];
+
+public:
+   void              setArray(double &array[]);
+   CDemoClass       *getDemoClass();
+  };
+//+------------------------------------------------------------------+
+//| заполнение массива                                               |
+//+------------------------------------------------------------------+
+void  CDemoClass::setArray(double &array[])
+  {
+   if(ArraySize(array)>0)
+     {
+      ArrayResize(m_array,ArraySize(array));
+      ArrayCopy(m_array,array);
+     }
+  }
+//+------------------------------------------------------------------+
+//| возвращает собственный указатель                                 |
+//+------------------------------------------------------------------+
+CDemoClass *CDemoClass::getDemoClass(void)
+  {
+   return(GetPointer(this));
+  }
