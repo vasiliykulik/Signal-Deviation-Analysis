@@ -467,10 +467,11 @@ bool  shouldISell(void)
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 
 bool isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
+ProccessedDataForBuy = new ProccessedDataForBuy;
 return proccessedDataForBuy;
     }
       bool isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
-
+ProccessedDataForSell = new ProccessedDataForSell;
       }
 // the end.
 

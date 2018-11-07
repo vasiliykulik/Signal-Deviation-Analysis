@@ -36,6 +36,7 @@ public class RetrieveDataView {
                 linkToURL = readString();
                 List<Modem> modems = retrieveDataController.getAll(userName, password, linkToURL);
                 long start = System.nanoTime();
+                storageForModems.clear();
                 storageForModems = modems;
                 long finish = System.nanoTime();
                 System.out.println("storing modems in storageForModems (nanoTime())" + (finish - start));
