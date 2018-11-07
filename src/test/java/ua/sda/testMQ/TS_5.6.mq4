@@ -134,38 +134,49 @@ bool isDoubleSymmetricM5SellReady=false;
 bool isDoubleSymmetricM15SellReady=false;
 bool isDoubleSymmetricH1SellReady=false;
 bool isDoubleSymmetricH4SellReady=false;
+string period;
+double firstMin, secondMin, firstMax, secondMax;
+bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
 
 
 
 // Block 13  TS 5.6 Listener
 //  for buy если M5 пересекает и MA 83 Н1
-    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+    && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
     // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-    isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M5");
+         isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M5");
     }
-    if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M15");
+    if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+    && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+        isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M15");
     }
-    if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H1");
+    if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+    && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
+        isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H1");
     }
-    if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H4");
+    if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+    && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
+        isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H4");
     }
     //  for sell
-        if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-        // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-            isDoubleSymmetricM5SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M5");
-        }
-        if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricM15SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M15");
-        }
-        if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH1SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H1");
-        }
-        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H4");
-        }
+    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+    && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+    // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
+        isDoubleSymmetricM5SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M5");
+    }
+    if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+    && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+        isDoubleSymmetricM15SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M15");
+    }
+    if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+    && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
+        isDoubleSymmetricH1SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H1");
+    }
+    if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+    && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
+        isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H4");
+    }
 
 
 // Block 11 Logics End The algorithm of the trend criteria definition
@@ -206,6 +217,7 @@ isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIO
          )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+         Print("Position was opened on TimeFrame ", period);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice());
@@ -239,6 +251,7 @@ isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIO
          )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
+         Print("Position was opened on TimeFrame ", period);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice());
