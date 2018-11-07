@@ -13,6 +13,8 @@ extern double StopLoss=1600;
 extern double Lots=1;
 extern double TrailingStop=10000;
 int iteration;
+double filter = 0,0001000;
+
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -64,7 +66,6 @@ void OnTick(void)
 
    int
    begin,zz,
-   countHalfWavesH4,
    countHalfWavesH1,
    countHalfWavesM15,
    countHalfWavesM5,
@@ -137,54 +138,8 @@ bool isDoubleSymmetricH4SellReady=false;
 string period;
 double firstMin, secondMin, firstMax, secondMax;
 bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
+int countHalfWaves;
 
-
-
-// Block 13  TS 5.6 Listener
-//  for buy если M5 пересекает и MA 83 Н1
-    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
-    && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-    // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-         isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M5");
-         period = "PERIOD_M5";
-    }
-    if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
-    && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-        isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_M15");
-        period = "PERIOD_M15";
-    }
-    if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
-    && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-        isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H1");
-        period = "PERIOD_H1";
-    }
-    if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
-    && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-        isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricHalfWavesFilterMinBuy("PERIOD_H4");
-        period = "PERIOD_H4";
-    }
-    //  for sell
-    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
-    && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-    // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-        isDoubleSymmetricM5SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M5");
-        period = "PERIOD_M5";
-    }
-    if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
-    && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-        isDoubleSymmetricM15SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_M15");
-        period = "PERIOD_M15";
-    }
-    if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
-    && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-        isDoubleSymmetricH1SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H1");
-        period = "PERIOD_H1";
-    }
-    if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
-    && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-        isDoubleSymmetricH4SellReady  = isThereTwoSymmetricHalfWavesFilterMaxSell("PERIOD_H4");
-        period = "PERIOD_H4";
-    }
 
 
 // Block 11 Logics End The algorithm of the trend criteria definition
@@ -192,6 +147,52 @@ bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
    sell=1;
    total=OrdersTotal();
    if(total<1)
+   // Block 13  TS 5.6 Listener
+   //  for buy если M5 пересекает и MA 83 Н1
+   // Event detection block for opening position
+   if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+       && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+       // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
+            isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_M5");
+            period = "PERIOD_M5";
+       }
+       if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+       && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+           isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_M15");
+           period = "PERIOD_M15";
+       }
+       if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+       && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
+           isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_H1");
+           period = "PERIOD_H1";
+       }
+       if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+       && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
+           isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_H4");
+           period = "PERIOD_H4";
+       }
+       //  for sell
+       if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+       && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+       // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
+           isDoubleSymmetricM5SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_M5");
+           period = "PERIOD_M5";
+       }
+       if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+       && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
+           isDoubleSymmetricM15SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_M15");
+           period = "PERIOD_M15";
+       }
+       if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+       && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
+           isDoubleSymmetricH1SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_H1");
+           period = "PERIOD_H1";
+       }
+       if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
+       && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
+           isDoubleSymmetricH4SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_H4");
+           period = "PERIOD_H4";
+       }
      {
       // no opened orders identified
       if(AccountFreeMargin()<(1*Lots))
@@ -487,113 +488,190 @@ bool  shouldISell(void)
   }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 
-bool isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
-ProccessedDataForBuy = new ProccessedDataForBuy;
-return proccessedDataForBuy;
-    }
-      bool isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
-ProccessedDataForSell = new ProccessedDataForSell;
-      }
-// the end.
+bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
+   countHalfWaves=0;
+   begin=0;
+   Macd_1H4=0;
+   Macd_2H4=0;
+   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
+     {
 
-class ProccessedDataForBuy{
-protected: string period;
-protected: bool isDoubleSymmetric;
-protected: double firstMax;
-protected: double secondMax;
-protected: double filter;
-public:
-    ProccessedDataForBuy *getProccessedDataForBuy();
-    void              SetName(string period){this.period=period;}
-    string            GetName(){return (period);}
+      begin++;
 
-    void              SetIsDoubleSymmetric(bool isDoubleSymmetric){this.isDoubleSymmetric=isDoubleSymmetric;}
-    bool              GetIsDoubleSymmetric(){return (isDoubleSymmetric);}
+      // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
+      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
+      // Print(Macd_1H4);
 
-    void              SetFirstMax(double firstMax){this.firstMax=firstMax;}
-    double            GetFirstMax(){return (firstMax);}
-
-    void              SetSecondMax(double secondMax){this.secondMax=secondMax;}
-    double            GetSecondMax(){return (secondMax);}
-
-    void              SetFilter(double filter){this.filter=filter;}
-    double            GetFilter(){return (filter);}
-
-};
-ProccessedDataForBuy *ProccessedDataForBuy::getProccessedDataForBuy(void)
-  {
-   return(GetPointer(this));
-  }
-
-class ProccessedDataForSell{
-protected: string period;
-protected: bool isDoubleSymmetric;
-protected: double firstMin;
-protected: double secondMin;
-protected: double filter;
-public:
-    ProccessedDataForSell *getProccessedDataForSell();
-    void              SetName(string period){this.period=period;}
-    string            GetName(){return (period);}
-
-    void              SetIsDoubleSymmetric(bool isDoubleSymmetric){this.isDoubleSymmetric=isDoubleSymmetric;}
-    bool              GetIsDoubleSymmetric(){return (isDoubleSymmetric);}
-
-    void              SetFirstMin(double firstMin){this.firstMax=firstMin;}
-    double            GetFirstMin(){return (firstMin);}
-
-    void              SetSecondMin(double secondMin){this.secondMax=secondMin;}
-    double            GetsSecondMin(){return (secondMin);}
-
-    void              SetFilter(double filter){this.filter=filter;}
-    double            GetFilter(){return (filter);}
-
-};
-ProccessedDataForSell *ProccessedDataForSell::getProccessedDataForSell(void)
-  {
-   return(GetPointer(this));
-  }
+      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
 
 /*
-Ключевое слово this
-Переменная типа класса (объект) может передаваться как по ссылке, так и по указателю.
- Указатель как и ссылка служит для того чтобы получать доступ к объекту.
-  После объявления указателя объекта необходимо применить к нему оператор new для его создания и инициализации.
-
-Зарезервированное слово this предназначено для получения ссылки объекта на самого себя,
- доступной внутри методов класса или структуры. this всегда ссылается на объект,
-  в методе которого используется, а выражение GetPointer(this) даёт указатель объекта,
-   членом которого является функция, в которой осуществлен вызов функции GetPointer().
-    В MQL4 функции не могут возвращать объекты, но разрешено возвращать указатель объекта.
-
-Таким образом, если необходимо, чтобы функция вернула объект, то мы можем вернуть указатель
- этого объекта в виде  GetPointer(this). Добавим в описание класса CDemoClass функцию getDemoClass(),
-  которая возвращает указатель объекта этого класса.
+      if(iteration==15391){
+      Print("Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,1)");
+      Print(Macd_1H4);
+      }
 */
-class CDemoClass
-  {
-private:
-   double            m_array[];
+      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+/*
+      if(iteration==15391){
+      Print("Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
+      Print(Macd_2H4);
+      }
 
-public:
-   void              setArray(double &array[]);
-   CDemoClass       *getDemoClass();
-  };
-//+------------------------------------------------------------------+
-//| заполнение массива                                               |
-//+------------------------------------------------------------------+
-void  CDemoClass::setArray(double &array[])
-  {
-   if(ArraySize(array)>0)
-     {
-      ArrayResize(m_array,ArraySize(array));
-      ArrayCopy(m_array,array);
+      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
+            if(iteration==15391){
+      Print("Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,2)");
+      Print(Macd_2H4);
+
+      }
+*/
+      if(Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4=0;}
+      else if(Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4=1;}
+/*     if(iteration==15391){
+      Print("Macd_1H4 = ", Macd_1H4, " Macd_2H4 = ", Macd_2H4, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
+      Print("Macd_1H4>0 = ", Macd_1H4>0, " Macd_2H4>0 = ", Macd_2H4>0, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
+      Print("Macd_1H4<0 = ", Macd_1H4<0, " Macd_2H4<0 = ", Macd_2H4<0, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
+      Print(begin);
+      }
+      */
      }
-  }
-//+------------------------------------------------------------------+
-//| возвращает собственный указатель                                 |
-//+------------------------------------------------------------------+
-CDemoClass *CDemoClass::getDemoClass(void)
-  {
-   return(GetPointer(this));
-  }
+
+/*
+if(iteration==15391){
+Print("start of H4 for bllock");}
+
+*/
+// else // Print("   ERROR (Catched 0) MACD equals 0,0000 period ", countHalfWaves);
+   for(i=begin;countHalfWaves<=3;i++)
+     {
+      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
+      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
+      // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
+
+      // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_1HalfWaveMACDH4=1;
+         j=begin+1;
+         resize0H4=(i+2)-j;
+         ArrayResize(halfWave0H4,resize0H4);
+         zz=0;
+         for(j; j<i+2; j++)
+           {
+            halfWave0H4[zz]=j;
+            zz++;
+           }
+         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+        }
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_1HalfWaveMACDH4=0;
+         j=begin+1;
+         resize0H4=(i+2)-j;
+         ArrayResize(halfWave0H4,resize0H4);
+         zz=0;
+         for(j; j<i+2; j++)
+           {
+            halfWave0H4[zz]=j;
+            zz++;
+           }
+         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+        }
+      if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_2HalfWaveMACDH4=0;
+         k=j+1;
+         resize1H4=(i+2)-k;
+         ArrayResize(halfWave_1H4,resize1H4);
+         z=0;
+         for(k; k<i+2; k++)
+           {
+            halfWave_1H4[z]=k;
+            z++;
+           }
+         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+        }
+      if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_2HalfWaveMACDH4=1;
+         k=j+1;
+         resize1H4=(i+2)-k;
+         ArrayResize(halfWave_1H4,resize1H4);
+         z=0;
+         for(k; k<i+2; k++)
+           {
+            halfWave_1H4[z]=k;
+            z++;
+           }
+         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+        }
+      if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_3HalfWaveMACDH4=1;
+         m=k+1;
+         resize2H4=(i+2)-m;
+         ArrayResize(halfWave_2H4,resize2H4);
+         y=0;
+         for(m; m<i+2; m++)
+           {
+            halfWave_2H4[y]=m;
+            y++;
+           }
+         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
+        }
+      if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_3HalfWaveMACDH4=0;
+         m=k+1;
+         resize2H4=(i+2)-m;
+         ArrayResize(halfWave_2H4,resize2H4);
+         y=0;
+         for(m; m<i+2; m++)
+           {
+            halfWave_2H4[y]=m;
+            y++;
+           }
+         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
+        }
+      if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_4HalfWaveMACDH4=0;
+         p=m+1;
+         resize3H4=(i+2)-p;
+         ArrayResize(halfWave_3H4,resize3H4);
+         x=0;
+         for(p; p<i+2; p++)
+           {
+            halfWave_3H4[x]=p;
+            x++;
+           }
+         // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+        }
+      if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_4HalfWaveMACDH4=1;
+         p=m+1;
+         resize3H4=(i+2)-p;
+         ArrayResize(halfWave_3H4,resize3H4);
+         x=0;
+         for(p; p<i+2; p++)
+           {
+            halfWave_3H4[x]=p;
+            x++;
+           }
+         // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+        }
+     }
+}
+
+bool isThereTwoSymmetricFilteredHalfWavesMaxSell(string period){
+}
+// the end.
+
