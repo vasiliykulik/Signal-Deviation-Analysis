@@ -466,11 +466,10 @@ bool  shouldISell(void)
   }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 
-ProccessedDataForBuy isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
-ProccessedDataForBuy proccessedDataForBuy;
+bool isThereTwoSymmetricHalfWavesFilterMinBuy(string period){
 return proccessedDataForBuy;
     }
-      ProccessedDataForSell isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
+      bool isThereTwoSymmetricHalfWavesFilterMaxSell(string period){
 
       }
 // the end.
@@ -482,7 +481,7 @@ protected: double firstMax;
 protected: double secondMax;
 protected: double filter;
 public:
-    ProccessedDataForSell *getProccessedDataForBuy();
+    ProccessedDataForBuy *getProccessedDataForBuy();
     void              SetName(string period){this.period=period;}
     string            GetName(){return (period);}
 
