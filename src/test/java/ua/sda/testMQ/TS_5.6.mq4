@@ -493,6 +493,7 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
    begin=0;
    Macd_1H4=0;
    Macd_2H4=0;
+   // Смещение на два тика
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
 

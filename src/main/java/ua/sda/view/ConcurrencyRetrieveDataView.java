@@ -33,7 +33,6 @@ public class ConcurrencyRetrieveDataView {
                 // здесь хочу получить List модемов
                 List<Modem> modems = multiThreadRetrieveDataController.getAll();
                 long start = System.nanoTime();
-                storageForModems.clear();
                 storageForModems = modems;
                 long finish = System.nanoTime();
                 System.out.println("storing modems in storageForModems (nanoTime())" + (finish - start));
