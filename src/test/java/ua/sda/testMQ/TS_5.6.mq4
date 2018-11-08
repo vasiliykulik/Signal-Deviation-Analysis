@@ -487,73 +487,43 @@ bool  shouldISell(void)
 
   }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
+// Метод взят с блока Н4 - потому имена переменных остануться пока такими
 
 bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
    countHalfWaves=0;
    begin=0;
-   Macd_1H4=0;
-   Macd_2H4=0;
-   // Смещение на два тика
+   Macd_1H4=0;// нулевой тик
+   Macd_2H4=0;// следующий тик
+   bool resultCheck;
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
-
-      begin++;
-
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
       // Print(Macd_1H4);
 
       Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
-
-/*
-      if(iteration==15391){
-      Print("Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,1)");
-      Print(Macd_1H4);
-      }
-*/
       Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
-/*
-      if(iteration==15391){
-      Print("Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1)");
-      Print(Macd_2H4);
-      }
 
-      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,2);
-            if(iteration==15391){
-      Print("Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,2)");
-      Print(Macd_2H4);
-
-      }
-*/
-      if(Macd_1H4>0 && Macd_2H4>0){what0HalfWaveMACDH4=0;}
-      else if(Macd_1H4<0 && Macd_2H4<0){what0HalfWaveMACDH4=1;}
-/*     if(iteration==15391){
-      Print("Macd_1H4 = ", Macd_1H4, " Macd_2H4 = ", Macd_2H4, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
-      Print("Macd_1H4>0 = ", Macd_1H4>0, " Macd_2H4>0 = ", Macd_2H4>0, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
-      Print("Macd_1H4<0 = ", Macd_1H4<0, " Macd_2H4<0 = ", Macd_2H4<0, "what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4);
-      Print(begin);
-      }
-      */
+      if(Macd_1H4>0 && Macd_2H4<0)
+        {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
+      else if(Macd_1H4<0 && Macd_2H4>0)
+        {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
+        // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
      }
-
-/*
-if(iteration==15391){
-Print("start of H4 for bllock");}
-
-*/
-// else // Print("   ERROR (Catched 0) MACD equals 0,0000 period ", countHalfWaves);
+//
    for(i=begin;countHalfWaves<=3;i++)
      {
-      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1);
-      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2);
+      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1); //то есть это будет второй тик
+      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2); // а это третий
       // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
-      if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+      // First Wave
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что второй и третий тик ниже 0, основной фильтр на шум
         {
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
-         j=begin+1;
+         j=begin+1; // 0+1
          resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
@@ -564,7 +534,7 @@ Print("start of H4 for bllock");}
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
-      if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
@@ -579,6 +549,7 @@ Print("start of H4 for bllock");}
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
+        // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
          countHalfWaves++;
@@ -609,6 +580,7 @@ Print("start of H4 for bllock");}
            }
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
+        // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
          countHalfWaves++;
@@ -639,6 +611,7 @@ Print("start of H4 for bllock");}
            }
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
+        // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
          countHalfWaves++;
@@ -669,7 +642,10 @@ Print("start of H4 for bllock");}
            }
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
+     begin++;
      }
+     // return sectiom
+     return resultCheck;
 }
 
 bool isThereTwoSymmetricFilteredHalfWavesMaxSell(string period){
