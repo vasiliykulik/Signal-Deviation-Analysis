@@ -495,6 +495,7 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
    Macd_1H4=0;// нулевой тик
    Macd_2H4=0;// следующий тик
    bool resultCheck;
+   // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
@@ -523,11 +524,12 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
         {
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
-         j=begin+1; // 0+1
-         resize0H4=(i+2)-j;
+         j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
+         resize0H4=(i+1)-j; // i = begin ie 0, тоесть будет 1й элемент
+         // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         for(j; j<i+2; j++)
+         for(j; j<i+1; j++)
            {
             halfWave0H4[zz]=j;
             zz++;
@@ -539,10 +541,10 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
          j=begin+1;
-         resize0H4=(i+2)-j;
+         resize0H4=(i+1)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         for(j; j<i+2; j++)
+         for(j; j<i+1; j++)
            {
             halfWave0H4[zz]=j;
             zz++;
@@ -555,10 +557,10 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_2HalfWaveMACDH4=0;
          k=j+1;
-         resize1H4=(i+2)-k;
+         resize1H4=(i+1)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         for(k; k<i+2; k++)
+         for(k; k<i+1; k++)
            {
             halfWave_1H4[z]=k;
             z++;
@@ -570,10 +572,10 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_2HalfWaveMACDH4=1;
          k=j+1;
-         resize1H4=(i+2)-k;
+         resize1H4=(i+1)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         for(k; k<i+2; k++)
+         for(k; k<i+1; k++)
            {
             halfWave_1H4[z]=k;
             z++;
@@ -586,10 +588,10 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_3HalfWaveMACDH4=1;
          m=k+1;
-         resize2H4=(i+2)-m;
+         resize2H4=(i+1)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         for(m; m<i+2; m++)
+         for(m; m<i+1; m++)
            {
             halfWave_2H4[y]=m;
             y++;
@@ -601,10 +603,10 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_3HalfWaveMACDH4=0;
          m=k+1;
-         resize2H4=(i+2)-m;
+         resize2H4=(i+1)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         for(m; m<i+2; m++)
+         for(m; m<i+1; m++)
            {
             halfWave_2H4[y]=m;
             y++;
@@ -617,10 +619,10 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_4HalfWaveMACDH4=0;
          p=m+1;
-         resize3H4=(i+2)-p;
+         resize3H4=(i+1)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
-         for(p; p<i+2; p++)
+         for(p; p<i+1; p++)
            {
             halfWave_3H4[x]=p;
             x++;
@@ -632,17 +634,17 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
          countHalfWaves++;
          what_4HalfWaveMACDH4=1;
          p=m+1;
-         resize3H4=(i+2)-p;
+         resize3H4=(i+1)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
-         for(p; p<i+2; p++)
+         for(p; p<i+1; p++)
            {
             halfWave_3H4[x]=p;
             x++;
            }
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
-     begin++;
+     // begin++;
      }
      // return sectiom
      return resultCheck;
