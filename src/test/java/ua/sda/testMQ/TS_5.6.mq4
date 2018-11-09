@@ -136,25 +136,29 @@ bool isDoubleSymmetricM5SellReady=false;
 bool isDoubleSymmetricM15SellReady=false;
 bool isDoubleSymmetricH1SellReady=false;
 bool isDoubleSymmetricH4SellReady=false;
-string periodGlobal;
+string periodGlobal, additionalPeriodGlobal;
 double firstMin, secondMin, firstMax, secondMax;
 bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
 int countHalfWaves;
 int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
 bool isFilterFirstHalfWaveOK, isFilterSecondHalfWaveOK, isFilterThirdHalfWaveOK, isFilterFourthHalfWaveOK;
 double macdForFilter, priceForMinMax;
+int buyWeight, sellWeight;
 
 
 
 // Block 11 Logics End The algorithm of the trend criteria definition
    buy=1;
    sell=1;
+   buyWeight = 0;
+   sellWeight = 0;
    total=OrdersTotal();
    if(total<1)
+   sleep(8888);
    // Block 13  TS 5.6 Listener
    //  for buy если M5 пересекает и MA 83 Н1
    // Event detection block for opening position
-
+// Здесь надо обработать additionalPeriodGlobal
        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
@@ -176,6 +180,11 @@ double macdForFilter, priceForMinMax;
             isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
             periodGlobal = "PERIOD_M5";
        }
+
+       if(isDoubleSymmetricH4BuyReady){buyWeight++;}
+       if(isDoubleSymmetricH1BuyReady){buyWeight++;}
+       if(isDoubleSymmetricM15BuyReady){buyWeight++;}
+       if(isDoubleSymmetricM5BuyReady){buyWeight++;}
 
 
 
@@ -202,6 +211,10 @@ double macdForFilter, priceForMinMax;
            periodGlobal = "PERIOD_M5";
        }
 
+       if(isDoubleSymmetricH4SellReady){sellWeight++;}
+       if(isDoubleSymmetricH1SellReady){sellWeight++;}
+       if(isDoubleSymmetricM15SellReady){sellWeight++;}
+       if(isDoubleSymmetricM5SellReady){sellWeight++;}
 
 
      {
@@ -240,7 +253,7 @@ double macdForFilter, priceForMinMax;
          Print("Position was opened on TimeFrame ", periodGlobal);
          if(ticket>0)
            {
-            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice());
+            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice(), "with buyWeight = ", buyWeight);
            }
          else Print("Error opening BUY order : ",GetLastError());
          return;
@@ -274,7 +287,7 @@ double macdForFilter, priceForMinMax;
          Print("Position was opened on TimeFrame ", periodGlobal);
          if(ticket>0)
            {
-            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice());
+            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice(), "with sellWeight = ", sellWeight);
            }
          else Print("Error opening SELL order : ",GetLastError());
         }
