@@ -136,13 +136,13 @@ bool isDoubleSymmetricM5SellReady=false;
 bool isDoubleSymmetricM15SellReady=false;
 bool isDoubleSymmetricH1SellReady=false;
 bool isDoubleSymmetricH4SellReady=false;
-string period;
+string periodGlobal;
 double firstMin, secondMin, firstMax, secondMax;
 bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
 int countHalfWaves;
 int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
 bool isFilterFirstHalfWaveOK, isFilterSecondHalfWaveOK, isFilterThirdHalfWaveOK, isFilterFourthHalfWaveOK;
-double macdForFilter;
+double macdForFilter, priceForMinMax;
 
 
 
@@ -157,45 +157,45 @@ double macdForFilter;
    if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
        // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-            isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_M5");
-            period = "PERIOD_M5";
+            isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
+            periodGlobal = "PERIOD_M5";
        }
        if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-           isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_M15");
-           period = "PERIOD_M15";
+           isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
+           periodGlobal = "PERIOD_M15";
        }
        if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-           isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_H1");
-           period = "PERIOD_H1";
+           isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
+           periodGlobal = "PERIOD_H1";
        }
        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-           isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricFilteredHalfWavesMinBuy("PERIOD_H4");
-           period = "PERIOD_H4";
+           isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
+           periodGlobal = "PERIOD_H4";
        }
        //  for sell
        if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
        // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-           isDoubleSymmetricM5SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_M5");
-           period = "PERIOD_M5";
+           isDoubleSymmetricM5SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
+           periodGlobal = "PERIOD_M5";
        }
        if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
-           isDoubleSymmetricM15SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_M15");
-           period = "PERIOD_M15";
+           isDoubleSymmetricM15SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
+           periodGlobal = "PERIOD_M15";
        }
        if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
-           isDoubleSymmetricH1SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_H1");
-           period = "PERIOD_H1";
+           isDoubleSymmetricH1SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
+           periodGlobal = "PERIOD_H1";
        }
        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
-           isDoubleSymmetricH4SellReady  = isThereTwoSymmetricFilteredHalfWavesMaxSell("PERIOD_H4");
-           period = "PERIOD_H4";
+           isDoubleSymmetricH4SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
+           periodGlobal = "PERIOD_H4";
        }
      {
       // no opened orders identified
@@ -230,7 +230,7 @@ double macdForFilter;
          )
         {
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
-         Print("Position was opened on TimeFrame ", period);
+         Print("Position was opened on TimeFrame ", periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice());
@@ -264,7 +264,7 @@ double macdForFilter;
          )
         {
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
-         Print("Position was opened on TimeFrame ", period);
+         Print("Position was opened on TimeFrame ", periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice());
@@ -493,7 +493,7 @@ bool  shouldISell(void)
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 // Метод взят с блока Н4 - потому имена переменных остануться пока такими
 
-bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
+bool isThereTwoSymmetricFilteredHalfWaves(string period){
    countHalfWaves=0;
    begin=0;
    Macd_1H4=0;// нулевой тик
@@ -502,6 +502,14 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
    isFilterSecondHalfWaveOK =false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK =false;
+   firstMin = 0.00000000;
+   secondMin = 0.00000000;
+   firstMax = 0.00000000;
+   secondMax = 0.00000000;
+   isFirstMin = false;
+   isSecondMin = false;
+   isFirstMax = false;
+   isSecondMax = false;
    bool resultCheck = false;
    // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
@@ -545,6 +553,11 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
                 if(isFilterFirstHalfWaveOK==false && macdForFilter<filterForBuy){
                     isFilterFirstHalfWaveOK = true;
                 }
+            priceForMinMax = iOpen(NULL,period,j);
+                if (firstMin>priceForMinMax){
+                    firstMin = priceForMinMax;
+                    isFirstMin = true;
+                }
             zz++;
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
@@ -563,6 +576,11 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
             macdForFilter = iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,j);
                 if(isFilterFirstHalfWaveOK==false && macdForFilter>filterForSell){
                     isFilterFirstHalfWaveOK = true;
+                }
+            priceForMinMax = iOpen(NULL,period,j);
+                if (firstMax<priceForMinMax){
+                    firstMax = priceForMinMax;
+                    isFirstMax = true;
                 }
             zz++;
            }
@@ -623,6 +641,11 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
                 if(isFilterThirdHalfWaveOK==false && macdForFilter<filterForBuy){
                     isFilterThirdHalfWaveOK = true;
                 }
+            priceForMinMax = iOpen(NULL,period,j);
+                if (secondMin>priceForMinMax){
+                    secondMin = priceForMinMax;
+                    isSecondMin = true;
+                }
             y++;
            }
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
@@ -641,6 +664,11 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
             macdForFilter = iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,m);
                 if(isFilterThirdHalfWaveOK==false && macdForFilter>filterForSell){
                     isFilterThirdHalfWaveOK = true;
+                }
+            priceForMinMax = iOpen(NULL,period,j);
+                if (secondMax<priceForMinMax){
+                    secondMax = priceForMinMax;
+                    isSecondMax = true;
                 }
             y++;
            }
@@ -690,13 +718,26 @@ bool isThereTwoSymmetricFilteredHalfWavesMinBuy(string period){
 /*    Получаем четыре массива и проверяем что бы в каждоq ПВ по MACD был тик более 0,000100 isFilterOK
       для каждого тайм фрейма, в начале метода флаг сбрасываем в false
       */
-     TODO
+/*
+Проставляем
+firstMin, secondMin, - первая ПВ, countHalfWaves 0
+ firstMax, secondMax, - третья ПВ, countHalfWaves 2
+isFirstMin, isSecondMin, isFirstMax, isSecondMax
+min для buy
+max для sell
+приоритет от Н4 до M5
+в начале метода флаг сбрасываем в false
+значения в 0,00000000
+*/
+
      // return section
-     if(isFilterFirstHalfWaveOK && isFilterSecondHalfWaveOK && isFilterThirdHalfWaveOK && isFilterFourthHalfWaveOK)
+     if(isFilterFirstHalfWaveOK && isFilterSecondHalfWaveOK && isFilterThirdHalfWaveOK && isFilterFourthHalfWaveOK){
+        if(isFirstMin && isSecondMin && isFirstMax && isSecondMax){
+            resultCheck = true;
+        }
+     }
      return resultCheck;
 }
 
-bool isThereTwoSymmetricFilteredHalfWavesMaxSell(string period){
-}
 // the end.
 
