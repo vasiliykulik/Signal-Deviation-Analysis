@@ -159,26 +159,23 @@ int buyWeight, sellWeight;
    //  for buy если M5 пересекает и MA 83 Н1
    // Event detection block for opening position
 // Здесь надо обработать additionalPeriodGlobal
+// Сначала посчитаем вес
        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricH4BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
-           periodGlobal = "PERIOD_H1";
        }
        if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricH1BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
-           periodGlobal = "PERIOD_H1";
        }
        if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricM15BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
-           periodGlobal = "PERIOD_M15";
        }
        if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
        && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
        // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
             isDoubleSymmetricM5BuyReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
-            periodGlobal = "PERIOD_M5";
        }
 
        if(isDoubleSymmetricH4BuyReady){buyWeight++;}
@@ -186,35 +183,49 @@ int buyWeight, sellWeight;
        if(isDoubleSymmetricM15BuyReady){buyWeight++;}
        if(isDoubleSymmetricM5BuyReady){buyWeight++;}
 
-
-
        //  for sell
        if (iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricH4SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
-           periodGlobal = "PERIOD_H1";
        }
        if (iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricH1SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
-           periodGlobal = "PERIOD_H1";
        }
        if (iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
            isDoubleSymmetricM15SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
-           periodGlobal = "PERIOD_M15";
        }
        if (iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
        && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0)){
        // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
            isDoubleSymmetricM5SellReady  = isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
-           periodGlobal = "PERIOD_M5";
        }
 
        if(isDoubleSymmetricH4SellReady){sellWeight++;}
        if(isDoubleSymmetricH1SellReady){sellWeight++;}
        if(isDoubleSymmetricM15SellReady){sellWeight++;}
        if(isDoubleSymmetricM5SellReady){sellWeight++;}
+
+// а теперь укажем periodGlobal
+    if(sellWeight==0 && buyWeight>1){
+        if(isDoubleSymmetricM5BuyReady) {periodGlobal = "PERIOD_H1";}
+        if(isDoubleSymmetricM15BuyReady) {periodGlobal = "PERIOD_H1";}
+        if(isDoubleSymmetricH1BuyReady) {periodGlobal = "PERIOD_M15";}
+        if (isDoubleSymmetricH4BuyReady){periodGlobal = "PERIOD_M5";}
+    }
+    if(sellWeight==buyWeight){
+    buy = 0;
+    sell = 0;
+    }
+    if(buyWeight==0 && sellWeight>1){
+        if(isDoubleSymmetricM5SellReady) {periodGlobal = "PERIOD_H1";}
+        if(isDoubleSymmetricM15SellReady) {periodGlobal = "PERIOD_H1";}
+        if(isDoubleSymmetricH1SellReady) {periodGlobal = "PERIOD_M15";}
+        if (isDoubleSymmetricH4SellReady){periodGlobal = "PERIOD_M5";}
+    }
+
+
 
 
      {
@@ -227,24 +238,24 @@ int buyWeight, sellWeight;
 
       // check for long position (BUY) possibility
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
-      bool isBuy=shouldIBuy();
+//bool isBuy=shouldIBuy();
       // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
-      bool isBuySymetric=shouldIBuySymetric();
+//bool isBuySymetric=shouldIBuySymetric();
       if(
         //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
          buy==1 &&
          // Критерий Замаха OsMA на Н1
-         iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
+//iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
          // Критерий ПВ М15
-         iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
-         iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
+//iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
+//iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
 
          // цена выхода из ПолуВолны выше цены входа для М15
-         isBuy==true &&
+//isBuy==true &&
          // при покупке OsMA М15 был выше 0
-         iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)>0 &&
+//iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)>0 &&
          // что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
-         isBuySymetric==true
+//isBuySymetric==true
          // Criterion for buy position according to the TS
          // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
          )
@@ -268,17 +279,17 @@ int buyWeight, sellWeight;
 
          sell==1 &&
          // Критерий Замаха OsMA на Н1
-         iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
+//iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
          // Критерий ПВ М15
-         iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
-         iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
+//iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
+//iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
 
          // цена выхода из ПолуВолны выше цены входа для М15
-         isSell==true &&
+//isSell==true &&
          // при продаже OsMA М15 был ниже 0
-         iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
+//iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
          // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
-         isSellSymetric==true
+//isSellSymetric==true
          // Criterion for sell position according to the TS
          // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
          )
