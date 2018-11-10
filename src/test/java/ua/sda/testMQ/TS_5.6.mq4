@@ -202,6 +202,8 @@ int buyWeight, sellWeight;
        if(isDoubleSymmetricM15SellReady){sellWeight++;}
        if(isDoubleSymmetricM5SellReady){sellWeight++;}
 
+       Print ("sellWeight = "sellWeight , "buyWeight = ", buyWeight);
+
 // а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMin, secondMin, firstMax, secondMax
     if(sellWeight==0 && buyWeight>1){
         if(isDoubleSymmetricM5BuyReady) {
