@@ -1082,7 +1082,7 @@ max для sell
 bool checkIfSymmetricForBuy(int start,int end)
   {
    bool isSymmetricForBuy=true;
-   for(int i=start+1;start<end;i++)
+   for(int i=start+1;i<end;i++)
      {
       double osmaStart= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
       double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
@@ -1101,7 +1101,7 @@ bool checkIfSymmetricForBuy(int start,int end)
 bool checkIfSymmetricForSell(int start,int end)
   {
    bool isSymmetricForSell=true;
-   for(int i=start+1;start<end;i++)
+   for(int i=start+1;i<end;i++)
      {
       double osmaStart= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
       double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
