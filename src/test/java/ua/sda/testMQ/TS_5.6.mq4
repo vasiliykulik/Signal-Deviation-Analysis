@@ -86,7 +86,6 @@ void OnTick(void)
 
    int buyWeight,sellWeight;
 
-
 // Block 11 Logics End The algorithm of the trend criteria definition
    buy=1;
    sell=1;
@@ -209,7 +208,6 @@ void OnTick(void)
          periodGlobal="PERIOD_H1";
         }
      }
-
 
 
      {
@@ -843,9 +841,10 @@ max для sell
          resultCheck=true;
         }
      }
-     Print ("isThereTwoSymmetricFilteredHalfWaves "," period = ", period);
-     Print ("isFilterFirstHalfWaveOK = ",isFilterFirstHalfWaveOK, " isFilterSecondHalfWaveOK = ", isFilterSecondHalfWaveOK," isFilterThirdHalfWaveOK = ", isFilterThirdHalfWaveOK," isFilterFourthHalfWaveOK = ", isFilterFourthHalfWaveOK);
-     Print ("isSymmetricFirst = ",isSymmetricFirst, " isSymmetricSecond = ", isSymmetricSecond," isSymmetricThird = ", isSymmetricThird," isSymmetricFourth = ", isSymmetricFourth);
+   Print("isThereTwoSymmetricFilteredHalfWaves "," period = ",period);
+   Print("isFilterFirstHalfWaveOK = ",isFilterFirstHalfWaveOK," isFilterSecondHalfWaveOK = ",isFilterSecondHalfWaveOK," isFilterThirdHalfWaveOK = ",isFilterThirdHalfWaveOK," isFilterFourthHalfWaveOK = ",isFilterFourthHalfWaveOK);
+   Print("isSymmetricFirst = ",isSymmetricFirst," isSymmetricSecond = ",isSymmetricSecond," isSymmetricThird = ",isSymmetricThird," isSymmetricFourth = ",isSymmetricFourth);
+   Print("resultCheck = ",resultCheck);
    return resultCheck;
   }
 // проставляем цены для ведения позиции
