@@ -1084,10 +1084,10 @@ bool checkIfSymmetricForBuy(int start,int end)
    bool isSymmetricForBuy=true;
    for(int i=start+1;i<end;i++)
      {
-      double osmaStart= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
-      double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
-      double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
-      if(osmaStart>osmaPrev && osmaStart>osmaNext)
+      double macdStart= iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+      double macdPrev = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+      double macdNext = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+      if(macdStart>macdPrev && macdStart>macdNext)
         {
          isSymmetricForBuy=false;
          break;
@@ -1103,10 +1103,10 @@ bool checkIfSymmetricForSell(int start,int end)
    bool isSymmetricForSell=true;
    for(int i=start+1;i<end;i++)
      {
-      double osmaStart= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
-      double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
-      double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
-      if(osmaStart<osmaPrev && osmaStart<osmaNext)
+      double macdStart= iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+      double macdPrev = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+      double macdNext = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+      if(macdStart<macdPrev && macdStart<macdNext)
         {
          isSymmetricForSell=false;
          break;
