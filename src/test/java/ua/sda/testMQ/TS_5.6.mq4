@@ -1079,7 +1079,7 @@ max для sell
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool checkIfSymmetricForBuy(int start,int end,String period)
+bool checkIfSymmetricForBuy(int start,int end,string period)
   {
   Print("checkIfSymmetricForBuy ", " start = ", start, " end = ", end);
    bool isSymmetricForBuy=true;
@@ -1099,7 +1099,7 @@ bool checkIfSymmetricForBuy(int start,int end,String period)
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool checkIfSymmetricForSell(int start,int end, String period)
+bool checkIfSymmetricForSell(int start,int end, string period)
   {
   Print("checkIfSymmetricForSell ", " start = ", start, " end = ", end);
    bool isSymmetricForSell=true;
