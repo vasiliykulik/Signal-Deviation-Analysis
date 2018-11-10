@@ -15,6 +15,8 @@ extern double TrailingStop=10000;
 int iteration;
 double filterForSell = 0.0001000;
 double filterForBuy = -0.0001000;
+double firstMin, secondMin, firstMax, secondMax;
+string periodGlobal, additionalPeriodGlobal;
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -66,20 +68,14 @@ void OnTick(void)
    tempMin,tempMax,resultLow,resultHigh,resultDifference;
 
    int
-   begin,zz,
-   countHalfWavesH1,
-   countHalfWavesM15,
-   countHalfWavesM5,
-   countHalfWavesM1,
-   i,z,y,x,j,k,m,p,
-   resize0H4,resize1H4,resize2H4,resize3H4,
+
    resize0H1,resize1H1,resize2H1,resize3H1,
    resize0M15,resize1M15,resize2M15,resize3M15,
    resize0M5,resize1M5,resize2M5,resize3M5,
    resize0M1,resize1M1,resize2M1,resize3M1,
    criterionDirectionH4count,criterionDirectionH1count,criterionDirectionM15count,criterionDirectionM5count,criterionDirectionM1count;
    double
-   Macd_1H4,Macd_2H4,MacdIplus3H4,MacdIplus4H4,
+   MacdIplus3H4,MacdIplus4H4,
    Macd_1H1,Macd_2H1,MacdIplus3H1,MacdIplus4H1,
    Macd_1M15,Macd_2M15,MacdIplus3M15,MacdIplus4M15,
    Macd_1M5,Macd_2M5,MacdIplus3M5,MacdIplus4M5,
@@ -136,11 +132,11 @@ bool isDoubleSymmetricM5SellReady=false;
 bool isDoubleSymmetricM15SellReady=false;
 bool isDoubleSymmetricH1SellReady=false;
 bool isDoubleSymmetricH4SellReady=false;
-string periodGlobal, additionalPeriodGlobal;
-double firstMin, secondMin, firstMax, secondMax;
-bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
+
+
+
 int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
-bool isFilterFirstHalfWaveOK, isFilterSecondHalfWaveOK, isFilterThirdHalfWaveOK, isFilterFourthHalfWaveOK;
+
 double macdForFilter, priceForMinMax;
 int buyWeight, sellWeight;
 
@@ -584,9 +580,17 @@ bool  shouldISell(void)
 
 bool isThereTwoSymmetricFilteredHalfWaves(string period){
    int countHalfWaves=0;
-   begin=0;
-   Macd_1H4=0;// нулевой тик
-   Macd_2H4=0;// следующий тик
+   int begin=0;
+   int zz;
+   double Macd_1H4=0;// нулевой тик, пока 0 while работает
+   double Macd_2H4=0;
+   double MacdIplus3H4,MacdIplus4H4;// следующий тик, пока 0 while работает
+   double macdForFilter,priceForMinMax;
+   bool what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDH4, what_3HalfWaveMACDH4, what_4HalfWaveMACDH4;
+   bool isFilterFirstHalfWaveOK, isFilterSecondHalfWaveOK, isFilterThirdHalfWaveOK, isFilterFourthHalfWaveOK;
+   int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
+    int i,z,y,x,j,k,m,p,
+    resize0H4,resize1H4,resize2H4,resize3H4;
    isFilterFirstHalfWaveOK =false;
    isFilterSecondHalfWaveOK =false;
    isFilterThirdHalfWaveOK=false;
@@ -595,6 +599,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period){
    secondMin = 0.00000000;
    firstMax = 0.00000000;
    secondMax = 0.00000000;
+   bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
    isFirstMin = false;
    isSecondMin = false;
    isFirstMax = false;
