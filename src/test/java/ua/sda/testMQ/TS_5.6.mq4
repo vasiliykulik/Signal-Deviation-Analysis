@@ -642,7 +642,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             zz++;
            }
-         isSymmetricFirst=checkIfSymmetricForBuy(j,zz);
+         isSymmetricFirst=checkIfSymmetricForBuy(j,j+zz-1);
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
@@ -669,7 +669,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             zz++;
            }
-         isSymmetricFirst=checkIfSymmetricForSell(j,zz);
+         isSymmetricFirst=checkIfSymmetricForSell(j,j+zz-1);
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       // Second Wave
@@ -691,7 +691,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             z++;
            }
-         isSymmetricSecond=checkIfSymmetricForSell(k,zz);
+         isSymmetricSecond=checkIfSymmetricForSell(k,k+z-1);
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -712,7 +712,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             z++;
            }
-         isSymmetricSecond=checkIfSymmetricForBuy(k,zz);
+         isSymmetricSecond=checkIfSymmetricForBuy(k,k+z-1);
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       // Third Wave
@@ -740,7 +740,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             y++;
            }
-         isSymmetricThird=checkIfSymmetricForBuy(m,zz);
+         isSymmetricThird=checkIfSymmetricForBuy(m,m+y-1);
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -767,7 +767,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             y++;
            }
-         isSymmetricThird=checkIfSymmetricForSell(m,zz);
+         isSymmetricThird=checkIfSymmetricForSell(m,m+y-1);
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
       // Fourth Wave
@@ -789,7 +789,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             x++;
            }
-         isSymmetricFourth=checkIfSymmetricForSell(p,zz);
+         isSymmetricFourth=checkIfSymmetricForSell(p,p+x-1);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -810,7 +810,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             x++;
            }
-         isSymmetricFourth=checkIfSymmetricForBuy(p,zz);
+         isSymmetricFourth=checkIfSymmetricForBuy(p,p+x-1);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       // begin++;
