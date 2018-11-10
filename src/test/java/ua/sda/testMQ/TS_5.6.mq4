@@ -54,60 +54,10 @@ void OnTick(void)
    buy,
    sell;
 
-/* Variables Declaration  The algorithm of the trend criteria definition:*/
-
-   string myPairs[]={"USDJPY","USDCAD","GBPUSD","GBPJPY","EURUSD"};
-   int myPairsCount,beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
-   resizeForPairDriver,pd,iPD,jPD,minMaxCount;
-   int pairDriver[];
-   int printResultDifference[5];
-   string myCurrentPair;
-   double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver,
-   tempMin,tempMax,resultLow,resultHigh,resultDifference;
-
-   int
-
-   resize0H1,resize1H1,resize2H1,resize3H1,
-   resize0M15,resize1M15,resize2M15,resize3M15,
-   resize0M5,resize1M5,resize2M5,resize3M5,
-   resize0M1,resize1M1,resize2M1,resize3M1,
-   criterionDirectionH4count,criterionDirectionH1count,criterionDirectionM15count,criterionDirectionM5count,criterionDirectionM1count;
-   double
-   MacdIplus3H4,MacdIplus4H4,
-   Macd_1H1,Macd_2H1,MacdIplus3H1,MacdIplus4H1,
-   Macd_1M15,Macd_2M15,MacdIplus3M15,MacdIplus4M15,
-   Macd_1M5,Macd_2M5,MacdIplus3M5,MacdIplus4M5,
-   Macd_1M1,Macd_2M1,MacdIplus3M1,MacdIplus4M1,
-   Stochastic_1H1,Stochastic_0H1,Stochastic_1M15,Stochastic_0M15,
-   Stochastic_1M5,Stochastic_0M5,Stochastic_1M1,Stochastic_0M1,
-   OsMA0H1,OsMA_1H1,OsMA015,OsMA_1M15,OsMA05,OsMA_1M5,OsMA01,OsMA_1M1,
-   Macd_0_M1,Macd_1_M1,
-   temp,result1,result3;
-
    int halfWave0H1[];  int halfWave_1H1[];  int halfWave_2H1[];  int halfWave_3H1[];
    int halfWave0M15[]; int halfWave_1M15[]; int halfWave_2M15[]; int halfWave_3M15[];
    int halfWave0M5[];  int halfWave_1M5[];  int halfWave_2M5[];  int halfWave_3M5[];
    int halfWave0M1[];  int halfWave_1M1[];  int halfWave_2M1[];  int halfWave_3M1[];
-
-   bool
-
-   what0HalfWaveMACDH4,what_1HalfWaveMACDH4,what_2HalfWaveMACDH4,what_3HalfWaveMACDH4,what_4HalfWaveMACDH4,
-   doubleCriterionChannelH4,
-   what0HalfWaveMACDH1,what_1HalfWaveMACDH1,what_2HalfWaveMACDH1,what_3HalfWaveMACDH1,what_4HalfWaveMACDH1,
-   doubleCriterionTrendH1,
-   what0HalfWaveMACDM15,what_1HalfWaveMACDM15,what_2HalfWaveMACDM15,what_3HalfWaveMACDM15,what_4HalfWaveMACDM15,
-   doubleCriterionEntryPointM15,
-   what0HalfWaveMACDM5,what_1HalfWaveMACDM5,what_2HalfWaveMACDM5,what_3HalfWaveMACDM5,what_4HalfWaveMACDM5,
-   doubleCriterionTheTimeOfEntryM5,
-   what0HalfWaveMACDM1,what_1HalfWaveMACDM1,what_2HalfWaveMACDM1,what_3HalfWaveMACDM1,what_4HalfWaveMACDM1,
-   doubleCriterionM1,
-   directionStochasticH1,directionStochasticM15,directionStochasticM5,directionStochasticM1,
-   allStochastic,
-   directionOsMAH1,directionOsMAM15,directionOsMAM5,directionOsMAM1,
-   allOsMA,
-   checkOsMA,checkStochastic,
-   criterionDirectionH4,criterionDirectionH1,criterionDirectionM15,criterionDirectionM5,criterionDirectionM1,
-   criterionDirectionH4Check,criterionDirectionH1Check,criterionDirectionM15Check,criterionDirectionM5Check,criterionDirectionM1Check;
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
    if(Bars<100)
@@ -134,7 +84,6 @@ void OnTick(void)
 
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
 
-   double macdForFilter,priceForMinMax;
    int buyWeight,sellWeight;
 
 
@@ -456,7 +405,7 @@ bool shouldIBuy(void)
       int i=1;
       int k=0;
 
-      for(int i=1;k==0;i++)
+      for(i=1;k==0;i++)
         {
          //       Print("i= ",i," in Buy Section");
          double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
@@ -494,7 +443,7 @@ bool  shouldISell(void)
       double iCloseStart = 0;
       int i=1;
       int k=0;
-      for(int i=1;k==0;i++)
+      for(i=1;k==0;i++)
         {
          //         Print("i= ",i," in Sell Section");
          double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
