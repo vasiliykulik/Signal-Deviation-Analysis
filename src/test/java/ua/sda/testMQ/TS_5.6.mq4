@@ -643,7 +643,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             zz++;
            }
          isSymmetricFirst=checkIfSymmetricForBuy(j,j+zz-1);
-         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+          Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
@@ -670,7 +670,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             zz++;
            }
          isSymmetricFirst=checkIfSymmetricForSell(j,j+zz-1);
-         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+          Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -692,7 +692,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             z++;
            }
          isSymmetricSecond=checkIfSymmetricForSell(k,k+z-1);
-         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+          Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -713,7 +713,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             z++;
            }
          isSymmetricSecond=checkIfSymmetricForBuy(k,k+z-1);
-         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+          Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -741,7 +741,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForBuy(m,m+y-1);
-         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
+          Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -768,7 +768,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForSell(m,m+y-1);
-         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
+          Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
       // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -790,7 +790,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             x++;
            }
          isSymmetricFourth=checkIfSymmetricForSell(p,p+x-1);
-         // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+          Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -811,7 +811,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             x++;
            }
          isSymmetricFourth=checkIfSymmetricForBuy(p,p+x-1);
-         // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+          Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       // begin++;
      }
@@ -1081,6 +1081,7 @@ max для sell
 //+------------------------------------------------------------------+
 bool checkIfSymmetricForBuy(int start,int end)
   {
+  Print("checkIfSymmetricForBuy ", " start = ", start, " end = ", end);
    bool isSymmetricForBuy=true;
    for(int i=start+1;i<end;i++)
      {
@@ -1100,6 +1101,7 @@ bool checkIfSymmetricForBuy(int start,int end)
 //+------------------------------------------------------------------+
 bool checkIfSymmetricForSell(int start,int end)
   {
+  Print("checkIfSymmetricForSell ", " start = ", start, " end = ", end);
    bool isSymmetricForSell=true;
    for(int i=start+1;i<end;i++)
      {
