@@ -660,7 +660,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period){
                 }
             zz++;
            }
-         isSymmetricFirst = checkIfSymmetricForBuy(j,zz);
+isSymmetricFirst = checkIfSymmetricForBuy(j,zz);
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
