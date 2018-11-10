@@ -13,8 +13,8 @@ extern double StopLoss=1600;
 extern double Lots=1;
 extern double TrailingStop=10000;
 int iteration;
-double filterForSell = 0,0001000;
-double filterForBuy = -0,0001000;
+double filterForSell = 0.0001000;
+double filterForBuy = -0.0001000;
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -154,7 +154,7 @@ int buyWeight, sellWeight;
    sellWeight = 0;
    total=OrdersTotal();
    if(total<1)
-   sleep(8888);
+   Sleep(8888);
    // Block 13  TS 5.6 Listener
    //  for buy если M5 пересекает и MA 83 Н1
    // Event detection block for opening position
