@@ -850,10 +850,18 @@ max для sell
 
 // проставляем цены для ведения позиции
 bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period){
-   countHalfWaves=0;
-   begin=0;
-   Macd_1H4=0;// нулевой тик
-   Macd_2H4=0;// следующий тик
+   int countHalfWaves=0;
+   int begin=0;
+   int zz;
+    double Macd_1H4=0;// нулевой тик
+   double Macd_2H4=0;// следующий тик
+   double MacdIplus3H4,MacdIplus4H4;// следующий тик, пока 0 while работает
+   double priceForMinMax;
+   bool what0HalfWaveMACDH4, what_1HalfWaveMACDH4, what_2HalfWaveMACDH4, what_3HalfWaveMACDH4, what_4HalfWaveMACDH4;
+      bool isFilterFirstHalfWaveOK, isFilterSecondHalfWaveOK, isFilterThirdHalfWaveOK, isFilterFourthHalfWaveOK;
+      int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
+       int i,z,y,x,j,k,m,p,
+       resize0H4,resize1H4,resize2H4,resize3H4;
    isFilterFirstHalfWaveOK =false;
    isFilterSecondHalfWaveOK =false;
    isFilterThirdHalfWaveOK=false;
@@ -862,6 +870,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period){
    secondMin = 0.00000000;
    firstMax = 0.00000000;
    secondMax = 0.00000000;
+   bool isFirstMin, isSecondMin, isFirstMax, isSecondMax;
    isFirstMin = false;
    isSecondMin = false;
    isFirstMax = false;
