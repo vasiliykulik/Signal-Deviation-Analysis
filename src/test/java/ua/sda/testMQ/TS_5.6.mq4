@@ -15,7 +15,11 @@ extern double TrailingStop=10000;
 int iteration;
 double filterForSell= 0.0001000;
 double filterForBuy = -0.0001000;
-double firstMin,secondMin,firstMax,secondMax;
+double
+firstMinGlobal,
+secondMinGlobal,
+firstMaxGlobal,
+secondMaxGlobal;
 string periodGlobal,additionalPeriodGlobal;
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -156,7 +160,7 @@ void OnTick(void)
 
    Print("sellWeight = ",sellWeight," " "buyWeight = ",buyWeight);
 
-// а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMin, secondMin, firstMax, secondMax
+// а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal
    if(sellWeight==0 && buyWeight>1)
      {
       if(isDoubleSymmetricM5BuyReady)
@@ -248,8 +252,8 @@ void OnTick(void)
          )
         {
          double stopLossForBuyMin;
-         if(firstMin>secondMin){stopLossForBuyMin=secondMin;}
-         else{stopLossForBuyMin=firstMin;}
+         if(firstMinGlobal>secondMinGlobal){stopLossForBuyMin=secondMinGlobal;}
+         else{stopLossForBuyMin=firstMinGlobal;}
          double currentStopLoss= Bid-StopLoss*Point;
          // не допустим супер стопа
          if(stopLossForBuyMin<currentStopLoss){stopLossForBuyMin=currentStopLoss;}
@@ -295,8 +299,8 @@ void OnTick(void)
         {
 
          double stopLossForSellMax;
-         if(firstMax>secondMax){stopLossForSellMax=firstMax;}
-         else{stopLossForSellMax=secondMax;}
+         if(firstMaxGlobal>secondMaxGlobal){stopLossForSellMax=firstMaxGlobal;}
+         else{stopLossForSellMax=secondMaxGlobal;}
          double currentStopLoss = Ask+StopLoss*Point;
          // не допустим супер стопа
          if(stopLossForSellMax>currentStopLoss){stopLossForSellMax=currentStopLoss;}
@@ -343,8 +347,8 @@ void OnTick(void)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
 
-               if(firstMin>secondMin){stopLossForBuyMin=secondMin;}
-               else{stopLossForBuyMin=firstMin;}
+               if(firstMinGlobal>secondMinGlobal){stopLossForBuyMin=secondMinGlobal;}
+               else{stopLossForBuyMin=firstMinGlobal;}
               }
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
@@ -371,8 +375,8 @@ void OnTick(void)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
                double stopLossForSellMax;
-               if(firstMax>secondMax){stopLossForSellMax=firstMax;}
-               else{stopLossForSellMax=secondMax;}
+               if(firstMaxGlobal>secondMaxGlobal){stopLossForSellMax=firstMaxGlobal;}
+               else{stopLossForSellMax=secondMaxGlobal;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
@@ -577,10 +581,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    isFilterSecondHalfWaveOK=false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
-   firstMin=0.00000000;
-   secondMin= 0.00000000;
-   firstMax = 0.00000000;
-   secondMax= 0.00000000;
+   firstMinGlobal=0.00000000;
+   secondMinGlobal= 0.00000000;
+   firstMaxGlobal = 0.00000000;
+   secondMaxGlobal= 0.00000000;
    bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
    isFirstMin=false;
    isSecondMin= false;
@@ -635,9 +639,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
                isFilterFirstHalfWaveOK=true;
               }
             priceForMinMax=iOpen(NULL,period,j);
-            if(firstMin>priceForMinMax)
+            if(firstMinGlobal>priceForMinMax)
               {
-               firstMin=priceForMinMax;
+               firstMinGlobal=priceForMinMax;
                isFirstMin=true;
               }
             zz++;
@@ -662,9 +666,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
                isFilterFirstHalfWaveOK=true;
               }
             priceForMinMax=iOpen(NULL,period,j);
-            if(firstMax<priceForMinMax)
+            if(firstMaxGlobal<priceForMinMax)
               {
-               firstMax=priceForMinMax;
+               firstMaxGlobal=priceForMinMax;
                isFirstMax=true;
               }
             zz++;
@@ -733,9 +737,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
                isFilterThirdHalfWaveOK=true;
               }
             priceForMinMax=iOpen(NULL,period,j);
-            if(secondMin>priceForMinMax)
+            if(secondMinGlobal>priceForMinMax)
               {
-               secondMin=priceForMinMax;
+               secondMinGlobal=priceForMinMax;
                isSecondMin=true;
               }
             y++;
@@ -760,9 +764,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
                isFilterThirdHalfWaveOK=true;
               }
             priceForMinMax=iOpen(NULL,period,j);
-            if(secondMax<priceForMinMax)
+            if(secondMaxGlobal<priceForMinMax)
               {
-               secondMax=priceForMinMax;
+               secondMaxGlobal=priceForMinMax;
                isSecondMax=true;
               }
             y++;
@@ -820,8 +824,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
       */
 /*
 Проставляем
-firstMin, secondMin, - первая ПВ, countHalfWaves 0
- firstMax, secondMax, - третья ПВ, countHalfWaves 2
+firstMinGlobal, secondMinGlobal, - первая ПВ, countHalfWaves 0
+ firstMaxGlobal, secondMaxGlobal, - третья ПВ, countHalfWaves 2
 isFirstMin, isSecondMin, isFirstMax, isSecondMax
 min для buy
 max для sell
@@ -866,10 +870,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
    isFilterSecondHalfWaveOK=false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
-   firstMin=0.00000000;
-   secondMin= 0.00000000;
-   firstMax = 0.00000000;
-   secondMax= 0.00000000;
+   firstMinGlobal=0.00000000;
+   secondMinGlobal= 0.00000000;
+   firstMaxGlobal = 0.00000000;
+   secondMaxGlobal= 0.00000000;
    bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
    isFirstMin=false;
    isSecondMin= false;
@@ -915,9 +919,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave0H4[zz]=j;
             priceForMinMax = iOpen(NULL,period,j);
-            if(firstMin>priceForMinMax)
+            if(firstMinGlobal>priceForMinMax)
               {
-               firstMin=priceForMinMax;
+               firstMinGlobal=priceForMinMax;
                isFirstMin=true;
               }
             zz++;
@@ -936,9 +940,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave0H4[zz]=j;
             priceForMinMax = iOpen(NULL,period,j);
-            if(firstMax<priceForMinMax)
+            if(firstMaxGlobal<priceForMinMax)
               {
-               firstMax=priceForMinMax;
+               firstMaxGlobal=priceForMinMax;
                isFirstMax=true;
               }
             zz++;
@@ -989,9 +993,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave_2H4[y]=m;
             priceForMinMax = iOpen(NULL,period,j);
-            if(secondMin>priceForMinMax)
+            if(secondMinGlobal>priceForMinMax)
               {
-               secondMin=priceForMinMax;
+               secondMinGlobal=priceForMinMax;
                isSecondMin=true;
               }
             y++;
@@ -1010,9 +1014,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave_2H4[y]=m;
             priceForMinMax = iOpen(NULL,period,j);
-            if(secondMax<priceForMinMax)
+            if(secondMaxGlobal<priceForMinMax)
               {
-               secondMax=priceForMinMax;
+               secondMaxGlobal=priceForMinMax;
                isSecondMax=true;
               }
             y++;
@@ -1057,8 +1061,8 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
       */
 /*
 Проставляем
-firstMin, secondMin, - первая ПВ, countHalfWaves 0
- firstMax, secondMax, - третья ПВ, countHalfWaves 2
+firstMinGlobal, secondMinGlobal, - первая ПВ, countHalfWaves 0
+ firstMaxGlobal, secondMaxGlobal, - третья ПВ, countHalfWaves 2
 isFirstMin, isSecondMin, isFirstMax, isSecondMax
 min для buy
 max для sell
