@@ -568,6 +568,7 @@ bool  shouldISell(void)
   }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 // Метод взят с блока Н4 - потому имена переменных остануться пока такими
+// isSymmetric
 
 bool isThereTwoSymmetricFilteredHalfWaves(string period){
    countHalfWaves=0;
@@ -586,6 +587,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period){
    isSecondMin = false;
    isFirstMax = false;
    isSecondMax = false;
+   bool isSymmetricFirst = false;
+   bool isSymmetricSecond = false;
+   bool isSymmetricThird = false;
+   bool isSymmetricFourth = false;
    bool resultCheck = false;
    // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
@@ -636,6 +641,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period){
                 }
             zz++;
            }
+
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
@@ -808,13 +814,257 @@ max для sell
 
      // return section
      if(isFilterFirstHalfWaveOK && isFilterSecondHalfWaveOK && isFilterThirdHalfWaveOK && isFilterFourthHalfWaveOK){
-     // По сути здесь только проверка на filter, следующий if будет всегда true
-        if(isFirstMin && isSecondMin && isFirstMax && isSecondMax){
+     // По сути здесь только проверка на filter, следующий if,
+      // где проставляются цены будет всегда true или будет повторять вышеиспользованные флаги
+      // тогда заменим isFirstMin && isSecondMin && isFirstMax && isSecondMax на Symmetric
+        if(isSymmetricFirst && isSymmetricSecond && isSymmetricThird && isSymmetricFourth){
             resultCheck = true;
         }
      }
      return resultCheck;
 }
 
+// проставляем цены для ведения позиции
+bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period){
+   countHalfWaves=0;
+   begin=0;
+   Macd_1H4=0;// нулевой тик
+   Macd_2H4=0;// следующий тик
+   isFilterFirstHalfWaveOK =false;
+   isFilterSecondHalfWaveOK =false;
+   isFilterThirdHalfWaveOK=false;
+   isFilterFourthHalfWaveOK =false;
+   firstMin = 0.00000000;
+   secondMin = 0.00000000;
+   firstMax = 0.00000000;
+   secondMax = 0.00000000;
+   isFirstMin = false;
+   isSecondMin = false;
+   isFirstMax = false;
+   isSecondMax = false;
+   bool pricesUpdate = false;
+   // то есть пока значения не проставлены
+   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
+     {
+      // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
+      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
+      // Print(Macd_1H4);
+
+      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
+      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+
+      if(Macd_1H4>0 && Macd_2H4<0)
+        {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
+      else if(Macd_1H4<0 && Macd_2H4>0)
+        {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
+        // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
+     }
+//
+   for(i=begin;countHalfWaves<=3;i++)
+     {
+      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1); //то есть это будет второй тик
+      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2); // а это третий
+      // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
+
+      // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
+      // И Полуволны складываем в массивы
+      // First Wave
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что второй и третий тик ниже 0, основной фильтр на шум
+        {
+         countHalfWaves++;
+         what_1HalfWaveMACDH4=1;
+         j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
+         resize0H4=(i+1)-j; // i = begin ie 0, тоесть будет 1й элемент
+         // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
+         ArrayResize(halfWave0H4,resize0H4);
+         zz=0;
+         for(j; j<i+1; j++)
+           {
+            halfWave0H4[zz]=j;
+            priceForMinMax = iOpen(NULL,period,j);
+                if (firstMin>priceForMinMax){
+                    firstMin = priceForMinMax;
+                    isFirstMin = true;
+                }
+            zz++;
+           }
+         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+        }
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
+        {
+         countHalfWaves++;
+         what_1HalfWaveMACDH4=0;
+         j=begin+1;
+         resize0H4=(i+1)-j;
+         ArrayResize(halfWave0H4,resize0H4);
+         zz=0;
+         for(j; j<i+1; j++)
+           {
+            halfWave0H4[zz]=j;
+            priceForMinMax = iOpen(NULL,period,j);
+                if (firstMax<priceForMinMax){
+                    firstMax = priceForMinMax;
+                    isFirstMax = true;
+                }
+            zz++;
+           }
+         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+        }
+        // Second Wave
+      if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_2HalfWaveMACDH4=0;
+         k=j+1;
+         resize1H4=(i+1)-k;
+         ArrayResize(halfWave_1H4,resize1H4);
+         z=0;
+         for(k; k<i+1; k++)
+           {
+            halfWave_1H4[z]=k;
+            z++;
+           }
+         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+        }
+      if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_2HalfWaveMACDH4=1;
+         k=j+1;
+         resize1H4=(i+1)-k;
+         ArrayResize(halfWave_1H4,resize1H4);
+         z=0;
+         for(k; k<i+1; k++)
+           {
+            halfWave_1H4[z]=k;
+            z++;
+           }
+         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+        }
+        // Third Wave
+      if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_3HalfWaveMACDH4=1;
+         m=k+1;
+         resize2H4=(i+1)-m;
+         ArrayResize(halfWave_2H4,resize2H4);
+         y=0;
+         for(m; m<i+1; m++)
+           {
+            halfWave_2H4[y]=m;
+            priceForMinMax = iOpen(NULL,period,j);
+                if (secondMin>priceForMinMax){
+                    secondMin = priceForMinMax;
+                    isSecondMin = true;
+                }
+            y++;
+           }
+         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
+        }
+      if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_3HalfWaveMACDH4=0;
+         m=k+1;
+         resize2H4=(i+1)-m;
+         ArrayResize(halfWave_2H4,resize2H4);
+         y=0;
+         for(m; m<i+1; m++)
+           {
+            halfWave_2H4[y]=m;
+            priceForMinMax = iOpen(NULL,period,j);
+                if (secondMax<priceForMinMax){
+                    secondMax = priceForMinMax;
+                    isSecondMax = true;
+                }
+            y++;
+           }
+         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
+        }
+        // Fourth Wave
+      if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+        {
+         countHalfWaves++;
+         what_4HalfWaveMACDH4=0;
+         p=m+1;
+         resize3H4=(i+1)-p;
+         ArrayResize(halfWave_3H4,resize3H4);
+         x=0;
+         for(p; p<i+1; p++)
+           {
+            halfWave_3H4[x]=p;
+            x++;
+           }
+         // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+        }
+      if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+        {
+         countHalfWaves++;
+         what_4HalfWaveMACDH4=1;
+         p=m+1;
+         resize3H4=(i+1)-p;
+         ArrayResize(halfWave_3H4,resize3H4);
+         x=0;
+         for(p; p<i+1; p++)
+           {
+            halfWave_3H4[x]=p;
+            x++;
+           }
+         // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
+        }
+     // begin++;
+     }
+/*    Получаем четыре массива и проверяем что бы в каждоq ПВ по MACD был тик более 0,000100 isFilterOK
+      для каждого тайм фрейма, в начале метода флаг сбрасываем в false
+      */
+/*
+Проставляем
+firstMin, secondMin, - первая ПВ, countHalfWaves 0
+ firstMax, secondMax, - третья ПВ, countHalfWaves 2
+isFirstMin, isSecondMin, isFirstMax, isSecondMax
+min для buy
+max для sell
+приоритет от Н4 до M5
+в начале метода флаг сбрасываем в false
+значения в 0,00000000
+*/
+
+     // return section
+     // По сути здесь только проверка на filter, следующий if будет всегда true
+        if(isFirstMin<0 && isSecondMin<0 && isFirstMax>0 && isSecondMax>0){
+            pricesUpdate = true;
+        }
+
+     return pricesUpdate;
+}
+
+bool checkIfSymmetricForBuy(int start, int end){
+    bool isSymmetricForBuy=true;
+    for(int i=start+1;start<end;i++){
+        double osmaStart = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+        double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+        double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+        if(osmaStart>osmaPrev && osmaStart>osmaNext){
+            isSymmetricForBuy=false;
+            break;
+        }
+    }
+    return isSymmetricForBuy;
+}
+
+bool checkIfSymmetricForSell(int start, int end){
+    bool isSymmetricForSell=true;
+    for(int i=start+1;start<end;i++){
+        double osmaStart = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
+        double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
+        double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
+        if(osmaStart<osmaPrev && osmaStart<osmaNext){
+            isSymmetricForSell=false;
+            break;
+        }
+    }
+    return isSymmetricForSell;
+}
 // the end.
 
