@@ -260,20 +260,10 @@ int buyWeight, sellWeight;
       if(
         //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
          buy==1 &&
-         (
-         isDoubleSymmetricH4BuyReady ||
+         (isDoubleSymmetricH4BuyReady ||
          isDoubleSymmetricH1BuyReady ||
          isDoubleSymmetricM15BuyReady ||
-         isDoubleSymmetricM5BuyReady
-         )
-
-
-
-
-
-
-
-
+         isDoubleSymmetricM5BuyReady)
 
          // Критерий Замаха OsMA на Н1
 //iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
@@ -291,7 +281,14 @@ int buyWeight, sellWeight;
          // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
          )
         {
-         ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,Bid-StopLoss*Point,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+            double stopLossForBuyMin;
+            if (firstMin>secondMin){stopLossForBuyMin = secondMin;}
+            else{stopLossForBuyMin = firstMin;}
+            double currentStopLoss = Bid-StopLoss*Point;
+            // не допустим супер стопа
+            if(stopLossForBuyMin<currentStopLoss){stopLossForBuyMin=currentStopLoss;}
+
+         ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,stopLossForBuyMin,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
          Print("Position was opened on TimeFrame ", periodGlobal);
          if(ticket>0)
            {
@@ -309,19 +306,10 @@ int buyWeight, sellWeight;
       if(
 
          sell==1 &&
-         (
-          isDoubleSymmetricH4SellReady ||
+         (isDoubleSymmetricH4SellReady ||
           isDoubleSymmetricH1SellReady ||
           isDoubleSymmetricM15SellRead ||
-          isDoubleSymmetricM5SellReady
-         )
-
-
-
-
-
-
-
+          isDoubleSymmetricM5SellReady)
 
          // Критерий Замаха OsMA на Н1
 //iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
@@ -339,7 +327,16 @@ int buyWeight, sellWeight;
          // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
          )
         {
-         ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,Ask+StopLoss*Point,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
+
+        double stopLossForSellMax;
+        if (firstMax>secondMax){stopLossForSellMax = firstMax;}
+        else{stopLossForSellMax = secondMax;}
+        double currentStopLoss = Ask+StopLoss*Point;
+        // не допустим супер стопа
+        if(stopLossForSellMax>currentStopLoss){stopLossForSellMax=currentStopLoss;}
+
+
+         ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
          Print("Position was opened on TimeFrame ", periodGlobal);
          if(ticket>0)
            {
@@ -358,6 +355,8 @@ int buyWeight, sellWeight;
    Алгоритм ведения Позиции:
    критерий БезУбытка (взять из Безубытка - реализован в Трейлинг условии реализацией "Посвечный Безубыток")
    критерий ведения (двойной M5)*/
+   /*Вызывая метод isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing
+   для periodGlobal мы будем update-ить цену*/
 
    for(cnt=0;cnt<total;cnt++)
      {
@@ -376,15 +375,23 @@ int buyWeight, sellWeight;
             // check for trailing stop
             if(TrailingStop>0)
               {
-               if(Bid>Low[1] && Low[1]>OrderOpenPrice())
-                 {
-                  if(Low[1]>OrderStopLoss())
+               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
+
+               double stopLossForBuyMin;
+               if (firstMin>secondMin){stopLossForBuyMin = secondMin;}
+               else{stopLossForBuyMin = firstMin;}
+              }
+//               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
+//                 { // посвечный обвес
+//                  if(Low[1]>OrderStopLoss()) // посвечный обвес
+               if(Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss)
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Low[1],OrderTakeProfit(),0,Green);
+                     OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                      return;
                     }
-                 }
-              }
+
+//                 } // посвечный обвес
+//              } // посвечный обвес
            }
          else // go to short position
            {
@@ -397,14 +404,19 @@ int buyWeight, sellWeight;
             // check for trailing stop
             if(TrailingStop>0)
               {
-               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
-                 {
-                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
+              isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
+              double stopLossForSellMax;
+              if (firstMax>secondMax){stopLossForSellMax = firstMax;}
+              else{stopLossForSellMax = secondMax;}
+//               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
+//                 {
+//                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
+if(Ask<stopLossForSellMax && stopLossForSellMax<OrderStopLoss)
                     {
                      OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                      return;
                     }
-                 }
+//                 }
               }
            }
         }
