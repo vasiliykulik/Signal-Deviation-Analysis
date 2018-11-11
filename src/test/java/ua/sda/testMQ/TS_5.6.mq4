@@ -610,10 +610,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    bool isSymmetricFourth= false;
    bool resultCheck=false;
 // то есть пока значения не проставлены
-Print ("isThereTwoSymmetricFilteredHalfWaves() вошли в метод");
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
-     Print ("!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0) - условие выполнилось", !(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0));
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
       // Print(Macd_1H4);
