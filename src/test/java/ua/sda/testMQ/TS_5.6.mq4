@@ -138,7 +138,7 @@ void OnTick(void)
    if(isDoubleSymmetricH1BuyReady){buyWeight++;}
    if(isDoubleSymmetricM15BuyReady){buyWeight++;}
    if(isDoubleSymmetricM5BuyReady){buyWeight++;}
-
+   Print( "buyWeight = ",buyWeight);
 //  for sell
    if(iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
       && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0))
@@ -172,7 +172,7 @@ void OnTick(void)
    if(isDoubleSymmetricM15SellReady){sellWeight++;}
    if(isDoubleSymmetricM5SellReady){sellWeight++;}
 
-   Print("sellWeight = ",sellWeight," " "buyWeight = ",buyWeight);
+   Print("sellWeight = ",sellWeight);
 
 // а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal
    if(sellWeight==0 && buyWeight>1)
