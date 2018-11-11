@@ -13,8 +13,9 @@ extern double StopLoss=1600;
 extern double Lots=1;
 extern double TrailingStop=10000;
 int iteration;
-double filterForMinusHalfWave= 0.0001000;
-double filterForPlusHalfWave = -0.0001000;
+double filterForMinusHalfWave= -0.0001000;
+double filterForPlusHalfWave = 0.0001000;
+
 double
 firstMinGlobal,
 secondMinGlobal,
