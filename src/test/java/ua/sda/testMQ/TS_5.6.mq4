@@ -648,7 +648,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave0H4[zz]=j;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,j);
-            Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter<filterForPlusHalfWave ", macdForFilter<filterForPlusHalfWave);
+            Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
             if(isFilterFirstHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
               {
                isFilterFirstHalfWaveOK=true;
@@ -676,6 +676,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave0H4[zz]=j;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,j);
+            Print(" 0 1 macdForFilter = ", macdForFilter, " filterForMinusHalfWave = ", filterForMinusHalfWave, " macdForFilter<filterForMinusHalfWave ", macdForFilter<filterForMinusHalfWave);
             if(isFilterFirstHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
               {
                isFilterFirstHalfWaveOK=true;
