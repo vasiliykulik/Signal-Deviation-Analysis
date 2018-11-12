@@ -16,53 +16,20 @@ int iteration;
 double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
 
-double
-firstMinGlobal,
-secondMinGlobal,
-firstMaxGlobal,
-secondMaxGlobal;
+double firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal;
 string periodGlobal,additionalPeriodGlobal;
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-/*
-Обьекты:
-Тик
-ПолуВолна OsMa (у меня реализовано по простому - direction по двум тикам)
-ПолуВолна MACD (у меня реализовано по простому - наличие критерия в ту или иную сторону)
-Двойной критерий (у меня реализовано по простому - только сам факт наличия)
-и допилен Stochastic по принципу OsMA.
 
-Навигация по комментам Block
-// Block 1 Попробуем определить пару драйвер
-/* Block 2 The algorithm of the trend criteria detalization: Mеханизм распознания первой ПВ: Какие у меня критерии?
-/* Block 3 Algorithm, part for H4 Half Waves*/
-/* Block 8 The algorithm of the trend criteria definition:
-// Block 9 Criterion Direction H4
-// Block 10 Не реализован, пока не нужєн? Рисуем критерии
-// Block 11 Logics End The algorithm of the trend criteria definition
-// Block 12  Алгоритм закрытия Позиции:
-// Block 13  TS 5.6 Listener
-/* Block 14  Блок Закрытия, в закрытии проверяем, по наступлению новой ПВ уровень цен предыдущих двух ПолуВолн
-и по max  уровню цены max ПВ модифицируем тейк*/
 
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-void OnTick(void)
-  {
+void OnTick(void) {
 
-   int
-   cnt,
-   ticket,
-   total,
-   buy,
-   sell;
+   int cnt, ticket, total, buy, sell;
+   bool isDoubleSymmetricM5BuyReady, isDoubleSymmetricM15BuyReady,
+        isDoubleSymmetricH1BuyReady, isDoubleSymmetricH4BuyReady,
+        isDoubleSymmetricM5SellReady, isDoubleSymmetricM15SellReady,
+        isDoubleSymmetricH1SellReady, isDoubleSymmetricH4SellReady;
 
-   int halfWave0H1[];  int halfWave_1H1[];  int halfWave_2H1[];  int halfWave_3H1[];
-   int halfWave0M15[]; int halfWave_1M15[]; int halfWave_2M15[]; int halfWave_3M15[];
-   int halfWave0M5[];  int halfWave_1M5[];  int halfWave_2M5[];  int halfWave_3M5[];
-   int halfWave0M1[];  int halfWave_1M1[];  int halfWave_2M1[];  int halfWave_3M1[];
+   int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
+   int buyWeight,sellWeight;
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
    if(Bars<100)
@@ -76,26 +43,8 @@ void OnTick(void)
       return;  // check TakeProfit
      }
 
-   bool isDoubleSymmetricM5BuyReady=false;
-   bool isDoubleSymmetricM15BuyReady=false;
-   bool isDoubleSymmetricH1BuyReady=false;
-   bool isDoubleSymmetricH4BuyReady=false;
-   bool isDoubleSymmetricM5SellReady=false;
-   bool isDoubleSymmetricM15SellReady=false;
-   bool isDoubleSymmetricH1SellReady=false;
-   bool isDoubleSymmetricH4SellReady=false;
-
-
-
-   int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
-
-   int buyWeight,sellWeight;
-
-// Block 11 Logics End The algorithm of the trend criteria definition
    buy=1;
    sell=1;
-   buyWeight=0;
-   sellWeight=0;
    total=OrdersTotal();
    if(total<1)
       Sleep(8888);
