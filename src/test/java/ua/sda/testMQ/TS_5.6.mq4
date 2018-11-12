@@ -48,7 +48,7 @@ void OnTick(void) {
    total=OrdersTotal();
    if(total<1)
       Sleep(8888);
-// Block 13  TS 5.6 Listener
+// Block 1  TS 5.6 Listener
 //  for buy если M5 пересекает и MA 83 Н1
 // Event detection block for opening position
 // Здесь надо обработать additionalPeriodGlobal
