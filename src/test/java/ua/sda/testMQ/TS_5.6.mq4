@@ -47,7 +47,8 @@ void OnTick(void) {
    sell=1;
    total=OrdersTotal();
    if(total<1)
-      Sleep(8888);
+        {
+         // no opened orders identified
 // Block 1  TS 5.6 Listener
 //  for buy если M5 пересекает и MA 83 Н1
 // Event detection block for opening position
@@ -147,8 +148,6 @@ void OnTick(void) {
       if(isDoubleSymmetricH4SellReady){periodGlobal="PERIOD_H1";}
      }
 
-     {
-      // no opened orders identified
       if(AccountFreeMargin()<(1*Lots))
         {
          Print("We have no money. Free Margin = ",AccountFreeMargin());
@@ -156,9 +155,15 @@ void OnTick(void) {
         }
 
       // check for long position (BUY) possibility
-
+// Block 3 Открытие позиций
+Print("isDoubleSymmetricH4BuyReady ||
+                isDoubleSymmetricH1BuyReady ||
+                isDoubleSymmetricM15BuyReady ||
+                isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady,
+                                                         isDoubleSymmetricH1BuyReady,
+                                                         isDoubleSymmetricM15BuyReady,
+                                                         isDoubleSymmetricM5BuyReady);
       if(
-         //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
          buy==1 &&
          (
          isDoubleSymmetricH4BuyReady ||
@@ -168,11 +173,11 @@ void OnTick(void) {
          )
         {
          double stopLossForBuyMin;
-         if(firstMinGlobal>secondMinGlobal){stopLossForBuyMin=secondMinGlobal;}
-         else{stopLossForBuyMin=firstMinGlobal;}
+         if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
+         else {stopLossForBuyMin = firstMinGlobal;}
          double currentStopLoss= Bid-StopLoss*Point;
          // не допустим супер стопа
-         if(stopLossForBuyMin<currentStopLoss){stopLossForBuyMin=currentStopLoss;}
+         if(stopLossForBuyMin < currentStopLoss) {stopLossForBuyMin=currentStopLoss;}
 
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,stopLossForBuyMin,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
          Print("Position was opened on TimeFrame ",periodGlobal);
@@ -187,36 +192,28 @@ void OnTick(void) {
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
       if(
+Print("isDoubleSymmetricH4SellReady ||
+               isDoubleSymmetricH1SellReady ||
+               isDoubleSymmetricM15SellReady ||
+               isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,
+                                                         isDoubleSymmetricH1SellReady ,
+                                                         isDoubleSymmetricM15SellReady ,
+                                                         isDoubleSymmetricM5SellReady);
 
          sell==1 &&
          (isDoubleSymmetricH4SellReady ||
          isDoubleSymmetricH1SellReady ||
          isDoubleSymmetricM15SellReady ||
          isDoubleSymmetricM5SellReady)
-
-         // Критерий Замаха OsMA на Н1
-         //iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)>0 &&
-         // Критерий ПВ М15
-         //iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 &&
-         //iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0 &&
-
-         // цена выхода из ПолуВолны выше цены входа для М15
-         //isSell==true &&
-         // при продаже OsMA М15 был ниже 0
-         //iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)<0 &&
-         // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
-         //isSellSymetric==true
-         // Criterion for sell position according to the TS
-         // doubleCriterionTrendH1 == 1 && doubleCriterionEntryPointM15 == 1 && doubleCriterionTheTimeOfEntryM5 == 1 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&  /*doubleCriterionM1==1 && allOsMA==1 && allStochastic == 1 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0<Macd_1_M1 && Macd_0_M1<0
          )
         {
 
          double stopLossForSellMax;
-         if(firstMaxGlobal>secondMaxGlobal){stopLossForSellMax=firstMaxGlobal;}
-         else{stopLossForSellMax=secondMaxGlobal;}
+         if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
+         else {stopLossForSellMax = secondMaxGlobal;}
          double currentStopLoss = Ask+StopLoss*Point;
          // не допустим супер стопа
-         if(stopLossForSellMax>currentStopLoss){stopLossForSellMax=currentStopLoss;}
+         if(stopLossForSellMax > currentStopLoss) {stopLossForSellMax = currentStopLoss;}
 
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
          Print("Position was opened on TimeFrame ",periodGlobal);
@@ -231,12 +228,7 @@ void OnTick(void) {
 // it is important to enter the market correctly,
 // but it is more important to exit it correctly...
 
-/* Block 12  Алгоритм закрытия Позиции:
-   критерий закрытия (предварительно двойной M15)
-
-   Алгоритм ведения Позиции:
-   критерий БезУбытка (взять из Безубытка - реализован в Трейлинг условии реализацией "Посвечный Безубыток")
-   критерий ведения (двойной M5)*/
+// Block 4 Ведение позиций
 /*Вызывая метод isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing
    для periodGlobal мы будем update-ить цену*/
 
