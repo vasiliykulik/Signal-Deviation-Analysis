@@ -124,59 +124,28 @@ void OnTick(void) {
 
    Print("sellWeight = ",sellWeight, " firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal, " firstMaxGlobal = ", firstMaxGlobal," secondMaxGlobal = " ,secondMaxGlobal);
 
+// Block 2 Анализируем  Weight, проставляем periodGlobal
 // а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal
    if(sellWeight==0 && buyWeight>1)
+   Print ("sellWeight==0 && buyWeight>1 ",sellWeight==0 && buyWeight>=1);
      {
-      if(isDoubleSymmetricM5BuyReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
-         periodGlobal="PERIOD_M5";
-        }
-      if(isDoubleSymmetricM15BuyReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
-         periodGlobal="PERIOD_M15";
-        }
-      if(isDoubleSymmetricH1BuyReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
-         periodGlobal="PERIOD_H1";
-        }
-      if(isDoubleSymmetricH4BuyReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
-         periodGlobal="PERIOD_H1";
-        }
+      if(isDoubleSymmetricM5BuyReady) {periodGlobal="PERIOD_M5";}
+      if(isDoubleSymmetricM15BuyReady) {periodGlobal="PERIOD_M15";}
+      if(isDoubleSymmetricH1BuyReady){periodGlobal="PERIOD_H1";}
+      if(isDoubleSymmetricH4BuyReady){periodGlobal="PERIOD_H4";}
      }
    if(sellWeight==buyWeight)
      {
       buy=0;
       sell=0;
      }
-   if(buyWeight==0 && sellWeight>1)
+   if(buyWeight==0 && sellWeight>=1)
      {
-      if(isDoubleSymmetricM5SellReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
-         periodGlobal="PERIOD_M5";
-        }
-      if(isDoubleSymmetricM15SellReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
-         periodGlobal="PERIOD_M15";
-        }
-      if(isDoubleSymmetricH1SellReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
-         periodGlobal="PERIOD_H1";
-        }
-      if(isDoubleSymmetricH4SellReady)
-        {
-         isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
-         periodGlobal="PERIOD_H1";
-        }
+      if(isDoubleSymmetricM5SellReady){periodGlobal="PERIOD_M5";}
+      if(isDoubleSymmetricM15SellReady){periodGlobal="PERIOD_M15";}
+      if(isDoubleSymmetricH1SellReady){periodGlobal="PERIOD_H1";}
+      if(isDoubleSymmetricH4SellReady){periodGlobal="PERIOD_H1";}
      }
-
 
      {
       // no opened orders identified
@@ -191,25 +160,11 @@ void OnTick(void) {
       if(
          //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
          buy==1 &&
-         (isDoubleSymmetricH4BuyReady ||
+         (
+         isDoubleSymmetricH4BuyReady ||
          isDoubleSymmetricH1BuyReady ||
          isDoubleSymmetricM15BuyReady ||
          isDoubleSymmetricM5BuyReady)
-
-         // Критерий Замаха OsMA на Н1
-         //iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0)<0 &&
-         // Критерий ПВ М15
-         //iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 &&
-         //iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0 &&
-
-         // цена выхода из ПолуВолны выше цены входа для М15
-         //isBuy==true &&
-         // при покупке OsMA М15 был выше 0
-         //iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0)>0 &&
-         // что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
-         //isBuySymetric==true
-         // Criterion for buy position according to the TS
-         // doubleCriterionTrendH1 == 0 && doubleCriterionEntryPointM15 == 0 && doubleCriterionTheTimeOfEntryM5 == 0 && criterionDirectionH1==1 && criterionDirectionH1Check==1&&   /*doubleCriterionM1==0 && allOsMA==0 && allStochastic == 0 && checkOsMA ==1 && checkStochastic == 1 &&*/ 0>Macd_1_M1 && Macd_0_M1>0
          )
         {
          double stopLossForBuyMin;
