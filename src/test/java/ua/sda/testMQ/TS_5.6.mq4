@@ -238,10 +238,7 @@ void OnTick(void)
         }
 
       // check for long position (BUY) possibility
-      // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
-      //bool isBuy=shouldIBuy();
-      // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
-      //bool isBuySymetric=shouldIBuySymetric();
+
       if(
          //iClose(NULL,PERIOD_M15,0)<iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0)
          buy==1 &&
@@ -284,10 +281,7 @@ void OnTick(void)
         }
       // check for short position (SELL) possibility
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
-      bool isSell=shouldISell();
-      // что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
 
-      bool isSellSymetric=shouldISellSymetric();
       if(
 
          sell==1 &&
@@ -406,85 +400,7 @@ void OnTick(void)
         }
      }
   }
-//+------------------------------------------------------------------+
-// Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
-bool shouldIBuy(void)
-  {
-   bool isBuy=false;
-   double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-   double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
-   if(macd0>0 && macd1<0)
-     {
-      //      Print("macd0>0 && macd1<0 : in Buy Section",macd0>0 && macd1<0);
-      double iCloseFinish= iClose(NULL,PERIOD_M15,0);
-      double iCloseStart = 0;
-      int i=1;
-      int k=0;
-
-      for(i=1;k==0;i++)
-        {
-         //       Print("i= ",i," in Buy Section");
-         double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
-         if(macdStart>0)
-           {
-            iCloseStart=iClose(NULL,PERIOD_M15,i);
-            k=1;
-            //      Print("Find Start : in Buy Section, iCloseStart<iCloseFinish ",iCloseStart<iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
-           }
-        }
-      //      Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
-      if(iCloseStart!=0)
-        {
-         //         Print("in Buy Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
-         if(iCloseStart<iCloseFinish)
-           {
-            isBuy=true;
-           }
-        }
-     }
-//     Print("return isBuy = ", isBuy);
-   return isBuy;
-  }
-//+------------------------------------------------------------------+
-// Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
-bool  shouldISell(void)
-  {
-   bool isSell=false;
-   double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-   double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-   if(macd0<0 && macd1>0)
-     {
-      //      Print("macd0>0 && macd1<0 : in Sell Section",macd0<0 && macd1>0);
-      double iCloseFinish= iClose(NULL,PERIOD_M15,0);
-      double iCloseStart = 0;
-      int i=1;
-      int k=0;
-      for(i=1;k==0;i++)
-        {
-         //         Print("i= ",i," in Sell Section");
-         double macdStart=iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,i);
-         if(macdStart<0)
-           {
-            iCloseStart=iClose(NULL,PERIOD_M15,i);
-            k=1;
-            //       Print("Find Start : in Sell Section, iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish, "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish);
-           }
-        }
-      //      Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseStart!=0 ", iCloseStart!=0);
-      if(iCloseStart!=0)
-        {
-         //         Print("in Sell Section", "iCloseStart = ", iCloseStart, "iCloseFinish = ", iCloseFinish, "iCloseStart>iCloseFinish ",iCloseStart>iCloseFinish );
-         if(iCloseStart>iCloseFinish)
-           {
-            isSell=true;
-           }
-        }
-     }
-//   Print("return isSell = ", isSell);
-   return isSell;
-
-  }
 // что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
 bool shouldIBuySymetric(void)
   {
