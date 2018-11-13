@@ -356,10 +356,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             halfWave0H4[zz]=j;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
             Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
-            if(isFilterFirstHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
-              {
-               isFilterFirstHalfWaveOK=true;
-              }
+            if(macdForFilter > filterForPlusHalfWave) {isFilterFirstHalfWaveOK = true;}
             priceForMinMax=iOpen(NULL,period,j);
             if(firstMinGlobal>priceForMinMax)
               {
@@ -384,10 +381,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             halfWave0H4[zz]=j;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
             // Print(" 0 1 macdForFilter = ", macdForFilter, " filterForMinusHalfWave = ", filterForMinusHalfWave, " macdForFilter<filterForMinusHalfWave ", macdForFilter<filterForMinusHalfWave);
-            if(isFilterFirstHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
-              {
-               isFilterFirstHalfWaveOK=true;
-              }
+            if(macdForFilter < filterForMinusHalfWave) {isFilterFirstHalfWaveOK = true;}
             priceForMinMax=iOpen(NULL,period,j);
             if(firstMaxGlobal<priceForMinMax)
               {
@@ -412,10 +406,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave_1H4[z]=k;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,k);
-            if(isFilterSecondHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
-              {
-               isFilterSecondHalfWaveOK=true;
-              }
+            if(macdForFilter<filterForMinusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
          isSymmetricSecond=checkIfSymmetricForSell(k,k+z-1,period);
@@ -433,10 +424,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave_1H4[z]=k;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,k);
-            if(isFilterSecondHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
-              {
-               isFilterSecondHalfWaveOK=true;
-              }
+            if(macdForFilter>filterForPlusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
          isSymmetricSecond=checkIfSymmetricForBuy(k,k+z-1,period);
@@ -455,10 +443,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave_2H4[y]=m;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
-            if(isFilterThirdHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
-              {
-               isFilterThirdHalfWaveOK=true;
-              }
+            if(macdForFilter>filterForPlusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,j);
             if(secondMinGlobal>priceForMinMax)
               {
@@ -482,10 +467,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave_2H4[y]=m;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
-            if(isFilterThirdHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
-              {
-               isFilterThirdHalfWaveOK=true;
-              }
+            if(macdForFilter<filterForMinusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,j);
             if(secondMaxGlobal<priceForMinMax)
               {
@@ -510,10 +492,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave_3H4[x]=p;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,p);
-            if(isFilterFourthHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
-              {
-               isFilterFourthHalfWaveOK=true;
-              }
+            if(macdForFilter<filterForMinusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
          isSymmetricFourth=checkIfSymmetricForSell(p,p+x-1,period);
@@ -531,10 +510,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            {
             halfWave_3H4[x]=p;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,p);
-            if(isFilterFourthHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
-              {
-               isFilterFourthHalfWaveOK=true;
-              }
+            if(macdForFilter>filterForPlusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
          isSymmetricFourth=checkIfSymmetricForBuy(p,p+x-1,period);
