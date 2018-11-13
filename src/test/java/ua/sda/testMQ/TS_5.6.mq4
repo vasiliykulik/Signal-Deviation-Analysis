@@ -354,6 +354,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          zz=0;
          priceForMinMax=iOpen(NULL,period,j);
          firstMaxLocalSymmetric = priceForMinMax;
+         int jStart = j;
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
@@ -374,8 +375,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
            }
 
 // Block 8 Symmetric
-         isSymmetricFirst=checkIfSymmetricForBuy(j,j+zz-1,period);
-          Print("halfWave0H4 0 ", "j = ", j, " zz = ", zz , " j+zz-1 = ", j+zz-1);
+         isSymmetricFirst=checkIfSymmetricForBuy(jStart,jStart+zz+1,period);
+          Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
@@ -387,6 +388,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          zz=0;
          priceForMinMax=iOpen(NULL,period,j);
          firstMinLocalSymmetric  = priceForMinMax;
+         int jStart = j;
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
@@ -401,8 +403,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             zz++;
            }
-         isSymmetricFirst=checkIfSymmetricForSell(j,j+zz-1,period);
-          Print("halfWave0H4 1 ", "j = ", j, "zz = ", zz, " j+zz-1 = ", j+zz-1);
+         isSymmetricFirst=checkIfSymmetricForSell(jStart,jStart+zz+1,period);
+          Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1);
         }
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -413,6 +415,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
+         int kStart = k;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
@@ -420,8 +423,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter<filterForMinusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
-         isSymmetricSecond=checkIfSymmetricForSell(k,k+z-1,period);
-          Print("halfWave1H4 1 ", "k = ", k, "z = ", z, " k+z-1 = ", k+z-1);
+         isSymmetricSecond=checkIfSymmetricForSell(kStart,kStart+z+1,period);
+          Print("halfWave1H4 1 ", "kStart = ", kStart "z = ", z, " kStart+z+1 ", kStart+z+1);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -431,6 +434,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
+         int kStart = k;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
@@ -438,8 +442,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter>filterForPlusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
-         isSymmetricSecond=checkIfSymmetricForBuy(k,k+z-1,period);
-          Print("halfWave1H4 0 ", "k = ", k, "z = ", z, " k+z-1 = ", k+z-1);
+         isSymmetricSecond=checkIfSymmetricForBuy(kStart,kStart+z+1,period);
+          Print("halfWave1H4 1 ", "kStart = ", kStart "z = ", z, " kStart+z+1 ", kStart+z+1);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -452,6 +456,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          y=0;
          priceForMinMax=iOpen(NULL,period,m);
          secondMaxLocalSymmetric = priceForMinMax;
+         int mStart = m;
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
@@ -465,8 +470,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             y++;
            }
-         isSymmetricThird=checkIfSymmetricForBuy(m,m+y-1,period);
-          Print("halfWave2H4 0 ", "m = ", m, "y = ", y, " m+y-1 = ", m+y-1);
+         isSymmetricThird=checkIfSymmetricForBuy(mStart,mStart+y+1,period);
+          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -478,6 +483,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          y=0;
          priceForMinMax=iOpen(NULL,period,m);
          secondMinLocalSymmetric  = priceForMinMax;
+         int mStart = m;
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
@@ -491,8 +497,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
               }
             y++;
            }
-         isSymmetricThird=checkIfSymmetricForSell(m,m+y-1,period);
-          Print("halfWave2H4 1 ", "m = ", m, "y = ", y, " m+y-1 = ", m+y-1);
+         isSymmetricThird=checkIfSymmetricForSell(mStart,mStart+y+1,period);
+          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -503,6 +509,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          resize3H4=(i+2)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
+         int pStart = p;
          for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
@@ -510,8 +517,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter<filterForMinusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
-         isSymmetricFourth=checkIfSymmetricForSell(p,p+x-1,period);
-          Print("halfWave3H4 1 ", "p = ", p, "x = ", x, " p+x-1 = ", p+x-1);
+         isSymmetricFourth=checkIfSymmetricForSell(pStart,pStart+x+1,period);
+          Print("halfWave3H4 1 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -521,6 +528,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          resize3H4=(i+2)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
+         int pStart = p;
          for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
@@ -528,8 +536,8 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter>filterForPlusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
-         isSymmetricFourth=checkIfSymmetricForBuy(p,p+x-1,period);
-          Print("halfWave3H4 0 ", "p = ", p, "x = ", x, " p+x-1 = ", p+x-1);
+         isSymmetricFourth=checkIfSymmetricForBuy(pStart,pStart+x+1,period);
+          Print("halfWave3H4 0 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
         }
       // begin++;
      }
