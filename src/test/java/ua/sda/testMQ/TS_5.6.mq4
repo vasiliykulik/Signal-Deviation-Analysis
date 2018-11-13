@@ -335,7 +335,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
-     Print(" i = " i, " стартовое значение должен быть 0 ");
+     Print(" i = ", i, " стартовое значение должен быть 0 ");
       MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
       MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
       // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
