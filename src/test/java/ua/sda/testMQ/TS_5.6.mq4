@@ -15,8 +15,7 @@ extern double TrailingStop=10000;
 int iteration;
 double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
-
-double firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal;
+double firstMinGlobal = 0.00000000, secondMinGlobal = 0.00000000, firstMaxGlobal = 0.00000000, secondMaxGlobal = 0.00000000;
 string periodGlobal,additionalPeriodGlobal;
 
 
@@ -306,10 +305,6 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    isFilterSecondHalfWaveOK=false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
-   firstMinGlobal=0.00000000;
-   secondMinGlobal= 0.00000000;
-   firstMaxGlobal = 0.00000000;
-   secondMaxGlobal= 0.00000000;
    bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
    isFirstMin=false;
    isSecondMin= false;
@@ -329,7 +324,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
 
       Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
-
+// Block 5 Определение первой ПолуВолны в меотде bool isThereTwoSymmetricFilteredHalfWaves()
       if(Macd_1H4>0 && Macd_2H4<0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
       else if(Macd_1H4<0 && Macd_2H4>0)
@@ -352,11 +347,11 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
          j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
-         resize0H4=(i+1)-j; // i = begin ie 0, тоесть будет 1й элемент
+         resize0H4=(i+2)-j; // i = begin ie 0, тоесть будет 1й элемент
                             // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         for(j; j<i+1; j++)
+         for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
@@ -381,10 +376,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
          j=begin+1;
-         resize0H4=(i+1)-j;
+         resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         for(j; j<i+1; j++)
+         for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
@@ -410,10 +405,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_2HalfWaveMACDH4=0;
          k=j+1;
-         resize1H4=(i+1)-k;
+         resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         for(k; k<i+1; k++)
+         for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,k);
@@ -431,10 +426,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_2HalfWaveMACDH4=1;
          k=j+1;
-         resize1H4=(i+1)-k;
+         resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         for(k; k<i+1; k++)
+         for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,k);
@@ -453,10 +448,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_3HalfWaveMACDH4=1;
          m=k+1;
-         resize2H4=(i+1)-m;
+         resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         for(m; m<i+1; m++)
+         for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
@@ -480,10 +475,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_3HalfWaveMACDH4=0;
          m=k+1;
-         resize2H4=(i+1)-m;
+         resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         for(m; m<i+1; m++)
+         for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
@@ -508,10 +503,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_4HalfWaveMACDH4=0;
          p=m+1;
-         resize3H4=(i+1)-p;
+         resize3H4=(i+2)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
-         for(p; p<i+1; p++)
+         for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,p);
@@ -529,10 +524,10 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          countHalfWaves++;
          what_4HalfWaveMACDH4=1;
          p=m+1;
-         resize3H4=(i+1)-p;
+         resize3H4=(i+2)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
-         for(p; p<i+1; p++)
+         for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,p);
@@ -598,10 +593,6 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
    isFilterSecondHalfWaveOK=false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
-   firstMinGlobal=0.00000000;
-   secondMinGlobal= 0.00000000;
-   firstMaxGlobal = 0.00000000;
-   secondMaxGlobal= 0.00000000;
    bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
    isFirstMin=false;
    isSecondMin= false;
@@ -639,11 +630,11 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
          j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
-         resize0H4=(i+1)-j; // i = begin ie 0, тоесть будет 1й элемент
+         resize0H4=(i+2)-j; // i = begin ie 0, тоесть будет 1й элемент
                             // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         for(j; j<i+1; j++)
+         for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
             priceForMinMax = iOpen(NULL,period,j);
@@ -661,10 +652,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
          j=begin+1;
-         resize0H4=(i+1)-j;
+         resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         for(j; j<i+1; j++)
+         for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
             priceForMinMax = iOpen(NULL,period,j);
@@ -683,10 +674,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_2HalfWaveMACDH4=0;
          k=j+1;
-         resize1H4=(i+1)-k;
+         resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         for(k; k<i+1; k++)
+         for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             z++;
@@ -698,10 +689,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_2HalfWaveMACDH4=1;
          k=j+1;
-         resize1H4=(i+1)-k;
+         resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         for(k; k<i+1; k++)
+         for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             z++;
@@ -714,10 +705,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_3HalfWaveMACDH4=1;
          m=k+1;
-         resize2H4=(i+1)-m;
+         resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         for(m; m<i+1; m++)
+         for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
             priceForMinMax = iOpen(NULL,period,j);
@@ -735,10 +726,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_3HalfWaveMACDH4=0;
          m=k+1;
-         resize2H4=(i+1)-m;
+         resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         for(m; m<i+1; m++)
+         for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
             priceForMinMax = iOpen(NULL,period,j);
@@ -757,10 +748,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_4HalfWaveMACDH4=0;
          p=m+1;
-         resize3H4=(i+1)-p;
+         resize3H4=(i+2)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
-         for(p; p<i+1; p++)
+         for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
             x++;
@@ -772,10 +763,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          countHalfWaves++;
          what_4HalfWaveMACDH4=1;
          p=m+1;
-         resize3H4=(i+1)-p;
+         resize3H4=(i+2)-p;
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
-         for(p; p<i+1; p++)
+         for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
             x++;
