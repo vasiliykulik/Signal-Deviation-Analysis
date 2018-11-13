@@ -324,11 +324,11 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
-      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
+      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
 
-      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
-      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
+      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
       if(Macd_1H4>0 && Macd_2H4<0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
@@ -339,8 +339,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
-      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1); //то есть это будет второй тик
-      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2); // а это третий
+     Print(" i = " i, " стартовое значение должен быть 0 ");
+      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
+      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
       // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
@@ -358,7 +359,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(j; j<i+1; j++)
            {
             halfWave0H4[zz]=j;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,j);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
             Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
             if(isFilterFirstHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
               {
@@ -386,7 +387,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(j; j<i+1; j++)
            {
             halfWave0H4[zz]=j;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,j);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
             // Print(" 0 1 macdForFilter = ", macdForFilter, " filterForMinusHalfWave = ", filterForMinusHalfWave, " macdForFilter<filterForMinusHalfWave ", macdForFilter<filterForMinusHalfWave);
             if(isFilterFirstHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
               {
@@ -415,7 +416,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(k; k<i+1; k++)
            {
             halfWave_1H4[z]=k;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,k);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,k);
             if(isFilterSecondHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
               {
                isFilterSecondHalfWaveOK=true;
@@ -436,7 +437,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(k; k<i+1; k++)
            {
             halfWave_1H4[z]=k;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,k);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,k);
             if(isFilterSecondHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
               {
                isFilterSecondHalfWaveOK=true;
@@ -458,7 +459,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(m; m<i+1; m++)
            {
             halfWave_2H4[y]=m;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,m);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(isFilterThirdHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
               {
                isFilterThirdHalfWaveOK=true;
@@ -485,7 +486,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(m; m<i+1; m++)
            {
             halfWave_2H4[y]=m;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,m);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(isFilterThirdHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
               {
                isFilterThirdHalfWaveOK=true;
@@ -513,7 +514,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(p; p<i+1; p++)
            {
             halfWave_3H4[x]=p;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,p);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,p);
             if(isFilterFourthHalfWaveOK==false && macdForFilter<filterForMinusHalfWave)
               {
                isFilterFourthHalfWaveOK=true;
@@ -534,7 +535,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(p; p<i+1; p++)
            {
             halfWave_3H4[x]=p;
-            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,p);
+            macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,p);
             if(isFilterFourthHalfWaveOK==false && macdForFilter>filterForPlusHalfWave)
               {
                isFilterFourthHalfWaveOK=true;
@@ -611,11 +612,11 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
-      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_CLOSE,MODE_MAIN,begin)");
+      // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
 
-      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin);
-      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,begin+1);
+      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
+      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
       if(Macd_1H4>0 && Macd_2H4<0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
@@ -626,8 +627,8 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
-      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+1); //то есть это будет второй тик
-      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_CLOSE,MODE_MAIN,i+2); // а это третий
+      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
+      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
                                                                          // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
