@@ -296,8 +296,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    double Macd_1H4=0, Macd_2H4=0;// нулевой тик, пока 0 while работает
    double MacdIplus3H4,MacdIplus4H4;// следующий тик, пока 0 while работает
    double macdForFilter,priceForMinMax;
-   bool what0HalfWaveMACDH4,what_1HalfWaveMACDH4,what_2HalfWaveMACDH4,what_3HalfWaveMACDH4,what_4HalfWaveMACDH4,
-        isFilterFirstHalfWaveOK,isFilterSecondHalfWaveOK,isFilterThirdHalfWaveOK,isFilterFourthHalfWaveOK;
+   bool what0HalfWaveMACDH4,what_1HalfWaveMACDH4,what_2HalfWaveMACDH4,what_3HalfWaveMACDH4,what_4HalfWaveMACDH4;
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int i,zz,z,y,x,j,k,m,p,
    resize0H4,resize1H4,resize2H4,resize3H4;
@@ -306,15 +305,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
    double firstMinLocalSymmetric = 0.00000000, secondMinLocalSymmetric = 0.00000000, firstMaxLocalSymmetric = 0.00000000, secondMaxLocalSymmetric = 0.00000000;
-   bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
-   isFirstMin=false;
-   isSecondMin= false;
-   isFirstMax = false;
-   isSecondMax= false;
-   bool isSymmetricFirst=false;
-   bool isSymmetricSecond= false;
-   bool isSymmetricThird = false;
-   bool isSymmetricFourth= false;
+   bool isFirstMin=false, isSecondMin=false, isFirstMax=false, isSecondMax=false;
+   bool isFilterFirstHalfWaveOK = false,isFilterSecondHalfWaveOK = false,isFilterThirdHalfWaveOK = false,isFilterFourthHalfWaveOK = false;
+   bool isSymmetricFirst=false,isSymmetricSecond= false, isSymmetricThird = false,isSymmetricFourth= false;
    bool resultCheck=false;
 // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
