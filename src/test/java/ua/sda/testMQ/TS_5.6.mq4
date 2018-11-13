@@ -305,6 +305,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    isFilterSecondHalfWaveOK=false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
+   double firstMinLocalSymmetric = 0.00000000, secondMinLocalSymmetric = 0.00000000, firstMaxLocalSymmetric = 0.00000000, secondMaxLocalSymmetric = 0.00000000;
    bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
    isFirstMin=false;
    isSecondMin= false;
@@ -354,13 +355,15 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
+// Block 6 Filter
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
             Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
             if(macdForFilter > filterForPlusHalfWave) {isFilterFirstHalfWaveOK = true;}
+// Block 7 firstMinGlobal = 0.00000000, secondMinGlobal = 0.00000000, firstMaxGlobal = 0.00000000, secondMaxGlobal = 0.00000000;
             priceForMinMax=iOpen(NULL,period,j);
-            if(firstMinGlobal>priceForMinMax)
+            if(firstMinLocalSymmetric >priceForMinMax)
               {
-               firstMinGlobal=priceForMinMax;
+               firstMinLocalSymmetric =priceForMinMax;
                isFirstMin=true;
               }
             zz++;
@@ -383,9 +386,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             // Print(" 0 1 macdForFilter = ", macdForFilter, " filterForMinusHalfWave = ", filterForMinusHalfWave, " macdForFilter<filterForMinusHalfWave ", macdForFilter<filterForMinusHalfWave);
             if(macdForFilter < filterForMinusHalfWave) {isFilterFirstHalfWaveOK = true;}
             priceForMinMax=iOpen(NULL,period,j);
-            if(firstMaxGlobal<priceForMinMax)
+            if(firstMaxLocalSymmetric <priceForMinMax)
               {
-               firstMaxGlobal=priceForMinMax;
+               firstMaxLocalSymmetric =priceForMinMax;
                isFirstMax=true;
               }
             zz++;
@@ -445,9 +448,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(macdForFilter>filterForPlusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,j);
-            if(secondMinGlobal>priceForMinMax)
+            if(secondMinLocalSymmetric >priceForMinMax)
               {
-               secondMinGlobal=priceForMinMax;
+               secondMinLocalSymmetric =priceForMinMax;
                isSecondMin=true;
               }
             y++;
@@ -469,9 +472,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(macdForFilter<filterForMinusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,j);
-            if(secondMaxGlobal<priceForMinMax)
+            if(secondMaxLocalSymmetric <priceForMinMax)
               {
-               secondMaxGlobal=priceForMinMax;
+               secondMaxLocalSymmetric =priceForMinMax;
                isSecondMax=true;
               }
             y++;
@@ -569,6 +572,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
    isFilterSecondHalfWaveOK=false;
    isFilterThirdHalfWaveOK=false;
    isFilterFourthHalfWaveOK=false;
+   double firstMinLocalNonSymmetric = 0.00000000, secondMinLocalNonSymmetric = 0.00000000, firstMaxLocalNonSymmetric = 0.00000000, secondMaxLocalNonSymmetric = 0.00000000;
    bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
    isFirstMin=false;
    isSecondMin= false;
@@ -614,9 +618,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave0H4[zz]=j;
             priceForMinMax = iOpen(NULL,period,j);
-            if(firstMinGlobal>priceForMinMax)
+            if(firstMinLocalNonSymmetric >priceForMinMax)
               {
-               firstMinGlobal=priceForMinMax;
+               firstMinLocalNonSymmetric =priceForMinMax;
                isFirstMin=true;
               }
             zz++;
@@ -635,9 +639,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave0H4[zz]=j;
             priceForMinMax = iOpen(NULL,period,j);
-            if(firstMaxGlobal<priceForMinMax)
+            if(firstMaxLocalNonSymmetric <priceForMinMax)
               {
-               firstMaxGlobal=priceForMinMax;
+               firstMaxLocalNonSymmetric =priceForMinMax;
                isFirstMax=true;
               }
             zz++;
@@ -688,9 +692,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave_2H4[y]=m;
             priceForMinMax = iOpen(NULL,period,j);
-            if(secondMinGlobal>priceForMinMax)
+            if(secondMinLocalNonSymmetric >priceForMinMax)
               {
-               secondMinGlobal=priceForMinMax;
+               secondMinLocalNonSymmetric =priceForMinMax;
                isSecondMin=true;
               }
             y++;
@@ -709,9 +713,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
            {
             halfWave_2H4[y]=m;
             priceForMinMax = iOpen(NULL,period,j);
-            if(secondMaxGlobal<priceForMinMax)
+            if(secondMaxLocalNonSymmetric <priceForMinMax)
               {
-               secondMaxGlobal=priceForMinMax;
+               secondMaxLocalNonSymmetric =priceForMinMax;
                isSecondMax=true;
               }
             y++;
