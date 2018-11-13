@@ -23,10 +23,10 @@ string periodGlobal,additionalPeriodGlobal;
 void OnTick(void) {
 
    int cnt, ticket, total, buy, sell;
-   bool isDoubleSymmetricM5BuyReady, isDoubleSymmetricM15BuyReady,
-        isDoubleSymmetricH1BuyReady, isDoubleSymmetricH4BuyReady,
-        isDoubleSymmetricM5SellReady, isDoubleSymmetricM15SellReady,
-        isDoubleSymmetricH1SellReady, isDoubleSymmetricH4SellReady;
+   bool isDoubleSymmetricM5BuyReady=false, isDoubleSymmetricM15BuyReady=false,
+        isDoubleSymmetricH1BuyReady=false, isDoubleSymmetricH4BuyReady=false,
+        isDoubleSymmetricM5SellReady=false, isDoubleSymmetricM15SellReady=false,
+        isDoubleSymmetricH1SellReady=false, isDoubleSymmetricH4SellReady=false;
 
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight,sellWeight;
@@ -156,13 +156,7 @@ void OnTick(void) {
 
       // check for long position (BUY) possibility
 // Block 3 Открытие позиций
-Print("isDoubleSymmetricH4BuyReady ||
-                isDoubleSymmetricH1BuyReady ||
-                isDoubleSymmetricM15BuyReady ||
-                isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady,
-                                                         isDoubleSymmetricH1BuyReady,
-                                                         isDoubleSymmetricM15BuyReady,
-                                                         isDoubleSymmetricM5BuyReady);
+Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSymmetricM15BuyReady || isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady, isDoubleSymmetricH1BuyReady, isDoubleSymmetricM15BuyReady, isDoubleSymmetricM5BuyReady);
       if(
          buy==1 &&
          (
@@ -191,14 +185,8 @@ Print("isDoubleSymmetricH4BuyReady ||
       // check for short position (SELL) possibility
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
+Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
       if(
-Print("isDoubleSymmetricH4SellReady ||
-               isDoubleSymmetricH1SellReady ||
-               isDoubleSymmetricM15SellReady ||
-               isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,
-                                                         isDoubleSymmetricH1SellReady ,
-                                                         isDoubleSymmetricM15SellReady ,
-                                                         isDoubleSymmetricM5SellReady);
 
          sell==1 &&
          (isDoubleSymmetricH4SellReady ||
@@ -252,13 +240,13 @@ Print("isDoubleSymmetricH4SellReady ||
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
 
-               if(firstMinGlobal>secondMinGlobal){stopLossForBuyMin=secondMinGlobal;}
-               else{stopLossForBuyMin=firstMinGlobal;}
+               if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
+               else {stopLossForBuyMin = firstMinGlobal;}
               }
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
-            if(Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
+            if(Bid > stopLossForBuyMin && stopLossForBuyMin > OrderStopLoss())
               {
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
@@ -280,12 +268,12 @@ Print("isDoubleSymmetricH4SellReady ||
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
                double stopLossForSellMax;
-               if(firstMaxGlobal>secondMaxGlobal){stopLossForSellMax=firstMaxGlobal;}
-               else{stopLossForSellMax=secondMaxGlobal;}
+               if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
+               else {stopLossForSellMax = secondMaxGlobal;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
-               if(Ask<stopLossForSellMax && stopLossForSellMax<OrderStopLoss())
+               if(Ask < stopLossForSellMax && stopLossForSellMax < OrderStopLoss())
                  {
                   OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   return;
@@ -297,95 +285,7 @@ Print("isDoubleSymmetricH4SellReady ||
      }
   }
 
-// что бы ни один тик предыдущей его отрицательной волны, не был больше чем два соседних
-bool shouldIBuySymetric(void)
-  {
-   bool isBuySymmetric=false;
-   double osma0= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
-   double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
-// Проверим завершилась ли волна OsMA
-   if(osma0>0)
-     {
-      // firstTransition - start, firstTransition to secondTransition - first HalfWawe, thirdTransition to fourthTransition - secondHalfWave
-      bool firstTransition=false;
-      bool secondTransition=false;
-      // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его отрицательной волны,
-      // не был больше чем два соседних, и останавливаемся когда полуволна опять выходит в положительную зону
-      for(int i=0;secondTransition==false;i++)
-        {
-         double osmaStart= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
-         double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
-         double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
-         // Перешли к отрицательной Полуволне
-         if(osmaStart<0)
-           {
-            firstTransition=true;
-            if(firstTransition==true && secondTransition==false)
-              {
-               if(osmaStart>osmaPrev && osmaStart>osmaNext)
-                 {
-                  isBuySymmetric=false;
-                  break;
-                 }
-              }
 
-           }
-         //значит перешли ко второй полуволне которая положительная
-         if(firstTransition==true && osmaStart>0)
-           {
-            secondTransition=true;
-            isBuySymmetric=true;
-            break;
-           }
-        }
-     }
-   return isBuySymmetric;
-  }
-// что бы ни один тик предыдущей его положительной волны, не был меньше чем два соседних
-bool shouldISellSymetric(void)
-  {
-   bool isSellSymmetric=false;
-   double osma0= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,0);
-   double osma1= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,1);
-// Проверим завершилась ли волна OsMA
-   if(osma0<0)
-     {
-      // firstTransition - start, firstTransition to secondTransition - first HalfWawe, thirdTransition to fourthTransition - secondHalfWave
-      bool firstTransition=false;
-      bool secondTransition=false;
-      // идем назад, пока не пересечем нулевую линию, проверяем что бы ни один тик предыдущей его положительной волны,
-      // не был меньше чем два соседних, и останавливаемся когда полуволна опять выходит в отрицательную зону
-      for(int i=0;secondTransition==false;i++)
-        {
-         double osmaStart= iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i);
-         double osmaPrev = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i-1);
-         double osmaNext = iOsMA(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,i+1);
-         // Перешли к отрицательной Полуволне
-         if(osmaStart>0)
-           {
-            firstTransition=true;
-            if(firstTransition==true && secondTransition==false)
-              {
-               if(osmaStart<osmaPrev && osmaStart<osmaNext)
-                 {
-                  isSellSymmetric=false;
-                  break;
-                 }
-              }
-
-           }
-         //значит перешли ко второй полуволне которая положительная
-         if(firstTransition==true && osmaStart<0)
-           {
-            secondTransition=true;
-            isSellSymmetric=true;
-            break;
-           }
-        }
-     }
-   return isSellSymmetric;
-
-  }
 // Проверка уровня MACD на две ПолуВолны, проверка симметрии, поиск максимума, и больше ли хотя бы один тик MACD 0.0001 что бы отфильтровать шум
 // Метод взят с блока Н4 - потому имена переменных остануться пока такими
 // isSymmetric для каждой ПВ
