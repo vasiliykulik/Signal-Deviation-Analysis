@@ -294,15 +294,13 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
   {
    int countHalfWaves=0;
    int begin=0;
-   int zz;
-   double Macd_1H4=0;// нулевой тик, пока 0 while работает
-   double Macd_2H4=0;
+   double Macd_1H4=0, Macd_2H4=0;// нулевой тик, пока 0 while работает
    double MacdIplus3H4,MacdIplus4H4;// следующий тик, пока 0 while работает
    double macdForFilter,priceForMinMax;
-   bool what0HalfWaveMACDH4,what_1HalfWaveMACDH4,what_2HalfWaveMACDH4,what_3HalfWaveMACDH4,what_4HalfWaveMACDH4;
-   bool isFilterFirstHalfWaveOK,isFilterSecondHalfWaveOK,isFilterThirdHalfWaveOK,isFilterFourthHalfWaveOK;
+   bool what0HalfWaveMACDH4,what_1HalfWaveMACDH4,what_2HalfWaveMACDH4,what_3HalfWaveMACDH4,what_4HalfWaveMACDH4,
+        isFilterFirstHalfWaveOK,isFilterSecondHalfWaveOK,isFilterThirdHalfWaveOK,isFilterFourthHalfWaveOK;
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
-   int i,z,y,x,j,k,m,p,
+   int i,zz,z,y,x,j,k,m,p,
    resize0H4,resize1H4,resize2H4,resize3H4;
    isFilterFirstHalfWaveOK=false;
    isFilterSecondHalfWaveOK=false;
