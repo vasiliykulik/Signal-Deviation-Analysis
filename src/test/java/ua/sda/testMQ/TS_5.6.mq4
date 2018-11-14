@@ -241,7 +241,7 @@ void OnTick(void) {
                if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
                else {stopLossForBuyMin = firstMinGlobal;}
               }
-Print("Блок ведения, stopLossForBuyMin = ", stopLossForBuyMin);
+Print("Блок ведения, " " Bid = ", Bid,  "stopLossForBuyMin = ", stopLossForBuyMin, " OrderStopLoss() = ", OrderStopLoss());
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
