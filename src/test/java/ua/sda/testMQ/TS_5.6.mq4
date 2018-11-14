@@ -122,12 +122,12 @@ void OnTick(void) {
    if(isDoubleSymmetricM15SellReady){sellWeight++;}
    if(isDoubleSymmetricM5SellReady){sellWeight++;}
 
-   Print("sellWeight = ",sellWeight, " firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal, " firstMaxGlobal = ", firstMaxGlobal," secondMaxGlobal = " ,secondMaxGlobal);
+//   Print("sellWeight = ",sellWeight, " firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal, " firstMaxGlobal = ", firstMaxGlobal," secondMaxGlobal = " ,secondMaxGlobal);
 
 // Block 2 Анализируем  Weight, проставляем periodGlobal
 // а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal
    if(sellWeight==0 && buyWeight>1)
-   Print ("sellWeight==0 && buyWeight>1 ",sellWeight==0 && buyWeight>=1);
+//   Print ("sellWeight==0 && buyWeight>1 ",sellWeight==0 && buyWeight>=1);
      {
       if(isDoubleSymmetricM5BuyReady) {periodGlobal="PERIOD_M5";}
       if(isDoubleSymmetricM15BuyReady) {periodGlobal="PERIOD_M15";}
@@ -155,7 +155,7 @@ void OnTick(void) {
 
       // check for long position (BUY) possibility
 // Block 3 Открытие позиций
-Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSymmetricM15BuyReady || isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady, isDoubleSymmetricH1BuyReady, isDoubleSymmetricM15BuyReady, isDoubleSymmetricM5BuyReady);
+// Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSymmetricM15BuyReady || isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady, isDoubleSymmetricH1BuyReady, isDoubleSymmetricM15BuyReady, isDoubleSymmetricM5BuyReady);
       if(
          buy==1 &&
          (
@@ -184,7 +184,7 @@ Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSym
       // check for short position (SELL) possibility
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
-Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
+//Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
       if(
 
          sell==1 &&
@@ -326,7 +326,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
-     Print(" i = ", i, " стартовое значение должен быть 0 ");
+//     Print(" i = ", i, " стартовое значение должен быть 0 ");
       MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
       MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
       // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
@@ -351,7 +351,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             halfWave0H4[zz]=j;
 // Block 6 Filter
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
-            Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
+//            Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
             if(macdForFilter > filterForPlusHalfWave) {isFilterFirstHalfWaveOK = true;}
 // Block 7 firstMinGlobal = 0.00000000, secondMinGlobal = 0.00000000, firstMaxGlobal = 0.00000000, secondMaxGlobal = 0.00000000;
             // строка priceForMinMax=iOpen(NULL,period,j); вынесена до for
@@ -367,7 +367,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
 
 // Block 8 Symmetric
          isSymmetricFirst=checkIfSymmetricForSell(jStart,jStart+zz+1,period);
-          Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1);
+          Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
@@ -395,7 +395,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             zz++;
            }
          isSymmetricFirst=checkIfSymmetricForBuy(jStart,jStart+zz+1,period);
-          Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1);
+          Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
         }
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -415,7 +415,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             z++;
            }
          isSymmetricSecond=checkIfSymmetricForBuy(kStart,kStart+z+1,period);
-          Print("halfWave1H4 1 ", "kStart = ", kStart, "z = ", z, " kStart+z+1 ", kStart+z+1);
+//          Print("halfWave1H4 1 ", "kStart = ", kStart, "z = ", z, " kStart+z+1 ", kStart+z+1);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -434,7 +434,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             z++;
            }
          isSymmetricSecond=checkIfSymmetricForSell(kStart,kStart+z+1,period);
-          Print("halfWave1H4 1 ", "kStart = ", kStart, "z = ", z, " kStart+z+1 ", kStart+z+1);
+//          Print("halfWave1H4 1 ", "kStart = ", kStart, "z = ", z, " kStart+z+1 ", kStart+z+1);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -462,7 +462,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForSell(mStart,mStart+y+1,period);
-          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
+//          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -489,7 +489,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForBuy(mStart,mStart+y+1,period);
-          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
+//          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -509,7 +509,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             x++;
            }
          isSymmetricFourth=checkIfSymmetricForBuy(pStart,pStart+x+1,period);
-          Print("halfWave3H4 1 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
+ //         Print("halfWave3H4 1 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -528,7 +528,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             x++;
            }
          isSymmetricFourth=checkIfSymmetricForSell(pStart,pStart+x+1,period);
-          Print("halfWave3H4 0 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
+//          Print("halfWave3H4 0 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
         }
       // begin++;
      }
