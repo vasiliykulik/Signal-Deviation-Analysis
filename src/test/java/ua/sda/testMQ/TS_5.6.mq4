@@ -237,7 +237,7 @@ void OnTick(void) {
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
-               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
+               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
                if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
                else {stopLossForBuyMin = firstMinGlobal;}
               }
@@ -265,7 +265,7 @@ Print("Блок ведения, stopLossForBuyMin = ", stopLossForBuyMin);
             // check for trailing stop
             if(TrailingStop>0)
               {
-               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(periodGlobal);
+               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
                double stopLossForSellMax;
                if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
                else {stopLossForSellMax = secondMaxGlobal;}
@@ -564,7 +564,7 @@ Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetr
    return resultCheck;
   }
 // проставляем цены для ведения позиции
-bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
+bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
   {
    int countHalfWaves=0;
    int begin=0;
@@ -586,8 +586,8 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
 
-      Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
-      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
+      Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
+      Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
       if(Macd_1H4>0 && Macd_2H4<0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
@@ -598,8 +598,8 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
-      MacdIplus3H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
-      MacdIplus4H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
+      MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
+      MacdIplus4H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
                                                                          // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
@@ -614,12 +614,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
                             // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         priceForMinMax=iOpen(NULL,period,j);
+         priceForMinMax=iOpen(NULL,periodGlobal,j);
          firstMaxLocalNonSymmetric = priceForMinMax;
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
-            priceForMinMax = iOpen(NULL,period,j);
+            priceForMinMax = iOpen(NULL,periodGlobal,j);
          if(priceForMinMax > firstMaxLocalNonSymmetric)
               {
                firstMaxLocalNonSymmetric = priceForMinMax;
@@ -637,12 +637,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-         priceForMinMax=iOpen(NULL,period,j);
+         priceForMinMax=iOpen(NULL,periodGlobal,j);
          firstMinLocalNonSymmetric  = priceForMinMax;
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
-            priceForMinMax = iOpen(NULL,period,j);
+            priceForMinMax = iOpen(NULL,periodGlobal,j);
             if(priceForMinMax < firstMinLocalNonSymmetric )
               {
                firstMinLocalNonSymmetric  =priceForMinMax;
@@ -693,12 +693,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=iOpen(NULL,period,m);
+         priceForMinMax=iOpen(NULL,periodGlobal,m);
          secondMaxLocalNonSymmetric = priceForMinMax;
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
-            priceForMinMax = iOpen(NULL,period,m);
+            priceForMinMax = iOpen(NULL,periodGlobal,m);
             if(secondMaxLocalNonSymmetric >priceForMinMax)
               {
                 secondMaxLocalNonSymmetric =priceForMinMax;
@@ -716,12 +716,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=iOpen(NULL,period,m);
+         priceForMinMax=iOpen(NULL,periodGlobal,m);
          secondMinLocalNonSymmetric  = priceForMinMax;
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
-            priceForMinMax = iOpen(NULL,period,m);
+            priceForMinMax = iOpen(NULL,periodGlobal,m);
             if(priceForMinMax < secondMinLocalNonSymmetric)
               {
                secondMinLocalNonSymmetric =priceForMinMax;
@@ -782,14 +782,12 @@ max для sell
 // return section
 // По сути здесь только проверка на filter, следующий if будет всегда true
 Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
-   if(isFirstMin && isSecondMin && isFirstMax && isSecondMax)
-     {
+
      firstMinGlobal = firstMinLocalNonSymmetric;
-             firstMaxGlobal = firstMaxLocalNonSymmetric;
-             secondMinGlobal = secondMinLocalNonSymmetric;
-             secondMaxGlobal = secondMaxLocalNonSymmetric;
+     firstMaxGlobal = firstMaxLocalNonSymmetric;
+     secondMinGlobal = secondMinLocalNonSymmetric;
+     secondMaxGlobal = secondMaxLocalNonSymmetric;
       pricesUpdate=true;
-     }
 
    return pricesUpdate;
   }
