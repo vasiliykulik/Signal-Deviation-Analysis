@@ -651,7 +651,6 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
                isFirstMin=true;
               }
             zz++;
-            zz++;
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
