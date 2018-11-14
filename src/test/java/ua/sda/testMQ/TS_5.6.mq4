@@ -56,31 +56,28 @@ void OnTick(void) {
    if(iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
       && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_H4 Buy");
       isDoubleSymmetricH4BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
+      if(isDoubleSymmetricH4BuyReady){Print("Сработал PERIOD_H4 Buy");}
 
      }
    if(iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
       && iClose(NULL,PERIOD_H4,0)>iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_H1 Buy");
-      isDoubleSymmetricH1BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
-
+        isDoubleSymmetricH1BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
+        if(isDoubleSymmetricH1BuyReady){Print("Сработал PERIOD_H1 Buy");}
      }
    if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
       && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_M15 Buy");
-      isDoubleSymmetricM15BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
-
+        isDoubleSymmetricM15BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
+        if(isDoubleSymmetricM15BuyReady){Print("Сработал PERIOD_M15 Buy");}
      }
    if(iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
       && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_M5 Buy");
       // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-      isDoubleSymmetricM5BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
-
+        isDoubleSymmetricM5BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
+        if(isDoubleSymmetricM5BuyReady){Print("Сработал PERIOD_M5 Buy");}
      }
 
    if(isDoubleSymmetricH4BuyReady){buyWeight++;}
@@ -93,28 +90,27 @@ void OnTick(void) {
    if(iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
       && iClose(NULL,PERIOD_D1,0)<iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_H4 Sell");
-      isDoubleSymmetricH4SellReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
-
+        isDoubleSymmetricH4SellReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_H4");
+        if(isDoubleSymmetricH4SellReady){Print("Сработал PERIOD_H4 Sell");}
      }
    if(iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
       && iClose(NULL,PERIOD_H4,0)<iMA(NULL,PERIOD_H4,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_H1 Sell");
       isDoubleSymmetricH1SellReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_H1");
+      if(isDoubleSymmetricH1SellReady){Print("Сработал PERIOD_H1 Sell");}
      }
    if(iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
       && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_M15 Sell");
-      isDoubleSymmetricM15SellReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
+        isDoubleSymmetricM15SellReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M15");
+        if(isDoubleSymmetricM15SellReady){ Print("Сработал PERIOD_M15 Sell");}
      }
    if(iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0)<0 && iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1)>0
       && iClose(NULL,PERIOD_H1,0)<iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
-     Print("Сработал PERIOD_M5 Sell");
       // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
       isDoubleSymmetricM5SellReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
+      if(isDoubleSymmetricM5SellReady){Print("Сработал PERIOD_M5 Sell");}
      }
 
    if(isDoubleSymmetricH4SellReady){sellWeight++;}
@@ -129,10 +125,22 @@ void OnTick(void) {
    if(sellWeight==0 && buyWeight>1)
 //   Print ("sellWeight==0 && buyWeight>1 ",sellWeight==0 && buyWeight>=1);
      {
-      if(isDoubleSymmetricM5BuyReady) {periodGlobal="PERIOD_M5";}
-      if(isDoubleSymmetricM15BuyReady) {periodGlobal="PERIOD_M15";}
-      if(isDoubleSymmetricH1BuyReady){periodGlobal="PERIOD_H1";}
-      if(isDoubleSymmetricH4BuyReady){periodGlobal="PERIOD_H1";}
+      if(isDoubleSymmetricM5BuyReady)
+      {
+      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      periodGlobal="PERIOD_M5";}
+      if(isDoubleSymmetricM15BuyReady)
+      {
+      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      periodGlobal="PERIOD_M15";}
+      if(isDoubleSymmetricH1BuyReady)
+      {
+      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      periodGlobal="PERIOD_H1";}
+      if(isDoubleSymmetricH4BuyReady)
+      {
+      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      periodGlobal="PERIOD_H1";}
      }
    if(sellWeight==buyWeight)
      {
@@ -141,10 +149,18 @@ void OnTick(void) {
      }
    if(buyWeight==0 && sellWeight>=1)
      {
-      if(isDoubleSymmetricM5SellReady){periodGlobal="PERIOD_M5";}
-      if(isDoubleSymmetricM15SellReady){periodGlobal="PERIOD_M15";}
-      if(isDoubleSymmetricH1SellReady){periodGlobal="PERIOD_H1";}
-      if(isDoubleSymmetricH4SellReady){periodGlobal="PERIOD_H1";}
+      if(isDoubleSymmetricM5SellReady)
+      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      {periodGlobal="PERIOD_M5";}
+      if(isDoubleSymmetricM15SellReady)
+      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      {periodGlobal="PERIOD_M15";}
+      if(isDoubleSymmetricH1SellReady)
+      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      {periodGlobal="PERIOD_H1";}
+      if(isDoubleSymmetricH4SellReady)
+      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      {periodGlobal="PERIOD_H1";}
      }
 
       if(AccountFreeMargin()<(1*Lots))
