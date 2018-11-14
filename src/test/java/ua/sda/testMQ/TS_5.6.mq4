@@ -238,6 +238,7 @@ void OnTick(void) {
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+               Print ("firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
                else {stopLossForBuyMin = firstMinGlobal;}
               }
