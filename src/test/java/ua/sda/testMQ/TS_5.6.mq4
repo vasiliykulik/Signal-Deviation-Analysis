@@ -789,6 +789,10 @@ max для sell
 Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
    if(isFirstMin && isSecondMin && isFirstMax && isSecondMax)
      {
+     firstMinGlobal = firstMinLocalNonSymmetric;
+             firstMaxGlobal = firstMaxLocalNonSymmetric;
+             secondMinGlobal = secondMinLocalNonSymmetric;
+             secondMaxGlobal = secondMaxLocalNonSymmetric;
       pricesUpdate=true;
      }
 
