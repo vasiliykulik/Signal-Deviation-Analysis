@@ -785,7 +785,7 @@ max для sell
 
 // return section
 // По сути здесь только проверка на filter, следующий if будет всегда true
-Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
+//Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
 
      firstMinGlobal = firstMinLocalNonSymmetric;
      firstMaxGlobal = firstMaxLocalNonSymmetric;
@@ -800,7 +800,7 @@ Sleep(3333);
 //+------------------------------------------------------------------+
 bool checkIfSymmetricForBuy(int start,int end,string period)
   {
-  Print("checkIfSymmetricForBuy ", " start = ", start, " end = ", end, " period = ", period);
+//  Print("checkIfSymmetricForBuy ", " start = ", start, " end = ", end, " period = ", period);
    bool isSymmetricForBuy=true;
    for(int i=start+1;i<end;i++)
      {
@@ -821,7 +821,7 @@ bool checkIfSymmetricForBuy(int start,int end,string period)
 //+------------------------------------------------------------------+
 bool checkIfSymmetricForSell(int start,int end, string period)
   {
-  Print("checkIfSymmetricForSell ", " start = ", start, " end = ", end, " period = ", period);
+//  Print("checkIfSymmetricForSell ", " start = ", start, " end = ", end, " period = ", period);
    bool isSymmetricForSell=true;
    for(int i=start+1;i<end;i++)
      {
