@@ -581,7 +581,6 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
    bool isFirstMin=false, isSecondMin=false, isFirstMax=false, isSecondMax=false;
    bool pricesUpdate=false;
 // то есть пока значения не проставлены
-Sleep(3333);
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
      begin++;
@@ -791,7 +790,7 @@ Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax
      secondMinGlobal = secondMinLocalNonSymmetric;
      secondMaxGlobal = secondMaxLocalNonSymmetric;
       pricesUpdate=true;
-
+Sleep(3333);
    return pricesUpdate;
   }
 //+------------------------------------------------------------------+
