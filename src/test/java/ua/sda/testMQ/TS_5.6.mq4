@@ -132,7 +132,7 @@ void OnTick(void) {
       if(isDoubleSymmetricM5BuyReady) {periodGlobal="PERIOD_M5";}
       if(isDoubleSymmetricM15BuyReady) {periodGlobal="PERIOD_M15";}
       if(isDoubleSymmetricH1BuyReady){periodGlobal="PERIOD_H1";}
-      if(isDoubleSymmetricH4BuyReady){periodGlobal="PERIOD_H4";}
+      if(isDoubleSymmetricH4BuyReady){periodGlobal="PERIOD_H1";}
      }
    if(sellWeight==buyWeight)
      {
@@ -173,7 +173,7 @@ void OnTick(void) {
          if(stopLossForBuyMin < currentStopLoss) {stopLossForBuyMin=currentStopLoss;}
 
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,stopLossForBuyMin,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
-         Print("Position was opened on TimeFrame ",periodGlobal);
+         Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," with buyWeight = ",buyWeight, "periodGlobal = ", periodGlobal);
@@ -203,7 +203,7 @@ void OnTick(void) {
          if(stopLossForSellMax > currentStopLoss) {stopLossForSellMax = currentStopLoss;}
 
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
-         Print("Position was opened on TimeFrame ",periodGlobal);
+         Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice(),"with sellWeight = ",sellWeight);
@@ -238,11 +238,12 @@ void OnTick(void) {
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               Print ("firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
+//               Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
                else {stopLossForBuyMin = firstMinGlobal;}
               }
-Print("Блок ведения, " " Bid = ", Bid,  "stopLossForBuyMin = ", stopLossForBuyMin, " OrderStopLoss() = ", OrderStopLoss());
+              Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+//Print("Блок ведения, ", " Bid = ", Bid,  "stopLossForBuyMin = ", stopLossForBuyMin, " OrderStopLoss() = ", OrderStopLoss());
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
@@ -268,12 +269,14 @@ Print("Блок ведения, " " Bid = ", Bid,  "stopLossForBuyMin = ", stopL
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
                double stopLossForSellMax;
+//               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
                if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
                else {stopLossForSellMax = secondMaxGlobal;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
-               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
+               Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+//               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
                if(Ask < stopLossForSellMax && stopLossForSellMax < OrderStopLoss())
                  {
                   OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
@@ -542,8 +545,8 @@ max для sell
 */
 
 // Block 9 Возвращаем значение
-Print(firstMinGlobal, " = firstMinGlobal ", firstMaxGlobal, " = firstMaxGlobal ", secondMinGlobal, " = secondMinGlobal ", secondMaxGlobal," = secondMaxGlobal ");
-Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetric, " = firstMaxLocalSymmetric ", secondMinLocalSymmetric, " = secondMinLocalSymmetric ", secondMaxLocalSymmetric," = secondMaxLocalSymmetric ");
+//Print(firstMinGlobal, " = firstMinGlobal ", firstMaxGlobal, " = firstMaxGlobal ", secondMinGlobal, " = secondMinGlobal ", secondMaxGlobal," = secondMaxGlobal ");
+//Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetric, " = firstMaxLocalSymmetric ", secondMinLocalSymmetric, " = secondMinLocalSymmetric ", secondMaxLocalSymmetric," = secondMaxLocalSymmetric ");
    if(isFilterFirstHalfWaveOK && isFilterSecondHalfWaveOK && isFilterThirdHalfWaveOK && isFilterFourthHalfWaveOK)
      {
       // По сути здесь только проверка на filter, следующий if,
@@ -558,10 +561,10 @@ Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetr
          resultCheck=true;
         }
      }
-   Print("isThereTwoSymmetricFilteredHalfWaves "," period = ",period);
-   Print("isFilterFirstHalfWaveOK = ",isFilterFirstHalfWaveOK," isFilterSecondHalfWaveOK = ",isFilterSecondHalfWaveOK," isFilterThirdHalfWaveOK = ",isFilterThirdHalfWaveOK," isFilterFourthHalfWaveOK = ",isFilterFourthHalfWaveOK);
-   Print("isSymmetricFirst = ",isSymmetricFirst, " isSymmetricThird = ",isSymmetricThird);
-   Print("resultCheck = ",resultCheck);
+//   Print("isThereTwoSymmetricFilteredHalfWaves "," period = ",period);
+//   Print("isFilterFirstHalfWaveOK = ",isFilterFirstHalfWaveOK," isFilterSecondHalfWaveOK = ",isFilterSecondHalfWaveOK," isFilterThirdHalfWaveOK = ",isFilterThirdHalfWaveOK," isFilterFourthHalfWaveOK = ",isFilterFourthHalfWaveOK);
+//   Print("isSymmetricFirst = ",isSymmetricFirst, " isSymmetricThird = ",isSymmetricThird);
+//   Print("resultCheck = ",resultCheck);
    return resultCheck;
   }
 // проставляем цены для ведения позиции
