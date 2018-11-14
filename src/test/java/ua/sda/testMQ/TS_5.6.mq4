@@ -303,7 +303,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    double firstMinLocalSymmetric = 0.00000000, secondMinLocalSymmetric = 0.00000000, firstMaxLocalSymmetric = 0.00000000, secondMaxLocalSymmetric = 0.00000000;
    bool isFirstMin=false, isSecondMin=false, isFirstMax=false, isSecondMax=false;
    bool isFilterFirstHalfWaveOK = false,isFilterSecondHalfWaveOK = false,isFilterThirdHalfWaveOK = false,isFilterFourthHalfWaveOK = false;
-   bool isSymmetricFirst=false,isSymmetricSecond= false, isSymmetricThird = false,isSymmetricFourth= false;
+   bool isSymmetricFirst=false, isSymmetricThird = false;
    bool resultCheck=false;
 // то есть пока значения не проставлены
 /*   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
@@ -414,8 +414,6 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter<filterForMinusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
-         isSymmetricSecond=checkIfSymmetricForBuy(kStart,kStart+z+1,period);
-//          Print("halfWave1H4 1 ", "kStart = ", kStart, "z = ", z, " kStart+z+1 ", kStart+z+1);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -433,8 +431,6 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter>filterForPlusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
-         isSymmetricSecond=checkIfSymmetricForSell(kStart,kStart+z+1,period);
-//          Print("halfWave1H4 1 ", "kStart = ", kStart, "z = ", z, " kStart+z+1 ", kStart+z+1);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -508,8 +504,6 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter<filterForMinusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
-         isSymmetricFourth=checkIfSymmetricForBuy(pStart,pStart+x+1,period);
- //         Print("halfWave3H4 1 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -527,8 +521,6 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(macdForFilter>filterForPlusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
-         isSymmetricFourth=checkIfSymmetricForSell(pStart,pStart+x+1,period);
-//          Print("halfWave3H4 0 ", "pStart = ", pStart, "x = ", x, " pStart+x+1 = ", pStart+x+1);
         }
       // begin++;
      }
@@ -555,7 +547,7 @@ Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetr
       // По сути здесь только проверка на filter, следующий if,
       // где проставляются цены будет всегда true или будет повторять вышеиспользованные флаги
       // тогда заменим isFirstMin && isSecondMin && isFirstMax && isSecondMax на Symmetric
-      if(isSymmetricFirst && isSymmetricSecond && isSymmetricThird && isSymmetricFourth)
+      if(isSymmetricFirst && isSymmetricThird)
         {
         firstMinGlobal = firstMinLocalSymmetric;
         firstMaxGlobal = firstMaxLocalSymmetric;
@@ -566,7 +558,7 @@ Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetr
      }
    Print("isThereTwoSymmetricFilteredHalfWaves "," period = ",period);
    Print("isFilterFirstHalfWaveOK = ",isFilterFirstHalfWaveOK," isFilterSecondHalfWaveOK = ",isFilterSecondHalfWaveOK," isFilterThirdHalfWaveOK = ",isFilterThirdHalfWaveOK," isFilterFourthHalfWaveOK = ",isFilterFourthHalfWaveOK);
-   Print("isSymmetricFirst = ",isSymmetricFirst," isSymmetricSecond = ",isSymmetricSecond," isSymmetricThird = ",isSymmetricThird," isSymmetricFourth = ",isSymmetricFourth);
+   Print("isSymmetricFirst = ",isSymmetricFirst," " isSymmetricThird = ",isSymmetricThird,");
    Print("resultCheck = ",resultCheck);
    return resultCheck;
   }
