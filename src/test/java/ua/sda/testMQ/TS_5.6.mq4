@@ -546,6 +546,8 @@ max для sell
 */
 
 // Block 9 Возвращаем значение
+Print(firstMinGlobal, " = firstMinGlobal ", firstMaxGlobal, " = firstMaxGlobal ", secondMinGlobal, " = secondMinGlobal ", secondMaxGlobal," = secondMaxGlobal ");
+Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetric, " = firstMaxLocalSymmetric ", secondMinLocalSymmetric, " = secondMinLocalSymmetric ", secondMaxLocalSymmetric," = secondMaxLocalSymmetric ");
    if(isFilterFirstHalfWaveOK && isFilterSecondHalfWaveOK && isFilterThirdHalfWaveOK && isFilterFourthHalfWaveOK)
      {
       // По сути здесь только проверка на filter, следующий if,
@@ -553,6 +555,10 @@ max для sell
       // тогда заменим isFirstMin && isSecondMin && isFirstMax && isSecondMax на Symmetric
       if(isSymmetricFirst && isSymmetricSecond && isSymmetricThird && isSymmetricFourth)
         {
+        firstMinGlobal = firstMinLocalSymmetric;
+        firstMaxGlobal = firstMaxLocalSymmetric;
+        secondMinGlobal = secondMinLocalSymmetric;
+        secondMaxGlobal = secondMaxLocalSymmetric;
          resultCheck=true;
         }
      }
@@ -576,11 +582,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing(string period)
    int zz,i,z,y,x,j,k,m,p,
    resize0H4,resize1H4,resize2H4,resize3H4;
    double firstMinLocalNonSymmetric = 0.00000000, secondMinLocalNonSymmetric = 0.00000000, firstMaxLocalNonSymmetric = 0.00000000, secondMaxLocalNonSymmetric = 0.00000000;
-   bool isFirstMin,isSecondMin,isFirstMax,isSecondMax;
-   isFirstMin=false;
-   isSecondMin= false;
-   isFirstMax = false;
-   isSecondMax= false;
+   bool isFirstMin=false, isSecondMin=false, isFirstMax=false, isSecondMax=false;
    bool pricesUpdate=false;
 // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
@@ -784,7 +786,8 @@ max для sell
 
 // return section
 // По сути здесь только проверка на filter, следующий if будет всегда true
-   if(isFirstMin<0 && isSecondMin<0 && isFirstMax>0 && isSecondMax>0)
+Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
+   if(isFirstMin && isSecondMin && isFirstMax && isSecondMax)
      {
       pricesUpdate=true;
      }
