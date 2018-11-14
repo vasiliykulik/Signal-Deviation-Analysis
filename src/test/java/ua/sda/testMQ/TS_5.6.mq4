@@ -176,7 +176,7 @@ void OnTick(void) {
          Print("Position was opened on TimeFrame ",periodGlobal);
          if(ticket>0)
            {
-            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice(),"with buyWeight = ",buyWeight);
+            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," with buyWeight = ",buyWeight, "periodGlobal = ", periodGlobal);
            }
          else Print("Error opening BUY order : ",GetLastError());
          return;
