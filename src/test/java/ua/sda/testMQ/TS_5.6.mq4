@@ -127,40 +127,53 @@ void OnTick(void) {
      {
       if(isDoubleSymmetricM5BuyReady)
       {
+      periodGlobal="PERIOD_M5";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
-      periodGlobal="PERIOD_M5";}
+      }
       if(isDoubleSymmetricM15BuyReady)
       {
+      periodGlobal="PERIOD_M15";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
-      periodGlobal="PERIOD_M15";}
+      }
       if(isDoubleSymmetricH1BuyReady)
       {
+      periodGlobal="PERIOD_H1";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
-      periodGlobal="PERIOD_H1";}
+      }
       if(isDoubleSymmetricH4BuyReady)
       {
+      periodGlobal="PERIOD_H1";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
-      periodGlobal="PERIOD_H1";}
+      }
      }
    if(sellWeight==buyWeight)
      {
       buy=0;
       sell=0;
+      Print("Analyzed and setted buy and sell to ", buy, sell);
      }
    if(buyWeight==0 && sellWeight>=1)
      {
       if(isDoubleSymmetricM5SellReady)
+      {
+      periodGlobal="PERIOD_M5";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
-      {periodGlobal="PERIOD_M5";}
+      }
       if(isDoubleSymmetricM15SellReady)
+      {
+      periodGlobal="PERIOD_M15";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
-      {periodGlobal="PERIOD_M15";}
+      }
       if(isDoubleSymmetricH1SellReady)
+      {
+      periodGlobal="PERIOD_H1";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
-      {periodGlobal="PERIOD_H1";}
+      }
       if(isDoubleSymmetricH4SellReady)
+      {
+      periodGlobal="PERIOD_H1";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
-      {periodGlobal="PERIOD_H1";}
+      }
      }
 
       if(AccountFreeMargin()<(1*Lots))
