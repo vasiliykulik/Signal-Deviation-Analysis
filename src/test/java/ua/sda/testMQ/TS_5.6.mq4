@@ -306,7 +306,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
    bool isSymmetricFirst=false,isSymmetricSecond= false, isSymmetricThird = false,isSymmetricFourth= false;
    bool resultCheck=false;
 // то есть пока значения не проставлены
-   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
+/*   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
        Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
        Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin) = ", Macd_1H4);
@@ -315,14 +315,14 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
 
 
       Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
-      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
+      Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);*/
 // Block 5 Определение первой ПолуВолны в меотде bool isThereTwoSymmetricFilteredHalfWaves()
       if(Macd_1H4>0 && Macd_2H4<0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
       else if(Macd_1H4<0 && Macd_2H4>0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
-     }
+     /*}*/
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
