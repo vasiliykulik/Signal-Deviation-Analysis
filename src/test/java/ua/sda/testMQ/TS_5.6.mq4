@@ -581,8 +581,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
    bool isFirstMin=false, isSecondMin=false, isFirstMax=false, isSecondMax=false;
    bool pricesUpdate=false;
 // то есть пока значения не проставлены
+Sleep(3333);
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
+     begin++;
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
