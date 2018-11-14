@@ -558,7 +558,7 @@ Print(firstMinLocalSymmetric, " = firstMinLocalSymmetric ", firstMaxLocalSymmetr
      }
    Print("isThereTwoSymmetricFilteredHalfWaves "," period = ",period);
    Print("isFilterFirstHalfWaveOK = ",isFilterFirstHalfWaveOK," isFilterSecondHalfWaveOK = ",isFilterSecondHalfWaveOK," isFilterThirdHalfWaveOK = ",isFilterThirdHalfWaveOK," isFilterFourthHalfWaveOK = ",isFilterFourthHalfWaveOK);
-   Print("isSymmetricFirst = ",isSymmetricFirst," " isSymmetricThird = ",isSymmetricThird,");
+   Print("isSymmetricFirst = ",isSymmetricFirst, " isSymmetricThird = ",isSymmetricThird);
    Print("resultCheck = ",resultCheck);
    return resultCheck;
   }
