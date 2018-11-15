@@ -349,9 +349,9 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
       Macd_1H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 // Block 5 Определение первой ПолуВолны в меотде bool isThereTwoSymmetricFilteredHalfWaves()
-      if(Macd_1H4>0 && Macd_2H4<0)
+      if(Macd_2H4<0 && Macd_1H4>0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
-      else if(Macd_1H4<0 && Macd_2H4>0)
+      else if(Macd_2H4>0 && Macd_1H4<0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
      /*}*/
@@ -621,9 +621,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
-      if(Macd_1H4>0 && Macd_2H4<0)
+      if(Macd_2H4<0 && Macd_1H4>0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
-      else if(Macd_1H4<0 && Macd_2H4>0)
+      else if(Macd_2H4>0 && Macd_1H4<0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
      }
