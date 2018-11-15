@@ -128,17 +128,17 @@ void OnTick(void) {
      {
       if(isDoubleSymmetricM5BuyReady)
       {
-      periodGlobal="PERIOD_M5";
+      periodGlobal="PERIOD_M1";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricM15BuyReady)
       {
-      periodGlobal="PERIOD_M15";
+      periodGlobal="PERIOD_M5";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH1BuyReady)
       {
-      periodGlobal="PERIOD_H1";
+      periodGlobal="PERIOD_M15";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH4BuyReady)
@@ -153,17 +153,17 @@ void OnTick(void) {
      {
       if(isDoubleSymmetricM5SellReady)
       {
-      periodGlobal="PERIOD_M5";
+      periodGlobal="PERIOD_M1";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricM15SellReady)
       {
-      periodGlobal="PERIOD_M15";
+      periodGlobal="PERIOD_M5";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH1SellReady)
       {
-      periodGlobal="PERIOD_H1";
+      periodGlobal="PERIOD_M15";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH4SellReady)
