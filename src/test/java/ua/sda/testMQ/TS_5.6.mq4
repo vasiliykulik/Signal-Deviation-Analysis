@@ -866,7 +866,7 @@ bool checkIfSymmetricForSell(int start,int end, string period)
       double macdPrev = iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i-1);
       double macdNext = iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,i+1);
 //      Print("checkIfSymmetricForBuy ", " (i=start+1) i = ", i, " end = ", end, " period = ", period);
-      if(macdStart<macdPrev && macdStart<macdNext)
+      if(macdStart < macdPrev && macdStart < macdNext)
         {
          isSymmetricForSell=false;
          break;
