@@ -42,8 +42,9 @@ void OnTick(void) {
       return;  // check TakeProfit
      }
 
-   buy=1;
-   sell=1;
+   buy=0;
+   sell =0;
+
    total=OrdersTotal();
    if(total<1)
         {
@@ -145,13 +146,9 @@ void OnTick(void) {
       periodGlobal="PERIOD_H1";
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
       }
+         buy=1;
      }
-   if(sellWeight==buyWeight)
-     {
-      buy=0;
-      sell=0;
-      Print("Analyzed and setted buy and sell to ", buy, sell);
-     }
+
    if(buyWeight==0 && sellWeight>=1)
      {
       if(isDoubleSymmetricM5SellReady)
@@ -174,6 +171,7 @@ void OnTick(void) {
       periodGlobal="PERIOD_H1";
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
       }
+      sell=1;
      }
 
       if(AccountFreeMargin()<(1*Lots))
