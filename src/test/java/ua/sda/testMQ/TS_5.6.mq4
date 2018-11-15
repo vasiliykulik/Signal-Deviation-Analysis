@@ -122,7 +122,7 @@ void OnTick(void) {
 
 // Block 2 Анализируем  Weight, проставляем periodGlobal
 // а теперь укажем periodGlobal и пока повторный вызов анализатора что бы проставить firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal
-   if(sellWeight==0 && buyWeight>1)
+   if(sellWeight==0 && buyWeight>=1)
 //   Print ("sellWeight==0 && buyWeight>1 ",sellWeight==0 && buyWeight>=1);
      {
       if(isDoubleSymmetricM5BuyReady)
