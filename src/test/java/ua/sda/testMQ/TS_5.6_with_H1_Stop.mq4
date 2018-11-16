@@ -295,16 +295,16 @@ void OnTick(void) {
                  return(0); // exit
                 }*/
             // check for trailing stop
-            double stopLossForSellMax;
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               //               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
+               double stopLossForSellMax;
+//               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
                if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
                else {stopLossForSellMax = secondMaxGlobal;}
                // Посвечный стоп
                double high = iHigh(NULL,PERIOD_H1,1);
-               if(high<stopLossForBuyMin){stopLossForBuyMin = high;}
+               if(high<stopLossForSellMax){stopLossForSellMax = high;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
