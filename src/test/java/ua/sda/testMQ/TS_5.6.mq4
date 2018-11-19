@@ -512,7 +512,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(priceForMinMax < secondMinLocalSymmetric)
               {
                secondMinLocalSymmetric =priceForMinMax;
-               isSecondMax=true;
+               isSecondMin=true;
               }
             y++;
            }
@@ -774,7 +774,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
             if(priceForMinMax < secondMinLocalNonSymmetric)
                 {
                     secondMinLocalNonSymmetric =priceForMinMax;
-                    isSecondMax=true;
+                    isSecondMin=true;
                 }
             x++;
            }

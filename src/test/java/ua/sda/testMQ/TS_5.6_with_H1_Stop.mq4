@@ -518,7 +518,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             if(priceForMinMax < secondMinLocalSymmetric)
               {
                secondMinLocalSymmetric =priceForMinMax;
-               isSecondMax=true;
+               isSecondMin=true;
               }
             y++;
            }
