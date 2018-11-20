@@ -77,7 +77,9 @@ void OnTick(void) {
       && iClose(NULL,PERIOD_H1,0)>iMA(NULL,PERIOD_H1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
       // проверяем симметричность двух предыдущих; doubleSymmetricM5Buy, передавая параметром период в метод
-        isDoubleSymmetricM5BuyReady=isThereTwoSymmetricFilteredHalfWaves("PERIOD_M5");
+      ENUM_TIMEFRAMES p = PERIOD_M5;
+      Print (" iTime(NULL,p,0) = ",iTime(NULL,p,0), " iTime(NULL,p,3) = ",iTime(NULL,p,3));
+        isDoubleSymmetricM5BuyReady=isThereTwoSymmetricFilteredHalfWaves(p);
         if(isDoubleSymmetricM5BuyReady){Print("Сработал PERIOD_M5 Buy");}
      }
 
@@ -691,7 +693,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
-              Print("NonSymmetric, k, z = ",k," ", z, "firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
+              Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
                                     if(priceForMinMax < firstMinLocalNonSymmetric )
                                       {
                                        firstMinLocalNonSymmetric  =priceForMinMax;
@@ -716,7 +718,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
-             Print("NonSymmetric, k, z = ",k," ", z, "firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
+             Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
                                  if(priceForMinMax > firstMaxLocalNonSymmetric)
                                       {
                                        firstMaxLocalNonSymmetric = priceForMinMax;
@@ -777,7 +779,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
-            Print("NonSymmetric, p, x = ",p," ", x, "secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+            Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
             if(priceForMinMax < secondMinLocalNonSymmetric)
                 {
                     secondMinLocalNonSymmetric =priceForMinMax;
@@ -801,7 +803,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_3H4[x]=p;
              priceForMinMax = iOpen(NULL,periodGlobal,p);
-              Print("NonSymmetric, p, x = ",p," ", x, "secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+              Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
              if(secondMaxLocalNonSymmetric >priceForMinMax)
                 {
                         secondMaxLocalNonSymmetric =priceForMinMax;
