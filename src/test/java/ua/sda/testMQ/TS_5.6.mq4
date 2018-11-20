@@ -131,22 +131,22 @@ void OnTick(void) {
       if(isDoubleSymmetricM5BuyReady)
       {
       periodGlobal=PERIOD_M1;
-      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Buy ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricM15BuyReady)
       {
       periodGlobal=PERIOD_M5;
-      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Buy ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH1BuyReady)
       {
       periodGlobal=PERIOD_M15;
-      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Buy ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH4BuyReady)
       {
       periodGlobal=PERIOD_M15;
-      Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Buy ", "periodGlobal = ", periodGlobal);
       }
          buy=1;
      }
@@ -156,22 +156,22 @@ void OnTick(void) {
       if(isDoubleSymmetricM5SellReady)
       {
       periodGlobal=PERIOD_M1;
-      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Sell ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricM15SellReady)
       {
       periodGlobal=PERIOD_M5;
-      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Sell ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH1SellReady)
       {
       periodGlobal=PERIOD_M15;
-      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Sell ", "periodGlobal = ", periodGlobal);
       }
       if(isDoubleSymmetricH4SellReady)
       {
       periodGlobal=PERIOD_M15;
-      Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
+      Print("Analyzed and setted follow TF for Sell ", "periodGlobal = ", periodGlobal);
       }
       sell=1;
      }
