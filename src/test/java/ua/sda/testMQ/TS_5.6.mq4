@@ -145,7 +145,7 @@ void OnTick(void) {
       }
       if(isDoubleSymmetricH4BuyReady)
       {
-      periodGlobal=PERIOD_H1;
+      periodGlobal=PERIOD_M15;
       Print("Analyzed and setted for Buy ", "periodGlobal = ", periodGlobal);
       }
          buy=1;
@@ -170,7 +170,7 @@ void OnTick(void) {
       }
       if(isDoubleSymmetricH4SellReady)
       {
-      periodGlobal=PERIOD_H1;
+      periodGlobal=PERIOD_M15;
       Print("Analyzed and setted for Sell ", "periodGlobal = ", periodGlobal);
       }
       sell=1;
