@@ -389,6 +389,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             // строка priceForMinMax=iOpen(NULL,period,j); вынесена до for
             // строка firstMaxLocalSymmetric = priceForMinMax; вынесена до for
             priceForMinMax=iOpen(NULL,period,j);
+            Print("Symmetric, j, zz = ",j," ", zz, " firstMaxLocalSymmetric = ", firstMaxLocalSymmetric);
             if(priceForMinMax > firstMaxLocalSymmetric)
               {
                firstMaxLocalSymmetric = priceForMinMax;
@@ -419,6 +420,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             // Print(" 0 1 macdForFilter = ", macdForFilter, " filterForMinusHalfWave = ", filterForMinusHalfWave, " macdForFilter<filterForMinusHalfWave ", macdForFilter<filterForMinusHalfWave);
             if(macdForFilter < filterForMinusHalfWave) {isFilterFirstHalfWaveOK = true;}
             priceForMinMax=iOpen(NULL,period,j);
+            Print("Symmetric, j, zz = ",j," ", zz, " firstMinLocalSymmetric = ", firstMinLocalSymmetric);
             if(priceForMinMax < firstMinLocalSymmetric )
               {
                firstMinLocalSymmetric  =priceForMinMax;
@@ -482,6 +484,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(macdForFilter>filterForPlusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,m);
+            Print("Symmetric, m, y = ",m," ", y, " secondMaxLocalSymmetric = ", secondMaxLocalSymmetric);
             if(secondMaxLocalSymmetric >priceForMinMax)
               {
                secondMaxLocalSymmetric =priceForMinMax;
@@ -509,6 +512,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(macdForFilter<filterForMinusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,m);
+            Print("Symmetric, m, y = ",m," ", y, " secondMinLocalSymmetric = ", secondMinLocalSymmetric);
             if(priceForMinMax < secondMinLocalSymmetric)
               {
                secondMinLocalSymmetric =priceForMinMax;
