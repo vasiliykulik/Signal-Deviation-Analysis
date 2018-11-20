@@ -693,7 +693,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
-             Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
+             Print("NonSymmetric, k, z = ",k," ", z, "firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
                                     if(priceForMinMax < firstMinLocalNonSymmetric )
                                       {
                                        firstMinLocalNonSymmetric  =priceForMinMax;
@@ -718,7 +718,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
-             Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
+             Print("NonSymmetric, k, z = ",k," ", z, "firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
                                  if(priceForMinMax > firstMaxLocalNonSymmetric)
                                       {
                                        firstMaxLocalNonSymmetric = priceForMinMax;
@@ -779,7 +779,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
-            Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+            Print("NonSymmetric, p, x = ",p," ", x, "secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
             if(priceForMinMax < secondMinLocalNonSymmetric)
                 {
                     secondMinLocalNonSymmetric =priceForMinMax;
@@ -803,7 +803,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_3H4[x]=p;
              priceForMinMax = iOpen(NULL,periodGlobal,p);
-             Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+             Print("NonSymmetric, p, x = ",p," ", x, "secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
              if(secondMaxLocalNonSymmetric >priceForMinMax)
                 {
                         secondMaxLocalNonSymmetric =priceForMinMax;
