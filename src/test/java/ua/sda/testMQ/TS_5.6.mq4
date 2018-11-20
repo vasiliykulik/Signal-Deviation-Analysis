@@ -389,7 +389,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(string period)
             // строка priceForMinMax=iOpen(NULL,period,j); вынесена до for
             // строка firstMaxLocalSymmetric = priceForMinMax; вынесена до for
             priceForMinMax=iOpen(NULL,period,j);
-            Print("Symmetric, j, zz = ",j," ", zz, " firstMaxLocalSymmetric = ", firstMaxLocalSymmetric);
+            Print("Symmetric, j, zz = ",j," ", zz, " firstMaxLocalSymmetric = ", firstMaxLocalSymmetric, " iTime(NULL,period,0) = ",iTime(NULL,period,0), " iTime(NULL,period,j) = ",iTime(NULL,period,j));
             if(priceForMinMax > firstMaxLocalSymmetric)
               {
                firstMaxLocalSymmetric = priceForMinMax;
