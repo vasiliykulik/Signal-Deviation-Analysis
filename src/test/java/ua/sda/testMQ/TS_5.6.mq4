@@ -278,8 +278,8 @@ void OnTick(void) {
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
             if(Bid > stopLossForBuyMin && stopLossForBuyMin > OrderStopLoss())
               {
-               OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+               OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
               }
 
@@ -309,8 +309,8 @@ void OnTick(void) {
 //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
                if(Ask < stopLossForSellMax && stopLossForSellMax < OrderStopLoss())
                  {
-                  OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ", periodGlobal);
+                  OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   return;
                  }
                //                 }
