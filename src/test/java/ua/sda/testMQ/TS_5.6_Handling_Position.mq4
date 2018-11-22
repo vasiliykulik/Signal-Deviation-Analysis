@@ -16,8 +16,7 @@ int iteration;
 double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
 double firstMinGlobal = 0.00000000, secondMinGlobal = 0.00000000, firstMaxGlobal = 0.00000000, secondMaxGlobal = 0.00000000;
-ENUM_TIMEFRAMES periodGlobal;
-periodGlobal = PERIOD_CURRENT;
+ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
 
 
 void OnTick(void) {
