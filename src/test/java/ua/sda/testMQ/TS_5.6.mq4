@@ -630,9 +630,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
       if(Macd_2H4<0 && Macd_1H4>0)
-        {what0HalfWaveMACDH4=1;} // 0 это пересечение снизу вверх
+        {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
       else if(Macd_2H4>0 && Macd_1H4<0)
-        {what0HalfWaveMACDH4=0;} // 1 это пересечение сверху вниз
+        {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
      }
 //

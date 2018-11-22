@@ -17,6 +17,7 @@ double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
 double firstMinGlobal = 0.00000000, secondMinGlobal = 0.00000000, firstMaxGlobal = 0.00000000, secondMaxGlobal = 0.00000000;
 ENUM_TIMEFRAMES periodGlobal;
+periodGlobal = PERIOD_CURRENT;
 
 
 void OnTick(void) {
@@ -54,7 +55,7 @@ void OnTick(void) {
 // Event detection block for opening position
 // Здесь надо обработать additionalPeriodGlobal
 // Сначала посчитаем вес
-  if(iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
+   if(iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0)>0 && iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1)<0
       && iClose(NULL,PERIOD_D1,0)>iMA(NULL,PERIOD_D1,83,0,MODE_SMA,PRICE_OPEN,0))
      {
       isDoubleSymmetricH4BuyReady=isThereTwoSymmetricFilteredHalfWaves(PERIOD_H4);
@@ -175,6 +176,7 @@ void OnTick(void) {
       }
       sell=1;
      }
+
       if(AccountFreeMargin()<(1*Lots))
         {
          Print("We have no money. Free Margin = ",AccountFreeMargin());
@@ -184,7 +186,7 @@ void OnTick(void) {
       // check for long position (BUY) possibility
 // Block 3 Открытие позиций
 // Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSymmetricM15BuyReady || isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady, isDoubleSymmetricH1BuyReady, isDoubleSymmetricM15BuyReady, isDoubleSymmetricM5BuyReady);
-      buy = 0; sell = 0;
+buy = 0; sell = 0;
       if(
          buy==1 &&
          (
@@ -271,14 +273,14 @@ void OnTick(void) {
                if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
                else {stopLossForBuyMin = firstMinGlobal;}
               }
-              Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
-              Print("firstMinGlobal = ",  firstMinGlobal, "secondMinGlobal = ",secondMinGlobal, "stopLossForBuyMin = ",stopLossForBuyMin);
+
 //Print("Блок ведения, ", " Bid = ", Bid,  "stopLossForBuyMin = ", stopLossForBuyMin, " OrderStopLoss() = ", OrderStopLoss());
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
             if(Bid > stopLossForBuyMin && stopLossForBuyMin > OrderStopLoss())
               {
+               Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
               }
@@ -305,11 +307,11 @@ void OnTick(void) {
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
-               Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ", periodGlobal);
-               Print("firstMaxGlobal = ",  secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "stopLossForSellMax = ",stopLossForSellMax);
+
 //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
                if(Ask < stopLossForSellMax && stopLossForSellMax < OrderStopLoss())
                  {
+                  Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ", periodGlobal);
                   OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   return;
                  }
@@ -341,7 +343,6 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
    bool isFilterFirstHalfWaveOK = false,isFilterSecondHalfWaveOK = false,isFilterThirdHalfWaveOK = false,isFilterFourthHalfWaveOK = false;
    bool isSymmetricFirst=false, isSymmetricThird = false;
    bool resultCheck=false;
-   period = 0;
 // то есть пока значения не проставлены
 /*   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
@@ -394,6 +395,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             // строка priceForMinMax=iOpen(NULL,period,j); вынесена до for
             // строка firstMaxLocalSymmetric = priceForMinMax; вынесена до for
             priceForMinMax=iOpen(NULL,period,j);
+            // Print("Symmetric, j, zz = ",j," ", zz, " firstMaxLocalSymmetric = ", firstMaxLocalSymmetric, " iTime(NULL,period,0) = ",iTime(NULL,period,0), " iTime(NULL,period,j) = ",iTime(NULL,period,j));
             if(priceForMinMax > firstMaxLocalSymmetric)
               {
                firstMaxLocalSymmetric = priceForMinMax;
@@ -424,7 +426,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             // Print(" 0 1 macdForFilter = ", macdForFilter, " filterForMinusHalfWave = ", filterForMinusHalfWave, " macdForFilter<filterForMinusHalfWave ", macdForFilter<filterForMinusHalfWave);
             if(macdForFilter < filterForMinusHalfWave) {isFilterFirstHalfWaveOK = true;}
             priceForMinMax=iOpen(NULL,period,j);
-
+            // Print("Symmetric, j, zz = ",j," ", zz, " firstMinLocalSymmetric = ", firstMinLocalSymmetric);
             if(priceForMinMax < firstMinLocalSymmetric )
               {
                firstMinLocalSymmetric  =priceForMinMax;
@@ -488,6 +490,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(macdForFilter>filterForPlusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,m);
+            // Print("Symmetric, m, y = ",m," ", y, " secondMaxLocalSymmetric = ", secondMaxLocalSymmetric);
             if(secondMaxLocalSymmetric >priceForMinMax)
               {
                secondMaxLocalSymmetric =priceForMinMax;
@@ -515,7 +518,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,m);
             if(macdForFilter<filterForMinusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,m);
-
+            // Print("Symmetric, m, y = ",m," ", y, " secondMinLocalSymmetric = ", secondMinLocalSymmetric);
             if(priceForMinMax < secondMinLocalSymmetric)
               {
                secondMinLocalSymmetric =priceForMinMax;
@@ -629,22 +632,22 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
       if(Macd_2H4<0 && Macd_1H4>0)
-        {what0HalfWaveMACDH4=1;} // 0 это пересечение снизу вверх
+        {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
       else if(Macd_2H4>0 && Macd_1H4<0)
-        {what0HalfWaveMACDH4=0;} // 1 это пересечение сверху вниз
+        {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
      }
 //
    for(i=begin;countHalfWaves<=3;i++)
      {
-      MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет второй тик
-      MacdIplus4H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // а это третий
-                                                                         // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
+      MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет два первых тика росле перехода нулевой линии
+      MacdIplus4H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // то есть один из них участвовал в предыдущем сравнении под видом begin+1
+      // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
       // И Полуволны складываем в массивы
       // First Wave
-      if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что второй и третий тик ниже 0, основной фильтр на шум
+      if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что первый и второй тик ниже 0, основной фильтр на шум
         {
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
@@ -694,7 +697,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
-             Print("NonSymmetric, k, z = ",k," ", z, "firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
+              // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
                                     if(priceForMinMax < firstMinLocalNonSymmetric )
                                       {
                                        firstMinLocalNonSymmetric  =priceForMinMax;
@@ -719,7 +722,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
-             Print("NonSymmetric, k, z = ",k," ", z, "firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
+             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
                                  if(priceForMinMax > firstMaxLocalNonSymmetric)
                                       {
                                        firstMaxLocalNonSymmetric = priceForMinMax;
@@ -780,7 +783,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
-            Print("NonSymmetric, p, x = ",p," ", x, "secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+            // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
             if(priceForMinMax < secondMinLocalNonSymmetric)
                 {
                     secondMinLocalNonSymmetric =priceForMinMax;
@@ -804,7 +807,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_3H4[x]=p;
              priceForMinMax = iOpen(NULL,periodGlobal,p);
-             Print("NonSymmetric, p, x = ",p," ", x, "secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+              // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
              if(secondMaxLocalNonSymmetric >priceForMinMax)
                 {
                         secondMaxLocalNonSymmetric =priceForMinMax;
@@ -886,3 +889,5 @@ bool checkIfSymmetricForSell(int start,int end, ENUM_TIMEFRAMES period)
    return isSymmetricForSell;
   }
 // the end.
+
+
