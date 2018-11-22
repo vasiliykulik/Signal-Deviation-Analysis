@@ -310,7 +310,7 @@ void OnTick(void) {
                if(Ask < stopLossForSellMax && stopLossForSellMax < OrderStopLoss())
                  {
                   Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ", periodGlobal);
-                  OrderModify(OrderTicket(),OrderOpenPrice(),(High[1]+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
+                  OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   return;
                  }
                //                 }
