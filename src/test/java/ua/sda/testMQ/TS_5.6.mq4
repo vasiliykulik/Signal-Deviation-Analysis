@@ -272,7 +272,7 @@ void OnTick(void) {
                else {stopLossForBuyMin = firstMinGlobal;}
               }
 
-//Print("Блок ведения, ", " Bid = ", Bid,  "stopLossForBuyMin = ", stopLossForBuyMin, " OrderStopLoss() = ", OrderStopLoss());
+Print("Блок ведения, ", " Bid = ", Bid,  "stopLossForBuyMin = ", stopLossForBuyMin, " OrderStopLoss() = ", OrderStopLoss());
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
@@ -299,7 +299,7 @@ void OnTick(void) {
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
                double stopLossForSellMax;
-//               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
+               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
                if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
                else {stopLossForSellMax = secondMaxGlobal;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
