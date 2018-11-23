@@ -706,6 +706,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_1H4[z]=k;
              priceForMinMax = iOpen(NULL,periodGlobal,k);
+             Print("NonSymmetric C1W1, (priceForMinMax < firstMinLocalNonSymmetric) = ", priceForMinMax, " < ", firstMinLocalNonSymmetric);
               // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
                                     if(priceForMinMax < firstMinLocalNonSymmetric )
                                       {
@@ -715,7 +716,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
             z++;
            }
            Print("NonSymmetric C1W1 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4>0 && MacdIplus4H4>0 = ", MacdIplus3H4, MacdIplus4H4);
-         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+          Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -832,6 +833,8 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            Print("Symmetric C3W0 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4<0 && MacdIplus4H4<0 = ", MacdIplus3H4, MacdIplus4H4);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
+
+
       // begin++;
      }
 /*    Получаем четыре массива и проверяем что бы в каждоq ПВ по MACD был тик более 0,000100 isFilterOK
