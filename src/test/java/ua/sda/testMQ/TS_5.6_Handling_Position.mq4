@@ -268,7 +268,7 @@ buy = 0; sell = 0;
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-//               Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
+               Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal > secondMinGlobal) {stopLossForBuyMin = secondMinGlobal;}
                else {stopLossForBuyMin = firstMinGlobal;}
               }
@@ -300,7 +300,7 @@ buy = 0; sell = 0;
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
                double stopLossForSellMax;
-//               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
+               Print ("Блок ведения, ", "firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal = ", secondMaxGlobal);
                if(firstMaxGlobal > secondMaxGlobal) {stopLossForSellMax = firstMaxGlobal;}
                else {stopLossForSellMax = secondMaxGlobal;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
