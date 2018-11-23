@@ -405,6 +405,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
 
 // Block 8 Symmetric
          isSymmetricFirst=checkIfSymmetricForSell(jStart,jStart+zz+1,period);
+         Print("Symmetric C0W0 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4<0 && MacdIplus4H4<0 = ", MacdIplus3H4, MacdIplus4H4);
  //         Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
@@ -434,6 +435,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             zz++;
            }
          isSymmetricFirst=checkIfSymmetricForBuy(jStart,jStart+zz+1,period);
+         Print("Symmetric C0W1 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4>0 && MacdIplus4H4>0 = ", MacdIplus3H4, MacdIplus4H4);
  //         Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
         }
       // Second Wave
@@ -453,6 +455,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             if(macdForFilter<filterForMinusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
+           Print("Symmetric C1W1 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4>0 && MacdIplus4H4>0 = ", MacdIplus3H4, MacdIplus4H4);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -470,6 +473,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             if(macdForFilter>filterForPlusHalfWave) { isFilterSecondHalfWaveOK=true; }
             z++;
            }
+           Print("Symmetric C1W0 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4<0 && MacdIplus4H4<0 = ", MacdIplus3H4, MacdIplus4H4);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
@@ -499,6 +503,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
            }
          isSymmetricThird=checkIfSymmetricForSell(mStart,mStart+y+1,period);
 //          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
+Print("Symmetric C2W0 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4<0 && MacdIplus4H4<0 = ", MacdIplus3H4, MacdIplus4H4);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -526,6 +531,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForBuy(mStart,mStart+y+1,period);
+         Print("Symmetric C2W1 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4>0 && MacdIplus4H4>0 = ", MacdIplus3H4, MacdIplus4H4);
 //          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       // Fourth Wave
@@ -545,6 +551,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             if(macdForFilter<filterForMinusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
+           Print("Symmetric C3W1 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4>0 && MacdIplus4H4>0 = ", MacdIplus3H4, MacdIplus4H4);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
@@ -562,6 +569,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             if(macdForFilter>filterForPlusHalfWave){isFilterFourthHalfWaveOK=true;}
             x++;
            }
+           Print("Symmetric C3W0 = ", countHalfWaves, what0HalfWaveMACDH4, "MacdIplus3H4<0 && MacdIplus4H4<0 = ", MacdIplus3H4, MacdIplus4H4);
         }
       // begin++;
      }
