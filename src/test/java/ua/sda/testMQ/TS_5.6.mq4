@@ -693,11 +693,11 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-                           priceForMinMax=iOpen(NULL,period,k);
+                           priceForMinMax=iOpen(NULL,periodGlobal,k);
                            firstMaxLocalSymmetric = priceForMinMax;
          for(k; k<i+2; k++)
            {
-                       priceForMinMax=iOpen(NULL,period,k);
+                       priceForMinMax=iOpen(NULL,periodGlobal,k);
             halfWave_1H4[z]=k;
                        if(priceForMinMax > firstMaxLocalSymmetric)
                           {
@@ -742,12 +742,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-                  priceForMinMax=iOpen(NULL,period,m);
+                  priceForMinMax=iOpen(NULL,periodGlobal,m);
                   firstMaxLocalSymmetric = priceForMinMax;
 
          for(m; m<i+2; m++)
            {
-            priceForMinMax=iOpen(NULL,period,m);
+            priceForMinMax=iOpen(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
             if(priceForMinMax > firstMaxLocalSymmetric)
               {
