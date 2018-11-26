@@ -652,6 +652,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       // First Wave
       if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что первый и второй тик ниже 0, основной фильтр на шум
         {
+        Print("C0W0");
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
          j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
@@ -670,6 +671,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
+        Print("C0W1");
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
          j=begin+1;
@@ -688,6 +690,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
+        Print("C1W1, wait for firstMinLocalNonSymmetric");
          countHalfWaves++;
          what_2HalfWaveMACDH4=0;
          k=j+1;
@@ -707,10 +710,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             z++;
            }
+        Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
+        Print("C1W0, wait for firstMaxLocalNonSymmetric");
          countHalfWaves++;
          what_2HalfWaveMACDH4=1;
          k=j+1;
@@ -731,11 +736,13 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             z++;
            }
+           Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
+        Print("C2W0, wait for firstMaxLocalNonSymmetric");
          countHalfWaves++;
          what_3HalfWaveMACDH4=1;
          m=k+1;
@@ -756,10 +763,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             y++;
            }
+           Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
+        Print("C2W1, wait for firstMinLocalNonSymmetric");
          countHalfWaves++;
          what_3HalfWaveMACDH4=0;
          m=k+1;
@@ -780,11 +789,13 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             y++;
            }
+           Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
       // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
+        Print("C3W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
          what_4HalfWaveMACDH4=0;
          p=m+1;
@@ -805,10 +816,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             x++;
            }
+           Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
+        Print("C3W0, wait for secondMaxLocalNonSymmetric");
          countHalfWaves++;
          what_4HalfWaveMACDH4=1;
          p=m+1;
@@ -830,10 +843,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             x++;
            }
+           Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       if(countHalfWaves==4 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
+        Print("C4W0, wait for secondMaxLocalNonSymmetric");
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;
          q=p+1;
@@ -854,9 +869,11 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             w++;
            }
+           Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
         }
       if(countHalfWaves==4 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
+        Print("C4W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;
          q=p+1;
@@ -877,6 +894,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             w++;
            }
+           Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
       // begin++;
      }
