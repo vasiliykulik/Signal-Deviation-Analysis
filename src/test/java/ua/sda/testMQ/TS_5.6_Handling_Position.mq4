@@ -492,7 +492,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             if(macdForFilter>filterForPlusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,m);
             // Print("Symmetric, m, y = ",m," ", y, " secondMaxLocalSymmetric = ", secondMaxLocalSymmetric);
-            if(secondMaxLocalSymmetric>priceForMinMax)
+            if(priceForMinMax>firstMaxLocalSymmetric)
               {
                secondMaxLocalSymmetric=priceForMinMax;
                isSecondMax=true;
@@ -823,9 +823,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
-            priceForMinMax= iOpen(NULL,periodGlobal,q);
+            priceForMinMax= iOpen(NULL,periodGlobal,p);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
-            if(secondMaxLocalNonSymmetric>priceForMinMax)
+            if(priceForMinMax > secondMaxLocalNonSymmetric)
               {
                secondMaxLocalNonSymmetric=priceForMinMax;
                isSecondMax=true;
@@ -849,7 +849,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
-            if(secondMaxLocalNonSymmetric>priceForMinMax)
+            if(priceForMinMax > secondMaxLocalNonSymmetric)
               {
                secondMaxLocalNonSymmetric=priceForMinMax;
                isSecondMax=true;
