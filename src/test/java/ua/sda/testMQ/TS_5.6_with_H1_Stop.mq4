@@ -836,7 +836,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            }
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
-      if(countHalfWaves==4 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+      if(countHalfWaves==4 && what_4HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;
@@ -859,7 +859,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
             w++;
            }
         }
-      if(countHalfWaves==4 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+      if(countHalfWaves==4 && what_4HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;

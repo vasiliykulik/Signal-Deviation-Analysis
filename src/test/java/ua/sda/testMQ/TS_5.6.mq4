@@ -846,7 +846,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
-      if(countHalfWaves==4 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
+      if(countHalfWaves==4 && what_4HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
         Print("C4W0, wait for secondMaxLocalNonSymmetric");
          countHalfWaves++;
@@ -871,7 +871,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            }
            Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
         }
-      if(countHalfWaves==4 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
+      if(countHalfWaves==4 && what_4HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
         Print("C4W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
