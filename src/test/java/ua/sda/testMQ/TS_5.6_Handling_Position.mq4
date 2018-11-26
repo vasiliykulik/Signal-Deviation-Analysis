@@ -952,7 +952,3 @@ bool checkIfSymmetricForSell(int start,int end,ENUM_TIMEFRAMES period)
    return isSymmetricForSell;
   }
 // the end.
-
-
-
-
