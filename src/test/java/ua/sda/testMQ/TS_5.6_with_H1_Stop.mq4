@@ -698,15 +698,15 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
          priceForMinMax=iOpen(NULL,periodGlobal,k);
-         firstMaxLocalNonSymmetric=priceForMinMax;
+         firstMinLocalNonSymmetric=priceForMinMax;
          for(k; k<i+2; k++)
            {
-            priceForMinMax=iOpen(NULL,periodGlobal,k);
             halfWave_1H4[z]=k;
-            if(priceForMinMax>firstMaxLocalNonSymmetric)
+            priceForMinMax=iOpen(NULL,periodGlobal,k);
+            if(priceForMinMax<firstMinLocalNonSymmetric)
               {
-               firstMaxLocalNonSymmetric=priceForMinMax;
-               isFirstMax=true;
+               firstMinLocalNonSymmetric=priceForMinMax;
+               isFirstMin=true;
               }
             z++;
            }
@@ -721,18 +721,17 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
          priceForMinMax=iOpen(NULL,periodGlobal,k);
-         firstMinLocalNonSymmetric=priceForMinMax;
+         firstMaxLocalNonSymmetric=priceForMinMax;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             priceForMinMax= iOpen(NULL,periodGlobal,k);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
-            if(priceForMinMax<firstMinLocalNonSymmetric)
+            if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
-               firstMinLocalNonSymmetric=priceForMinMax;
-               isFirstMin=true;
+               firstMaxLocalNonSymmetric=priceForMinMax;
+               isFirstMax=true;
               }
-
             z++;
            }
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
@@ -796,16 +795,16 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
          priceForMinMax=iOpen(NULL,periodGlobal,p);
-         secondMaxLocalNonSymmetric=priceForMinMax;
+         secondMinLocalNonSymmetric=priceForMinMax;
          for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
-            if(secondMaxLocalNonSymmetric>priceForMinMax)
+            if(priceForMinMax<secondMinLocalNonSymmetric)
               {
-               secondMaxLocalNonSymmetric=priceForMinMax;
-               isSecondMax=true;
+               secondMinLocalNonSymmetric=priceForMinMax;
+               isSecondMin=true;
               }
             x++;
            }
@@ -820,17 +819,17 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          ArrayResize(halfWave_3H4,resize3H4);
          x=0;
          priceForMinMax=iOpen(NULL,periodGlobal,p);
-         secondMinLocalNonSymmetric=priceForMinMax;
+         secondMaxLocalNonSymmetric=priceForMinMax;
 
          for(p; p<i+2; p++)
            {
             halfWave_3H4[x]=p;
             priceForMinMax= iOpen(NULL,periodGlobal,q);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
-            if(priceForMinMax<secondMinLocalNonSymmetric)
+            if(secondMaxLocalNonSymmetric>priceForMinMax)
               {
-               secondMinLocalNonSymmetric=priceForMinMax;
-               isSecondMin=true;
+               secondMaxLocalNonSymmetric=priceForMinMax;
+               isSecondMax=true;
               }
             x++;
            }
