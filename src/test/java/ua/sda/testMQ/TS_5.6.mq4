@@ -490,7 +490,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             if(macdForFilter>filterForPlusHalfWave) {isFilterThirdHalfWaveOK=true;}
             priceForMinMax=iOpen(NULL,period,m);
             // Print("Symmetric, m, y = ",m," ", y, " secondMaxLocalSymmetric = ", secondMaxLocalSymmetric);
-            if(priceForMinMax>firstMaxLocalSymmetric)
+            if(priceForMinMax>secondMaxLocalSymmetric)
               {
                secondMaxLocalSymmetric=priceForMinMax;
                isSecondMax=true;
