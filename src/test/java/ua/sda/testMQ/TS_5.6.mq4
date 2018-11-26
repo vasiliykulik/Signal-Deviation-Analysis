@@ -269,6 +269,7 @@ void OnTick(void)
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+               Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
                //               Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
                else {stopLossForBuyMin=firstMinGlobal;}
