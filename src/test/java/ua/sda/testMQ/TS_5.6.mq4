@@ -133,22 +133,22 @@ void OnTick(void)
          if(isDoubleSymmetricM5BuyReady)
            {
             periodGlobal=PERIOD_M1;
-            Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
            }
          if(isDoubleSymmetricM15BuyReady)
            {
             periodGlobal=PERIOD_M5;
-            Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
            }
          if(isDoubleSymmetricH1BuyReady)
            {
             periodGlobal=PERIOD_M15;
-            Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
            }
          if(isDoubleSymmetricH4BuyReady)
            {
             periodGlobal=PERIOD_M15;
-            Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Buy ","periodGlobal = ",periodGlobal);
            }
          buy=1;
         }
@@ -158,29 +158,29 @@ void OnTick(void)
          if(isDoubleSymmetricM5SellReady)
            {
             periodGlobal=PERIOD_M1;
-            Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
            }
          if(isDoubleSymmetricM15SellReady)
            {
             periodGlobal=PERIOD_M5;
-            Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
            }
          if(isDoubleSymmetricH1SellReady)
            {
             periodGlobal=PERIOD_M15;
-            Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
            }
          if(isDoubleSymmetricH4SellReady)
            {
             periodGlobal=PERIOD_M15;
-            Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
+            //Print("Analyzed and setted follow TF for Sell ","periodGlobal = ",periodGlobal);
            }
          sell=1;
         }
 
       if(AccountFreeMargin()<(1*Lots))
         {
-         Print("We have no money. Free Margin = ",AccountFreeMargin());
+         //Print("We have no money. Free Margin = ",AccountFreeMargin());
          return;
         }
 
@@ -204,7 +204,7 @@ void OnTick(void)
          if(stopLossForBuyMin<currentStopLoss) {stopLossForBuyMin=currentStopLoss;}
 
          ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,stopLossForBuyMin,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
-         Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
+         //Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," with buyWeight = ",buyWeight,"periodGlobal = ",periodGlobal);
@@ -234,7 +234,7 @@ void OnTick(void)
          if(stopLossForSellMax>currentStopLoss) {stopLossForSellMax=currentStopLoss;}
 
          ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
-         Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
+         //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice(),"with sellWeight = ",sellWeight);
@@ -265,23 +265,26 @@ void OnTick(void)
                  return(0); // exit
                 }*/
             // check for trailing stop
+
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
-               //               Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
+               //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
+               //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
                else {stopLossForBuyMin=firstMinGlobal;}
               }
 
-            Print("Блок ведения, "," Bid = ",Bid,"stopLossForBuyMin = ",stopLossForBuyMin," OrderStopLoss() = ",OrderStopLoss());
+            //Print("Блок ведения, "," Bid = ",Bid,"stopLossForBuyMin = ",stopLossForBuyMin," OrderStopLoss() = ",OrderStopLoss());
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
-            if(Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
+            double spread = Ask - Bid;
+            double stopShift = stopLossForBuyMin - OrderStopLoss();
+            if(stopShift > spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss()  )
               {
-               Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+               //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
               }
@@ -302,17 +305,19 @@ void OnTick(void)
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
+               //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
 
-               //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
-               if(Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
+               //               //Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
+            double spread = Ask - Bid;
+            double stopShift = OrderStopLoss() - stopLossForSellMax;
+               if( (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
                  {
-                  Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+                  //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                   OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   return;
                  }
@@ -388,7 +393,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             halfWave0H4[zz]=j;
             // Block 6 Filter
             macdForFilter=iMACD(NULL,period,12,26,9,PRICE_OPEN,MODE_MAIN,j);
-            //            Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
+            //            //Print(" 0 0 macdForFilter = ", macdForFilter, " filterForPlusHalfWave = ", filterForPlusHalfWave, " macdForFilter>filterForPlusHalfWave ", macdForFilter>filterForPlusHalfWave);
             if(macdForFilter>filterForPlusHalfWave) {isFilterFirstHalfWaveOK=true;}
             // Block 7 firstMinGlobal = 0.00000000, secondMinGlobal = 0.00000000, firstMaxGlobal = 0.00000000, secondMaxGlobal = 0.00000000;
             // строка priceForMinMax=iOpen(NULL,period,j); вынесена до for
@@ -405,7 +410,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
 
          // Block 8 Symmetric
          isSymmetricFirst=checkIfSymmetricForSell(jStart,jStart+zz+1,period);
-         //         Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
+         //         //Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
@@ -434,7 +439,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             zz++;
            }
          isSymmetricFirst=checkIfSymmetricForBuy(jStart,jStart+zz+1,period);
-         //         Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
+         //         //Print("halfWave0H4 0 ", "jStart = ", jStart, " zz = ", zz , " jStart+zz+1 ", jStart+zz+1, "isSymmetricFirst = ", isSymmetricFirst);
         }
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -498,7 +503,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForSell(mStart,mStart+y+1,period);
-         //          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
+         //          //Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
@@ -526,7 +531,7 @@ bool isThereTwoSymmetricFilteredHalfWaves(ENUM_TIMEFRAMES period)
             y++;
            }
          isSymmetricThird=checkIfSymmetricForBuy(mStart,mStart+y+1,period);
-         //          Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
+         //          //Print("halfWave2H4 0 ", "mStart = ", mStart, "y = ", y, " mStart+y+1 =  ", mStart+y+1);
         }
       // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
@@ -652,7 +657,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       // First Wave
       if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что первый и второй тик ниже 0, основной фильтр на шум
         {
-        Print("C0W0");
+        //Print("C0W0");
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
          j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
@@ -671,7 +676,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
-        Print("C0W1");
+        //Print("C0W1");
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
          j=begin+1;
@@ -690,7 +695,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-        Print("C1W1, wait for firstMinLocalNonSymmetric");
+        //Print("C1W1, wait for firstMinLocalNonSymmetric");
          countHalfWaves++;
          what_2HalfWaveMACDH4=0;
          k=j+1;
@@ -710,12 +715,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             z++;
            }
-        Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
+        //Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-        Print("C1W0, wait for firstMaxLocalNonSymmetric");
+        //Print("C1W0, wait for firstMaxLocalNonSymmetric");
          countHalfWaves++;
          what_2HalfWaveMACDH4=1;
          k=j+1;
@@ -736,13 +741,13 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             z++;
            }
-           Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
+           //Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
          // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-        Print("C2W0, wait for firstMaxLocalNonSymmetric");
+        //Print("C2W0, wait for firstMaxLocalNonSymmetric");
          countHalfWaves++;
          what_3HalfWaveMACDH4=1;
          m=k+1;
@@ -763,12 +768,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             y++;
            }
-           Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
+           //Print("firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-        Print("C2W1, wait for firstMinLocalNonSymmetric");
+        //Print("C2W1, wait for firstMinLocalNonSymmetric");
          countHalfWaves++;
          what_3HalfWaveMACDH4=0;
          m=k+1;
@@ -789,13 +794,13 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             y++;
            }
-           Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
+           //Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
          // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
       // Fourth Wave
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-        Print("C3W1, wait for secondMinLocalNonSymmetric");
+        //Print("C3W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
          what_4HalfWaveMACDH4=0;
          p=m+1;
@@ -816,12 +821,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             x++;
            }
-           Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+           //Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       if(countHalfWaves==3 && what_3HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-        Print("C3W0, wait for secondMaxLocalNonSymmetric");
+        //Print("C3W0, wait for secondMaxLocalNonSymmetric");
          countHalfWaves++;
          what_4HalfWaveMACDH4=1;
          p=m+1;
@@ -843,12 +848,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             x++;
            }
-           Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+           //Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
          // // Print("halfWave_3H4", "ArrayResize(halfWave_3H4,(i-2)-p) ", (i-2)-p);
         }
       if(countHalfWaves==4 && what_4HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-        Print("C4W0, wait for secondMaxLocalNonSymmetric");
+        //Print("C4W0, wait for secondMaxLocalNonSymmetric");
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;
          q=p+1;
@@ -869,11 +874,11 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             w++;
            }
-           Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+           //Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
         }
       if(countHalfWaves==4 && what_4HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-        Print("C4W1, wait for secondMinLocalNonSymmetric");
+        //Print("C4W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;
          q=p+1;
@@ -894,7 +899,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
               }
             w++;
            }
-           Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+           //Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
       // begin++;
      }

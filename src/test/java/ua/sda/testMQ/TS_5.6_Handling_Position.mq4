@@ -281,7 +281,9 @@ void OnTick(void)
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
-            if(Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
+            double spread = Ask - Bid;
+            double stopShift = stopLossForBuyMin - OrderStopLoss();
+            if(stopShift > spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss()  )
               {
                Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
@@ -312,7 +314,9 @@ void OnTick(void)
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
 
                //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
-               if(Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
+            double spread = Ask - Bid;
+            double stopShift = OrderStopLoss() - stopLossForSellMax;
+               if( (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
                  {
                   Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                   // При продаже стоп может уходить наверх на величину двойного спреда
