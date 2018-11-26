@@ -300,10 +300,10 @@ void OnTick(void)
                  return(0); // exit
                 }*/
             // check for trailing stop
+               double stopLossForSellMax;
             if(TrailingStop>0)
               {
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               double stopLossForSellMax;
                Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
