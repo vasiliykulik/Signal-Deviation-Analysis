@@ -846,7 +846,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
            {
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
-            // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+            // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
             if(priceForMinMax > secondMaxLocalNonSymmetric)
               {
                secondMaxLocalNonSymmetric=priceForMinMax;
