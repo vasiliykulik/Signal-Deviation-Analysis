@@ -310,7 +310,7 @@ void OnTick(void)
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
 
                //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
-               if(Ask<stopLossForSellMax && stopLossForSellMax<OrderStopLoss())
+               if(Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
                  {
                   Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                   OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
