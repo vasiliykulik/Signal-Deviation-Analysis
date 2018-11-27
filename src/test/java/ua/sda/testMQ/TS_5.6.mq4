@@ -318,6 +318,7 @@ void OnTick(void)
             double stopShift = OrderStopLoss() - stopLossForSellMax;
                if( (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
                  {
+                 OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position
                   //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                   OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                   return;
