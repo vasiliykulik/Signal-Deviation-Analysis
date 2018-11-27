@@ -314,6 +314,7 @@ void OnTick(void)
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
 //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
+                }
                if(Ask < stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
                  {
                Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ", periodGlobal);
@@ -321,7 +322,7 @@ void OnTick(void)
                   return;
                  }
                //                 }
-              }
+
            }
         }
      }

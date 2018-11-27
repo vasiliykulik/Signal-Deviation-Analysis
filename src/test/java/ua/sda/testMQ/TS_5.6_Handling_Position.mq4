@@ -314,6 +314,7 @@ void OnTick(void)
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
 
                //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
+               }
             double spread = Ask - Bid;
             double stopShift = OrderStopLoss() - stopLossForSellMax;
                if( (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
@@ -324,7 +325,7 @@ void OnTick(void)
                   return;
                  }
                //                 }
-              }
+
            }
         }
      }
