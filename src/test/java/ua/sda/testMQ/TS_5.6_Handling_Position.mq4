@@ -315,11 +315,11 @@ void OnTick(void)
 
                //               Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
                }
+               OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread = Ask - Bid;
             double stopShift = OrderStopLoss() - stopLossForSellMax;
                if( (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
                  {
-                 OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position
                   Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                   // При продаже стоп может уходить наверх на величину двойного спреда
                   OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
