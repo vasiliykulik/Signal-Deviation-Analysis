@@ -59,7 +59,7 @@ int start()
 
    datetime highTime = Time[globalHighTimeCurrent];
    datetime lowTime  = Time[globalLowTimeCurrent];
-
+Print("globalHighTimeCurrent = ", globalHighTimeCurrent, "globalLowTimeCurrent", globalLowTimeCurrent);
    if(High[globalHighTimeCurrent]>Low[globalLowTimeCurrent])
      {
       WindowRedraw();
