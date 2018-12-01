@@ -9,7 +9,7 @@
 #property indicator_chart_window
 ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
-int globalLowCurrent=0, globalHighCurrent=0;
+int globalLowTimeCurrent=0, globalHighTimeCurrent=0;
 extern double FiboLevel1=0.000;
 extern double FiboLevel2=0.236;
 extern double FiboLevel3=0.382;
@@ -57,19 +57,19 @@ int start()
  //  int fibLow  = nonSymmetric("low");
  bool isProcessed = nonSymmetric();
 
-   datetime highTime = Time[globalHighCurrent];
-   datetime lowTime  = Time[globalLowCurrent];
+   datetime highTime = Time[globalHighTimeCurrent];
+   datetime lowTime  = Time[globalLowTimeCurrent];
 
-   if(High[globalHighCurrent]>Low[globalLowCurrent])
+   if(High[globalHighTimeCurrent]>Low[globalLowTimeCurrent])
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[globalHighCurrent],lowTime,Low[globalLowCurrent]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[globalHighTimeCurrent],lowTime,Low[globalLowTimeCurrent]);
       color levelColor=Red;
      }
    else
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,Low[globalLowCurrent],highTime,High[globalHighCurrent]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,Low[globalLowTimeCurrent],highTime,High[globalHighTimeCurrent]);
       levelColor=Green;
      }
 
@@ -160,7 +160,7 @@ bool nonSymmetric()
    int zz,i,z,y,x,j,k,m,p,
    resize0H4,resize1H4,resize2H4,resize3H4;
    double firstMinLocalNonSymmetric=0.00000000,secondMinLocalNonSymmetric=0.00000000,firstMaxLocalNonSymmetric=0.00000000,secondMaxLocalNonSymmetric=0.00000000;
-   int localLowCurrent=0, localHighCurrent=0;
+   int localLowTimeCurrent=0, localHighTimeCurrent=0;
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
    bool lowAndHighUpdate=false;
 
@@ -240,14 +240,14 @@ bool nonSymmetric()
          z=0;
          priceForMinMax=iLow(NULL,periodGlobal,k);
          firstMinLocalNonSymmetric=priceForMinMax;
-         localLowCurrent = k;
+         localLowTimeCurrent = k;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             priceForMinMax=iLow(NULL,periodGlobal,k);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
-               localLowCurrent = k;
+               localLowTimeCurrent = k;
                firstMinLocalNonSymmetric=priceForMinMax;
                isFirstMin=true;
               }
@@ -265,7 +265,7 @@ bool nonSymmetric()
          z=0;
          priceForMinMax=iHigh(NULL,periodGlobal,k);
          firstMaxLocalNonSymmetric=priceForMinMax;
-         localHighCurrent = k;
+         localLowTimeCurrent = k;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
@@ -273,7 +273,7 @@ bool nonSymmetric()
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
-               localHighCurrent = k;
+               localLowTimeCurrent = k;
                firstMaxLocalNonSymmetric=priceForMinMax;
                isFirstMax=true;
               }
@@ -292,14 +292,14 @@ bool nonSymmetric()
          y=0;
          priceForMinMax=iHigh(NULL,periodGlobal,m);
          firstMaxLocalNonSymmetric=priceForMinMax;
-         localHighCurrent = m;
+         localHighTimeCurrent = m;
          for(m; m<i+2; m++)
            {
             priceForMinMax=iHigh(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
-               localHighCurrent = m;
+               localHighTimeCurrent = m;
                firstMaxLocalNonSymmetric=priceForMinMax;
                isFirstMax=true;
               }
@@ -317,7 +317,7 @@ bool nonSymmetric()
          y=0;
          priceForMinMax=iLow(NULL,periodGlobal,m);
          firstMinLocalNonSymmetric=priceForMinMax;
-         localLowCurrent = m;
+         localHighTimeCurrent = m;
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
@@ -325,7 +325,7 @@ bool nonSymmetric()
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
-               localLowCurrent = m;
+               localHighTimeCurrent = m;
                firstMinLocalNonSymmetric=priceForMinMax;
                isFirstMin=true;
               }
@@ -450,8 +450,8 @@ max для sell
 // По сути здесь только проверка на filter, следующий if будет всегда true
 //Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
 
-globalLowCurrent = localLowCurrent;
-globalHighCurrent = localHighCurrent;
+globalLowTimeCurrent = localLowTimeCurrent;
+globalHighTimeCurrent = localHighTimeCurrent;
    lowAndHighUpdate=true;
    Sleep(3333);
    return lowAndHighUpdate;
