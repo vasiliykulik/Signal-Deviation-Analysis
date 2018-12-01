@@ -9,6 +9,7 @@
 #property indicator_chart_window
 ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
+int globalLowCurrent=0, globalHighCurrent=0;
 extern double FiboLevel1=0.000;
 extern double FiboLevel2=0.236;
 extern double FiboLevel3=0.382;
@@ -52,27 +53,28 @@ int start()
   {
 //----
 
-   int fibHigh = iHighest(Symbol(),Period(),MODE_HIGH,WindowFirstVisibleBar()-1,1);
-   int fibLow  = iLowest(Symbol(),Period(),MODE_LOW,WindowFirstVisibleBar()-1,1);
+ //  int fibHigh = nonSymmetric("high");
+ //  int fibLow  = nonSymmetric("low");
+ bool isProcessed = nonSymmetric();
 
-   datetime highTime = Time[fibHigh];
-   datetime lowTime  = Time[fibLow];
+   datetime highTime = Time[globalHighCurrent];
+   datetime lowTime  = Time[globalLowCurrent];
 
-   if(fibHigh>fibLow)
+   if(High[globalHighCurrent]>Low[globalLowCurrent])
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_LAB",OBJ_FIBO,0,highTime,High[fibHigh],lowTime,Low[fibLow]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[globalHighCurrent],lowTime,Low[globalLowCurrent]);
       color levelColor=Red;
      }
    else
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_LAB",OBJ_FIBO,0,lowTime,Low[fibLow],highTime,High[fibHigh]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,Low[globalLowCurrent],highTime,High[globalHighCurrent]);
       levelColor=Green;
      }
 
-   double fiboPrice1=ObjectGet(MPrefix+"FIBO_LAB",OBJPROP_PRICE1);
-   double fiboPrice2=ObjectGet(MPrefix+"FIBO_LAB",OBJPROP_PRICE2);
+   double fiboPrice1=ObjectGet(MPrefix+"FIBO_MOD",OBJPROP_PRICE1);
+   double fiboPrice2=ObjectGet(MPrefix+"FIBO_MOD",OBJPROP_PRICE2);
 
    double fiboPriceDiff=fiboPrice2-fiboPrice1;
    string fiboValue0=DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel1,Digits);
@@ -81,24 +83,38 @@ int start()
    string fiboValue50 = DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel4,Digits);
    string fiboValue61 = DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel5,Digits);
    string fiboValue100= DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel6,Digits);
+   string fiboValue161= DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel7,Digits);
+   string fiboValue261= DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel8,Digits);
+   string fiboValue423= DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel9,Digits);
+   string fiboValue76= DoubleToStr(fiboPrice2-fiboPriceDiff*FiboLevel10,Digits);
 
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIBOLEVELS,6);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIRSTLEVEL+0,FiboLevel1);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIRSTLEVEL+1,FiboLevel2);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIRSTLEVEL+2,FiboLevel3);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIRSTLEVEL+3,FiboLevel4);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIRSTLEVEL+4,FiboLevel5);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_FIRSTLEVEL+5,FiboLevel6);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIBOLEVELS,10);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+0,FiboLevel1);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+1,FiboLevel2);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+2,FiboLevel3);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+3,FiboLevel4);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+4,FiboLevel5);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+5,FiboLevel6);
 
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_LEVELCOLOR,levelColor);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_LEVELWIDTH,1);
-   ObjectSet(MPrefix+"FIBO_LAB",OBJPROP_LEVELSTYLE,STYLE_DASHDOTDOT);
-   ObjectSetFiboDescription(MPrefix+"FIBO_LAB",0,fiboValue0+" --> "+DoubleToStr(FiboLevel1*100,1)+"%");
-   ObjectSetFiboDescription(MPrefix+"FIBO_LAB",1,fiboValue23+" --> "+DoubleToStr(FiboLevel2*100,1)+"%");
-   ObjectSetFiboDescription(MPrefix+"FIBO_LAB",2,fiboValue38+" --> "+DoubleToStr(FiboLevel3*100,1)+"%");
-   ObjectSetFiboDescription(MPrefix+"FIBO_LAB",3,fiboValue50+" --> "+DoubleToStr(FiboLevel4*100,1)+"%");
-   ObjectSetFiboDescription(MPrefix+"FIBO_LAB",4,fiboValue61+" --> "+DoubleToStr(FiboLevel5*100,1)+"%");
-   ObjectSetFiboDescription(MPrefix+"FIBO_LAB",5,fiboValue100+" --> "+DoubleToStr(FiboLevel6*100,1)+"%");
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+6,FiboLevel7);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+7,FiboLevel8);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+8,FiboLevel9);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+9,FiboLevel10);
+
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELCOLOR,levelColor);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELWIDTH,2);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELSTYLE,STYLE_SOLID);
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",0,fiboValue0+" --> "+DoubleToStr(FiboLevel1*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",1,fiboValue23+" --> "+DoubleToStr(FiboLevel2*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",2,fiboValue38+" --> "+DoubleToStr(FiboLevel3*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",3,fiboValue50+" --> "+DoubleToStr(FiboLevel4*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",4,fiboValue61+" --> "+DoubleToStr(FiboLevel5*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",5,fiboValue100+" --> "+DoubleToStr(FiboLevel6*100,1)+"%");
+
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",6,fiboValue161+" --> "+DoubleToStr(FiboLevel7*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",7,fiboValue261+" --> "+DoubleToStr(FiboLevel8*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",8,fiboValue423+" --> "+DoubleToStr(FiboLevel9*100,1)+"%");
+   ObjectSetFiboDescription(MPrefix+"FIBO_MOD",9,fiboValue76+" --> "+DoubleToStr(FiboLevel10*100,1)+"%");
 
 //----
    return(0);
@@ -131,7 +147,7 @@ void ClearObjects()
   }
 //+------------------------------------------------------------------+
 
-bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
+bool nonSymmetric()
   {
    int countHalfWaves=0;
    int begin=0;
@@ -144,8 +160,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
    int zz,i,z,y,x,j,k,m,p,
    resize0H4,resize1H4,resize2H4,resize3H4;
    double firstMinLocalNonSymmetric=0.00000000,secondMinLocalNonSymmetric=0.00000000,firstMaxLocalNonSymmetric=0.00000000,secondMaxLocalNonSymmetric=0.00000000;
+   int localLowCurrent=0, localHighCurrent=0;
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
-   bool pricesUpdate=false;
+   bool lowAndHighUpdate=false;
 
    int halfWave_4H4[];
    int q,w,resize4H4;
@@ -221,14 +238,16 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         priceForMinMax=iOpen(NULL,periodGlobal,k);
+         priceForMinMax=iLow(NULL,periodGlobal,k);
          firstMinLocalNonSymmetric=priceForMinMax;
+         localLowCurrent = k;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
-            priceForMinMax=iOpen(NULL,periodGlobal,k);
+            priceForMinMax=iLow(NULL,periodGlobal,k);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
+               localLowCurrent = k;
                firstMinLocalNonSymmetric=priceForMinMax;
                isFirstMin=true;
               }
@@ -244,15 +263,17 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         priceForMinMax=iOpen(NULL,periodGlobal,k);
+         priceForMinMax=iHigh(NULL,periodGlobal,k);
          firstMaxLocalNonSymmetric=priceForMinMax;
+         localHighCurrent = k;
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
-            priceForMinMax=iOpen(NULL,periodGlobal,k);
+            priceForMinMax=iHigh(NULL,periodGlobal,k);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
+               localHighCurrent = k;
                firstMaxLocalNonSymmetric=priceForMinMax;
                isFirstMax=true;
               }
@@ -269,15 +290,16 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=iOpen(NULL,periodGlobal,m);
+         priceForMinMax=iHigh(NULL,periodGlobal,m);
          firstMaxLocalNonSymmetric=priceForMinMax;
-
+         localHighCurrent = m;
          for(m; m<i+2; m++)
            {
-            priceForMinMax=iOpen(NULL,periodGlobal,m);
+            priceForMinMax=iHigh(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
+               localHighCurrent = m;
                firstMaxLocalNonSymmetric=priceForMinMax;
                isFirstMax=true;
               }
@@ -293,15 +315,17 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=iOpen(NULL,periodGlobal,m);
+         priceForMinMax=iLow(NULL,periodGlobal,m);
          firstMinLocalNonSymmetric=priceForMinMax;
+         localLowCurrent = m;
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
-            priceForMinMax=iOpen(NULL,periodGlobal,m);
+            priceForMinMax=iLow(NULL,periodGlobal,m);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
+               localLowCurrent = m;
                firstMinLocalNonSymmetric=priceForMinMax;
                isFirstMin=true;
               }
@@ -426,12 +450,10 @@ max для sell
 // По сути здесь только проверка на filter, следующий if будет всегда true
 //Print(" isFirstMin = ", isFirstMin, " isSecondMin = ", isSecondMin, " isFirstMax = ", isFirstMax, " isSecondMax = ", isSecondMax);
 
-   firstMinGlobal = firstMinLocalNonSymmetric;
-   firstMaxGlobal = firstMaxLocalNonSymmetric;
-   secondMinGlobal = secondMinLocalNonSymmetric;
-   secondMaxGlobal = secondMaxLocalNonSymmetric;
-   pricesUpdate=true;
+globalLowCurrent = localLowCurrent;
+globalHighCurrent = localHighCurrent;
+   lowAndHighUpdate=true;
    Sleep(3333);
-   return pricesUpdate;
+   return lowAndHighUpdate;
   }
 //+------------------------------------------------------------------+
