@@ -7,7 +7,7 @@
 #property link      "http://www.mql5.com"
 
 #property indicator_chart_window
-#property indicator_buffers 3 // Количество буферов
+#property indicator_buffers 4 // Количество буферов
 double buffer_MACD[], buffer_High[], buffer_Low[];  // Объявление массивов (под буферы индикатора)
 datetime buffer_Time[];
 ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
@@ -24,6 +24,7 @@ extern double FiboLevel8=2.618;
 extern double FiboLevel9=4.236;
 extern double FiboLevel10=0.764;
 int globalLowTimeCurrent=0, globalHighTimeCurrent=0;
+bool lowAndHighUpdate=false;
 
 
 string Copyright="Vasiliy Kulik";
@@ -38,7 +39,6 @@ int init()
    Comment("");
 //----
    DL("001",Copyright,5,20,Gold,"Arial",10,0);
-   SetIndexBuffer(0,Buffer); // Назначение массива буферу
    return(0);
   }
 //+------------------------------------------------------------------+
@@ -62,7 +62,7 @@ int start()
 
     counted_bars=IndicatorCounted(); // Количество просчитанных баров
 
-    i_bar=Bars-Counted_bars-1; // Индекс первого непосчитанного
+    i_bar=Bars-counted_bars-1; // Индекс первого непосчитанного
     if (i_bar>History-1)                 // Если много баров то ..
         {
             i_bar=History-1;                  // ..рассчитывать заданное колич.
@@ -73,7 +73,7 @@ int start()
             buffer_MACD[i_bar]= iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i_bar);                 // Значение 0 буфера на i-ом баре
             buffer_High[i_bar] = High[i_bar];
             buffer_Low[i_bar] = Low[i_bar];
-            buffer_Time[i_bar] = Time[i_bar]
+            buffer_Time[i_bar] = Time[i_bar];
             i_bar--;                          // Расчёт индекса следующего бара
         }
 
@@ -188,7 +188,7 @@ bool nonSymm(){
    double firstMinLocalNonSymmetric=0.00000000,secondMinLocalNonSymmetric=0.00000000,firstMaxLocalNonSymmetric=0.00000000,secondMaxLocalNonSymmetric=0.00000000;
    int localLowTimeCurrent=0, localHighTimeCurrent=0;
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
-   bool lowAndHighUpdate=false;
+   lowAndHighUpdate=false;
 
 // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
