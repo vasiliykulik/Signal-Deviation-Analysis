@@ -9,7 +9,7 @@
 #property indicator_chart_window
 #property indicator_buffers 4 // Количество буферов
 double buffer_MACD[], buffer_High[], buffer_Low[];  // Объявление массивов (под буферы индикатора)
-datetime buffer_Time[];
+double buffer_Time_Int[];
 ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
 extern int History  = 400;
@@ -38,6 +38,12 @@ int init()
    ClearObjects();
    Comment("");
 //----
+SetIndexBuffer(0,buffer_MACD);
+SetIndexBuffer(1,buffer_High);
+SetIndexBuffer(2,buffer_Low);
+SetIndexBuffer(3,buffer_Time_Int);
+
+
    DL("001",Copyright,5,20,Gold,"Arial",10,0);
    return(0);
   }
@@ -73,18 +79,26 @@ int start()
             buffer_MACD[i_bar]= iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i_bar);                 // Значение 0 буфера на i-ом баре
             buffer_High[i_bar] = High[i_bar];
             buffer_Low[i_bar] = Low[i_bar];
-            buffer_Time[i_bar] = Time[i_bar];
+            buffer_Time_Int[i_bar] = i_bar;
             i_bar--;                          // Расчёт индекса следующего бара
+          //  Print("i_bar", i_bar);
         }
-
+   ArraySetAsSeries(buffer_MACD,true);
+   ArraySetAsSeries(buffer_High,true);
+   ArraySetAsSeries(buffer_Low,true);
+   ArraySetAsSeries(buffer_Time_Int,true);
+Print("ArraySize(buffer_MACD) = ", ArraySize(buffer_MACD));
+Print("ArraySize(buffer_High) = ", ArraySize(buffer_High));
+Print("ArraySize(buffer_Low) = ", ArraySize(buffer_Low));
+Print("ArraySize(buffer_Time_Int) = ", ArraySize(buffer_Time_Int));
 
    lowAndHighUpdate = nonSymm();
 
 
-   datetime highTime = buffer_Time[globalHighTimeCurrent];
-   datetime lowTime  = buffer_Time[globalLowTimeCurrent];
+   datetime highTime = buffer_Time_Int[globalHighTimeCurrent];
+   datetime lowTime  = buffer_Time_Int[globalLowTimeCurrent];
 
-    Print("datetime buffer_Time[globalHighTimeCurrent] = ", buffer_Time[globalHighTimeCurrent], "buffer_Time[globalLowTimeCurrent]", buffer_Time[globalLowTimeCurrent]);
+    Print("datetime buffer_Time[globalHighTimeCurrent] = ", buffer_Time_Int[globalHighTimeCurrent], "buffer_Time[globalLowTimeCurrent]", buffer_Time_Int[globalLowTimeCurrent]);
 
    if(buffer_High[globalHighTimeCurrent]>buffer_Low[globalLowTimeCurrent])
      {
