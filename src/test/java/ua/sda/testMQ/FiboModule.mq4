@@ -208,10 +208,13 @@ bool nonSymm()
    Print("time_Array[0] = ",time_Array[0]);
 // то есть пока значения не проставлены
 // возможно для индикатора вопрос заключается в игнорировании while в коде индикатора
-   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
+// При while (true) - в индикаторе выполниться while один раз
+// При while (false) - в индикаторе выполниться ни разу, если переписать в for?
+Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
+   for(begin = 0;true; begin++)
      {
      Print("while758(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
-      begin++;
+//      begin++;
       testMacd=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,1); //то есть это будет два первых тика росле перехода нулевой линии
       Print("nonSymm() while, testMacd",testMacd);
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
