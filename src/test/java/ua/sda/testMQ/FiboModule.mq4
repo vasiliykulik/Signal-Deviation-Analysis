@@ -9,7 +9,6 @@
 #property indicator_chart_window
 #property indicator_buffers 4 // Количество буферов
 double buffer_MACD[], buffer_High[], buffer_Low[];  // Объявление массивов (под буферы индикатора)
-double buffer_Time_Int[];
 ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
 extern int History  = 400;
@@ -41,7 +40,6 @@ int init()
 SetIndexBuffer(0,buffer_MACD);
 SetIndexBuffer(1,buffer_High);
 SetIndexBuffer(2,buffer_Low);
-SetIndexBuffer(3,buffer_Time_Int);
 
 
    DL("001",Copyright,5,20,Gold,"Arial",10,0);
