@@ -58,6 +58,7 @@ int deinit()
 int start()
   {
 
+ double val=iCustom(NULL,0,"MACD",12,26,9);
    lowAndHighUpdate=nonSymm();
 
    datetime highTime = globalHighTimeCurrent;
@@ -185,6 +186,16 @@ bool nonSymm()
    ArraySetAsSeries(time_Array,true);
    int time=CopyTime(NULL,0,0,400,time_Array);
 
+/*   for(int count = ArraySize(open_Array); count>=0; count--   ){
+   Print("open_Array[count]", open_Array[count], "count", count);
+   }*/ // Ok
+
+   for(int count = ArraySize(open_Array); count>=0; count--   ){
+   Print("Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,count) ;",
+   Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,count)
+   , "count ", count);
+   }
+
    double macd_Array[399];
 
    double testMacd=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,1); //то есть это будет два первых тика росле перехода нулевой линии
@@ -196,8 +207,10 @@ bool nonSymm()
 
    Print("time_Array[0] = ",time_Array[0]);
 // то есть пока значения не проставлены
+// возможно для индикатора вопрос заключается в игнорировании while в коде индикатора
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
+     Print("while758(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
       begin++;
       testMacd=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,1); //то есть это будет два первых тика росле перехода нулевой линии
       Print("nonSymm() while, testMacd",testMacd);
