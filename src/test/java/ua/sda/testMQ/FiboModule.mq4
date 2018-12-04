@@ -176,17 +176,21 @@ bool nonSymm(){
    double open_Array[];
    ArraySetAsSeries(open_Array,true);
    int open = CopyOpen(NULL,0,0,400,open_Array);
+
    double high_Array[];
    ArraySetAsSeries(high_Array,true);
    int high = CopyHigh(NULL,0,0,400,high_Array);
+
    double low_Array[];
    ArraySetAsSeries(low_Array,true);
    int low = CopyLow(NULL,0,0,400,low_Array);
+
    datetime time_Array[];
    ArraySetAsSeries(time_Array,true);
    int time = CopyTime(NULL,0,0,400,time_Array);
+
    double macd_Array[399];
-   for()
+
 
 Print("ArraySize(open_Array) = ", open_Array[0]);
 Print("ArraySize(high_Array) = ", high_Array[0]);
@@ -202,8 +206,8 @@ Print("time_Array[0] = ", time_Array[0]);
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
 
-      Macd_1H4=buffer_MACD[begin];
-      Macd_2H4=buffer_MACD[begin+1];
+      Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);;
+      Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);;
 
       if(Macd_2H4<0 && Macd_1H4>0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
@@ -214,9 +218,9 @@ Print("time_Array[0] = ", time_Array[0]);
 //
    for(i=begin;countHalfWaves<=2;i++)
      {
-      MacdIplus3H4=buffer_MACD[i+1]; //то есть это будет два первых тика росле перехода нулевой линии
-      MacdIplus4H4=buffer_MACD[i+2]; // то есть один из них участвовал в предыдущем сравнении под видом begin+1
-                                                                              // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
+      MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет два первых тика росле перехода нулевой линии
+      MacdIplus4H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // то есть один из них участвовал в предыдущем сравнении под видом begin+1
+                                                                               // Print("i= ",i, " countHalfWaves = ",countHalfWaves," what0HalfWaveMACDH4 = ", what0HalfWaveMACDH4," MacdIplus3H4= ", MacdIplus3H4, " MacdIplus4H4= ", MacdIplus4H4 );
 
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
       // И Полуволны складываем в массивы
@@ -266,7 +270,7 @@ Print("time_Array[0] = ", time_Array[0]);
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         priceForMinMax=buffer_Low[k];
+         priceForMinMax=low_Array[k];
          firstMinLocalNonSymmetric=priceForMinMax;
          localLowTimeCurrent = k;
          Print("C1W1 Before for k = ", k);
@@ -274,7 +278,7 @@ Print("time_Array[0] = ", time_Array[0]);
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
-            priceForMinMax=buffer_Low[k];
+            priceForMinMax=low_Array[k];
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
                localLowTimeCurrent = k;
@@ -296,7 +300,7 @@ Print("time_Array[0] = ", time_Array[0]);
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         priceForMinMax=buffer_High[k];
+         priceForMinMax=high_Array[k];
          firstMaxLocalNonSymmetric=priceForMinMax;
          localLowTimeCurrent = k;
          Print("C1W0 Before for k = ", k);
@@ -304,7 +308,7 @@ Print("time_Array[0] = ", time_Array[0]);
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
-            priceForMinMax=buffer_High[k];
+            priceForMinMax=high_Array[k];
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
@@ -328,14 +332,14 @@ Print("time_Array[0] = ", time_Array[0]);
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=buffer_High[m];
+         priceForMinMax=high_Array[m];
          firstMaxLocalNonSymmetric=priceForMinMax;
          localHighTimeCurrent = m;
          Print("C2W0 Before for m = ", m);
          Print("C2W0 Before for localHighTimeCurrent = ", localHighTimeCurrent);
          for(m; m<i+2; m++)
            {
-            priceForMinMax=buffer_High[m];
+            priceForMinMax=high_Array[m];
             halfWave_2H4[y]=m;
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
@@ -358,7 +362,7 @@ Print("time_Array[0] = ", time_Array[0]);
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=buffer_Low[m];
+         priceForMinMax=low_Array[m];
          firstMinLocalNonSymmetric=priceForMinMax;
          localHighTimeCurrent = m;
           Print("C2W1 Before for m = ", m);
@@ -366,7 +370,7 @@ Print("time_Array[0] = ", time_Array[0]);
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
-            priceForMinMax=buffer_Low[m];
+            priceForMinMax=low_Array[m];
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
