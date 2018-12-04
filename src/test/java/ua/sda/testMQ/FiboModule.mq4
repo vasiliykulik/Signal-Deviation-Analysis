@@ -7,8 +7,6 @@
 #property link      "http://www.mql5.com"
 
 #property indicator_chart_window
-#property indicator_buffers 4 // Количество буферов
-double buffer_MACD[], buffer_High[], buffer_Low[];  // Объявление массивов (под буферы индикатора)
 ENUM_TIMEFRAMES periodGlobal = PERIOD_CURRENT;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
 extern int History  = 400;
@@ -22,8 +20,10 @@ extern double FiboLevel7=1.618;
 extern double FiboLevel8=2.618;
 extern double FiboLevel9=4.236;
 extern double FiboLevel10=0.764;
-int globalLowTimeCurrent=0, globalHighTimeCurrent=0;
+datetime globalLowTimeCurrent=0, globalHighTimeCurrent=0;
 bool lowAndHighUpdate=false;
+double globalHigh, globalLow;
+
 
 
 string Copyright="Vasiliy Kulik";
@@ -37,9 +37,7 @@ int init()
    ClearObjects();
    Comment("");
 //----
-SetIndexBuffer(0,buffer_MACD);
-SetIndexBuffer(1,buffer_High);
-SetIndexBuffer(2,buffer_Low);
+
 
 
    DL("001",Copyright,5,20,Gold,"Arial",10,0);
@@ -61,53 +59,26 @@ int deinit()
 //+------------------------------------------------------------------+
 int start()
   {
-   int i_bar,// Индекс бара
-    counted_bars;// Количество просчитанных баров
 
-    counted_bars=IndicatorCounted(); // Количество просчитанных баров
-
-    i_bar=Bars-counted_bars-1; // Индекс первого непосчитанного
-    if (i_bar>History-1)                 // Если много баров то ..
-        {
-            i_bar=History-1;                  // ..рассчитывать заданное колич.
-        }
-
-    while(i_bar>=0)                      // Цикл по непосчитанным барам (Предполагаю что отсчет будет идти от 400 до 0)
-        {
-            buffer_MACD[i_bar]= iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i_bar);                 // Значение 0 буфера на i-ом баре
-            buffer_High[i_bar] = High[i_bar];
-            buffer_Low[i_bar] = Low[i_bar];
-            buffer_Time_Int[i_bar] = i_bar;
-            i_bar--;                          // Расчёт индекса следующего бара
-          //  Print("i_bar", i_bar);
-        }
-   ArraySetAsSeries(buffer_MACD,true);
-   ArraySetAsSeries(buffer_High,true);
-   ArraySetAsSeries(buffer_Low,true);
-   ArraySetAsSeries(buffer_Time_Int,true);
-Print("ArraySize(buffer_MACD) = ", ArraySize(buffer_MACD));
-Print("ArraySize(buffer_High) = ", ArraySize(buffer_High));
-Print("ArraySize(buffer_Low) = ", ArraySize(buffer_Low));
-Print("ArraySize(buffer_Time_Int) = ", ArraySize(buffer_Time_Int));
 
    lowAndHighUpdate = nonSymm();
 
 
-   datetime highTime = buffer_Time_Int[globalHighTimeCurrent];
-   datetime lowTime  = buffer_Time_Int[globalLowTimeCurrent];
+   datetime highTime = globalHighTimeCurrent;
+   datetime lowTime  = globalLowTimeCurrent;
 
-    Print("datetime buffer_Time[globalHighTimeCurrent] = ", buffer_Time_Int[globalHighTimeCurrent], "buffer_Time[globalLowTimeCurrent]", buffer_Time_Int[globalLowTimeCurrent]);
+//    Print("datetime buffer_Time[globalHighTimeCurrent] = ", buffer_Time_Int[globalHighTimeCurrent], "buffer_Time[globalLowTimeCurrent]", buffer_Time_Int[globalLowTimeCurrent]);
 
-   if(buffer_High[globalHighTimeCurrent]>buffer_Low[globalLowTimeCurrent])
+   if(globalHigh>globalLow)
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,buffer_High[globalHighTimeCurrent],lowTime,buffer_Low[globalLowTimeCurrent]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,globalHigh,lowTime,globalLow);
       color levelColor=Red;
      }
    else
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,buffer_Low[globalLowTimeCurrent],highTime,buffer_High[globalHighTimeCurrent]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,globalLow,highTime,globalHigh);
       levelColor=Green;
      }
 
@@ -202,6 +173,27 @@ bool nonSymm(){
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
    lowAndHighUpdate=false;
 
+   double open_Array[];
+   ArraySetAsSeries(open_Array,true);
+   int open = CopyOpen(NULL,0,0,400,open_Array);
+   double high_Array[];
+   ArraySetAsSeries(high_Array,true);
+   int high = CopyHigh(NULL,0,0,400,high_Array);
+   double low_Array[];
+   ArraySetAsSeries(low_Array,true);
+   int low = CopyLow(NULL,0,0,400,low_Array);
+   datetime time_Array[];
+   ArraySetAsSeries(time_Array,true);
+   int time = CopyTime(NULL,0,0,400,time_Array);
+   double macd_Array[399];
+   for()
+
+Print("ArraySize(open_Array) = ", open_Array[0]);
+Print("ArraySize(high_Array) = ", high_Array[0]);
+Print("ArraySize(low_Array) = ", low_Array[0]);
+Print("ArraySize(time_Array) = ", time_Array[0]);
+
+Print("time_Array[0] = ", time_Array[0]);
 // то есть пока значения не проставлены
    while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
      {
