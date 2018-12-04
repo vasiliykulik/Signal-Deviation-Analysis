@@ -192,7 +192,7 @@ bool nonSymm(){
    double macd_Array[399];
 
 double testMacd=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,1); //то есть это будет два первых тика росле перехода нулевой линии
-Print("onStart(), testMACD", testMACD);
+Print("onStart(), testMacd", testMacd);
 Print("ArraySize(open_Array) = ", open_Array[0]);
 Print("ArraySize(high_Array) = ", high_Array[0]);
 Print("ArraySize(low_Array) = ", low_Array[0]);
