@@ -190,11 +190,11 @@ bool nonSymm()
    Print("open_Array[count]", open_Array[count], "count", count);
    }*/ // Ok
 
-   for(int count = ArraySize(open_Array); count>=0; count--   ){
+/*   for(int count = ArraySize(open_Array); count>=0; count--   ){
    Print("Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,count) ;",
    Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,count)
    , "count ", count);
-   }
+   }*/
 
    double macd_Array[399];
 
@@ -210,8 +210,23 @@ bool nonSymm()
 // возможно для индикатора вопрос заключается в игнорировании while в коде индикатора
 // При while (true) - в индикаторе выполниться while один раз
 // При while (false) - в индикаторе выполниться ни разу, если переписать в for?
+// for (true) - в индикаторе будет выполнятся бесконечно
 Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
-   for(begin = 0;true; begin++)
+   bool isMACD1BiggerThanZero = Macd_1H4>0;
+   bool isMACD2BiggerThanZero = Macd_2H4>0;
+   bool isMACD1SmallerThanZero = Macd_1H4<0;
+   bool isMACD2SmallerThanZero = Macd_2H4<0;
+   bool isMACD1EqualZero = Macd_1H4==0;
+   bool isMACD2EqualZero = Macd_2H4==0;
+   bool isSmaller = isMACD1SmallerThanZero && isMACD2SmallerThanZero;
+   bool isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero ;
+   bool isEqualToZero = isMACD1EqualZero && isMACD2EqualZero;
+   Print("isSmaller = ", isSmaller,"isBigger = ", isBigger,"isEqualToZero = ", isEqualToZero);
+   bool isMACDReady = isSmaller || isBigger || isEqualToZero;
+   Print("isMACDReady");
+
+Print("657, isMACDReady = ", isMACDReady);
+   for(begin = 0;isMACDReady; begin++)
      {
      Print("while758(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
 //      begin++;
@@ -232,6 +247,18 @@ Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!
       else if(Macd_2H4>0 && Macd_1H4<0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
+
+    isMACD1BiggerThanZero = Macd_1H4>0;
+    isMACD2BiggerThanZero = Macd_2H4>0;
+    isMACD1SmallerThanZero = Macd_1H4<0;
+    isMACD2SmallerThanZero = Macd_2H4<0;
+    isMACD1EqualZero = Macd_1H4==0;
+    isMACD2EqualZero = Macd_2H4==0;
+    isSmaller = isMACD1SmallerThanZero && isMACD2SmallerThanZero;
+    isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero ;
+    isEqualToZero = isMACD1EqualZero && isMACD2EqualZero;
+    isMACDReady = isSmaller || isBigger || isEqualToZero;
+    Print("658, isMACDReady = ", isMACDReady);
      }
 //
    for(i=begin;countHalfWaves<=2;i++)
