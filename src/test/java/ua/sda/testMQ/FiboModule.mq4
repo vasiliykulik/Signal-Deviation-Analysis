@@ -20,7 +20,7 @@ extern double FiboLevel7=1.618;
 extern double FiboLevel8=2.618;
 extern double FiboLevel9=4.236;
 extern double FiboLevel10=0.764;
-datetime globalLowTimeCurrent=0,globalHighTimeCurrent=0;
+int globalLowTimeCurrent=0,globalHighTimeCurrent=0;
 bool lowAndHighUpdate=false;
 double globalHigh,globalLow;
 
@@ -61,21 +61,21 @@ int start()
  double val=iCustom(NULL,0,"MACD",12,26,9);
    lowAndHighUpdate=nonSymm();
 
-   datetime highTime = globalHighTimeCurrent;
-   datetime lowTime  = globalLowTimeCurrent;
+   datetime highTime = Time[globalHighTimeCurrent];
+   datetime lowTime  = Time[globalLowTimeCurrent];
 
 //    Print("datetime buffer_Time[globalHighTimeCurrent] = ", buffer_Time_Int[globalHighTimeCurrent], "buffer_Time[globalLowTimeCurrent]", buffer_Time_Int[globalLowTimeCurrent]);
 
-   if(globalHigh>globalLow)
+   if(High[globalHighTimeCurrent]>Low[globalLowTimeCurrent])
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,globalHigh,lowTime,globalLow);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[globalHighTimeCurrent],lowTime,Low[globalLowTimeCurrent]);
       color levelColor=Red;
      }
    else
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,globalLow,highTime,globalHigh);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,Low[globalLowTimeCurrent],highTime,High[globalHighTimeCurrent]);
       levelColor=Green;
      }
 
@@ -315,7 +315,7 @@ Print("657, isMACDReady = ", isMACDReady);
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         priceForMinMax=low_Array[k];
+         priceForMinMax=iLow(NULL,periodGlobal,k);;
          firstMinLocalNonSymmetric=priceForMinMax;
          localLowTimeCurrent=k;
          Print("C1W1 Before for k = ",k);
@@ -323,7 +323,7 @@ Print("657, isMACDReady = ", isMACDReady);
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
-            priceForMinMax=low_Array[k];
+            priceForMinMax=iLow(NULL,periodGlobal,k);;
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
                localLowTimeCurrent=k;
@@ -345,7 +345,7 @@ Print("657, isMACDReady = ", isMACDReady);
          resize1H4=(i+2)-k;
          ArrayResize(halfWave_1H4,resize1H4);
          z=0;
-         priceForMinMax=high_Array[k];
+         priceForMinMax=iHigh(NULL,periodGlobal,k);
          firstMaxLocalNonSymmetric=priceForMinMax;
          localLowTimeCurrent=k;
          Print("C1W0 Before for k = ",k);
@@ -353,7 +353,7 @@ Print("657, isMACDReady = ", isMACDReady);
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
-            priceForMinMax=high_Array[k];
+            priceForMinMax=iHigh(NULL,periodGlobal,k);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
@@ -377,14 +377,14 @@ Print("657, isMACDReady = ", isMACDReady);
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=high_Array[m];
+         priceForMinMax=iHigh(NULL,periodGlobal,m);
          firstMaxLocalNonSymmetric=priceForMinMax;
          localHighTimeCurrent=m;
          Print("C2W0 Before for m = ",m);
          Print("C2W0 Before for localHighTimeCurrent = ",localHighTimeCurrent);
          for(m; m<i+2; m++)
            {
-            priceForMinMax=high_Array[m];
+            priceForMinMax=iHigh(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
@@ -407,7 +407,7 @@ Print("657, isMACDReady = ", isMACDReady);
          resize2H4=(i+2)-m;
          ArrayResize(halfWave_2H4,resize2H4);
          y=0;
-         priceForMinMax=low_Array[m];
+         priceForMinMax=iLow(NULL,periodGlobal,m);
          firstMinLocalNonSymmetric=priceForMinMax;
          localHighTimeCurrent=m;
          Print("C2W1 Before for m = ",m);
@@ -415,7 +415,7 @@ Print("657, isMACDReady = ", isMACDReady);
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
-            priceForMinMax=low_Array[m];
+            priceForMinMax=iLow(NULL,periodGlobal,m);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
