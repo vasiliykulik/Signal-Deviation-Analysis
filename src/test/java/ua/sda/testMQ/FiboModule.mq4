@@ -221,9 +221,9 @@ Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!
    bool isSmaller = isMACD1SmallerThanZero && isMACD2SmallerThanZero;
    bool isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero ;
    bool isEqualToZero = isMACD1EqualZero && isMACD2EqualZero;
-   Print("isSmaller = ", isSmaller,"isBigger = ", isBigger,"isEqualToZero = ", isEqualToZero);
+ //  Print("isSmaller = ", isSmaller,"isBigger = ", isBigger,"isEqualToZero = ", isEqualToZero);
    bool isMACDReady = isSmaller || isBigger || isEqualToZero;
-   Print("isMACDReady");
+//   Print("isMACDReady");
 
 Print("657, isMACDReady = ", isMACDReady);
    for(begin = 0;isMACDReady; begin++)
