@@ -132,6 +132,9 @@ int start()
    ObjectSetFiboDescription(MPrefix+"FIBO_MOD",7,fiboValue261+" --> "+DoubleToStr(FiboLevel8*100,1)+"%");
    ObjectSetFiboDescription(MPrefix+"FIBO_MOD",8,fiboValue423+" --> "+DoubleToStr(FiboLevel9*100,1)+"%");
    ObjectSetFiboDescription(MPrefix+"FIBO_MOD",9,fiboValue76+" --> "+DoubleToStr(FiboLevel10*100,1)+"%");
+
+//   ObjectSetText(MPrefix+"FIBO_MOD","Hello world!",18,"Arial",levelColor);
+//   ObjectSetFiboDescription("MyFiboObject",2,"Second line");
    WindowRedraw();
 
 //----
