@@ -21,6 +21,7 @@ extern double FiboLevel8=2.618;
 extern double FiboLevel9=4.236;
 extern double FiboLevel10=0.764;
 int firstPointTick=0,secondPointTick=0;
+int localFirstPointTick = 0, localSecondPointTick = 0;
 bool lowAndHighUpdate=false;
 double globalHigh,globalLow;
 
@@ -58,8 +59,18 @@ int deinit()
 int start()
   {
 
+
+
+
  double val=iCustom(NULL,0,"MACD",12,26,9);
+
+   localFirstPointTick = firstPointTick;
+   localSecondPointTick = secondPointTick;
+
    lowAndHighUpdate=nonSymm();
+
+   bool isGlobalTicksChanged = localFirstPointTick == firstPointTick && localSecondPointTick == secondPointTick;
+   if(!isGlobalTicksChanged){}
 
    datetime highTime = Time[secondPointTick];
    datetime lowTime  = Time[firstPointTick];
@@ -121,6 +132,7 @@ int start()
    ObjectSetFiboDescription(MPrefix+"FIBO_MOD",7,fiboValue261+" --> "+DoubleToStr(FiboLevel8*100,1)+"%");
    ObjectSetFiboDescription(MPrefix+"FIBO_MOD",8,fiboValue423+" --> "+DoubleToStr(FiboLevel9*100,1)+"%");
    ObjectSetFiboDescription(MPrefix+"FIBO_MOD",9,fiboValue76+" --> "+DoubleToStr(FiboLevel10*100,1)+"%");
+   WindowRedraw();
 
 //----
    return(0);
