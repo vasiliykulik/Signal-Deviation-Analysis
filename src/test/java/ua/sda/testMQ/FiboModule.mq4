@@ -20,7 +20,7 @@ extern double FiboLevel7=1.618;
 extern double FiboLevel8=2.618;
 extern double FiboLevel9=4.236;
 extern double FiboLevel10=0.764;
-int globalLowTimeCurrent=0,globalHighTimeCurrent=0;
+int firstPointTick=0,secondPointTick=0;
 bool lowAndHighUpdate=false;
 double globalHigh,globalLow;
 
@@ -61,21 +61,21 @@ int start()
  double val=iCustom(NULL,0,"MACD",12,26,9);
    lowAndHighUpdate=nonSymm();
 
-   datetime highTime = Time[globalHighTimeCurrent];
-   datetime lowTime  = Time[globalLowTimeCurrent];
+   datetime highTime = Time[secondPointTick];
+   datetime lowTime  = Time[firstPointTick];
 
-//    Print("datetime buffer_Time[globalHighTimeCurrent] = ", buffer_Time_Int[globalHighTimeCurrent], "buffer_Time[globalLowTimeCurrent]", buffer_Time_Int[globalLowTimeCurrent]);
+//    Print("datetime buffer_Time[secondPointTick] = ", buffer_Time_Int[secondPointTick], "buffer_Time[firstPointTick]", buffer_Time_Int[firstPointTick]);
 
-   if(High[globalHighTimeCurrent]>Low[globalLowTimeCurrent])
+   if(High[secondPointTick]>Low[firstPointTick])
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[globalHighTimeCurrent],lowTime,Low[globalLowTimeCurrent]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[secondPointTick],lowTime,Low[firstPointTick]);
       color levelColor=Red;
      }
    else
      {
       WindowRedraw();
-      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,lowTime,Low[globalLowTimeCurrent],highTime,High[globalHighTimeCurrent]);
+      ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,Low[secondPointTick],lowTime,High[firstPointTick]);
       levelColor=Green;
      }
 
@@ -432,9 +432,9 @@ Print("657, isMACDReady = ", isMACDReady);
      }
 
    Print("return nonSymm localHighTimeCurrent = ",localHighTimeCurrent,"localLowTimeCurrent",localLowTimeCurrent);
-   globalLowTimeCurrent=localLowTimeCurrent;
-   globalHighTimeCurrent=localHighTimeCurrent;
-   Print("return nonSymm globalHighTimeCurrent = ",globalHighTimeCurrent,"globalLowTimeCurrent",globalLowTimeCurrent);
+   firstPointTick=localLowTimeCurrent;
+   secondPointTick=localHighTimeCurrent;
+   Print("return nonSymm secondPointTick = ",secondPointTick,"firstPointTick",firstPointTick);
    lowAndHighUpdate=true;
    Sleep(3333);
    return lowAndHighUpdate;
