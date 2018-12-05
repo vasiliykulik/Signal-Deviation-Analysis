@@ -211,19 +211,19 @@ bool nonSymm()
    double macd_Array[399];
 
    double testMacd=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,1); //то есть это будет два первых тика росле перехода нулевой линии
-   Print("nonSymm(), testMacd",testMacd);
-   Print("ArraySize(open_Array) = ",open_Array[0]);
-   Print("ArraySize(high_Array) = ",high_Array[0]);
-   Print("ArraySize(low_Array) = ",low_Array[0]);
-   Print("ArraySize(time_Array) = ",time_Array[0]);
+//   Print("nonSymm(), testMacd",testMacd);
+//   Print("ArraySize(open_Array) = ",open_Array[0]);
+//   Print("ArraySize(high_Array) = ",high_Array[0]);
+//   Print("ArraySize(low_Array) = ",low_Array[0]);
+//   Print("ArraySize(time_Array) = ",time_Array[0]);
 
-   Print("time_Array[0] = ",time_Array[0]);
+//   Print("time_Array[0] = ",time_Array[0]);
 // то есть пока значения не проставлены
 // возможно для индикатора вопрос заключается в игнорировании while в коде индикатора
 // При while (true) - в индикаторе выполниться while один раз
 // При while (false) - в индикаторе выполниться ни разу, если переписать в for?
 // for (true) - в индикаторе будет выполнятся бесконечно
-Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
+//   Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
    bool isMACD1BiggerThanZero = Macd_1H4>0;
    bool isMACD2BiggerThanZero = Macd_2H4>0;
    bool isMACD1SmallerThanZero = Macd_1H4<0;
@@ -237,13 +237,13 @@ Print("while757(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!
    bool isMACDReady = isSmaller || isBigger || isEqualToZero;
 //   Print("isMACDReady");
 
-Print("657, isMACDReady = ", isMACDReady);
+//   Print("657, isMACDReady = ", isMACDReady);
    for(begin = 0;isMACDReady; begin++)
      {
-     Print("while758(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
+//   Print("while758(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))", (!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0)));
 //      begin++;
       testMacd=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,1); //то есть это будет два первых тика росле перехода нулевой линии
-      Print("nonSymm() while, testMacd",testMacd);
+//   Print("nonSymm() while, testMacd",testMacd);
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
@@ -251,7 +251,7 @@ Print("657, isMACDReady = ", isMACDReady);
       Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
-      Print("begin ", begin, "Macd_1H4 = ", Macd_1H4, "Macd_2H4 = ", Macd_2H4);
+//      Print("begin ", begin, "Macd_1H4 = ", Macd_1H4, "Macd_2H4 = ", Macd_2H4);
 
 
       if(Macd_2H4<0 && Macd_1H4>0)
@@ -270,7 +270,7 @@ Print("657, isMACDReady = ", isMACDReady);
     isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero ;
     isEqualToZero = isMACD1EqualZero && isMACD2EqualZero;
     isMACDReady = isSmaller || isBigger || isEqualToZero;
-    Print("658, isMACDReady = ", isMACDReady);
+//    Print("658, isMACDReady = ", isMACDReady);
      }
 //
    for(i=begin;countHalfWaves<=2;i++)
@@ -284,8 +284,8 @@ Print("657, isMACDReady = ", isMACDReady);
       // First Wave
       if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что первый и второй тик ниже 0, основной фильтр на шум
         {
-         Print("C0W0");
-         Print("begin = ",begin,"j = ",j);
+      //   Print("C0W0");
+      //   Print("begin = ",begin,"j = ",j);
          countHalfWaves++;
          what_1HalfWaveMACDH4=1;
          j=begin+1; // begin 0+1  j=1, а инкремент на begin идет вконце, а не вначале (стоп, обнуление и смещение?) убираем begin ++
@@ -298,12 +298,12 @@ Print("657, isMACDReady = ", isMACDReady);
             halfWave0H4[zz]=j;
             zz++;
            }
-         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+         // //// Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
-         Print("C0W1");
-         Print("begin = ",begin,"j = ",j);
+      //   Print("C0W1");
+      //   Print("begin = ",begin,"j = ",j);
          countHalfWaves++;
          what_1HalfWaveMACDH4=0;
          j=begin+1;
@@ -315,12 +315,12 @@ Print("657, isMACDReady = ", isMACDReady);
             halfWave0H4[zz]=j;
             zz++;
            }
-         // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
+         // //// Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
       // Second Wave
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-         Print("C1W1");
+      //   Print("C1W1");
          countHalfWaves++;
          what_2HalfWaveMACDH4=0;
          k=j+1;
@@ -330,8 +330,8 @@ Print("657, isMACDReady = ", isMACDReady);
          priceForMinMax=iLow(NULL,periodGlobal,k);;
          firstMinLocalNonSymmetric=priceForMinMax;
          localLowTimeCurrent=k;
-         Print("C1W1 Before for k = ",k);
-         Print("C1W1 Before for localLowTimeCurrent = ",localLowTimeCurrent);
+      //   Print("C1W1 Before for k = ",k);
+      //   Print("C1W1 Before for localLowTimeCurrent = ",localLowTimeCurrent);
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
@@ -344,13 +344,13 @@ Print("657, isMACDReady = ", isMACDReady);
               }
             z++;
            }
-         Print("C1W1 After for k = ",k);
-         Print("C1W1 After for localLowTimeCurrent = ",localLowTimeCurrent);
-         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+      //   Print("C1W1 After for k = ",k);
+      //   Print("C1W1 After for localLowTimeCurrent = ",localLowTimeCurrent);
+         // //// Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       if(countHalfWaves==1 && what_1HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-         Print("C1W0");
+      //   Print("C1W0");
          countHalfWaves++;
          what_2HalfWaveMACDH4=1;
          k=j+1;
@@ -360,13 +360,13 @@ Print("657, isMACDReady = ", isMACDReady);
          priceForMinMax=iHigh(NULL,periodGlobal,k);
          firstMaxLocalNonSymmetric=priceForMinMax;
          localLowTimeCurrent=k;
-         Print("C1W0 Before for k = ",k);
-         Print("C1W0 Before for localLowTimeCurrent = ",localLowTimeCurrent);
+      //   Print("C1W0 Before for k = ",k);
+      //   Print("C1W0 Before for localLowTimeCurrent = ",localLowTimeCurrent);
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
             priceForMinMax=iHigh(NULL,periodGlobal,k);
-            // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
+            //// Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
             if(priceForMinMax>firstMaxLocalNonSymmetric)
               {
                localLowTimeCurrent=k;
@@ -375,14 +375,14 @@ Print("657, isMACDReady = ", isMACDReady);
               }
             z++;
            }
-         Print("C1W0 After for k = ",k);
-         Print("C1W0 After for localLowTimeCurrent = ",localLowTimeCurrent);
-         // // Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
+      //   Print("C1W0 After for k = ",k);
+      //   Print("C1W0 After for localLowTimeCurrent = ",localLowTimeCurrent);
+         // //// Print("halfWave_1H4", "ArrayResize(halfWave_1H4,(i-2)-k) ", (i-2)-k);
         }
       // Third Wave
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-         Print("C2W0");
+      //   Print("C2W0");
          countHalfWaves++;
          what_3HalfWaveMACDH4=1;
          m=k+1;
@@ -392,8 +392,8 @@ Print("657, isMACDReady = ", isMACDReady);
          priceForMinMax=iHigh(NULL,periodGlobal,m);
          firstMaxLocalNonSymmetric=priceForMinMax;
          localHighTimeCurrent=m;
-         Print("C2W0 Before for m = ",m);
-         Print("C2W0 Before for localHighTimeCurrent = ",localHighTimeCurrent);
+      //   Print("C2W0 Before for m = ",m);
+      //   Print("C2W0 Before for localHighTimeCurrent = ",localHighTimeCurrent);
          for(m; m<i+2; m++)
            {
             priceForMinMax=iHigh(NULL,periodGlobal,m);
@@ -406,13 +406,13 @@ Print("657, isMACDReady = ", isMACDReady);
               }
             y++;
            }
-         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
+         // //// Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m); ", (i-2)-j);
         }
-      Print("C2W0 After for m = ",m);
-      Print("C2W0 After for localHighTimeCurrent = ",localHighTimeCurrent);
+   //   Print("C2W0 After for m = ",m);
+   //   Print("C2W0 After for localHighTimeCurrent = ",localHighTimeCurrent);
       if(countHalfWaves==2 && what_2HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-         Print("C2W1");
+      //   Print("C2W1");
          countHalfWaves++;
          what_3HalfWaveMACDH4=0;
          m=k+1;
@@ -422,13 +422,13 @@ Print("657, isMACDReady = ", isMACDReady);
          priceForMinMax=iLow(NULL,periodGlobal,m);
          firstMinLocalNonSymmetric=priceForMinMax;
          localHighTimeCurrent=m;
-         Print("C2W1 Before for m = ",m);
-         Print("C2W1 Before for localHighTimeCurrent = ",localHighTimeCurrent);
+      //   Print("C2W1 Before for m = ",m);
+      //   Print("C2W1 Before for localHighTimeCurrent = ",localHighTimeCurrent);
          for(m; m<i+2; m++)
            {
             halfWave_2H4[y]=m;
             priceForMinMax=iLow(NULL,periodGlobal,m);
-            // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
+            //// Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
             if(priceForMinMax<firstMinLocalNonSymmetric)
               {
                localHighTimeCurrent=m;
@@ -437,16 +437,16 @@ Print("657, isMACDReady = ", isMACDReady);
               }
             y++;
            }
-         Print("C2W1 After for m = ",m);
-         Print("C2W1 After for localHighTimeCurrent = ",localHighTimeCurrent);
-         // // Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
+      //   Print("C2W1 After for m = ",m);
+      //   Print("C2W1 After for localHighTimeCurrent = ",localHighTimeCurrent);
+         // //// Print("halfWave_2H4", "ArrayResize(halfWave_2H4,(i-2)-m) ", (i-2)-m);
         }
      }
 
-   Print("return nonSymm localHighTimeCurrent = ",localHighTimeCurrent,"localLowTimeCurrent",localLowTimeCurrent);
+//   Print("return nonSymm localHighTimeCurrent = ",localHighTimeCurrent,"localLowTimeCurrent",localLowTimeCurrent);
    firstPointTick=localLowTimeCurrent;
    secondPointTick=localHighTimeCurrent;
-   Print("return nonSymm secondPointTick = ",secondPointTick,"firstPointTick",firstPointTick);
+//   Print("return nonSymm secondPointTick = ",secondPointTick,"firstPointTick",firstPointTick);
    lowAndHighUpdate=true;
    Sleep(3333);
    return lowAndHighUpdate;
