@@ -58,12 +58,6 @@ int deinit()
 //+------------------------------------------------------------------+
 int start()
   {
-
-
-
-
- double val=iCustom(NULL,0,"MACD",12,26,9);
-
    localFirstPointTick = firstPointTick;
    localSecondPointTick = secondPointTick;
 
@@ -76,7 +70,7 @@ int start()
    datetime lowTime  = Time[firstPointTick];
 
 //    Print("datetime buffer_Time[secondPointTick] = ", buffer_Time_Int[secondPointTick], "buffer_Time[firstPointTick]", buffer_Time_Int[firstPointTick]);
-
+ClearObjects(); //
    if(High[secondPointTick]>Low[firstPointTick])
      {
       WindowRedraw();
