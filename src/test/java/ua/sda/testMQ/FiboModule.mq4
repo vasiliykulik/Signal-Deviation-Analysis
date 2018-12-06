@@ -70,7 +70,7 @@ int start()
    datetime lowTime  = Time[firstPointTick];
 
 //    Print("datetime buffer_Time[secondPointTick] = ", buffer_Time_Int[secondPointTick], "buffer_Time[firstPointTick]", buffer_Time_Int[firstPointTick]);
-ClearObjects(); //
+ClearObjects(); //2. ClearObjects() в условие перед if - проверяем
    if(High[secondPointTick]>Low[firstPointTick])
      {
       WindowRedraw();
