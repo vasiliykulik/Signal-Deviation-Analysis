@@ -75,13 +75,17 @@ ClearObjects(); //
      {
       WindowRedraw();
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[secondPointTick],lowTime,Low[firstPointTick]);
-      color levelColor=Red;
+      color levelColor=Green;
+/*      if(){PERIOD_H4 {levelColor = MediumOrchid;}}
+      if(){PERIOD_H1 {levelColor = Blue;}}
+      if(){PERIOD_M15 {levelColor = ForestGreen;}}
+      if(){PERIOD_M5 {levelColor = Goldenrod;}}*/
      }
    else
      {
       WindowRedraw();
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,Low[secondPointTick],lowTime,High[firstPointTick]);
-      levelColor=Green;
+      levelColor=Red;
      }
 
    double fiboPrice1=ObjectGet(MPrefix+"FIBO_MOD",OBJPROP_PRICE1);
