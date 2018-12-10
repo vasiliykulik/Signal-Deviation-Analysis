@@ -71,7 +71,7 @@ int start()
 
 //    Print("datetime buffer_Time[secondPointTick] = ", buffer_Time_Int[secondPointTick], "buffer_Time[firstPointTick]", buffer_Time_Int[firstPointTick]);
 ClearObjects(); //
-   if(Open[secondPointTick]>Open[firstPointTick] && High[secondPointTick]>Low[firstPointTick])// Было  High и Low соответственно. 10.12.2018 combining two clauses
+   if(Open[secondPointTick]>Open[firstPointTick])// Было  High и Low соответственно. 10.12.2018 combining two clauses - no
      {
       WindowRedraw();
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[secondPointTick],lowTime,Low[firstPointTick]);
