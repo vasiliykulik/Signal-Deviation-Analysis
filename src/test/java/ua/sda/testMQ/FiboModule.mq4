@@ -81,9 +81,10 @@ ClearObjects(); //
       if(){PERIOD_M15 {levelColor = ForestGreen;}}
       if(){PERIOD_M5 {levelColor = Goldenrod;}}*/
      }
-   else
+   if(Low[secondPointTick]<High[firstPointTick])
      {
       WindowRedraw();
+      //
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,Low[secondPointTick],lowTime,High[firstPointTick]);
       levelColor=Red;
      }
