@@ -63,8 +63,8 @@ int start()
 
    lowAndHighUpdate=nonSymm();
 
-   bool isGlobalTicksChanged = localFirstPointTick == firstPointTick && localSecondPointTick == secondPointTick;
-   if(!isGlobalTicksChanged){}
+ //  bool isGlobalTicksChanged = localFirstPointTick == firstPointTick && localSecondPointTick == secondPointTick;
+ //  if(!isGlobalTicksChanged){}
 
    datetime highTime = Time[secondPointTick];
    datetime lowTime  = Time[firstPointTick];
@@ -81,9 +81,12 @@ ClearObjects(); //
       if(){PERIOD_M15 {levelColor = ForestGreen;}}
       if(){PERIOD_M5 {levelColor = Goldenrod;}}*/
      }
+     // else
+     // Low[secondPointTick]<High[firstPointTick]
    if(Low[secondPointTick]<High[firstPointTick])
      {
       WindowRedraw();
+      ClearObjects();
       //
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,Low[secondPointTick],lowTime,High[firstPointTick]);
       levelColor=Red;
