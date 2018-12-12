@@ -71,7 +71,7 @@ int start()
 
 //    Print("datetime buffer_Time[secondPointTick] = ", buffer_Time_Int[secondPointTick], "buffer_Time[firstPointTick]", buffer_Time_Int[firstPointTick]);
 ClearObjects(); //
-   if(Open[secondPointTick]>Open[firstPointTick])// Было  High и Low соответственно. 10.12.2018 combining two clauses - no
+   if(Open[secondPointTick]>Open[firstPointTick])// Было  High и Low соответственно. 10.12.2018 combining two clauses - no. 12.10.2018  Case  when need High and Low
      {
       WindowRedraw();
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[secondPointTick],lowTime,Low[firstPointTick]);
@@ -82,7 +82,7 @@ ClearObjects(); //
       if(){PERIOD_M5 {levelColor = Goldenrod;}}*/
      }
      // else
-     // Low[secondPointTick]<High[firstPointTick]
+     // if(Low[secondPointTick]<High[firstPointTick])
    if(Low[secondPointTick]<High[firstPointTick])
      {
       WindowRedraw();
