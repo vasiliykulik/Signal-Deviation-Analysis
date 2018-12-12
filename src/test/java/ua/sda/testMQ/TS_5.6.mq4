@@ -48,7 +48,7 @@ void OnTick(void)
    sell=0;
 
    total=OrdersTotal();
-   if(total<1)
+   if(total<1)1
      {
       // no opened orders identified
       // Block 1  TS 5.6 Listener
