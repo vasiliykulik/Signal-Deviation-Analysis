@@ -147,7 +147,6 @@ ClearObjects(); //
 //| DL function                                                      |
 //+------------------------------------------------------------------+
 void DL(string label,string text,int x,int y,color clr,string FontName="Arial",int FontSize=12,int typeCorner=1)
-
   {
    string labelIndicator=MPrefix+label;
    if(ObjectFind(labelIndicator)==-1)
