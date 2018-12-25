@@ -30,11 +30,6 @@ void OnTick(void)
   {
 
    int cnt,ticket,total,buy,sell;
-   bool lowAndHighUpdate=false;
-   bool isFiboModuleBuyReady_M5 = false, isFiboModuleBuyReady_M15 = false, isFiboModuleBuyReady_H1 = false, isFiboModuleBuyReady_H4 = false, isFiboModuleBuyReady_D1 = false;
-   bool isFiboModuleSellReady_M5 = false, isFiboModuleSellReady_M15 = false, isFiboModuleSellReady_H1 = false, isFiboModuleSellReady_H4 = false, isFiboModuleSellReady_D1 = false;
-   int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
-   int buyWeight,sellWeight;
 
 /* End Variables Declaration  The algorithm of the trend criteria definition:*/
    if(Bars<100)
@@ -50,7 +45,13 @@ void OnTick(void)
 
    buy=0;
    sell=0;
-
+   bool lowAndHighUpdate=false;
+   bool isFiboModuleGreenState_M5 = false, isFiboModuleGreenState_M15 = false, isFiboModuleGreenState_H1 = false, isFiboModuleGreenState_H4 = false, isFiboModuleGreenState_D1 = false;
+   bool isFiboModuleRedState_M5 = false, isFiboModuleRedState_M15 = false, isFiboModuleRedState_H1 = false, isFiboModuleRedState_H4 = false, isFiboModuleRedState_D1 = false;
+   bool isFiboModuleGreenLevel_100_IsPassed_M5 = false, isFiboModuleGreenLevel_100_IsPassed_M15 = false, isFiboModuleGreenLevel_100_IsPassed_H1 = false, isFiboModuleGreenLevel_100_IsPassed_H4 = false, isFiboModuleGreenLevel_100_IsPassed_D1 = false;
+   bool isFiboModuleRedLevel_100_IsPassed_M5 = false, isFiboModuleRedLevel_100_IsPassed_M15 = false, isFiboModuleRedLevel_100_IsPassed_H1 = false, isFiboModuleRedLevel_100_IsPassed_H4 = false, isFiboModuleRedLevel_100_IsPassed_D1 = false;
+   int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
+   int buyWeight = 0, sellWeight = 0;
    total=OrdersTotal();
    if(total<1)
      {
@@ -58,14 +59,16 @@ void OnTick(void)
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
       блок Проставляем Флаги*/
-      for(int i = 0; i <=ArraySize(timeFrames);i++){ // iterate through TimeFrames
+      for(int i = 0; i <=ArraySize(timeFrames);i++) // iterate through TimeFrames
+        {
         periodGlobal = timeFrames[i]; // set TimeFrame value for nonSymmTick()
         lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick
         if(High[secondPointTick]>Low[firstPointTick]) // if green
             {
                 // if price higher than Fibo 100 on current TimeFrame
                 // but i need
-                if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]) // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
+                // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
+                if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1))
                     {
                         if(timeFrames[i]==PERIOD_M5){
                             isFiboModuleBuyReady_M5 = true;
