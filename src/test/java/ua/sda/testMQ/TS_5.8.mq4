@@ -65,37 +65,81 @@ void OnTick(void)
         lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick
         if(High[secondPointTick]>Low[firstPointTick]) // if green
             {
+                if(timeFrames[i]==PERIOD_M5){
+                    isFiboModuleGreenState_M5 = true;
+                }
+                if(timeFrames[i]==PERIOD_M15){
+                    isFiboModuleGreenState_M15 = true;
+                }
+                if(timeFrames[i]==PERIOD_H1){
+                    isFiboModuleGreenState_H1 = true;
+                }
+                if(timeFrames[i]==PERIOD_H4){
+                    isFiboModuleGreenState_H4 = true;
+                }
+                if(timeFrames[i]==PERIOD_D1){
+                    isFiboModuleGreenState_D1 = true;
+                }
                 // if price higher than Fibo 100 on current TimeFrame
                 // but i need
                 // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
-                if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1))
+                if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1)< High[secondPointTick])
                     {
                         if(timeFrames[i]==PERIOD_M5){
-                            isFiboModuleBuyReady_M5 = true;
+                            isFiboModuleGreenLevel_100_IsPassed_M5 = true;
                         }
                         if(timeFrames[i]==PERIOD_M15){
-                            isFiboModuleBuyReady_M15 = true;
+                            isFiboModuleGreenLevel_100_IsPassed_M15 = true;
                         }
                         if(timeFrames[i]==PERIOD_H1){
-                            isFiboModuleBuyReady_H1 = true;
+                            isFiboModuleGreenLevel_100_IsPassed_H1 = true;
                         }
                         if(timeFrames[i]==PERIOD_H4){
-                            isFiboModuleBuyReady_H4 = true;
+                            isFiboModuleGreenLevel_100_IsPassed_H4 = true;
                         }
                         if(timeFrames[i]==PERIOD_D1){
-                            isFiboModuleBuyReady_D1 = true;
+                            isFiboModuleGreenLevel_100_IsPassed_D1 = true;
                         }
                     }
 
             }
         if(Low[secondPointTick]<High[firstPointTick]) // red
             {
-                if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]) // not defined cyclePeriod
+             if(timeFrames[i]==PERIOD_M5){
+                 isFiboModuleRedState_M5 = true;
+             }
+             if(timeFrames[i]==PERIOD_M15){
+                 isFiboModuleRedState_M15 = true;
+             }
+             if(timeFrames[i]==PERIOD_H1){
+                 isFiboModuleRedState_H1 = true;
+             }
+             if(timeFrames[i]==PERIOD_H4){
+                 isFiboModuleRedState_H4 = true;
+             }
+             if(timeFrames[i]==PERIOD_D1){
+                 isFiboModuleRedState_D1 = true;
+             }
+                if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]&&iClose(NULL,timeFrames[i],1)> Low[secondPointTick]) // not defined cyclePeriod
                     {
-
+                        if(timeFrames[i]==PERIOD_M5){
+                            isFiboModuleRedLevel_100_IsPassed_M5 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_M15){
+                            isFiboModuleRedLevel_100_IsPassed_M15 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_H1){
+                            isFiboModuleRedLevel_100_IsPassed_H1 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_H4){
+                            isFiboModuleRedLevel_100_IsPassed_H4 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_D1){
+                            isFiboModuleRedLevel_100_IsPassed_D1 = true;
+                        }
                     }
             }
-      }
+      }// end of TimeFrame for
 
 
 
