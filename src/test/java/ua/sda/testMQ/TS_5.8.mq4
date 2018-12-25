@@ -19,7 +19,7 @@ double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.000
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
 int localFirstPointTick = 0, localSecondPointTick = 0;
-bool lowAndHighUpdate=false;
+
 ENUM_TIMEFRAMES timeFrames [] = {PERIOD_M5,PERIOD_M15,PERIOD_H1, PERIOD_H4,PERIOD_D1};
 
 
@@ -30,11 +30,9 @@ void OnTick(void)
   {
 
    int cnt,ticket,total,buy,sell;
-   bool isDoubleSymmetricM5BuyReady=false, isDoubleSymmetricM15BuyReady=false,
-   isDoubleSymmetricH1BuyReady=false, isDoubleSymmetricH4BuyReady=false,
-   isDoubleSymmetricM5SellReady=false, isDoubleSymmetricM15SellReady=false,
-   isDoubleSymmetricH1SellReady=false, isDoubleSymmetricH4SellReady=false;
-
+   bool lowAndHighUpdate=false;
+   bool isFiboModuleBuyReady_M5 = false, isFiboModuleBuyReady_M15 = false, isFiboModuleBuyReady_H1 = false, isFiboModuleBuyReady_H4 = false, isFiboModuleBuyReady_D1 = false;
+   bool isFiboModuleSellReady_M5 = false, isFiboModuleSellReady_M15 = false, isFiboModuleSellReady_H1 = false, isFiboModuleSellReady_H4 = false, isFiboModuleSellReady_D1 = false;
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight,sellWeight;
 
@@ -60,21 +58,38 @@ void OnTick(void)
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
       блок Проставляем Флаги*/
-      for(int i = 0; i <=ArraySize(timeFrames);i++){
+      for(int i = 0; i <=ArraySize(timeFrames);i++){ // iterate through TimeFrames
+        periodGlobal = timeFrames[i]; // set TimeFrame value for nonSymmTick()
         lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick
-        if(High[secondPointTick]>Low[firstPointTick]) // green
+        if(High[secondPointTick]>Low[firstPointTick]) // if green
             {
-                if(iClose(NULL,cyclePeriod,0)> High[secondPointTick]) // not defined cyclePeriod
+                // if price higher than Fibo 100 on current TimeFrame
+                // but i need
+                if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]) // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
                     {
-                        buy = 1;
+                        if(timeFrames[i]==PERIOD_M5){
+                            isFiboModuleBuyReady_M5 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_M15){
+                            isFiboModuleBuyReady_M15 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_H1){
+                            isFiboModuleBuyReady_H1 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_H4){
+                            isFiboModuleBuyReady_H4 = true;
+                        }
+                        if(timeFrames[i]==PERIOD_D1){
+                            isFiboModuleBuyReady_D1 = true;
+                        }
                     }
 
             }
         if(Low[secondPointTick]<High[firstPointTick]) // red
             {
-                if(iClose(NULL,cyclePeriod,0)< Low[secondPointTick]) // not defined cyclePeriod
+                if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]) // not defined cyclePeriod
                     {
-                        sell = 1;
+
                     }
             }
       }
