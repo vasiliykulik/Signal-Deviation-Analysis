@@ -20,6 +20,8 @@ ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
 int localFirstPointTick = 0, localSecondPointTick = 0;
 bool lowAndHighUpdate=false;
+ENUM_TIMEFRAMES timeFrames [] = {PERIOD_M5,PERIOD_M15,PERIOD_H1, PERIOD_H4,PERIOD_D1};
+
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -58,10 +60,26 @@ void OnTick(void)
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
       блок Проставляем Флаги*/
-   localFirstPointTick = firstPointTick;
-   localSecondPointTick = secondPointTick;
+      for(int i = 0; i <=ArraySize(timeFrames);i++){
+        lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick
+        if(High[secondPointTick]>Low[firstPointTick]) // green
+            {
+                if(iClose(NULL,cyclePeriod,0)> High[secondPointTick]) // not defined cyclePeriod
+                    {
+                        buy = 1;
+                    }
 
-   lowAndHighUpdate=nonSymmTick();
+            }
+        if(Low[secondPointTick]<High[firstPointTick]) // red
+            {
+                if(iClose(NULL,cyclePeriod,0)< Low[secondPointTick]) // not defined cyclePeriod
+                    {
+                        sell = 1;
+                    }
+            }
+      }
+
+
 
       if(AccountFreeMargin()<(1*Lots))
         {
