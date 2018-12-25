@@ -16,6 +16,7 @@ int iteration;
 double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
+double firstMinGlobalMACD=0.00000000,secondMinGlobalMACD=0.00000000,firstMaxGlobalMACD=0.00000000,secondMaxGlobalMACD=0.00000000;
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
 int localFirstPointTick = 0, localSecondPointTick = 0;
@@ -61,85 +62,91 @@ void OnTick(void)
       блок Проставляем Флаги*/
       for(int i = 0; i <=ArraySize(timeFrames);i++) // iterate through TimeFrames
         {
-        periodGlobal = timeFrames[i]; // set TimeFrame value for nonSymmTick()
-        lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick
+        periodGlobal = timeFrames[i]; // set TimeFrame global value for nonSymmTick()
+        lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick global variables
         if(High[secondPointTick]>Low[firstPointTick]) // if green
             {
-                if(timeFrames[i]==PERIOD_M5){
-                    isFiboModuleGreenState_M5 = true;
-                }
-                if(timeFrames[i]==PERIOD_M15){
-                    isFiboModuleGreenState_M15 = true;
-                }
-                if(timeFrames[i]==PERIOD_H1){
-                    isFiboModuleGreenState_H1 = true;
-                }
-                if(timeFrames[i]==PERIOD_H4){
-                    isFiboModuleGreenState_H4 = true;
-                }
-                if(timeFrames[i]==PERIOD_D1){
-                    isFiboModuleGreenState_D1 = true;
-                }
+                if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenState_M5 = true;}
+                if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenState_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenState_H1 = true;}
+                if(timeFrames[i]==PERIOD_H4){isFiboModuleGreenState_H4 = true;}
+                if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenState_D1 = true;}
                 // if price higher than Fibo 100 on current TimeFrame
                 // but i need
                 // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
                 if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1)< High[secondPointTick])
                     {
-                        if(timeFrames[i]==PERIOD_M5){
-                            isFiboModuleGreenLevel_100_IsPassed_M5 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_M15){
-                            isFiboModuleGreenLevel_100_IsPassed_M15 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_H1){
-                            isFiboModuleGreenLevel_100_IsPassed_H1 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_H4){
-                            isFiboModuleGreenLevel_100_IsPassed_H4 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_D1){
-                            isFiboModuleGreenLevel_100_IsPassed_D1 = true;
-                        }
+                        if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenLevel_100_IsPassed_M5 = true;}
+                        if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenLevel_100_IsPassed_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenLevel_100_IsPassed_H1 = true;}
+                        if(timeFrames[i]==PERIOD_H4){isFiboModuleGreenLevel_100_IsPassed_H4 = true;}
+                        if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenLevel_100_IsPassed_D1 = true;}
                     }
-
             }
         if(Low[secondPointTick]<High[firstPointTick]) // red
             {
-             if(timeFrames[i]==PERIOD_M5){
-                 isFiboModuleRedState_M5 = true;
-             }
-             if(timeFrames[i]==PERIOD_M15){
-                 isFiboModuleRedState_M15 = true;
-             }
-             if(timeFrames[i]==PERIOD_H1){
-                 isFiboModuleRedState_H1 = true;
-             }
-             if(timeFrames[i]==PERIOD_H4){
-                 isFiboModuleRedState_H4 = true;
-             }
-             if(timeFrames[i]==PERIOD_D1){
-                 isFiboModuleRedState_D1 = true;
-             }
+             if(timeFrames[i]==PERIOD_M5){isFiboModuleRedState_M5 = true;}
+             if(timeFrames[i]==PERIOD_M15){isFiboModuleRedState_M15 = true;}
+             if(timeFrames[i]==PERIOD_H1){isFiboModuleRedState_H1 = true;}
+             if(timeFrames[i]==PERIOD_H4){isFiboModuleRedState_H4 = true;}
+             if(timeFrames[i]==PERIOD_D1){isFiboModuleRedState_D1 = true;}
                 if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]&&iClose(NULL,timeFrames[i],1)> Low[secondPointTick]) // not defined cyclePeriod
                     {
-                        if(timeFrames[i]==PERIOD_M5){
-                            isFiboModuleRedLevel_100_IsPassed_M5 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_M15){
-                            isFiboModuleRedLevel_100_IsPassed_M15 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_H1){
-                            isFiboModuleRedLevel_100_IsPassed_H1 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_H4){
-                            isFiboModuleRedLevel_100_IsPassed_H4 = true;
-                        }
-                        if(timeFrames[i]==PERIOD_D1){
-                            isFiboModuleRedLevel_100_IsPassed_D1 = true;
-                        }
+                        if(timeFrames[i]==PERIOD_M5){isFiboModuleRedLevel_100_IsPassed_M5 = true;}
+                        if(timeFrames[i]==PERIOD_M15){isFiboModuleRedLevel_100_IsPassed_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1){isFiboModuleRedLevel_100_IsPassed_H1 = true;}
+                        if(timeFrames[i]==PERIOD_H4){isFiboModuleRedLevel_100_IsPassed_H4 = true;}
+                        if(timeFrames[i]==PERIOD_D1){isFiboModuleRedLevel_100_IsPassed_D1 = true;}
                     }
             }
-      }// end of TimeFrame for
+      }// end of TimeFrames for loop for FiboModule State and IsPassed flag
+
+      bool isTrendBull_M5 = false, isTrendBull_M15 = false, isTrendBull_H1 = false, isTrendBull_H4 = false, isTrendBull_D1 = false;
+      bool isTrendBear_M5 = false, isTrendBear_M15 = false, isTrendBear_H1 = false, isTrendBear_H4 = false, isTrendBear_D1 = false;
+      bool isDivergenceUp_M5 = false, isDivergenceUp_M15 = false, isDivergenceUp_H1 = false, isDivergenceUp_H4 = false, isDivergenceUp_D1 = false;
+      bool isDivergenceDown_M5 = false, isDivergenceDown_M15 = false, isDivergenceDown_H1 = false, isDivergenceDown_H4 = false, isDivergenceDown_D1 = false;
+
+            for(int i = 0; i <=ArraySize(timeFrames);i++) // iterate through TimeFrames
+              {
+              periodGlobal = timeFrames[i]; // set TimeFrame global value for isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
+// set values to firstMinGlobal firstMaxGlobal secondMinGlobal secondMaxGlobal and firstMinGlobalMACD, secondMinGlobalMACD, firstMaxGlobalMACD, secondMaxGlobalMACD;
+              lowAndHighUpdate=isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+              if(High[secondPointTick]>Low[firstPointTick]) // if green
+                  {
+                      if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenState_M5 = true;}
+                      if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenState_M15 = true;}
+                      if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenState_H1 = true;}
+                      if(timeFrames[i]==PERIOD_H4){isFiboModuleGreenState_H4 = true;}
+                      if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenState_D1 = true;}
+                      // if price higher than Fibo 100 on current TimeFrame
+                      // but i need
+                      // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
+                      if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1)< High[secondPointTick])
+                          {
+                              if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenLevel_100_IsPassed_M5 = true;}
+                              if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenLevel_100_IsPassed_M15 = true;}
+                              if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenLevel_100_IsPassed_H1 = true;}
+                              if(timeFrames[i]==PERIOD_H4){isFiboModuleGreenLevel_100_IsPassed_H4 = true;}
+                              if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenLevel_100_IsPassed_D1 = true;}
+                          }
+                  }
+              if(Low[secondPointTick]<High[firstPointTick]) // red
+                  {
+                   if(timeFrames[i]==PERIOD_M5){isFiboModuleRedState_M5 = true;}
+                   if(timeFrames[i]==PERIOD_M15){isFiboModuleRedState_M15 = true;}
+                   if(timeFrames[i]==PERIOD_H1){isFiboModuleRedState_H1 = true;}
+                   if(timeFrames[i]==PERIOD_H4){isFiboModuleRedState_H4 = true;}
+                   if(timeFrames[i]==PERIOD_D1){isFiboModuleRedState_D1 = true;}
+                      if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]&&iClose(NULL,timeFrames[i],1)> Low[secondPointTick]) // not defined cyclePeriod
+                          {
+                              if(timeFrames[i]==PERIOD_M5){isFiboModuleRedLevel_100_IsPassed_M5 = true;}
+                              if(timeFrames[i]==PERIOD_M15){isFiboModuleRedLevel_100_IsPassed_M15 = true;}
+                              if(timeFrames[i]==PERIOD_H1){isFiboModuleRedLevel_100_IsPassed_H1 = true;}
+                              if(timeFrames[i]==PERIOD_H4){isFiboModuleRedLevel_100_IsPassed_H4 = true;}
+                              if(timeFrames[i]==PERIOD_D1){isFiboModuleRedLevel_100_IsPassed_D1 = true;}
+                          }
+                  }
+            }// end of TimeFrames for loop for Trend and Divergence flag
 
 
 
@@ -591,6 +598,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
    double firstMinLocalNonSymmetric=0.00000000,secondMinLocalNonSymmetric=0.00000000,firstMaxLocalNonSymmetric=0.00000000,secondMaxLocalNonSymmetric=0.00000000;
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
    bool pricesUpdate=false;
+   double firstMinLocalNonSymmetricMACD = 0.00000000, secondMinLocalNonSymmetricMACD = 0.00000000, firstMaxLocalNonSymmetricMACD = 0.00000000, secondMaxLocalNonSymmetricMACD = 0.00000000;
 
    int halfWave_4H4[];
    int q,w,resize4H4;
@@ -632,11 +640,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
                             // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
-
             zz++;
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
@@ -650,11 +656,9 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
-
          for(j; j<i+2; j++)
            {
             halfWave0H4[zz]=j;
-
             zz++;
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
@@ -893,6 +897,10 @@ max для sell
    firstMaxGlobal = firstMaxLocalNonSymmetric;
    secondMinGlobal = secondMinLocalNonSymmetric;
    secondMaxGlobal = secondMaxLocalNonSymmetric;
+   firstMinGlobalMACD  = firstMinLocalNonSymmetricMACD  ;
+   secondMinGlobalMACD = secondMinLocalNonSymmetricMACD ;
+   firstMaxGlobalMACD  = firstMaxLocalNonSymmetricMACD  ;
+   secondMaxGlobalMACD = secondMaxLocalNonSymmetricMACD ;
    pricesUpdate=true;
    Sleep(3333);
    return pricesUpdate;
