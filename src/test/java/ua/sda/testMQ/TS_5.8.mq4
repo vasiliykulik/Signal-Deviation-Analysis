@@ -599,6 +599,7 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
    bool pricesUpdate=false;
    double firstMinLocalNonSymmetricMACD = 0.00000000, secondMinLocalNonSymmetricMACD = 0.00000000, firstMaxLocalNonSymmetricMACD = 0.00000000, secondMaxLocalNonSymmetricMACD = 0.00000000;
+   double macdForMinMax;
 
    int halfWave_4H4[];
    int q,w,resize4H4;
@@ -675,6 +676,10 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
          z=0;
          priceForMinMax=iOpen(NULL,periodGlobal,k);
          firstMinLocalNonSymmetric=priceForMinMax;
+
+         macdForMinMax = iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
+         firstMinLocalNonSymmetricMACD = macdForMinMax;
+
          for(k; k<i+2; k++)
            {
             halfWave_1H4[z]=k;
@@ -684,6 +689,12 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
                firstMinLocalNonSymmetric=priceForMinMax;
                isFirstMin=true;
               }
+
+            macdForMinMax = iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
+            if(macdForMinMax<firstMinLocalNonSymmetricMACD){
+                firstMinLocalNonSymmetricMACD = macdForMinMax;
+            }
+
             z++;
            }
         //Print("firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
