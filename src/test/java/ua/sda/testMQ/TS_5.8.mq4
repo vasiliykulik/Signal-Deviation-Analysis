@@ -1,11 +1,11 @@
 //+------------------------------------------------------------------+
-//|                                                       TS_5.6.mq4 |
+//|                                                       TS_5.8.mq4 |
 //|                                                    Vasiliy Kulik |
 //|                                                       alpari.com |
 //+------------------------------------------------------------------+
 #property copyright "Vasiliy Kulik"
 #property link      "alpari.com"
-#property version   "5.6"
+#property version   "5.8"
 #property strict
 
 extern double TakeProfit=2400;
@@ -111,7 +111,7 @@ void OnTick(void)
               periodGlobal = timeFrames[i]; // set TimeFrame global value for isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
 // set values to firstMinGlobal firstMaxGlobal secondMinGlobal secondMaxGlobal and firstMinGlobalMACD, secondMinGlobalMACD, firstMaxGlobalMACD, secondMaxGlobalMACD;
               lowAndHighUpdate=isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-              if(firstMaxGlobal>secondMaxGlobal) // Trend
+              if(firstMinGlobal>secondMinGlobal) // Trend up
                   {
                       if(timeFrames[i]==PERIOD_M5){isTrendBull_M5 = true;}
                       if(timeFrames[i]==PERIOD_M15){isTrendBull_M15 = true;}
@@ -121,7 +121,7 @@ void OnTick(void)
                       // if price higher than Fibo 100 on current TimeFrame
                       // but i need
                       // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
-                      if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1)< High[secondPointTick]) // Divergence
+                      if(firstMinGlobalMACD<secondMinGlobalMACD) // Divergence ! сontrary
                           {
                               if(timeFrames[i]==PERIOD_M5){isDivergenceUp_M5 = true;}
                               if(timeFrames[i]==PERIOD_M15){isDivergenceUp_M15 = true;}
@@ -130,14 +130,14 @@ void OnTick(void)
                               if(timeFrames[i]==PERIOD_D1){isDivergenceUp_D1 = true;}
                           }
                   }
-              if(Low[secondPointTick]<High[firstPointTick]) // red
+              if(firstMaxGlobal<secondMaxGlobal) // Trend down
                   {
                    if(timeFrames[i]==PERIOD_M5){isTrendBear_M5 = true;}
                    if(timeFrames[i]==PERIOD_M15){isTrendBear_M15 = true;}
                    if(timeFrames[i]==PERIOD_H1){isTrendBear_H1 = true;}
                    if(timeFrames[i]==PERIOD_H4){isTrendBear_H4 = true;}
                    if(timeFrames[i]==PERIOD_D1){isTrendBear_D1 = true;}
-                      if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]&&iClose(NULL,timeFrames[i],1)> Low[secondPointTick]) // not defined cyclePeriod
+                      if(firstMaxGlobalMACD>secondMaxGlobalMACD) // Divergence ! сontrary
                           {
                               if(timeFrames[i]==PERIOD_M5){isDivergenceDown_M5 = true;}
                               if(timeFrames[i]==PERIOD_M15){isDivergenceDown_M15 = true;}
@@ -148,6 +148,7 @@ void OnTick(void)
                   }
             }// end of TimeFrames for loop for Trend and Divergence flag
 
+// the trading strategy itself
 
 
       if(AccountFreeMargin()<(1*Lots))
