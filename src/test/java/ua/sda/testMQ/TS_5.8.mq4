@@ -154,6 +154,9 @@ void OnTick(void)
       // Trend:       All the Same
       // IsPassed :   M5 || M15
       // Divergence : M15 || H1 || H4 || D1
+      // with stop
+      // TS_5.6 Handling on Unknown TF
+      // GBPUSD >20 orders <10% drawdown >8% profit
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
 
@@ -162,12 +165,13 @@ void OnTick(void)
        // Trend:       All the Same wo H4, D1
        // IsPassed :   M5 || M15
        // with stop
-       // TS_5.6 Handling with 61,8
+       // TS_5.6 Handling under 61,8
+       // GBPUSD >20 orders <10% drawdown >8% profit
 
-Print("Buy, isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 = ",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4);
-Print("Buy, !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4 = ", !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4);
-Print("Buy, isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 = ", isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1);
-Print("Buy, isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15 = ",isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15);
+//  Print("Buy, isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 = ",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4);
+//  Print("Buy, !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4 = ", !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4);
+//  Print("Buy, isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 = ", isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1);
+//  Print("Buy, isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15 = ",isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15);
       if
       (
        (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4) &&
@@ -176,10 +180,10 @@ Print("Buy, isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100
        (isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15)
        )
         {buy=1;}
-Print("Sell, isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 = ",isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4);
-Print("Sell, !isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4 = ", !isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4);
-Print("Sell, isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 = ", isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1);
-Print("Sell, isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15 = ",isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15);
+// Print("Sell, isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 = ",isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4);
+// Print("Sell, !isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4 = ", !isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4);
+// Print("Sell, isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 = ", isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1);
+// Print("Sell, isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15 = ",isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15);
 
       if
       (
