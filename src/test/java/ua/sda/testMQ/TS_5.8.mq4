@@ -111,39 +111,39 @@ void OnTick(void)
               periodGlobal = timeFrames[i]; // set TimeFrame global value for isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
 // set values to firstMinGlobal firstMaxGlobal secondMinGlobal secondMaxGlobal and firstMinGlobalMACD, secondMinGlobalMACD, firstMaxGlobalMACD, secondMaxGlobalMACD;
               lowAndHighUpdate=isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-              if(High[secondPointTick]>Low[firstPointTick]) // if green
+              if(firstMaxGlobal>secondMaxGlobal) // Trend
                   {
-                      if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenState_M5 = true;}
-                      if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenState_M15 = true;}
-                      if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenState_H1 = true;}
-                      if(timeFrames[i]==PERIOD_H4){isFiboModuleGreenState_H4 = true;}
-                      if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenState_D1 = true;}
+                      if(timeFrames[i]==PERIOD_M5){isTrendBull_M5 = true;}
+                      if(timeFrames[i]==PERIOD_M15){isTrendBull_M15 = true;}
+                      if(timeFrames[i]==PERIOD_H1){isTrendBull_H1 = true;}
+                      if(timeFrames[i]==PERIOD_H4){isTrendBull_H4 = true;}
+                      if(timeFrames[i]==PERIOD_D1){isTrendBull_D1 = true;}
                       // if price higher than Fibo 100 on current TimeFrame
                       // but i need
                       // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
-                      if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1)< High[secondPointTick])
+                      if(iClose(NULL,timeFrames[i],0)> High[secondPointTick]&&iClose(NULL,timeFrames[i],1)< High[secondPointTick]) // Divergence
                           {
-                              if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenLevel_100_IsPassed_M5 = true;}
-                              if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenLevel_100_IsPassed_M15 = true;}
-                              if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenLevel_100_IsPassed_H1 = true;}
-                              if(timeFrames[i]==PERIOD_H4){isFiboModuleGreenLevel_100_IsPassed_H4 = true;}
-                              if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenLevel_100_IsPassed_D1 = true;}
+                              if(timeFrames[i]==PERIOD_M5){isDivergenceUp_M5 = true;}
+                              if(timeFrames[i]==PERIOD_M15){isDivergenceUp_M15 = true;}
+                              if(timeFrames[i]==PERIOD_H1){isDivergenceUp_H1 = true;}
+                              if(timeFrames[i]==PERIOD_H4){isDivergenceUp_H4 = true;}
+                              if(timeFrames[i]==PERIOD_D1){isDivergenceUp_D1 = true;}
                           }
                   }
               if(Low[secondPointTick]<High[firstPointTick]) // red
                   {
-                   if(timeFrames[i]==PERIOD_M5){isFiboModuleRedState_M5 = true;}
-                   if(timeFrames[i]==PERIOD_M15){isFiboModuleRedState_M15 = true;}
-                   if(timeFrames[i]==PERIOD_H1){isFiboModuleRedState_H1 = true;}
-                   if(timeFrames[i]==PERIOD_H4){isFiboModuleRedState_H4 = true;}
-                   if(timeFrames[i]==PERIOD_D1){isFiboModuleRedState_D1 = true;}
+                   if(timeFrames[i]==PERIOD_M5){isTrendBear_M5 = true;}
+                   if(timeFrames[i]==PERIOD_M15){isTrendBear_M15 = true;}
+                   if(timeFrames[i]==PERIOD_H1){isTrendBear_H1 = true;}
+                   if(timeFrames[i]==PERIOD_H4){isTrendBear_H4 = true;}
+                   if(timeFrames[i]==PERIOD_D1){isTrendBear_D1 = true;}
                       if(iClose(NULL,timeFrames[i],0)< Low[secondPointTick]&&iClose(NULL,timeFrames[i],1)> Low[secondPointTick]) // not defined cyclePeriod
                           {
-                              if(timeFrames[i]==PERIOD_M5){isFiboModuleRedLevel_100_IsPassed_M5 = true;}
-                              if(timeFrames[i]==PERIOD_M15){isFiboModuleRedLevel_100_IsPassed_M15 = true;}
-                              if(timeFrames[i]==PERIOD_H1){isFiboModuleRedLevel_100_IsPassed_H1 = true;}
-                              if(timeFrames[i]==PERIOD_H4){isFiboModuleRedLevel_100_IsPassed_H4 = true;}
-                              if(timeFrames[i]==PERIOD_D1){isFiboModuleRedLevel_100_IsPassed_D1 = true;}
+                              if(timeFrames[i]==PERIOD_M5){isDivergenceDown_M5 = true;}
+                              if(timeFrames[i]==PERIOD_M15){isDivergenceDown_M15 = true;}
+                              if(timeFrames[i]==PERIOD_H1){isDivergenceDown_H1 = true;}
+                              if(timeFrames[i]==PERIOD_H4){isDivergenceDown_H4 = true;}
+                              if(timeFrames[i]==PERIOD_D1){isDivergenceDown_D1 = true;}
                           }
                   }
             }// end of TimeFrames for loop for Trend and Divergence flag
