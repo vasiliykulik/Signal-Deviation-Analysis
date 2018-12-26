@@ -156,21 +156,29 @@ void OnTick(void)
       // Divergence : M15 || H1 || H4 || D1
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
+
+       // the trading strategy itself v2
+       // Color:       All the Same + filter Artifacts wo D1
+       // Trend:       All the Same wo D1
+       // IsPassed :   M5 || M15
+       // with stop
+       // TS_5.6 Handling with 61,8
+
       if
       (
-       (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1) &&
-       (isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1) &&
-       (isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15) &&
-       (isDivergenceUp_M15 || isDivergenceUp_H1 || isDivergenceUp_H4 || isDivergenceUp_D1)
+       (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 &&) &&
+       (!isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4) && // artifact filter
+       (isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4) &&
+       (isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15)
        )
         {buy=1;}
 
       if
       (
-       (isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1) &&
-       (isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1) &&
+       (isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4) &&
+       (!isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4) && // artifact filter
+       (isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4) &&
        (isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15) &&
-       (isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1)
        )
         {sell=1;}
 
