@@ -239,27 +239,18 @@ void OnTick(void)
          if(OrderType()==OP_BUY) // long position is opened
            {
             // should it be closed?
-/*if(MacdPrevious>0 && MacdCurrent<0)
-                {
-                 OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
-                 return(0); // exit
-                }*/
+            //
             // check for trailing stop
-
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
+              periodGlobal = PERIOD_M5;
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
-               //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
+
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
                else {stopLossForBuyMin=firstMinGlobal;}
               }
 
-            //Print("Блок ведения, "," Bid = ",Bid,"stopLossForBuyMin = ",stopLossForBuyMin," OrderStopLoss() = ",OrderStopLoss());
-            //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
-            //                 { // посвечный обвес
-            //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
             double spread=Ask-Bid;
             double stopShift=stopLossForBuyMin-OrderStopLoss();
             if(stopShift>spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
@@ -268,43 +259,28 @@ void OnTick(void)
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
               }
-
-            //                 } // посвечный обвес
-            //              } // посвечный обвес
            }
          else // go to short position
            {
             // should it be closed?
-/*if(MacdPrevious<0 && MacdCurrent>0)
-                {
-                 OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
-                 return(0); // exit
-                }*/
+            //
             // check for trailing stop
             double stopLossForSellMax;
             if(TrailingStop>0)
               {
+              periodGlobal = PERIOD_M5;
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
-               //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
-               //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
-               //                 {
-               //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
-
-               //               //Print("Блок ведения, stopLossForSellMax = ", stopLossForSellMax);
               }
             OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
             double stopShift=OrderStopLoss()-stopLossForSellMax;
             if((stopShift>spread || stopShift<=0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
               {
-               //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                return;
               }
-            //                 }
-
            }
         }
      }
