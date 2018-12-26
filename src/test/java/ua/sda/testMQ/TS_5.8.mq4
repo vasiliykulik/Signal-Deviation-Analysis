@@ -159,7 +159,7 @@ void OnTick(void)
 
        // the trading strategy itself v2
        // Color:       All the Same + filter Artifacts wo D1
-       // Trend:       All the Same wo D1
+       // Trend:       All the Same wo H4, D1
        // IsPassed :   M5 || M15
        // with stop
        // TS_5.6 Handling with 61,8
@@ -167,8 +167,8 @@ void OnTick(void)
       if
       (
        (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4) &&
-       (!isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4) && // artifact filter
-       (isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4) &&
+       (!isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1) && // artifact filter
+       (isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1) &&
        (isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15)
        )
         {buy=1;}
@@ -177,7 +177,7 @@ void OnTick(void)
       (
        (isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4) &&
        (!isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4) && // artifact filter
-       (isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4) &&
+       (isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1) &&
        (isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15)
        )
         {sell=1;}
