@@ -166,7 +166,7 @@ void OnTick(void)
 
       if
       (
-       (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 &&) &&
+       (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4) &&
        (!isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4) && // artifact filter
        (isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4) &&
        (isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15)
@@ -178,7 +178,7 @@ void OnTick(void)
        (isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4) &&
        (!isFiboModuleGreenState_M5 && !isFiboModuleGreenState_M15 && !isFiboModuleGreenState_H1 && !isFiboModuleGreenState_H4) && // artifact filter
        (isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4) &&
-       (isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15) &&
+       (isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15)
        )
         {sell=1;}
 
