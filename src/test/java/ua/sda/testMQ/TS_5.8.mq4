@@ -165,13 +165,13 @@ void OnTick(void)
        // TS_5.6 Handling with 61,8
 
 Print("Buy, isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 = ",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4);
-Print("Buy, !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && isFiboModuleRedState_H4 = ", !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && isFiboModuleRedState_H4);
+Print("Buy, !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4 = ", !isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4);
 Print("Buy, isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 = ", isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1);
 Print("Buy, isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15 = ",isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15);
       if
       (
        (isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4) &&
-       (!isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && isFiboModuleRedState_H4) && // artifact filter
+       (!isFiboModuleRedState_M5 && !isFiboModuleRedState_M15 && !isFiboModuleRedState_H1 && !isFiboModuleRedState_H4) && // artifact filter
        (isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1) &&
        (isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15)
        )
