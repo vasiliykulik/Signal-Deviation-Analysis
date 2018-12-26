@@ -113,21 +113,21 @@ void OnTick(void)
               lowAndHighUpdate=isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
               if(firstMinGlobal>secondMinGlobal) // Trend up
                   {
-                      if(timeFrames[i]==PERIOD_M5){isTrendBull_M5 = true;}
+                      if(timeFrames[i]==PERIOD_M5) {isTrendBull_M5   = true;}
                       if(timeFrames[i]==PERIOD_M15){isTrendBull_M15 = true;}
-                      if(timeFrames[i]==PERIOD_H1){isTrendBull_H1 = true;}
-                      if(timeFrames[i]==PERIOD_H4){isTrendBull_H4 = true;}
-                      if(timeFrames[i]==PERIOD_D1){isTrendBull_D1 = true;}
+                      if(timeFrames[i]==PERIOD_H1) {isTrendBull_H1   = true;}
+                      if(timeFrames[i]==PERIOD_H4) {isTrendBull_H4   = true;}
+                      if(timeFrames[i]==PERIOD_D1) {isTrendBull_D1   = true;}
                       // if price higher than Fibo 100 on current TimeFrame
                       // but i need
                       // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
                       if(firstMinGlobalMACD<secondMinGlobalMACD) // Divergence ! сontrary
                           {
-                              if(timeFrames[i]==PERIOD_M5){isDivergenceUp_M5 = true;}
+                              if(timeFrames[i]==PERIOD_M5) {isDivergenceUp_M5  = true;}
                               if(timeFrames[i]==PERIOD_M15){isDivergenceUp_M15 = true;}
-                              if(timeFrames[i]==PERIOD_H1){isDivergenceUp_H1 = true;}
-                              if(timeFrames[i]==PERIOD_H4){isDivergenceUp_H4 = true;}
-                              if(timeFrames[i]==PERIOD_D1){isDivergenceUp_D1 = true;}
+                              if(timeFrames[i]==PERIOD_H1) {isDivergenceUp_H1  = true;}
+                              if(timeFrames[i]==PERIOD_H4) {isDivergenceUp_H4  = true;}
+                              if(timeFrames[i]==PERIOD_D1) {isDivergenceUp_D1  = true;}
                           }
                   }
               if(firstMaxGlobal<secondMaxGlobal) // Trend down
@@ -148,7 +148,31 @@ void OnTick(void)
                   }
             }// end of TimeFrames for loop for Trend and Divergence flag
 
-// the trading strategy itself
+// the trading strategy itself v1
+// Color:       All the Same
+// Trend:       All the Same
+// IsPassed :   M5 || M15
+// Divergence : M15 || H1 || H4 || D1
+
+      if
+      (
+       isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 &&
+       isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1 &&
+       isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 &&
+       isFiboModuleGreenLevel_100_IsPassed_M5 && isFiboModuleGreenLevel_100_IsPassed_M15 &&
+       (isDivergenceUp_M15 || isDivergenceUp_H1 || isDivergenceUp_H4 || isDivergenceUp_D1 )
+       )
+       {buy = 1;}
+
+      if
+      (
+       isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 &&
+       isFiboModuleRedState_H4 && isFiboModuleRedState_D1 &&
+       isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 &&  isTrendBear_D1 &&
+       isFiboModuleRedevel_100_IsPassed_M5 && isFiboModuleRedevel_100_IsPassed_M15 &&
+       (isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1 )
+       )
+       {sell = 1;}
 
 
       if(AccountFreeMargin()<(1*Lots))
@@ -160,14 +184,7 @@ void OnTick(void)
       // check for long position (BUY) possibility
       // Block 3 Открытие позиций
       // Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSymmetricM15BuyReady || isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady, isDoubleSymmetricH1BuyReady, isDoubleSymmetricM15BuyReady, isDoubleSymmetricM5BuyReady);
-      if(
-         buy==1 &&
-         (
-         isDoubleSymmetricH4BuyReady ||
-         isDoubleSymmetricH1BuyReady ||
-         isDoubleSymmetricM15BuyReady ||
-         isDoubleSymmetricM5BuyReady)
-         )
+      if(buy==1)
         {
          double stopLossForBuyMin;
          if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
@@ -189,16 +206,8 @@ void OnTick(void)
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
       //Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
-      if(
-
-         sell==1 &&
-         (isDoubleSymmetricH4SellReady ||
-         isDoubleSymmetricH1SellReady ||
-         isDoubleSymmetricM15SellReady ||
-         isDoubleSymmetricM5SellReady)
-         )
+      if(sell==1)
         {
-
          double stopLossForSellMax;
          if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
          else {stopLossForSellMax=secondMaxGlobal;}
