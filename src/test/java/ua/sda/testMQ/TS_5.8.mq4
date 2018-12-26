@@ -244,15 +244,18 @@ void OnTick(void)
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
-              periodGlobal = PERIOD_M5;
+              periodGlobal = PERIOD_M5; // set TimeFrame for TS_5.6 Handling based on two last HalfWaves
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
 
-               if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
+               if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;} // TS_5.6 Handling based on two last HalfWaves
                else {stopLossForBuyMin=firstMinGlobal;}
+
+               double stopLoss61 = Bid-((Bid - OrderOpenPrice())*0.618);
+               if(stopLossForBuyMin<stopLoss61){stopLossForBuyMin = stopLoss61;}
               }
 
-            double spread=Ask-Bid;
-            double stopShift=stopLossForBuyMin-OrderStopLoss();
+            double spread=Ask-Bid; // just variable for spread
+            double stopShift=stopLossForBuyMin-OrderStopLoss(); // difference beetween stop loss level calculated earlier and current OrderStopLoss
             if(stopShift>spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
               {
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
@@ -270,8 +273,12 @@ void OnTick(void)
               {
               periodGlobal = PERIOD_M5;
                isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
+
+               double stopLoss61 = Ask+((OrderOpenPrice()-Ask)*0.618);
+               if(stopLossForSellMax>stopLoss61){stopLossForSellMax=stopLoss61;}
               }
             OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
