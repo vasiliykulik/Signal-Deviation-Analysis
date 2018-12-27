@@ -44,7 +44,9 @@ void OnTick(void)
 
    buy=0;
    sell=0;
-   bool lowAndHighUpdate=false;
+   bool lowAndHighUpdateViaNonSymmTick=false;
+   bool lowAndHighUpdateViaNonSymm = false;
+   bool lowAndHighUpdateViaNonSymmForTrailing = false;
    bool isFiboModuleGreenState_M5=false,isFiboModuleGreenState_M15=false,isFiboModuleGreenState_H1=false,isFiboModuleGreenState_H4=false,isFiboModuleGreenState_D1=false;
    bool isFiboModuleRedState_M5=false,isFiboModuleRedState_M15=false,isFiboModuleRedState_H1=false,isFiboModuleRedState_H4=false,isFiboModuleRedState_D1=false;
    bool isFiboModuleGreenLevel_100_IsPassed_M5=false,isFiboModuleGreenLevel_100_IsPassed_M15=false,isFiboModuleGreenLevel_100_IsPassed_H1=false,isFiboModuleGreenLevel_100_IsPassed_H4=false,isFiboModuleGreenLevel_100_IsPassed_D1=false;
@@ -63,7 +65,7 @@ void OnTick(void)
          //        Print("i = ", i, " ArraySize(timeFrames) = ", ArraySize(timeFrames));
          //        Print("periodGlobal = ", periodGlobal, " timeFrames[i] = ", timeFrames[i]);
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymmTick()
-         lowAndHighUpdate=nonSymmTick(); // set values to firstPointTick and secondPointTick global variables
+         lowAndHighUpdateViaNonSymmTick=nonSymmTick(); // set values to firstPointTick and secondPointTick global variables
          if(High[secondPointTick]>Low[firstPointTick]) // if green
            {
             if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenState_M5=true;}
@@ -108,9 +110,9 @@ void OnTick(void)
 
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
-         periodGlobal=timeFrames[i]; // set TimeFrame global value for isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
+         periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymm()
                                      // set values to firstMinGlobal firstMaxGlobal secondMinGlobal secondMaxGlobal and firstMinGlobalMACD, secondMinGlobalMACD, firstMaxGlobalMACD, secondMaxGlobalMACD;
-         lowAndHighUpdate=isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+         lowAndHighUpdateViaNonSymm=nonSymm();
          if(firstMinGlobal>secondMinGlobal) // Trend up
            {
             if(timeFrames[i]==PERIOD_M5) {isTrendBull_M5   = true;}
@@ -160,16 +162,18 @@ void OnTick(void)
  bool isFiboModuleGreenLevel_100_IsPassed = isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15;
  bool isDivergenceUp = isDivergenceUp_M15 || isDivergenceUp_H1 || isDivergenceUp_H4 || isDivergenceUp_D1;
 
-      if
-      (isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp){buy=1;}
-
- bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
- bool isTrendBear = isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1;
- bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15;
- bool isDivergenceDown = isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1;
+  bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
+  bool isTrendBear = isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1;
+  bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15;
+  bool isDivergenceDown = isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1;
 
       if
-      (isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown){sell=1;}
+      (isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp)
+      {buy=1;}
+
+      if
+      (isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown)
+      {sell=1;}
 
       if(AccountFreeMargin()<(1*Lots))
         {
@@ -225,7 +229,7 @@ void OnTick(void)
 // but it is more important to exit it correctly...
 
 // Block 4 Ведение позиций
-/*Вызывая метод isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing
+/*Вызывая метод nonSymm
    для periodGlobal мы будем update-ить цену*/
 
    for(cnt=0;cnt<total;cnt++)
@@ -247,7 +251,7 @@ void OnTick(void)
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
-               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
                //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
@@ -282,7 +286,7 @@ void OnTick(void)
             double stopLossForSellMax;
             if(TrailingStop>0)
               {
-               isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing();
+               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
@@ -588,7 +592,7 @@ max для sell
    return resultCheck;
   }
 // проставляем цены для ведения позиции
-bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
+bool nonSymm()
   {
    int countHalfWaves=0;
    int begin=0;
@@ -610,9 +614,19 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
    int q,w,resize4H4;
    bool what_5HalfWaveMACDH4;
 // то есть пока значения не проставлены
-   while(!(Macd_1H4>0 && Macd_2H4>0) && !(Macd_1H4<0 && Macd_2H4<0))
+  bool isMACD1BiggerThanZero = Macd_1H4>0;
+   bool isMACD2BiggerThanZero = Macd_2H4>0;
+   bool isMACD1SmallerThanZero = Macd_1H4<0;
+   bool isMACD2SmallerThanZero = Macd_2H4<0;
+   bool isMACD1EqualZero = Macd_1H4==0;
+   bool isMACD2EqualZero = Macd_2H4==0;
+   bool isSmaller= isMACD1SmallerThanZero && isMACD2SmallerThanZero;
+   bool isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero;
+   bool isEqualToZero=isMACD1EqualZero && isMACD2EqualZero;
+//  Print("isSmaller = ", isSmaller,"isBigger = ", isBigger,"isEqualToZero = ", isEqualToZero);
+   bool isMACDReady=isSmaller || isBigger || isEqualToZero;
+   for(begin=0;isMACDReady; begin++)
      {
-      begin++;
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
       // Print("Macd_1H4=iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,begin)");
       // Print(Macd_1H4);
@@ -625,6 +639,16 @@ bool isThereTwoNonSymmetricNonFilteredHalfWavesForTrailing()
       else if(Macd_2H4>0 && Macd_1H4<0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
+            isMACD1BiggerThanZero = Macd_1H4>0;
+            isMACD2BiggerThanZero = Macd_2H4>0;
+            isMACD1SmallerThanZero = Macd_1H4<0;
+            isMACD2SmallerThanZero = Macd_2H4<0;
+            isMACD1EqualZero = Macd_1H4==0;
+            isMACD2EqualZero = Macd_2H4==0;
+            isSmaller= isMACD1SmallerThanZero && isMACD2SmallerThanZero;
+            isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero;
+            isEqualToZero=isMACD1EqualZero && isMACD2EqualZero;
+            isMACDReady=isSmaller || isBigger || isEqualToZero;
      }
 //
    for(i=begin;countHalfWaves<=4;i++)
