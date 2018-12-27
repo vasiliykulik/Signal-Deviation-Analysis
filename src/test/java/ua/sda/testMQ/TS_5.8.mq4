@@ -47,10 +47,12 @@ void OnTick(void)
    bool lowAndHighUpdateViaNonSymmTick=false;
    bool lowAndHighUpdateViaNonSymm = false;
    bool lowAndHighUpdateViaNonSymmForTrailing = false;
+
    bool isFiboModuleGreenState_M5=false,isFiboModuleGreenState_M15=false,isFiboModuleGreenState_H1=false,isFiboModuleGreenState_H4=false,isFiboModuleGreenState_D1=false;
    bool isFiboModuleRedState_M5=false,isFiboModuleRedState_M15=false,isFiboModuleRedState_H1=false,isFiboModuleRedState_H4=false,isFiboModuleRedState_D1=false;
    bool isFiboModuleGreenLevel_100_IsPassed_M5=false,isFiboModuleGreenLevel_100_IsPassed_M15=false,isFiboModuleGreenLevel_100_IsPassed_H1=false,isFiboModuleGreenLevel_100_IsPassed_H4=false,isFiboModuleGreenLevel_100_IsPassed_D1=false;
    bool isFiboModuleRedLevel_100_IsPassed_M5=false,isFiboModuleRedLevel_100_IsPassed_M15=false,isFiboModuleRedLevel_100_IsPassed_H1=false,isFiboModuleRedLevel_100_IsPassed_H4=false,isFiboModuleRedLevel_100_IsPassed_D1=false;
+
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight=0,sellWeight=0;
    total=OrdersTotal();
@@ -155,6 +157,17 @@ void OnTick(void)
       // Trend:       All the Same
       // IsPassed :   M5 || M15
       // Divergence : M15 || H1 || H4 || D1
+
+             // the trading strategy itself v2
+             // Color:       All the Same + filter Artifacts wo D1
+             // Trend:       All the Same wo H4, D1
+             // IsPassed :   M5 || M15
+             // with stop
+             // TS_5.6 Handling under 61,8
+             // GBPUSD > orders <% drawdown >% profit
+
+             // the trading strategy itself v3
+             // only IsPassed :   M5 && M15
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
  bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
@@ -251,11 +264,15 @@ void OnTick(void)
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
+              periodGlobal = PERIOD_M5;
+              lowAndHighUpdateViaNonSymmForTrailing = false;
                lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
                //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
                else {stopLossForBuyMin=firstMinGlobal;}
+               double stopLoss61 = Bid-((Bid - OrderOpenPrice())*0.618);
+                              if(stopLossForBuyMin<stopLoss61){stopLossForBuyMin = stopLoss61;}
               }
 
             //Print("Блок ведения, "," Bid = ",Bid,"stopLossForBuyMin = ",stopLossForBuyMin," OrderStopLoss() = ",OrderStopLoss());
@@ -286,10 +303,15 @@ void OnTick(void)
             double stopLossForSellMax;
             if(TrailingStop>0)
               {
+               periodGlobal = PERIOD_M5;
+              lowAndHighUpdateViaNonSymmForTrailing = false;
                lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
+
+               double stopLoss61 = Ask+((OrderOpenPrice()-Ask)*0.618);
+                              if(stopLossForSellMax>stopLoss61){stopLossForSellMax=stopLoss61;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
