@@ -181,11 +181,17 @@ void OnTick(void)
   bool isDivergenceDown = isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1;
 
       if
-      (isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp)
+      (
+      isFiboModuleGreenLevel_100_IsPassed_M15
+         //isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp
+      )
       {buy=1;}
 
       if
-      (isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown)
+      (
+      isFiboModuleRedLevel_100_IsPassed_M15
+         //isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown
+      )
       {sell=1;}
 
       if(AccountFreeMargin()<(1*Lots))
@@ -281,12 +287,15 @@ void OnTick(void)
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
             double spread=Ask-Bid;
             double stopShift=stopLossForBuyMin-OrderStopLoss();
+            if(stopLossForBuyMin>OrderOpenPrice())
+            {
             if(stopShift>spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
               {
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
               }
+            }
 
             //                 } // посвечный обвес
             //              } // посвечный обвес
@@ -321,12 +330,15 @@ void OnTick(void)
             OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
             double stopShift=OrderStopLoss()-stopLossForSellMax;
+            if(stopLossForSellMax<OrderOpenPrice())
+            {
             if((stopShift>spread || stopShift<=0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
               {
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                return;
               }
+            }
             //                 }
 
            }
