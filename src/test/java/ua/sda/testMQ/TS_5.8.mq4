@@ -182,14 +182,14 @@ void OnTick(void)
 
       if
       (
-      isFiboModuleGreenLevel_100_IsPassed_M15
+      isFiboModuleGreenLevel_100_IsPassed_M15 && isTrendBull_M5
          //isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp
       )
       {buy=1;}
 
       if
       (
-      isFiboModuleRedLevel_100_IsPassed_M15
+      isFiboModuleRedLevel_100_IsPassed_M15 && isTrendBear_M5
          //isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown
       )
       {sell=1;}
