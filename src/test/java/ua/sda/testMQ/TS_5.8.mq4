@@ -68,7 +68,12 @@ void OnTick(void)
          //        Print("periodGlobal = ", periodGlobal, " timeFrames[i] = ", timeFrames[i]);
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymmTick()
          lowAndHighUpdateViaNonSymmTick=nonSymmTick(); // set values to firstPointTick and secondPointTick global variables
-         if(High[secondPointTick]>Low[firstPointTick]) // if green
+
+         // change High[secondPointTick]>Low[firstPointTick]
+         // to iHigh(NULL, timeFrames[i], secondPointTick) > iLow(NULL, timeFrames[i], firstPointTick) ie high and low
+         double highGreen = iHigh(NULL, timeFrames[i], secondPointTick);
+         double lowGreen =  iLow(NULL, timeFrames[i], firstPointTick);
+         if(highGreen>lowGreen) // if green
            {
             if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenState_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenState_M15=true;}
@@ -78,7 +83,10 @@ void OnTick(void)
             // if price higher than Fibo 100 on current TimeFrame
             // but i need
             // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
-            if(iClose(NULL,timeFrames[i],0)>High[secondPointTick] && iClose(NULL,timeFrames[i],1)<High[secondPointTick])
+         // change High[secondPointTick]>Low[firstPointTick]
+         // to iHigh(NULL, timeFrames[i], secondPointTick) > iLow(NULL, timeFrames[i], firstPointTick) ie high and low
+
+            if(iClose(NULL,timeFrames[i],0)>highGreen && iClose(NULL,timeFrames[i],1)<highGreen)
               {
                if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenLevel_100_IsPassed_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenLevel_100_IsPassed_M15=true;}
@@ -87,14 +95,22 @@ void OnTick(void)
                if(timeFrames[i]==PERIOD_D1){isFiboModuleGreenLevel_100_IsPassed_D1 = true;}
               }
            }
-         if(Low[secondPointTick]<High[firstPointTick]) // red
+
+         // change Low[secondPointTick]<High[firstPointTick]
+         // to iLow(NULL, timeFrames[i], secondPointTick) < iHigh(NULL, timeFrames[i], firstPointTick) >  ie high and low
+
+         double lowRed =  iLow(NULL, timeFrames[i], secondPointTick);
+         double highRed = iHigh(NULL, timeFrames[i], firstPointTick);
+
+
+         if(lowRed<highRed) // red
            {
             if(timeFrames[i]==PERIOD_M5){isFiboModuleRedState_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isFiboModuleRedState_M15=true;}
             if(timeFrames[i]==PERIOD_H1){isFiboModuleRedState_H1 = true;}
             if(timeFrames[i]==PERIOD_H4){isFiboModuleRedState_H4 = true;}
             if(timeFrames[i]==PERIOD_D1){isFiboModuleRedState_D1 = true;}
-            if(iClose(NULL,timeFrames[i],0)<Low[secondPointTick] && iClose(NULL,timeFrames[i],1)>Low[secondPointTick]) // not defined cyclePeriod
+            if(iClose(NULL,timeFrames[i],0)<lowRed && iClose(NULL,timeFrames[i],1)>lowRed) // not defined cyclePeriod - now defined
               {
                if(timeFrames[i]==PERIOD_M5){isFiboModuleRedLevel_100_IsPassed_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isFiboModuleRedLevel_100_IsPassed_M15=true;}
@@ -157,6 +173,7 @@ void OnTick(void)
       // Trend:       All the Same
       // IsPassed :   M5 || M15
       // Divergence : M15 || H1 || H4 || D1
+      // 8 orders, 1-3, 4, 5-6 short stop, 7  11.21 22:47 drowdawn 1500, 8 short stop 800 drawdown and 2000 possibly profit
 
              // the trading strategy itself v2
              // Color:       All the Same + filter Artifacts wo D1
@@ -167,29 +184,29 @@ void OnTick(void)
              // GBPUSD > orders <% drawdown >% profit
 
              // the trading strategy itself v3
-             // only IsPassed :   M5 && M15
+             // only IsPassed :   D1 && H4
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
- bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
- bool isTrendBull = isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1;
- bool isFiboModuleGreenLevel_100_IsPassed = isFiboModuleGreenLevel_100_IsPassed_M5 || isFiboModuleGreenLevel_100_IsPassed_M15;
+ bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4;
+ bool isTrendBull = isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1;
+ bool isFiboModuleGreenLevel_100_IsPassed = isFiboModuleGreenLevel_100_IsPassed_D1 || isFiboModuleGreenLevel_100_IsPassed_H4;
  bool isDivergenceUp = isDivergenceUp_M15 || isDivergenceUp_H1 || isDivergenceUp_H4 || isDivergenceUp_D1;
 
-  bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
-  bool isTrendBear = isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1;
-  bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_M5 || isFiboModuleRedLevel_100_IsPassed_M15;
+  bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4;
+  bool isTrendBear = isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1;
+  bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_D1 || isFiboModuleRedLevel_100_IsPassed_H4;
   bool isDivergenceDown = isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1;
 
       if
       (
-      isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp
+      isFiboModuleGreenLevel_100_IsPassed
          //isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp
       )
       {buy=1;}
 
       if
       (
-      isFiboModuleRedState && isTrendBear  && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown
+      isFiboModuleRedLevel_100_IsPassed
          //isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown
       )
       {sell=1;}
