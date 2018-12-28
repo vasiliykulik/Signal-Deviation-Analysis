@@ -270,6 +270,16 @@ void OnTick(void)
             double stopLossForBuyMin;
             if(TrailingStop>0)
               {
+
+               if(Bid>OrderOpenPrice()&& (Bid - OrderOpenPrice())> (Ask - Bid)*2)// если текущая цена БОЛЬШЕ цены открытия И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
+                 {
+                  if(Bid-((Bid - OrderOpenPrice())*0.618)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
+                    {
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*0.618),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
+                    }
+                 }
+
+
               periodGlobal = PERIOD_M5;
               lowAndHighUpdateViaNonSymmForTrailing = false;
                lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
@@ -277,8 +287,6 @@ void OnTick(void)
                //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
                else {stopLossForBuyMin=firstMinGlobal;}
-               double stopLoss61 = Bid-((Bid - OrderOpenPrice())*0.618);
-                              if(stopLossForBuyMin<stopLoss61){stopLossForBuyMin = stopLoss61;}
               }
 
             //Print("Блок ведения, "," Bid = ",Bid,"stopLossForBuyMin = ",stopLossForBuyMin," OrderStopLoss() = ",OrderStopLoss());
@@ -287,15 +295,13 @@ void OnTick(void)
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
             double spread=Ask-Bid;
             double stopShift=stopLossForBuyMin-OrderStopLoss();
-            if(stopLossForBuyMin>OrderOpenPrice()   &&   Bid>OrderOpenPrice()&& (Bid - OrderOpenPrice())> (Ask - Bid)*2)
-            {
-            if(stopShift>spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss()   &&   Bid-((Bid - OrderOpenPrice())*0.618)>OrderStopLoss())
+
+            if(stopShift > spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
               {
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
               }
-            }
 
             //                 } // посвечный обвес
             //              } // посвечный обвес
@@ -312,6 +318,19 @@ void OnTick(void)
             double stopLossForSellMax;
             if(TrailingStop>0)
               {
+
+
+              {
+               if(OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask - Bid)*2))// если текущая цена + двойной спред МЕНЬШЕ цены открытия (Уберу двойной спред) И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
+                 {
+                  if(Ask+((OrderOpenPrice()-Ask)*0.618)<OrderStopLoss()|| (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
+                    {
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*0.618),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
+                    }
+                 }
+              }
+
+
                periodGlobal = PERIOD_M5;
               lowAndHighUpdateViaNonSymmForTrailing = false;
                lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
@@ -319,8 +338,6 @@ void OnTick(void)
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
 
-               double stopLoss61 = Ask+((OrderOpenPrice()-Ask)*0.618);
-                              if(stopLossForSellMax>stopLoss61){stopLossForSellMax=stopLoss61;}
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
                //                  if(((High[1]+(Ask-Bid)*2)<OrderStopLoss()) || (OrderStopLoss()==0))
@@ -330,15 +347,13 @@ void OnTick(void)
             OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
             double stopShift=OrderStopLoss()-stopLossForSellMax;
-            if(stopLossForSellMax<OrderOpenPrice()   &&   OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask - Bid)*2))
-            {
-            if((stopShift>spread || stopShift<=0) && Ask<stopLossForSellMax && /*(stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0)*/ Ask+((OrderOpenPrice()-Ask)*0.618)<OrderStopLoss()|| (OrderStopLoss()==0))
+
+            if((stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
               {
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                return;
               }
-            }
             //                 }
 
            }
