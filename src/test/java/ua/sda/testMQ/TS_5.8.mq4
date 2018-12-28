@@ -296,7 +296,7 @@ void OnTick(void)
             double spread=Ask-Bid;
             double stopShift=stopLossForBuyMin-OrderStopLoss();
 
-            if(stopShift > spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
+            if(stopLossForBuyMin>OrderOpenPrice() && stopShift > spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
               {
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
@@ -348,7 +348,7 @@ void OnTick(void)
             double spread=Ask-Bid;
             double stopShift=OrderStopLoss()-stopLossForSellMax;
 
-            if((stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
+            if(stopLossForSellMax<OrderOpenPrice() && (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
               {
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
