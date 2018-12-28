@@ -287,9 +287,9 @@ void OnTick(void)
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
             double spread=Ask-Bid;
             double stopShift=stopLossForBuyMin-OrderStopLoss();
-            if(stopLossForBuyMin>OrderOpenPrice())
+            if(stopLossForBuyMin>OrderOpenPrice()   &&   Bid>OrderOpenPrice()&& (Bid - OrderOpenPrice())> (Ask - Bid)*2)
             {
-            if(stopShift>spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
+            if(stopShift>spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss()   &&   Bid-((Bid - OrderOpenPrice())*0.618)>OrderStopLoss())
               {
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
@@ -330,9 +330,9 @@ void OnTick(void)
             OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); // trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
             double stopShift=OrderStopLoss()-stopLossForSellMax;
-            if(stopLossForSellMax<OrderOpenPrice())
+            if(stopLossForSellMax<OrderOpenPrice()   &&   OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask - Bid)*2))
             {
-            if((stopShift>spread || stopShift<=0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
+            if((stopShift>spread || stopShift<=0) && Ask<stopLossForSellMax && /*(stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0)*/ Ask+((OrderOpenPrice()-Ask)*0.618)<OrderStopLoss()|| (OrderStopLoss()==0))
               {
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
