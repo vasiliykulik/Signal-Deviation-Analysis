@@ -229,7 +229,7 @@ void OnTick(void)
          // не допустим супер стопа
          if(stopLossForBuyMin<currentStopLoss) {stopLossForBuyMin=currentStopLoss;}
 
-         ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,stopLossForBuyMin,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+         ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
          //Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
