@@ -171,20 +171,22 @@ void OnTick(void)
       // the trading strategy itself v1
       // Color:       All the Same
       // Trend:       All the Same
-      // IsPassed :   M5 || M15
+      // IsPassed :   M5 || M15 || H1 || H4 || D1
       // Divergence : M15 || H1 || H4 || D1
-      // 8 orders, 1-3, 4, 5-6 short stop, 7  11.21 22:47 drowdawn 1500, 8 short stop 800 drawdown and 2000 possibly profit
+
 
              // the trading strategy itself v2
              // Color:       All the Same + filter Artifacts wo D1
              // Trend:       All the Same wo H4, D1
              // IsPassed :   M5 || M15
-             // with stop
-             // TS_5.6 Handling under 61,8
-             // GBPUSD > orders <% drawdown >% profit
+
 
              // the trading strategy itself v3
              // only IsPassed :   D1 && H4
+
+             // the trading strategy itself v3
+             // only IsPassed :   W1 && M
+
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
  bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4;
