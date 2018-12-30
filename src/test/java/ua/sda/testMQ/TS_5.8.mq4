@@ -190,26 +190,26 @@ void OnTick(void)
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
  bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
- bool isTrendBull = isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1;
+ bool isTrendBull = isTrendBull_M15 && isTrendBull_H1;// && isTrendBull_H4 && isTrendBull_D1;
  bool isFiboModuleGreenLevel_100_IsPassed = isFiboModuleGreenLevel_100_IsPassed_D1 || isFiboModuleGreenLevel_100_IsPassed_H4;//  || isFiboModuleGreenLevel_100_IsPassed_H1 || isFiboModuleGreenLevel_100_IsPassed_M15 || isFiboModuleGreenLevel_100_IsPassed_M5;
  bool isDivergenceUp = isDivergenceUp_M5 || isDivergenceUp_M15 || isDivergenceUp_H1 || isDivergenceUp_H4 || isDivergenceUp_D1;
 
   bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
-  bool isTrendBear = isTrendBear_M5 && isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1;
+  bool isTrendBear = isTrendBear_M15 && isTrendBear_H1;// && isTrendBear_H4 && isTrendBear_D1;
   bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_D1 || isFiboModuleRedLevel_100_IsPassed_H4 ; //  || isFiboModuleRedLevel_100_IsPassed_H1 || isFiboModuleRedLevel_100_IsPassed_M15 || isFiboModuleRedLevel_100_IsPassed_M5;
   bool isDivergenceDown = isDivergenceDown_M5 || isDivergenceDown_M15 || isDivergenceDown_H1 || isDivergenceDown_H4 || isDivergenceDown_D1;
 
       if
       (
         // isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceUp
-        isFiboModuleGreenLevel_100_IsPassed && isTrendBull_M5
+        isTrendBull && isFiboModuleGreenLevel_100_IsPassed_M5 && isTrendBear_M5
       )
       {buy=1;}
 
       if
       (
         //isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceDown
-        isFiboModuleRedLevel_100_IsPassed && isTrendBear_M5
+        isTrendBear && isFiboModuleRedLevel_100_IsPassed_M5 && isTrendBull_M5
       )
       {sell=1;}
 
