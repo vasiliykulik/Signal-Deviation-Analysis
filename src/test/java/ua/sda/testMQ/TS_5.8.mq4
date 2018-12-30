@@ -131,7 +131,7 @@ void OnTick(void)
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymm()
                                      // set values to firstMinGlobal firstMaxGlobal secondMinGlobal secondMaxGlobal and firstMinGlobalMACD, secondMinGlobalMACD, firstMaxGlobalMACD, secondMaxGlobalMACD;
          lowAndHighUpdateViaNonSymm=nonSymm();
-         if(firstMinGlobal>secondMinGlobal) // Trend up
+         if(firstMinGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal) // Trend up, new, more comprehensive clause
            {
             if(timeFrames[i]==PERIOD_M5) {isTrendBull_M5   = true;}
             if(timeFrames[i]==PERIOD_M15){isTrendBull_M15 = true;}
@@ -150,7 +150,7 @@ void OnTick(void)
                if(timeFrames[i]==PERIOD_D1) {isDivergenceUp_D1  = true;}
               }
            }
-         if(firstMaxGlobal<secondMaxGlobal) // Trend down
+         if(firstMaxGlobal<secondMaxGlobal && firstMinGlobal<secondMinGlobal) // Trend down , new, more comprehensive clause
            {
             if(timeFrames[i]==PERIOD_M5){isTrendBear_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isTrendBear_M15=true;}
