@@ -130,6 +130,9 @@ void OnTick(void)
       bool isDivergenceMACDUp_M5=false,isDivergenceMACDUp_M15=false,isDivergenceMACDUp_H1=false,isDivergenceMACDUp_H4=false,isDivergenceMACDUp_D1=false;
       bool isDivergenceMACDDown_M5=false,isDivergenceMACDDown_M15=false,isDivergenceMACDDown_H1=false,isDivergenceMACDDown_H4=false,isDivergenceMACDDown_D1=false;
 
+      bool isDivergenceMACDForPriceConv_M5=false,isDivergenceMACDForPriceConv_M15=false,isDivergenceMACDForPriceConv_H1=false,isDivergenceMACDForPriceConv_H4=false,isDivergenceMACDForPriceConv_D1=false;
+      bool isDivergenceMACDForPriceDiv_M5=false,isDivergenceMACDForPriceDiv_M15=false,isDivergenceMACDForPriceDiv_H1=false,isDivergenceMACDForPriceDiv_H4=false,isDivergenceMACDForPriceDiv_D1=false;
+
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymm()
@@ -145,7 +148,7 @@ void OnTick(void)
             // if price higher than Fibo 100 on current TimeFrame
             // but i need
             // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
-            if(firstMinGlobalMACD<secondMinGlobalMACD) // Divergence MACD ! сontrary
+            if(firstMinGlobalMACD>secondMinGlobalMACD) // Divergence MACD ! сontrary
               {
                if(timeFrames[i]==PERIOD_M5) {isDivergenceMACDUp_M5  = true;}
                if(timeFrames[i]==PERIOD_M15){isDivergenceMACDUp_M15 = true;}
@@ -161,7 +164,7 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H1){isTrendBear_H1 = true;}
             if(timeFrames[i]==PERIOD_H4){isTrendBear_H4 = true;}
             if(timeFrames[i]==PERIOD_D1){isTrendBear_D1 = true;}
-            if(firstMaxGlobalMACD>secondMaxGlobalMACD) // Divergence MACD ! сontrary
+            if(firstMaxGlobalMACD<secondMaxGlobalMACD) // Divergence MACD ! сontrary
               {
                if(timeFrames[i]==PERIOD_M5){isDivergenceMACDDown_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isDivergenceMACDDown_M15=true;}
@@ -177,13 +180,13 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H1){isPriceConvergence_H1 = true;}
             if(timeFrames[i]==PERIOD_H4){isPriceConvergence_H4 = true;}
             if(timeFrames[i]==PERIOD_D1){isPriceConvergence_D1 = true;}
-            if(firstMaxGlobalMACD>secondMaxGlobalMACD) // Divergence MACD ! сontrary
+            if(firstMinGlobalMACD>secondMinGlobalMACD || firstMaxGlobalMACD<secondMaxGlobalMACD) // Divergence MACD ! сontrary
               {
-               if(timeFrames[i]==PERIOD_M5){isDivergenceMACDDown_M5=true;}
-               if(timeFrames[i]==PERIOD_M15){isDivergenceMACDDown_M15=true;}
-               if(timeFrames[i]==PERIOD_H1){isDivergenceMACDDown_H1 = true;}
-               if(timeFrames[i]==PERIOD_H4){isDivergenceMACDDown_H4 = true;}
-               if(timeFrames[i]==PERIOD_D1){isDivergenceMACDDown_D1 = true;}
+               if(timeFrames[i]==PERIOD_M5){isDivergenceMACDForPriceConv_M5=true;}
+               if(timeFrames[i]==PERIOD_M15){isDivergenceMACDForPriceConv_M15=true;}
+               if(timeFrames[i]==PERIOD_H1){isDivergenceMACDForPriceConv_H1 = true;}
+               if(timeFrames[i]==PERIOD_H4){isDivergenceMACDForPriceConv_H4 = true;}
+               if(timeFrames[i]==PERIOD_D1){isDivergenceMACDForPriceConv_D1 = true;}
               }
            }
          if(firstMaxGlobal>secondMaxGlobal && firstMinGlobal<secondMinGlobal) // Divergence
@@ -193,13 +196,13 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H1){isPriceDivergence_H1 = true;}
             if(timeFrames[i]==PERIOD_H4){isPriceDivergence_H4 = true;}
             if(timeFrames[i]==PERIOD_D1){isPriceDivergence_D1 = true;}
-            if(firstMaxGlobalMACD>secondMaxGlobalMACD) // Divergence MACD ! сontrary
+            if(firstMinGlobalMACD>secondMinGlobalMACD || firstMaxGlobalMACD<secondMaxGlobalMACD) // Divergence MACD ! сontrary
               {
-               if(timeFrames[i]==PERIOD_M5){isDivergenceMACDDown_M5=true;}
-               if(timeFrames[i]==PERIOD_M15){isDivergenceMACDDown_M15=true;}
-               if(timeFrames[i]==PERIOD_H1){isDivergenceMACDDown_H1 = true;}
-               if(timeFrames[i]==PERIOD_H4){isDivergenceMACDDown_H4 = true;}
-               if(timeFrames[i]==PERIOD_D1){isDivergenceMACDDown_D1 = true;}
+               if(timeFrames[i]==PERIOD_M5){isDivergenceMACDForPriceDiv_M5=true;}
+               if(timeFrames[i]==PERIOD_M15){isDivergenceMACDForPriceDiv_M15=true;}
+               if(timeFrames[i]==PERIOD_H1){isDivergenceMACDForPriceDiv_H1 = true;}
+               if(timeFrames[i]==PERIOD_H4){isDivergenceMACDForPriceDiv_H4 = true;}
+               if(timeFrames[i]==PERIOD_D1){isDivergenceMACDForPriceDiv_D1 = true;}
               }
            }
         }// end of TimeFrames for loop for Trend and Divergence flag
@@ -225,15 +228,22 @@ void OnTick(void)
 
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
+
+
  bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
- bool isTrendBull = isTrendBull_M15 && isTrendBull_H1;// && isTrendBull_H4 && isTrendBull_D1;
  bool isFiboModuleGreenLevel_100_IsPassed = isFiboModuleGreenLevel_100_IsPassed_D1 || isFiboModuleGreenLevel_100_IsPassed_H4  || isFiboModuleGreenLevel_100_IsPassed_H1;// || isFiboModuleGreenLevel_100_IsPassed_M15 || isFiboModuleGreenLevel_100_IsPassed_M5;
+ bool isTrendBull = isTrendBull_M15 && isTrendBull_H1;// && isTrendBull_H4 && isTrendBull_D1;
  bool isDivergenceMACDUp = isDivergenceMACDUp_M5 || isDivergenceMACDUp_M15 || isDivergenceMACDUp_H1 || isDivergenceMACDUp_H4 || isDivergenceMACDUp_D1;
 
-  bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
-  bool isTrendBear = isTrendBear_M15 && isTrendBear_H1;// && isTrendBear_H4 && isTrendBear_D1;
-  bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_D1 || isFiboModuleRedLevel_100_IsPassed_H4   || isFiboModuleRedLevel_100_IsPassed_H1; // || isFiboModuleRedLevel_100_IsPassed_M15 || isFiboModuleRedLevel_100_IsPassed_M5;
-  bool isDivergenceMACDDown = isDivergenceMACDDown_M5 || isDivergenceMACDDown_M15 || isDivergenceMACDDown_H1 || isDivergenceMACDDown_H4 || isDivergenceMACDDown_D1;
+ bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
+ bool isFiboModuleRedLevel_100_IsPassed = isFiboModuleRedLevel_100_IsPassed_D1 || isFiboModuleRedLevel_100_IsPassed_H4   || isFiboModuleRedLevel_100_IsPassed_H1; // || isFiboModuleRedLevel_100_IsPassed_M15 || isFiboModuleRedLevel_100_IsPassed_M5;
+ bool isTrendBear = isTrendBear_M15 && isTrendBear_H1;// && isTrendBear_H4 && isTrendBear_D1;
+ bool isDivergenceMACDDown = isDivergenceMACDDown_M5 || isDivergenceMACDDown_M15 || isDivergenceMACDDown_H1 || isDivergenceMACDDown_H4 || isDivergenceMACDDown_D1;
+
+ bool isPriceConvergence = isPriceConvergence_M15;
+ bool isPriceDivergence = isPriceDivergence_M15;
+ bool isDivergenceMACDForPriceConv = isDivergenceMACDForPriceConv_M15;
+ bool isDivergenceMACDForPriceDiv = isDivergenceMACDForPriceDiv_M15;
 
       if
       (
