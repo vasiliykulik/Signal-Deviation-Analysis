@@ -247,15 +247,13 @@ void OnTick(void)
 
       if
       (
-        // isFiboModuleGreenState && isTrendBull && isFiboModuleGreenLevel_100_IsPassed && isDivergenceMACDUp
-        isTrendBull && isFiboModuleGreenLevel_100_IsPassed_M5 && isTrendBear_M5
+isFiboModuleRedState_H1 && isTrendBull_H1 && isPriceConvergence_M15 && isFiboModuleRedState_M15 && isPriceConvergence_M5 && isFiboModuleGreenState_M5 && isDivergenceMACDForPriceConv_M15
       )
       {buy=1;}
 
       if
       (
-        //isFiboModuleRedState && isTrendBear && isFiboModuleRedLevel_100_IsPassed && isDivergenceMACDDown
-        isTrendBear && isFiboModuleRedLevel_100_IsPassed_M5 && isTrendBull_M5
+isFiboModuleGreenState_H1 && isTrendBear_H1 && isPriceConvergence_M15 && isFiboModuleGreenState_M15 && isPriceConvergence_M5 && isFiboModuleRedState_M5 && isDivergenceMACDForPriceConv_M15
       )
       {sell=1;}
 
