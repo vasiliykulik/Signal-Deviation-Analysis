@@ -232,7 +232,7 @@ void OnTick(void)
 
  bool isFiboModuleGreenState = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
  bool isFiboModuleGreenLevel_100_IsPassed = isFiboModuleGreenLevel_100_IsPassed_D1 || isFiboModuleGreenLevel_100_IsPassed_H4  || isFiboModuleGreenLevel_100_IsPassed_H1;// || isFiboModuleGreenLevel_100_IsPassed_M15 || isFiboModuleGreenLevel_100_IsPassed_M5;
- bool isTrendBull = isTrendBull_M15 && isTrendBull_H1;// && isTrendBull_H4 && isTrendBull_D1;
+ bool isTrendBull = isTrendBull_M15 && isTrendBull_H1;// && isTrendBull_H4 && isTrendBull_D1 && isTrendBull_M5;
  bool isDivergenceMACDUp = isDivergenceMACDUp_M5 || isDivergenceMACDUp_M15 || isDivergenceMACDUp_H1 || isDivergenceMACDUp_H4 || isDivergenceMACDUp_D1;
 
  bool isFiboModuleRedState = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
@@ -247,13 +247,13 @@ void OnTick(void)
 
       if
       (
-isFiboModuleRedState_H1 && isTrendBull_H1 && isPriceConvergence_M15 && isFiboModuleRedState_M15 && isPriceConvergence_M5 && isFiboModuleGreenState_M5 && isDivergenceMACDForPriceConv_M15
+isTrendBear_M15 && isFiboModuleGreenState_M15 && isTrendBear_H1 && isFiboModuleGreenState_H1 && isTrendBear_M5
       )
       {buy=1;}
 
       if
       (
-isFiboModuleGreenState_H1 && isTrendBear_H1 && isPriceConvergence_M15 && isFiboModuleGreenState_M15 && isPriceConvergence_M5 && isFiboModuleRedState_M5 && isDivergenceMACDForPriceConv_M15
+isTrendBull_M15 && isFiboModuleRedState_M15 && isTrendBull_H1 && isFiboModuleRedState_H1 && isTrendBull_M5
       )
       {sell=1;}
 
