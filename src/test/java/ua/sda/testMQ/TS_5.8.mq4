@@ -246,37 +246,52 @@ void OnTick(void)
  bool isDivergenceMACDForPriceConv = isDivergenceMACDForPriceConv_M15;
  bool isDivergenceMACDForPriceDiv = isDivergenceMACDForPriceDiv_M15;
 
-// for M5 && M15
+
  double macd0_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0);
  double macd1_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1);
  double macd2_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,2);
- // for M15 && H1
- double macd0_W1 = iMACD(NULL,PERIOD_W1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
- double macd1_W1 = iMACD(NULL,PERIOD_W1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
- double macd2_W1 = iMACD(NULL,PERIOD_W1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+ double macd0_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ double macd1_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+ double macd2_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+ double macd0_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ double macd1_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+ double macd2_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+ bool macdUp_H4  = macd0_H4  > macd1_H4  > macd2_H4;
+ bool macdUp_D1  = macd0_D1  > macd1_D1  > macd2_D1;
+ bool macdUp_MN1 = macd0_MN1 > macd1_MN1 > macd2_MN1;
+
+ bool macdDown_H4  = macd0_H4  < macd1_H4  < macd2_H4;
+ bool macdDown_D1  = macd0_D1  < macd1_D1  < macd2_D1;
+ bool macdDown_MN1 = macd0_MN1 < macd1_MN1 < macd2_MN1;
+
+ bool MACDForelockFilterForBuyPosition  = macdUp_H4   && macdUp_D1   && macdUp_MN1;
+ bool MACDForelockFilterForSellPosition = macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
       if
       (
-         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && macd0_H4>macd1_H4 && macd1_H4>macd2_H4) ||
-         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1) ||
+         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && MACDForelockFilterForBuyPosition) ||
+         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && MACDForelockFilterForBuyPosition) ||
          (isFiboModuleGreenLevel_100_IsPassed_H4 && isFiboModuleGreenLevel_100_IsPassed_H1)
 
-         /*||
-         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && macd0_H4>macd1_H4 && macd1_H4>macd2_H4) ||
-         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1)*/
+         ||
+         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && MACDForelockFilterForBuyPosition) ||
+         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && MACDForelockFilterForBuyPosition)
       )
 
       {buy=1;}
 
       if
       (
-         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && macd0_H4<macd1_H4 && macd1_H4<macd2_H4) ||
-         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1) ||
+         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && MACDForelockFilterForSellPosition) ||
+         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && MACDForelockFilterForSellPosition) ||
          (isFiboModuleRedLevel_100_IsPassed_H4 && isFiboModuleRedLevel_100_IsPassed_H1)
 
-         /*||
-         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && macd0_H4<macd1_H4 && macd1_H4<macd2_H4) ||
-         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1)*/
+         ||
+         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && MACDForelockFilterForSellPosition) ||
+         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && MACDForelockFilterForSellPosition)
       )
 
       {sell=1;}
