@@ -246,16 +246,37 @@ void OnTick(void)
  bool isDivergenceMACDForPriceConv = isDivergenceMACDForPriceConv_M15;
  bool isDivergenceMACDForPriceDiv = isDivergenceMACDForPriceDiv_M15;
 
+// for M5 && M15
+ double macd0_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ double macd1_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+ double macd2_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+ // for M15 && H1
+ double macd0_W1 = iMACD(NULL,PERIOD_W1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+ double macd1_W1 = iMACD(NULL,PERIOD_W1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+ double macd2_W1 = iMACD(NULL,PERIOD_W1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
       if
       (
-         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5) || (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15) || (isFiboModuleGreenLevel_100_IsPassed_H4 && isFiboModuleGreenLevel_100_IsPassed_H1)
+         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && macd0_H4>macd1_H4 && macd1_H4>macd2_H4) ||
+         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1) ||
+         (isFiboModuleGreenLevel_100_IsPassed_H4 && isFiboModuleGreenLevel_100_IsPassed_H1) ||
+
+         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && macd0_H4>macd1_H4 && macd1_H4>macd2_H4) ||
+         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1)
       )
+
       {buy=1;}
 
       if
       (
-         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5) || (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15) || (isFiboModuleRedLevel_100_IsPassed_H4 && isFiboModuleRedLevel_100_IsPassed_H1)
+         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && macd0_H4<macd1_H4 && macd1_H4<macd2_H4) ||
+         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1) ||
+         (isFiboModuleRedLevel_100_IsPassed_H4 && isFiboModuleRedLevel_100_IsPassed_H1) ||
+
+         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && macd0_H4<macd1_H4 && macd1_H4<macd2_H4) ||
+         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1)
       )
+
       {sell=1;}
 
       if(AccountFreeMargin()<(1*Lots))
