@@ -259,10 +259,11 @@ void OnTick(void)
       (
          (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && macd0_H4>macd1_H4 && macd1_H4>macd2_H4) ||
          (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1) ||
-         (isFiboModuleGreenLevel_100_IsPassed_H4 && isFiboModuleGreenLevel_100_IsPassed_H1) ||
+         (isFiboModuleGreenLevel_100_IsPassed_H4 && isFiboModuleGreenLevel_100_IsPassed_H1)
 
+         /*||
          (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && macd0_H4>macd1_H4 && macd1_H4>macd2_H4) ||
-         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1)
+         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1>macd1_W1 && macd1_W1>macd2_W1)*/
       )
 
       {buy=1;}
@@ -271,10 +272,11 @@ void OnTick(void)
       (
          (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && macd0_H4<macd1_H4 && macd1_H4<macd2_H4) ||
          (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1) ||
-         (isFiboModuleRedLevel_100_IsPassed_H4 && isFiboModuleRedLevel_100_IsPassed_H1) ||
+         (isFiboModuleRedLevel_100_IsPassed_H4 && isFiboModuleRedLevel_100_IsPassed_H1)
 
+         /*||
          (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && macd0_H4<macd1_H4 && macd1_H4<macd2_H4) ||
-         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1)
+         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && macd0_W1<macd1_W1 && macd1_W1<macd2_W1)*/
       )
 
       {sell=1;}
