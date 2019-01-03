@@ -275,10 +275,6 @@ void OnTick(void)
          (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && MACDForelockFilterForBuyPosition) ||
          (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && MACDForelockFilterForBuyPosition) ||
          (isFiboModuleGreenLevel_100_IsPassed_H4 && isFiboModuleGreenLevel_100_IsPassed_H1)
-
-         ||
-         (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && MACDForelockFilterForBuyPosition) ||
-         (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && MACDForelockFilterForBuyPosition)
       )
 
       {buy=1;}
@@ -288,10 +284,6 @@ void OnTick(void)
          (isFiboModuleRedLevel_100_IsPassed_M15 && isFiboModuleRedLevel_100_IsPassed_M5 && MACDForelockFilterForSellPosition) ||
          (isFiboModuleRedLevel_100_IsPassed_H1 && isFiboModuleRedLevel_100_IsPassed_M15 && MACDForelockFilterForSellPosition) ||
          (isFiboModuleRedLevel_100_IsPassed_H4 && isFiboModuleRedLevel_100_IsPassed_H1)
-
-         ||
-         (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && MACDForelockFilterForSellPosition) ||
-         (isFiboModuleGreenLevel_100_IsPassed_H1 && isFiboModuleGreenLevel_100_IsPassed_M15 && MACDForelockFilterForSellPosition)
       )
 
       {sell=1;}
