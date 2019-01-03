@@ -270,6 +270,9 @@ void OnTick(void)
  bool MACDForelockFilterForBuyPosition  = macdUp_H4   && macdUp_D1   && macdUp_MN1;
  bool MACDForelockFilterForSellPosition = macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
+ Print("MACDForelockFilterForSellPosition macdDown_H4 && macdDown_D1 && macdDown_MN1 =  ", MACDForelockFilterForSellPosition, macdDown_H4 && macdDown_D1 && macdDown_MN1 );
+ Print("MACDForelockFilterForBuyPosition macdUp_H4 && macdUp_D1 && macdUp_MN1 =  ", MACDForelockFilterForBuyPosition, macdUp_H4 && macdUp_D1 && macdUp_MN1 );
+
       if
       (
          (isFiboModuleGreenLevel_100_IsPassed_M15 && isFiboModuleGreenLevel_100_IsPassed_M5 && MACDForelockFilterForBuyPosition) ||
