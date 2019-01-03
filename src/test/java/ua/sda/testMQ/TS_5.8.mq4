@@ -280,6 +280,11 @@ void OnTick(void)
       )
 
       {
+      Print("bool macdUp_H4  = macd0_H4  > macd1_H4  > macd2_H4;");
+
+      Print(" macd0_H4 macd1_H4 macd2_H4 " , macd0_H4 ,macd1_H4 ,macd2_H4);
+      Print(" macd0_D1 macd1_D1 macd2_D1 " , macd0_D1 ,macd1_D1 ,macd2_D1);
+      Print(" macd0_MN1 macd1_MN1 macd2_MN1 " ,macd0_MN1 ,macd1_MN1 ,macd2_MN1);
       Print(" Buy Section MACDForelockFilterForSellPosition macdDown_H4 && macdDown_D1 && macdDown_MN1 =  ", MACDForelockFilterForSellPosition," ", macdDown_H4 && macdDown_D1 && macdDown_MN1 );
       Print(" Buy Section MACDForelockFilterForBuyPosition macdUp_H4 && macdUp_D1 && macdUp_MN1 =  ", MACDForelockFilterForBuyPosition," ", macdUp_H4 && macdUp_D1 && macdUp_MN1 );
       buy=1;}
@@ -292,7 +297,10 @@ void OnTick(void)
       )
 
       {
-
+            Print(" bool macdDown_H4  = macd0_H4  < macd1_H4  < macd2_H4;");
+                  Print(" macd0_H4 macd1_H4 macd2_H4 " , macd0_H4 ,macd1_H4 ,macd2_H4);
+                  Print(" macd0_D1 macd1_D1 macd2_D1 " , macd0_D1 ,macd1_D1 ,macd2_D1);
+                  Print(" macd0_MN1 macd1_MN1 macd2_MN1 " ,macd0_MN1 ,macd1_MN1 ,macd2_MN1);
  Print(" Buy Section MACDForelockFilterForSellPosition macdDown_H4 && macdDown_D1 && macdDown_MN1 =  ", MACDForelockFilterForSellPosition," ", macdDown_H4 && macdDown_D1 && macdDown_MN1 );
  Print(" Buy Section MACDForelockFilterForBuyPosition macdUp_H4 && macdUp_D1 && macdUp_MN1 =  ", MACDForelockFilterForBuyPosition," ", macdUp_H4 && macdUp_D1 && macdUp_MN1 );
  sell=1;}
