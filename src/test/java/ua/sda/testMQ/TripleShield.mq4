@@ -124,16 +124,16 @@ void OnTick(void)
      }
 
 // Block 1 Попробуем определить пару драйвер
-   for(myPairsCount=0; myPairsCount<5; myPairsCount++)
+   for(myPairsCount=0; myPairsCount<5; myPairsCount++) // iterate instruments
      {
-      beginPairDriver=0;
+      beginPairDriver=-1;
       myCurrentPair=myPairs[myPairsCount];
       Macd_1H4PairDriver=0;
       Macd_2H4PairDriver=0;
       while(!(Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0) && !(Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0))
         {
          beginPairDriver++;
-         Macd_1H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver);
+         Macd_1H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver); // start value is 1
          Macd_2H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,beginPairDriver+1);
          if(Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0){what0HalfWavePairDriver=0;}
          else if(Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0){what0HalfWavePairDriver=1;}
@@ -194,7 +194,7 @@ void OnTick(void)
       printResultDifference[myPairsCount]=resultDifference;
       Print("myCurrentPair = ",myCurrentPair,"; resultDifference = ",resultDifference);
      }
-   Print(" ",printResultDifference[4]," ",printResultDifference[3]," ",printResultDifference[2]," ",printResultDifference[1]," ",printResultDifference[0]);
+   Print(" "," --- ", ", (",printResultDifference[4],") "," --- ", ", (",printResultDifference[3],") "," --- ", ", (",printResultDifference[2],") "," --- ", ", (",printResultDifference[1],") "," --- ", ", (",printResultDifference[0],")");
    Sleep(3333);
 /* Block 2   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
