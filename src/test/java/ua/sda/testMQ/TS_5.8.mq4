@@ -257,12 +257,18 @@ isPriceDivergence                     = isPriceDivergence_M15;
 isDivergenceMACDForPriceConv          = isDivergenceMACDForPriceConv_M15;
 isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
 
+double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
 double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
 double macd0_MN1 = 0.0; double macd1_MN1 = 0.0; double macd2_MN1 = 0.0;
 
-macd0_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-macd1_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-macd2_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+macd0_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+macd0_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
 
 macd0_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -275,10 +281,12 @@ macd2_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
 bool macdUp_H4  = false; bool macdUp_D1  = false; bool macdUp_MN1 = false;
 bool macdDown_H4 = false; bool macdDown_D1 = false; bool macdDown_MN1 = false;
 
+macdUp_H1  = macd0_H1  > macd1_H1  && macd1_H1  > macd2_H1;
 macdUp_H4  = macd0_H4  > macd1_H4  && macd1_H4  > macd2_H4;
 macdUp_D1  = macd0_D1  > macd1_D1  && macd1_D1  > macd2_D1;
 macdUp_MN1 = macd0_MN1 > macd1_MN1 && macd1_MN1 > macd2_MN1;
 
+macdDown_H1  = macd0_H1  < macd1_H1  && macd1_H1   < macd2_H1;
 macdDown_H4  = macd0_H4  < macd1_H4  && macd1_H4   < macd2_H4;
 macdDown_D1  = macd0_D1  < macd1_D1  && macd1_D1   < macd2_D1;
 macdDown_MN1 = macd0_MN1 < macd1_MN1 && macd1_MN1  < macd2_MN1;
@@ -286,8 +294,8 @@ macdDown_MN1 = macd0_MN1 < macd1_MN1 && macd1_MN1  < macd2_MN1;
 bool MACDForelockFilterForBuyPosition  = false;
 bool MACDForelockFilterForSellPosition = false;
 
-MACDForelockFilterForBuyPosition  = macdUp_H4   && macdUp_D1   && macdUp_MN1;
-MACDForelockFilterForSellPosition = macdDown_H4 && macdDown_D1 && macdDown_MN1;
+MACDForelockFilterForBuyPosition  = macdUp_H1 && macdUp_H4   && macdUp_D1   && macdUp_MN1;
+MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
 
       if
