@@ -262,7 +262,7 @@ printResultDifferenceX[myPairsCount]=resultDifference;
       printResultDifference[myPairsCount]=resultDifference;
       Print("myCurrentPair = ",myCurrentPair,"; resultDifference = ",resultDifference);
      }
-   Print(" ",printResultDifferenceX[4]," --- ", printResultDifferenceY[4]," (",printResultDifference[4],") ",printResultDifferenceX[3]," --- ", printResultDifferenceY[3]," (",printResultDifference[3],") ",printResultDifferenceX[2]," --- ", printResultDifferenceY[2]," (",printResultDifference[2],") ",printResultDifferenceX[1]," --- ", printResultDifferenceY[1]," (",printResultDifference[1],") ",printResultDifferenceX[0]," --- ", printResultDifferenceY[0],", (",printResultDifference[0],")");
+   Print(" ",printResultDifferenceX[4],"---", printResultDifferenceY[4],"(",printResultDifference[4],") ",printResultDifferenceX[3],"---", printResultDifferenceY[3],"(",printResultDifference[3],") ",printResultDifferenceX[2],"---", printResultDifferenceY[2],"(",printResultDifference[2],") ",printResultDifferenceX[1],"---", printResultDifferenceY[1],"(",printResultDifference[1],") ",printResultDifferenceX[0]," --- ", printResultDifferenceY[0],", (",printResultDifference[0],")");
    Sleep(3333);
 /* Block 2   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
