@@ -51,13 +51,16 @@ void OnTick(void)
 /* Variables Declaration  The algorithm of the trend criteria definition:*/
 
    string myPairs[]={"USDJPY","USDCAD","GBPUSD","GBPJPY","EURUSD"};
-   int myPairsCount,beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePirDriver,what0HalfWavePairDriver,
-   resizeForPairDriver,pd,iPD,jPD,minMaxCount;
-   int pairDriver[];
+   int myPairsCount,beginPairDriver,countHalfWavesPairDriver,what_1HalfWavePairDriver,what0HalfWavePairDriver,
+   resizeForPairDriver,resizeForPairDriver1,pd,pd1,iPD,jPD,kPD,minMaxCount;
+   int pairDriver[],pairDriver1[];
    int printResultDifference[5];
+   int printResultDifferenceX[5];
+   int printResultDifferenceY[5];
    string myCurrentPair;
    double Macd_1H4PairDriver,Macd_2H4PairDriver,MacdIplus3H4PairDriver,MacdIplus4H4PairDriver,
-   tempMin,tempMax,resultLow,resultHigh,resultDifference;
+   tempMin,tempMax,resultLow,resultHigh;
+   int resultDifference;
 
    int
    begin,zz,
@@ -138,15 +141,15 @@ void OnTick(void)
          if(Macd_1H4PairDriver>0 && Macd_2H4PairDriver>0){what0HalfWavePairDriver=0;}
          else if(Macd_1H4PairDriver<0 && Macd_2H4PairDriver<0){what0HalfWavePairDriver=1;}
          countHalfWavesPairDriver=0;
-         what_1HalfWavePirDriver=0;
-         for(iPD=beginPairDriver; countHalfWavesPairDriver<1; iPD++)
+
+         for(iPD=beginPairDriver; countHalfWavesPairDriver<2; iPD++)
            {
             MacdIplus3H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,iPD+1);
             MacdIplus4H4PairDriver=iMACD(myCurrentPair,PERIOD_M15,12,26,9,PRICE_CLOSE,MODE_MAIN,iPD+2);
             if(countHalfWavesPairDriver==0 && what0HalfWavePairDriver==0 && MacdIplus3H4PairDriver<0 && MacdIplus4H4PairDriver<0)
               {
                countHalfWavesPairDriver++;
-               what_1HalfWavePirDriver=1;
+               what_1HalfWavePairDriver=1;
                jPD=beginPairDriver+1;
                resizeForPairDriver=(iPD+2)-jPD;
                ArrayResize(pairDriver,resizeForPairDriver);
@@ -160,7 +163,7 @@ void OnTick(void)
             if(countHalfWavesPairDriver==0 && what0HalfWavePairDriver==1 && MacdIplus3H4PairDriver>0 && MacdIplus4H4PairDriver>0)
               {
                countHalfWavesPairDriver++;
-               what_1HalfWavePirDriver=0;
+               what_1HalfWavePairDriver=0;
                jPD=beginPairDriver+1;
                resizeForPairDriver=(iPD+2)-jPD;
                ArrayResize(pairDriver,resizeForPairDriver);
@@ -171,7 +174,72 @@ void OnTick(void)
                   pd++;
                  }
               }
-           }
+             if(countHalfWavesPairDriver==1 && what_1HalfWavePairDriver==1 && MacdIplus3H4PairDriver>0 && MacdIplus4H4PairDriver>0){
+                countHalfWavesPairDriver++;
+                kPD = jPD+1;
+                resizeForPairDriver1 = (iPD+2) - kPD;
+                ArrayResize(pairDriver1,resizeForPairDriver1);
+                pd1=0;
+                for(kPD; kPD < iPD+2; kPD++){
+                   pairDriver1[pd1] = kPD;
+                   pd1++;
+                }
+             }
+             if(countHalfWavesPairDriver==1 && what_1HalfWavePairDriver==0 && MacdIplus3H4PairDriver<0 && MacdIplus4H4PairDriver<0){
+                countHalfWavesPairDriver++;
+                kPD = jPD+1;
+                resizeForPairDriver1 = (iPD+2) - kPD;
+                ArrayResize(pairDriver1,resizeForPairDriver1);
+                pd1=0;
+                for(kPD; kPD < iPD+2; kPD++){
+                   pairDriver1[pd1] = kPD;
+                   pd1++;
+                }
+             }
+            }
+            // Now need to split pairDriver1 array to two parts
+            int pairDriver1Size = ArraySize(pairDriver1);
+            int split1 = pairDriver1Size/2;
+            int split2 = pairDriver1Size - split1;
+
+            // first part
+                     resultLow=iLow(myCurrentPair,PERIOD_M15,pairDriver1[0]);
+                     resultHigh=iHigh(myCurrentPair,PERIOD_M15,pairDriver1[0]);
+            for (int pairDriver1SizeCount = 0; pairDriver1SizeCount <= split1-1;pairDriver1SizeCount++){
+            tempMin = iLow(myCurrentPair,PERIOD_M15,pairDriver1[pairDriver1SizeCount]);
+            tempMax = iHigh(myCurrentPair,PERIOD_M15,pairDriver1[pairDriver1SizeCount]);
+            if(resultLow>tempMin){resultLow=tempMin;}
+            if(resultHigh<tempMax){resultHigh=tempMax;}
+                     if(myCurrentPair=="EURUSD" || myCurrentPair=="GBPUSD" || myCurrentPair=="USDCAD")
+                       {
+                        resultDifference=(resultHigh-resultLow)/0.00001;
+                       }
+                     if(myCurrentPair=="GBPJPY" || myCurrentPair=="USDJPY")
+                       {
+                        resultDifference=(resultHigh-resultLow)/0.001;
+                       }
+            }
+printResultDifferenceX[myPairsCount]=resultDifference;
+
+            // second part
+                     resultLow=iLow(myCurrentPair,PERIOD_M15,pairDriver1[split1]);
+                     resultHigh=iHigh(myCurrentPair,PERIOD_M15,pairDriver1[split1]);
+            for (int pairDriver1SizeCount = split1;pairDriver1SizeCount<=pairDriver1Size-1;pairDriver1SizeCount++){
+            tempMin = iLow(myCurrentPair,PERIOD_M15,pairDriver1[pairDriver1SizeCount]);
+            tempMax = iHigh(myCurrentPair,PERIOD_M15,pairDriver1[pairDriver1SizeCount]);
+            if(resultLow>tempMin){resultLow=tempMin;}
+            if(resultHigh<tempMax){resultHigh=tempMax;}
+                     if(myCurrentPair=="EURUSD" || myCurrentPair=="GBPUSD" || myCurrentPair=="USDCAD")
+                       {
+                        resultDifference=(resultHigh-resultLow)/0.00001;
+                       }
+                     if(myCurrentPair=="GBPJPY" || myCurrentPair=="USDJPY")
+                       {
+                        resultDifference=(resultHigh-resultLow)/0.001;
+                       }
+            }
+ printResultDifferenceY[myPairsCount]=resultDifference;
+
          // Имеем для определения пары драйвера массив, каждый проход для каждой пары
          resultLow=iLow(myCurrentPair,PERIOD_M15,pairDriver[0]);
          resultHigh=iHigh(myCurrentPair,PERIOD_M15,pairDriver[0]);
@@ -194,7 +262,7 @@ void OnTick(void)
       printResultDifference[myPairsCount]=resultDifference;
       Print("myCurrentPair = ",myCurrentPair,"; resultDifference = ",resultDifference);
      }
-   Print(" "," --- ", ", (",printResultDifference[4],") "," --- ", ", (",printResultDifference[3],") "," --- ", ", (",printResultDifference[2],") "," --- ", ", (",printResultDifference[1],") "," --- ", ", (",printResultDifference[0],")");
+   Print(" ",printResultDifferenceX[4]," --- ", printResultDifferenceY[4],", (",printResultDifference[4],") ",printResultDifferenceX[3]," --- ", printResultDifferenceY[3],", (",printResultDifference[3],") ",printResultDifferenceX[2]," --- ", printResultDifferenceY[2],", (",printResultDifference[2],") ",printResultDifferenceX[1]," --- ", printResultDifferenceY[1],", (",printResultDifference[1],") ",printResultDifferenceX[0]," --- ", printResultDifferenceY[0],", (",printResultDifference[0],")");
    Sleep(3333);
 /* Block 2   The algorithm of the trend criteria detalization:
 Mеханизм распознания первой ПВ:
