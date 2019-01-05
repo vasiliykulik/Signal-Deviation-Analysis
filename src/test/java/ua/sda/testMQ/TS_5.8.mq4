@@ -20,6 +20,7 @@ double firstMinGlobalMACD=0.00000000,secondMinGlobalMACD=0.00000000,firstMaxGlob
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
 int localFirstPointTick=0,localSecondPointTick=0;
+double c5minGlobal=0.00000000,c5maxGlobal=0.00000000
 
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
@@ -518,14 +519,17 @@ bool nonSymm()
    int zz,i,z,y,x,j,k,m,p,
    resize0H4,resize1H4,resize2H4,resize3H4;
    double firstMinLocalNonSymmetric=0.00000000,secondMinLocalNonSymmetric=0.00000000,firstMaxLocalNonSymmetric=0.00000000,secondMaxLocalNonSymmetric=0.00000000;
+
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
    bool pricesUpdate=false;
    double firstMinLocalNonSymmetricMACD=0.00000000,secondMinLocalNonSymmetricMACD=0.00000000,firstMaxLocalNonSymmetricMACD=0.00000000,secondMaxLocalNonSymmetricMACD=0.00000000;
+   double thirdMinLocalNonSymmetric=0.00000000, thirdMaxLocalNonSymmetric=0.00000000;
    double macdForMinMax;
 
-   int halfWave_4H4[];
-   int q,w,resize4H4;
-   bool what_5HalfWaveMACDH4;
+   int halfWave_4H4[],halfWave_5H4[],halfWave_6H4[];
+   int q, w, q5, q6, w5, w6, resize4H4,resize5H4,resize6H4;
+   bool what_5HalfWaveMACDH4,what_6HalfWaveMACDH4,what_7HalfWaveMACDH4;
+
 // то есть пока значения не проставлены
   bool isMACD1BiggerThanZero = Macd_1H4>0;
    bool isMACD2BiggerThanZero = Macd_2H4>0;
@@ -869,7 +873,7 @@ bool nonSymm()
         {
          //Print("C4W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
-         what_5HalfWaveMACDH4=1;
+         what_5HalfWaveMACDH4=0;
          q=p+1;
          resize4H4=(i+2)-q;
          ArrayResize(halfWave_4H4,resize4H4);
@@ -901,6 +905,28 @@ bool nonSymm()
            }
          //Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
+        if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4<0 && MacdIplus4H4<0){
+            countHalfWaves++;
+            what_6HalfWaveMACDH4 = 0;
+            q5 = q + 1;
+            resize5H4 = (i+2)-q5;
+            ArrayResize (halfWave_5H4, resize5H4);
+            w5=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q5);
+            thirdMinLocalNonSymmetric = macdForMinMax;
+            for(q5;q<i+2;q5++){
+                halfWave_5H4[w5]=q5;
+                priceForMinMax = iOpen(NULL,periodGlobal,q5);
+                if(priceForMinMax<thirdMinLocalNonSymmetric){
+                    thirdMinLocalNonSymmetric = priceForMinMax;
+                }
+                w5++;
+            }
+        }
+
+
+
+
       // begin++;
      }
 /*    Получаем четыре массива и проверяем что бы в каждоq ПВ по MACD был тик более 0,000100 isFilterOK
