@@ -63,6 +63,7 @@ void OnTick(void)
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
       блок Проставляем Флаги*/
+// FiboMod Analyzing Block
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
          //        Print("i = ", i, " ArraySize(timeFrames) = ", ArraySize(timeFrames));
@@ -121,7 +122,7 @@ void OnTick(void)
               }
            }
         }// end of TimeFrames for loop for FiboModule State and IsPassed flag
-
+// First layer Analyzing Block plus Figures Analyzing Block
       bool isTrendBull_M5 = false, isTrendBull_M15 = false, isTrendBull_H1 = false, isTrendBull_H4 = false, isTrendBull_D1 = false;
       bool isTrendBear_M5 = false, isTrendBear_M15 = false, isTrendBear_H1 = false, isTrendBear_H4 = false, isTrendBear_D1 = false;
 
@@ -206,7 +207,18 @@ void OnTick(void)
                if(timeFrames[i]==PERIOD_D1){isDivergenceMACDForPriceDiv_D1 = true;}
               }
            }
-        }// end of TimeFrames for loop for Trend and Divergence flag
+// Figures Analyzing Block
+bool figure1FlagUpContinue = false;
+    // Figure 1 "FlagUpContinue"
+    if(
+    c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+    firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
+    firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal
+    ){
+    bool figure1FlagUpContinue = true;
+    print("Figure 1 FlagUpContinue ", timeFrames[i]);
+    }
+}// end of TimeFrames for loop for Trend and Divergence flag plus Figures Analyzing Block
 
       // the trading strategy itself v1
       // Color:       All the Same
@@ -229,6 +241,7 @@ void OnTick(void)
 
  //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
  //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
+ // Second layer analyzing Block
 bool isFiboModuleGreenState = false;
 bool isFiboModuleGreenLevel_100_IsPassed = false;
 bool isTrendBull = false;
@@ -258,6 +271,7 @@ isPriceDivergence                     = isPriceDivergence_M15;
 isDivergenceMACDForPriceConv          = isDivergenceMACDForPriceConv_M15;
 isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
 
+// MACD Filter Block
 double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
 double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
 double macd0_MN1 = 0.0; double macd1_MN1 = 0.0; double macd2_MN1 = 0.0;
@@ -1301,5 +1315,9 @@ bool nonSymmTick()
    lowAndHighUpdate=true;
    Sleep(3333);
    return lowAndHighUpdate;
+  }
+
+  void print(String message, ENUM_TIMEFRAMES timeFrame){
+  Print(message," ", timeFrame);
   }
 //+------------------------------------------------------------------+
