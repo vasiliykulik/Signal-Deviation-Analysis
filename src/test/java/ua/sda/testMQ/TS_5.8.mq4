@@ -20,7 +20,7 @@ double firstMinGlobalMACD=0.00000000,secondMinGlobalMACD=0.00000000,firstMaxGlob
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
 int localFirstPointTick=0,localSecondPointTick=0;
-double c5minGlobal=0.00000000,c5maxGlobal=0.00000000
+double c5MinGlobal=0.00000000,c5MaxGlobal=0.00000000;
 
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
@@ -502,6 +502,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
            }
         }
      }
+     Sleep(3333);
   }
 
 
@@ -905,7 +906,7 @@ bool nonSymm()
            }
          //Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
-        if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
             what_6HalfWaveMACDH4 = 0;
             q5 = q + 1;
@@ -923,6 +924,61 @@ bool nonSymm()
                 w5++;
             }
         }
+        if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+                    countHalfWaves++;
+                    what_6HalfWaveMACDH4 = 1;
+                    q5 = q + 1;
+                    resize5H4 = (i+2)-q5;
+                    ArrayResize (halfWave_5H4, resize5H4);
+                    w5=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q5);
+                    thirdMaxLocalNonSymmetric = macdForMinMax;
+                    for(q5;q<i+2;q5++){
+                        halfWave_5H4[w5]=q5;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q5);
+                        if(priceForMinMax<thirdMaxLocalNonSymmetric){
+                            thirdMaxLocalNonSymmetric = priceForMinMax;
+                        }
+                        w5++;
+                    }
+                }
+        if(countHalfWaves==6 && what_6HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+                    countHalfWaves++;
+                    what_7HalfWaveMACDH4 = 1;
+                    q6 = q5 + 1;
+                    resize6H4 = (i+2)-q6;
+                    ArrayResize (halfWave_6H4, resize6H4);
+                    w6=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
+                    thirdMaxLocalNonSymmetric = macdForMinMax;
+                    for(q6;q<i+2;q6++){
+                        halfWave_6H4[w6]=q6;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
+                        if(priceForMinMax<thirdMaxLocalNonSymmetric){
+                            thirdMaxLocalNonSymmetric = priceForMinMax;
+                        }
+                        w6++;
+                    }
+                }
+        if(countHalfWaves==6 && what_6HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+            countHalfWaves++;
+            what_7HalfWaveMACDH4 = 0;
+            q6 = q5 + 1;
+            resize6H4 = (i+2)-q6;
+            ArrayResize (halfWave_6H4, resize6H4);
+            w6=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q6);
+            thirdMinLocalNonSymmetric = macdForMinMax;
+            for(q6;q<i+2;q6++){
+                halfWave_6H4[w6]=q6;
+                priceForMinMax = iOpen(NULL,periodGlobal,q6);
+                if(priceForMinMax<thirdMinLocalNonSymmetric){
+                    thirdMinLocalNonSymmetric = priceForMinMax;
+                }
+                w6++;
+            }
+        }
+
 
 
 
@@ -956,8 +1012,9 @@ max для sell
    secondMinGlobalMACD = secondMinLocalNonSymmetricMACD;
    firstMaxGlobalMACD  = firstMaxLocalNonSymmetricMACD;
    secondMaxGlobalMACD = secondMaxLocalNonSymmetricMACD;
+   c5MaxGlobal = thirdMaxLocalNonSymmetric;
+   c5MinGlobal = thirdMinLocalNonSymmetric;
    pricesUpdate=true;
-   Sleep(3333);
    return pricesUpdate;
   }
 
