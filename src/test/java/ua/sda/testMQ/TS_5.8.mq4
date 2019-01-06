@@ -209,9 +209,9 @@ void OnTick(void)
            }
 // Figures Analyzing Block
 Print("Figures Analyzing Block" );
-Print("firstMinGlobal = ", firstMinGlobal, "secondMinGlobal = ", secondMinGlobal );
-Print("firstMaxGlobal = ", firstMaxGlobal, "secondMaxGlobal", secondMaxGlobal);
-Print("c5MinGlobal = ", c5MinGlobal, "c5MaxGlobal = ", c5MaxGlobal);
+Print("firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal );
+Print("firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal", secondMaxGlobal);
+Print("c5MinGlobal = ", c5MinGlobal, " c5MaxGlobal = ", c5MaxGlobal);
 
 
     // Figure 1 "FlagUpContinue"
