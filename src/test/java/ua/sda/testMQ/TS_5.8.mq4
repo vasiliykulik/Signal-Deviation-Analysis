@@ -208,10 +208,10 @@ void OnTick(void)
               }
            }
 // Figures Analyzing Block
-Print("Figures Analyzing Block" );
-Print("firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal );
-Print("firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal", secondMaxGlobal);
-Print("c5MinGlobal = ", c5MinGlobal, " c5MaxGlobal = ", c5MaxGlobal);
+// Print("Figures Analyzing Block" );
+// Print("firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal );
+// Print("firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal", secondMaxGlobal);
+// Print("c5MinGlobal = ", c5MinGlobal, " c5MaxGlobal = ", c5MaxGlobal);
 
 
     // Figure 1 "FlagUpContinue"
@@ -1248,8 +1248,10 @@ max для sell
    secondMinGlobalMACD = secondMinLocalNonSymmetricMACD;
    firstMaxGlobalMACD  = firstMaxLocalNonSymmetricMACD;
    secondMaxGlobalMACD = secondMaxLocalNonSymmetricMACD;
-   c5MaxGlobal = thirdMaxLocalNonSymmetric;
+   Print("thirdMinLocalNonSymmetric", thirdMinLocalNonSymmetric);
+   Print("thirdMaxLocalNonSymmetric", thirdMaxLocalNonSymmetric);
    c5MinGlobal = thirdMinLocalNonSymmetric;
+   c5MaxGlobal = thirdMaxLocalNonSymmetric;
    pricesUpdate=true;
    return pricesUpdate;
   }
