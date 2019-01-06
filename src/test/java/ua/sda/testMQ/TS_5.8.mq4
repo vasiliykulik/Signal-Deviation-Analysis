@@ -1534,7 +1534,14 @@ bool nonSymmTick()
    return lowAndHighUpdate;
   }
 
-  void print(string message, ENUM_TIMEFRAMES timeFrame){
+  void print(string message, ENUM_TIMEFRAMES timeFrameNum){
+  string timeFrame;
+  if(timeFrameNum == 5){timeFrame = "PERIOD_M5";}
+  if(timeFrameNum == 15){timeFrame = "PERIOD_M15";}
+  if(timeFrameNum == 60){timeFrame = "PERIOD_H1";}
+  if(timeFrameNum == 240){timeFrame = "PERIOD_H4";}
+  if(timeFrameNum == 1440){timeFrame = "PERIOD_D1";}
+
   Print(message," ", timeFrame);
   }
 //+------------------------------------------------------------------+
