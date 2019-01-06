@@ -208,6 +208,11 @@ void OnTick(void)
               }
            }
 // Figures Analyzing Block
+Print("Figures Analyzing Block" );
+Print("firstMinGlobal = ", firstMinGlobal, "secondMinGlobal = ", secondMinGlobal );
+Print("firstMaxGlobal = ", firstMaxGlobal, "secondMaxGlobal", secondMaxGlobal);
+Print("c5MinGlobal = ", c5MinGlobal, "c5MaxGlobal = ", c5MaxGlobal);
+
 
     // Figure 1 "FlagUpContinue"
     bool figure1FlagUpContinue_M5  = false; bool figure1FlagUpContinue_M15 = false; bool figure1FlagUpContinue_H1  = false; bool figure1FlagUpContinue_H4  = false; bool figure1FlagUpContinue_D1  = false;
