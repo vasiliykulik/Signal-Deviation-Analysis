@@ -1530,7 +1530,6 @@ bool nonSymmTick()
    secondPointTick=localHighTimeCurrent;
 //   Print("return nonSymm secondPointTick = ",secondPointTick,"firstPointTick",firstPointTick);
    lowAndHighUpdate=true;
-   Sleep(3333);
    return lowAndHighUpdate;
   }
 
