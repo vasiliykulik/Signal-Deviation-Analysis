@@ -1073,7 +1073,7 @@ bool nonSymm()
         }
       if(countHalfWaves==4 && what_4HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0)
         {
-         //Print("C4W0, wait for secondMaxLocalNonSymmetric");
+         Print("C4W0, wait for secondMaxLocalNonSymmetric");
          countHalfWaves++;
          what_5HalfWaveMACDH4=1;
          q=p+1;
@@ -1090,7 +1090,7 @@ bool nonSymm()
            {
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
-            // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+             Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
             if(priceForMinMax>secondMaxLocalNonSymmetric)
               {
                secondMaxLocalNonSymmetric=priceForMinMax;
@@ -1105,11 +1105,11 @@ bool nonSymm()
 
             w++;
            }
-         //Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
+         Print("secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
         }
       if(countHalfWaves==4 && what_4HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0)
         {
-         //Print("C4W1, wait for secondMinLocalNonSymmetric");
+         Print("C4W1, wait for secondMinLocalNonSymmetric");
          countHalfWaves++;
          what_5HalfWaveMACDH4=0;
          q=p+1;
@@ -1126,7 +1126,7 @@ bool nonSymm()
            {
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
-            // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+             Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
             if(priceForMinMax<secondMinLocalNonSymmetric)
               {
                secondMinLocalNonSymmetric=priceForMinMax;
@@ -1141,11 +1141,12 @@ bool nonSymm()
 
             w++;
            }
-         //Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
+         Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
-        Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
+       // Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
         if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
-        Print("C5W1 inside if");
+        Print("C5W1, wait for thirdMinLocalNonSymmetric");
+       // Print("C5W1 inside if");
             countHalfWaves++;
             what_6HalfWaveMACDH4 = 0;
             q5 = q + 1;
@@ -1153,7 +1154,7 @@ bool nonSymm()
             ArrayResize (halfWave_5H4, resize5H4);
             w5=0;
             priceForMinMax = iOpen(NULL,periodGlobal,q5);
-            Print("C5W1, priceForMinMax = ", priceForMinMax);
+            Print("NonSymmetric, q, q5 = ",q," ", q5, " thirdMinLocalNonSymmetric = ", thirdMinLocalNonSymmetric);
             thirdMinLocalNonSymmetric = priceForMinMax;
             for(q5;q5<i+2;q5++){
                 halfWave_5H4[w5]=q5;
@@ -1164,10 +1165,12 @@ bool nonSymm()
                 }
                 w5++;
             }
+            Print("thirdMinLocalNonSymmetric = ", thirdMinLocalNonSymmetric);
         }
-          Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
+ //         Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
         if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
-                Print("C5W0 inside if");
+            Print("C5W0, wait for thirdMaxLocalNonSymmetric");
+//                Print("C5W0 inside if");
                     countHalfWaves++;
                     what_6HalfWaveMACDH4 = 1;
                     q5 = q + 1;
@@ -1175,6 +1178,7 @@ bool nonSymm()
                     ArrayResize (halfWave_5H4, resize5H4);
                     w5=0;
                     priceForMinMax = iOpen(NULL,periodGlobal,q5);
+                    Print("NonSymmetric, q, q5 = ",q," ", q5, " thirdMaxLocalNonSymmetric = ", thirdMaxLocalNonSymmetric);
                     thirdMaxLocalNonSymmetric = priceForMinMax;
                                 // Print("C5W0, priceForMinMax = ", priceForMinMax);
                     for(q5;q5<i+2;q5++){
@@ -1186,6 +1190,7 @@ bool nonSymm()
                         }
                         w5++;
                     }
+                                Print("thirdMaxLocalNonSymmetric = ", thirdMaxLocalNonSymmetric);
                 }
         if(countHalfWaves==6 && what_6HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
