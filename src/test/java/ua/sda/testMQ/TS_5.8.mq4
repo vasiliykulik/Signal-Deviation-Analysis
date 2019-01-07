@@ -1143,8 +1143,8 @@ bool nonSymm()
            }
          Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
-       // Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
-        if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+ Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
+        if(countHalfWaves==5 && what_5HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
         Print("C5W1, wait for thirdMinLocalNonSymmetric");
        // Print("C5W1 inside if");
             countHalfWaves++;
@@ -1167,12 +1167,12 @@ bool nonSymm()
             }
             Print("thirdMinLocalNonSymmetric = ", thirdMinLocalNonSymmetric);
         }
- //         Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
-        if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
+        if(countHalfWaves==5 && what_5HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
             Print("C5W0, wait for thirdMaxLocalNonSymmetric");
 //                Print("C5W0 inside if");
                     countHalfWaves++;
-                    what_6HalfWaveMACDH4 = 1;
+                    what_6HalfWaveMACDH4=1;
                     q5 = q + 1;
                     resize5H4 = (i+2)-q5;
                     ArrayResize (halfWave_5H4, resize5H4);
@@ -1192,10 +1192,10 @@ bool nonSymm()
                     }
                                 Print("thirdMaxLocalNonSymmetric = ", thirdMaxLocalNonSymmetric);
                 }
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4 = 1;
-                    q6 = q5 + 1;
+                    what_7HalfWaveMACDH4=1;
+                    q6 = q5+1;
                     resize6H4 = (i+2)-q6;
                     ArrayResize (halfWave_6H4, resize6H4);
                     w6=0;
@@ -1211,9 +1211,9 @@ bool nonSymm()
                         w6++;
                     }
                 }
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4 = 0;
+            what_7HalfWaveMACDH4=0;
             q6 = q5 + 1;
             resize6H4 = (i+2)-q6;
             ArrayResize (halfWave_6H4, resize6H4);
