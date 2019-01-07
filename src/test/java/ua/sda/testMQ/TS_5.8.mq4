@@ -1143,7 +1143,9 @@ bool nonSymm()
            }
          //Print("secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
         }
+        Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
         if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        Print("C5W1 inside if");
             countHalfWaves++;
             what_6HalfWaveMACDH4 = 0;
             q5 = q + 1;
@@ -1151,6 +1153,7 @@ bool nonSymm()
             ArrayResize (halfWave_5H4, resize5H4);
             w5=0;
             priceForMinMax = iOpen(NULL,periodGlobal,q5);
+            Print("C5W1, priceForMinMax = ", priceForMinMax);
             thirdMinLocalNonSymmetric = priceForMinMax;
             for(q5;q5<i+2;q5++){
                 halfWave_5H4[w5]=q5;
@@ -1162,7 +1165,9 @@ bool nonSymm()
                 w5++;
             }
         }
+          Print("if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", countHalfWaves," ",what_5HalfWaveMACDH4," ",MacdIplus3H4," ",MacdIplus4H4);
         if(countHalfWaves==5 && what_5HalfWaveMACDH4 ==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+                Print("C5W0 inside if");
                     countHalfWaves++;
                     what_6HalfWaveMACDH4 = 1;
                     q5 = q + 1;
@@ -1171,6 +1176,7 @@ bool nonSymm()
                     w5=0;
                     priceForMinMax = iOpen(NULL,periodGlobal,q5);
                     thirdMaxLocalNonSymmetric = priceForMinMax;
+                                // Print("C5W0, priceForMinMax = ", priceForMinMax);
                     for(q5;q5<i+2;q5++){
                         halfWave_5H4[w5]=q5;
                         priceForMinMax = iOpen(NULL,periodGlobal,q5);
@@ -1253,8 +1259,8 @@ max для sell
    secondMinGlobalMACD = secondMinLocalNonSymmetricMACD;
    firstMaxGlobalMACD  = firstMaxLocalNonSymmetricMACD;
    secondMaxGlobalMACD = secondMaxLocalNonSymmetricMACD;
-   Print("thirdMinLocalNonSymmetric", thirdMinLocalNonSymmetric);
-   Print("thirdMaxLocalNonSymmetric", thirdMaxLocalNonSymmetric);
+//   Print("thirdMinLocalNonSymmetric", thirdMinLocalNonSymmetric);
+//   Print("thirdMaxLocalNonSymmetric", thirdMaxLocalNonSymmetric);
    c5MinGlobal = thirdMinLocalNonSymmetric;
    c5MaxGlobal = thirdMaxLocalNonSymmetric;
    pricesUpdate=true;
