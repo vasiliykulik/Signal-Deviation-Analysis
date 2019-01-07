@@ -758,6 +758,7 @@ bool nonSymm()
    double firstMinLocalNonSymmetric=0.00000000,secondMinLocalNonSymmetric=0.00000000,firstMaxLocalNonSymmetric=0.00000000,secondMaxLocalNonSymmetric=0.00000000;
 
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
+   bool isThirdMin = false, isThirdMax = false;
    bool pricesUpdate=false;
    double firstMinLocalNonSymmetricMACD=0.00000000,secondMinLocalNonSymmetricMACD=0.00000000,firstMaxLocalNonSymmetricMACD=0.00000000,secondMaxLocalNonSymmetricMACD=0.00000000;
    double thirdMinLocalNonSymmetric=0.00000000, thirdMaxLocalNonSymmetric=0.00000000;
@@ -1151,11 +1152,12 @@ bool nonSymm()
             w5=0;
             priceForMinMax = iOpen(NULL,periodGlobal,q5);
             thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q5;q<i+2;q5++){
+            for(q5;q5<i+2;q5++){
                 halfWave_5H4[w5]=q5;
                 priceForMinMax = iOpen(NULL,periodGlobal,q5);
                 if(thirdMinLocalNonSymmetric > priceForMinMax){
                     thirdMinLocalNonSymmetric = priceForMinMax;
+                    isThirdMin = true;
                 }
                 w5++;
             }
@@ -1169,11 +1171,12 @@ bool nonSymm()
                     w5=0;
                     priceForMinMax = iOpen(NULL,periodGlobal,q5);
                     thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q5;q<i+2;q5++){
+                    for(q5;q5<i+2;q5++){
                         halfWave_5H4[w5]=q5;
                         priceForMinMax = iOpen(NULL,periodGlobal,q5);
                         if(thirdMaxLocalNonSymmetric < priceForMinMax){
                             thirdMaxLocalNonSymmetric = priceForMinMax;
+                            isThirdMax = true;
                         }
                         w5++;
                     }
@@ -1187,11 +1190,12 @@ bool nonSymm()
                     w6=0;
                     priceForMinMax = iOpen(NULL,periodGlobal,q6);
                     thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q<i+2;q6++){
+                    for(q6;q6<i+2;q6++){
                         halfWave_6H4[w6]=q6;
                         priceForMinMax = iOpen(NULL,periodGlobal,q6);
                         if(thirdMaxLocalNonSymmetric < priceForMinMax){
                             thirdMaxLocalNonSymmetric = priceForMinMax;
+                            isThirdMax = true;
                         }
                         w6++;
                     }
@@ -1205,11 +1209,12 @@ bool nonSymm()
             w6=0;
             priceForMinMax = iOpen(NULL,periodGlobal,q6);
             thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q<i+2;q6++){
+            for(q6;q6<i+2;q6++){
                 halfWave_6H4[w6]=q6;
                 priceForMinMax = iOpen(NULL,periodGlobal,q6);
                 if(thirdMinLocalNonSymmetric > priceForMinMax){
                     thirdMinLocalNonSymmetric = priceForMinMax;
+                    isThirdMin = true;
                 }
                 w6++;
             }
