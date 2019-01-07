@@ -1150,11 +1150,11 @@ bool nonSymm()
             ArrayResize (halfWave_5H4, resize5H4);
             w5=0;
             priceForMinMax = iOpen(NULL,periodGlobal,q5);
-            thirdMinLocalNonSymmetric = macdForMinMax;
+            thirdMinLocalNonSymmetric = priceForMinMax;
             for(q5;q<i+2;q5++){
                 halfWave_5H4[w5]=q5;
                 priceForMinMax = iOpen(NULL,periodGlobal,q5);
-                if(priceForMinMax<thirdMinLocalNonSymmetric){
+                if(thirdMinLocalNonSymmetric > priceForMinMax){
                     thirdMinLocalNonSymmetric = priceForMinMax;
                 }
                 w5++;
@@ -1168,11 +1168,11 @@ bool nonSymm()
                     ArrayResize (halfWave_5H4, resize5H4);
                     w5=0;
                     priceForMinMax = iOpen(NULL,periodGlobal,q5);
-                    thirdMaxLocalNonSymmetric = macdForMinMax;
+                    thirdMaxLocalNonSymmetric = priceForMinMax;
                     for(q5;q<i+2;q5++){
                         halfWave_5H4[w5]=q5;
                         priceForMinMax = iOpen(NULL,periodGlobal,q5);
-                        if(priceForMinMax<thirdMaxLocalNonSymmetric){
+                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
                             thirdMaxLocalNonSymmetric = priceForMinMax;
                         }
                         w5++;
@@ -1186,11 +1186,11 @@ bool nonSymm()
                     ArrayResize (halfWave_6H4, resize6H4);
                     w6=0;
                     priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                    thirdMaxLocalNonSymmetric = macdForMinMax;
+                    thirdMaxLocalNonSymmetric = priceForMinMax;
                     for(q6;q<i+2;q6++){
                         halfWave_6H4[w6]=q6;
                         priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(priceForMinMax<thirdMaxLocalNonSymmetric){
+                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
                             thirdMaxLocalNonSymmetric = priceForMinMax;
                         }
                         w6++;
@@ -1204,11 +1204,11 @@ bool nonSymm()
             ArrayResize (halfWave_6H4, resize6H4);
             w6=0;
             priceForMinMax = iOpen(NULL,periodGlobal,q6);
-            thirdMinLocalNonSymmetric = macdForMinMax;
+            thirdMinLocalNonSymmetric = priceForMinMax;
             for(q6;q<i+2;q6++){
                 halfWave_6H4[w6]=q6;
                 priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                if(priceForMinMax<thirdMinLocalNonSymmetric){
+                if(thirdMinLocalNonSymmetric > priceForMinMax){
                     thirdMinLocalNonSymmetric = priceForMinMax;
                 }
                 w6++;
