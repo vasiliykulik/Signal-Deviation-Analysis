@@ -806,7 +806,7 @@ bool nonSymm()
             isMACDReady=isSmaller || isBigger || isEqualToZero;
      }
 //
-   for(i=begin;countHalfWaves<=4;i++)
+   for(i=begin;countHalfWaves<=6;i++)
      {
       MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет два первых тика росле перехода нулевой линии
       MacdIplus4H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+2); // то есть один из них участвовал в предыдущем сравнении под видом begin+1
