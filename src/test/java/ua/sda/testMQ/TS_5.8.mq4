@@ -135,6 +135,28 @@ void OnTick(void)
       bool isDivergenceMACDForPriceConv_M5=false,isDivergenceMACDForPriceConv_M15=false,isDivergenceMACDForPriceConv_H1=false,isDivergenceMACDForPriceConv_H4=false,isDivergenceMACDForPriceConv_D1=false;
       bool isDivergenceMACDForPriceDiv_M5=false,isDivergenceMACDForPriceDiv_M15=false,isDivergenceMACDForPriceDiv_H1=false,isDivergenceMACDForPriceDiv_H4=false,isDivergenceMACDForPriceDiv_D1=false;
 
+      bool figure1FlagUpContinue_M5  = false;        bool figure1FlagUpContinue_M15 = false;         bool figure1FlagUpContinue_H1  = false;         bool figure1FlagUpContinue_H4  = false;         bool figure1FlagUpContinue_D1  = false;
+      bool figure2FlagDownContinue_M5  = false;      bool figure2FlagDownContinue_M15 = false;       bool figure2FlagDownContinue_H1  = false;       bool figure2FlagDownContinue_H4  = false;       bool figure2FlagDownContinue_D1  = false;
+      bool figure3FlagUpShiftDown_M5  = false;       bool figure3FlagUpShiftDown_M15 = false;        bool figure3FlagUpShiftDown_H1  = false;        bool figure3FlagUpShiftDown_H4  = false;        bool figure3FlagUpShiftDown_D1  = false;
+      bool figure4FlagDownShiftUp_M5  = false;       bool figure4FlagDownShiftUp_M15 = false;        bool figure4FlagDownShiftUp_H1  = false;        bool figure4FlagDownShiftUp_H4  = false;        bool figure4FlagDownShiftUp_D1  = false;
+      bool figure5PennantUp_M5  = false;             bool figure5PennantUp_M15 = false;              bool figure5PennantUp_H1  = false;              bool figure5PennantUp_H4  = false;              bool figure5PennantUp_D1  = false;
+      bool figure6PennantDown_M5  = false;           bool figure6PennantDown_M15 = false;            bool figure6PennantDown_H1  = false;            bool figure6PennantDown_H4  = false;            bool figure6PennantDown_D1  = false;
+      bool figure7FlagUpDivergence_M5  = false;      bool figure7FlagUpDivergence_M15 = false;       bool figure7FlagUpDivergence_H1  = false;       bool figure7FlagUpDivergence_H4  = false;       bool figure7FlagUpDivergence_D1  = false;
+      bool figure8FlagDownDivergence_M5  = false;    bool figure8FlagDownDivergence_M15 = false;     bool figure8FlagDownDivergence_H1  = false;     bool figure8FlagDownDivergence_H4  = false;     bool figure8FlagDownDivergence_D1  = false;
+      bool figure9FlagUpShiftUp_M5  = false;         bool figure9FlagUpShiftUp_M15 = false;          bool figure9FlagUpShiftUp_H1  = false;          bool figure9FlagUpShiftUp_H4  = false;          bool figure9.FlagUpShiftUp_D1  = false;
+      bool figure10FlagDownShiftDown_M5  = false;    bool figure10FlagDownShiftDown_M15 = false;     bool figure10FlagDownShiftDown_H1  = false;     bool figure10FlagDownShiftDown_H4  = false;     bool figure10FlagDownShiftDown_D1  = false;
+      bool figure11DoubleBottom_M5  = false;         bool figure11DoubleBottom_M15 = false;          bool figure11DoubleBottom_H1  = false;          bool figure11DoubleBottom_H4  = false;          bool figure11DoubleBottom_D1  = false;
+      bool figure12DoubleTop_M5  = false;            bool figure12DoubleTop_M15 = false;             bool figure12DoubleTop_H1  = false;             bool figure12DoubleTop_H4  = false;             bool figure12DoubleTop_D1  = false;
+      bool figure13DivergentChannelUp_M5  = false;   bool figure13DivergentChannelUp_M15 = false;    bool figure13DivergentChannelUp_H1  = false;    bool figure13DivergentChannelUp_H4  = false;    bool figure13DivergentChannelUp_D1  = false;
+      bool figure14DivergentChannelDown_M5  = false; bool figure14DivergentChannelDown_M15 = false;  bool figure14DivergentChannelDown_H1  = false;  bool figure14DivergentChannelDown_H4  = false;  bool figure14DivergentChannelDown_D1  = false;
+      bool figure15BalancedTriangleUp_M5  = false;   bool figure15BalancedTriangleUp_M15 = false;    bool figure15BalancedTriangleUp_H1  = false;    bool figure15BalancedTriangleUp_H4  = false;    bool figure15BalancedTriangleUp_D1  = false;
+      bool figure16BalancedTriangleDown_M5  = false; bool figure16BalancedTriangleDown_M15 = false;  bool figure16BalancedTriangleDown_H1  = false;  bool figure16BalancedTriangleDown_H4  = false;  bool figure16BalancedTriangleDown_D1  = false;
+
+      bool isM5FigureUp =  false; bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
+      bool isM5FigureDown =  false; bool isM15FigureDown = false; bool isH1FigureDown = false; bool isH4FigureDown = false; bool isD1FigureDown = false;
+
+
+
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymm()
@@ -215,7 +237,7 @@ void OnTick(void)
 
 
     // Figure 1 "FlagUpContinue"
-    bool figure1FlagUpContinue_M5  = false; bool figure1FlagUpContinue_M15 = false; bool figure1FlagUpContinue_H1  = false; bool figure1FlagUpContinue_H4  = false; bool figure1FlagUpContinue_D1  = false;
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -232,7 +254,7 @@ void OnTick(void)
     }
 
     // Figure 2 "FlagDownContinue"
-    bool figure2FlagDownContinue_M5  = false; bool figure2FlagDownContinue_M15 = false; bool figure2FlagDownContinue_H1  = false; bool figure2FlagDownContinue_H4  = false; bool figure2FlagDownContinue_D1  = false;
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -248,7 +270,7 @@ void OnTick(void)
     }
 
     // Figure 3 "FlagUpShiftDown"
-    bool figure3FlagUpShiftDown_M5  = false; bool figure3FlagUpShiftDown_M15 = false; bool figure3FlagUpShiftDown_H1  = false; bool figure3FlagUpShiftDown_H4  = false; bool figure3FlagUpShiftDown_D1  = false;
+
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -264,7 +286,7 @@ void OnTick(void)
     }
 
     // Figure 4 "FlagDownShiftUp"
-    bool figure4FlagDownShiftUp_M5  = false; bool figure4FlagDownShiftUp_M15 = false; bool figure4FlagDownShiftUp_H1  = false; bool figure4FlagDownShiftUp_H4  = false; bool figure4FlagDownShiftUp_D1  = false;
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -280,7 +302,7 @@ void OnTick(void)
     }
 
     // Figure 5 "PennantUp"
-    bool figure5PennantUp_M5  = false; bool figure5PennantUp_M15 = false; bool figure5PennantUp_H1  = false; bool figure5PennantUp_H4  = false; bool figure5PennantUp_D1  = false;
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -296,7 +318,7 @@ void OnTick(void)
     }
 
     // Figure 6 "PennantDown"
-    bool figure6PennantDown_M5  = false; bool figure6PennantDown_M15 = false; bool figure6PennantDown_H1  = false; bool figure6PennantDown_H4  = false; bool figure6PennantDown_D1  = false;
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -312,7 +334,7 @@ void OnTick(void)
     }
 
     // Figure 7 "FlagUpDivergence"
-    bool figure7FlagUpDivergence_M5  = false; bool figure7FlagUpDivergence_M15 = false; bool figure7FlagUpDivergence_H1  = false; bool figure7FlagUpDivergence_H4  = false; bool figure7FlagUpDivergence_D1  = false;
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -328,7 +350,7 @@ void OnTick(void)
     }
 
     // Figure 8 "FlagDownDivergence"
-    bool figure8FlagDownDivergence_M5  = false; bool figure8FlagDownDivergence_M15 = false; bool figure8FlagDownDivergence_H1  = false; bool figure8FlagDownDivergence_H4  = false; bool figure8FlagDownDivergence_D1  = false;
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -344,7 +366,7 @@ void OnTick(void)
     }
 
     // Figure 9 "FlagUpShiftUp"
-    bool figure9FlagUpShiftUp_M5  = false; bool figure9FlagUpShiftUp_M15 = false; bool figure9FlagUpShiftUp_H1  = false; bool figure9FlagUpShiftUp_H4  = false; bool figure9FlagUpShiftUp_D1  = false;
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -360,7 +382,7 @@ void OnTick(void)
     }
 
     // Figure 10 "FlagDownShiftDown"
-    bool figure10FlagDownShiftDown_M5  = false; bool figure10FlagDownShiftDown_M15 = false; bool figure10FlagDownShiftDown_H1  = false; bool figure10FlagDownShiftDown_H4  = false; bool figure10FlagDownShiftDown_D1  = false;
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -373,10 +395,11 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure10FlagDownShiftDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure10FlagDownShiftDown_D1  = true;}
             print("Figure 10 FlagDownShiftDown ", timeFrames[i]);
+            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
     }
 
     // Figure 11 "DoubleBottom" from this all was started
-    bool figure11DoubleBottom_M5  = false; bool figure11DoubleBottom_M15 = false; bool figure11DoubleBottom_H1  = false; bool figure11DoubleBottom_H4  = false; bool figure11DoubleBottom_D1  = false;
+
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal>firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -392,7 +415,7 @@ void OnTick(void)
     }
 
     // Figure 12 "DoubleTop"
-    bool figure12DoubleTop_M5  = false; bool figure12DoubleTop_M15 = false; bool figure12DoubleTop_H1  = false; bool figure12DoubleTop_H4  = false; bool figure12DoubleTop_D1  = false;
+
     if(
         c5MaxGlobal<firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -408,7 +431,7 @@ void OnTick(void)
     }
 
     // Figure 13 "DivergentChannelUp" from this all was started
-    bool figure13DivergentChannelUp_M5  = false; bool figure13DivergentChannelUp_M15 = false; bool figure13DivergentChannelUp_H1  = false; bool figure13DivergentChannelUp_H4  = false; bool figure13DivergentChannelUp_D1  = false;
+
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -424,7 +447,7 @@ void OnTick(void)
     }
 
     // Figure 14 "DivergentChannelDown"
-    bool figure14DivergentChannelDown_M5  = false; bool figure14DivergentChannelDown_M15 = false; bool figure14DivergentChannelDown_H1  = false; bool figure14DivergentChannelDown_H4  = false; bool figure14DivergentChannelDown_D1  = false;
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
@@ -440,30 +463,44 @@ void OnTick(void)
     }
 
 
-}// end of TimeFrames for loop for Trend and Divergence flag plus Figures Analyzing Block
+    // Figure 15 "BalancedTriangleUp" from this all was started
 
-      // the trading strategy itself v1
-      // Color:       All the Same
-      // Trend:       All the Same
-      // IsPassed :   M5 || M15 || H1 || H4 || D1
-      // Divergence : M15 || H1 || H4 || D1
+    if(
+        c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
+        firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
+        secondMinGlobal<secondMaxGlobal
+        ){
+            if(timeFrames[i]==PERIOD_M5) {figure15BalancedTriangleUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure15BalancedTriangleUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure15BalancedTriangleUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure15BalancedTriangleUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure15BalancedTriangleUp_D1  = true;}
+            print("Figure 15 BalancedTriangleUp ", timeFrames[i]);
+    }
+
+    // Figure 16 "BalancedTriangleDown"
+
+    if(
+        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+        firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
+        secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
+        firstMinGlobal>secondMinGlobal
+        ){
+            if(timeFrames[i]==PERIOD_M5) {figure16BalancedTriangleDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure16BalancedTriangleDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure16BalancedTriangleDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure16BalancedTriangleDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure16BalancedTriangleDown_D1  = true;}
+            print("Figure 16 BalancedTriangleDown ", timeFrames[i]);
+    }
 
 
-             // the trading strategy itself v2
-             // Color:       All the Same + filter Artifacts wo D1
-             // Trend:       All the Same wo H4, D1
-             // IsPassed :   M5 || M15
 
 
-             // the trading strategy itself v3
-             // only IsPassed :   D1 && H4
+}
 
-             // the trading strategy itself v4
-             // only IsPassed :  D1 && H4 && isTrend****_M5
-
- //     Print("isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1",isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1);
- //     Print("isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 &&  isTrendBull_D1 = ",isTrendBull_M5 && isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1);
- // Second layer analyzing Block
+=// Second layer analyzing Block
 bool isFiboModuleGreenState = false;
 bool isFiboModuleGreenLevel_100_IsPassed = false;
 bool isTrendBull = false;
@@ -534,6 +571,20 @@ bool MACDForelockFilterForSellPosition = false;
 
 MACDForelockFilterForBuyPosition  = macdUp_H1 && macdUp_H4   && macdUp_D1   && macdUp_MN1;
 MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && macdDown_MN1;
+
+
+      bool isM5FigureUp =  figure1FlagUpContinue_M5 || figure3FlagUpShiftDown_M5 || figure5PennantUp_M5 || figure7FlagUpDivergence_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottom_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5;
+      bool isM15FigureUp =  figure1FlagUpContinue_M15 || figure3FlagUpShiftDown_M15 || figure5PennantUp_M15 || figure7FlagUpDivergence_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottom_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15;
+      bool isH1FigureUp =  figure1FlagUpContinue_H1 || figure3FlagUpShiftDown_H1 || figure5PennantUp_H1 || figure7FlagUpDivergence_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottom_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1;
+      bool isH4FigureUp =  figure1FlagUpContinue_H4 || figure3FlagUpShiftDown_H4 || figure5PennantUp_H4 || figure7FlagUpDivergence_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottom_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4;
+      bool isD1FigureUp =  figure1FlagUpContinue_D1 || figure3FlagUpShiftDown_D1 || figure5PennantUp_D1 || figure7FlagUpDivergence_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottom_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1;
+
+      bool isM5FigureDown =  figure2FlagDownContinue_M5 || figure4FlagDownShiftUp_M5 || figure6PennantDown_M5 || figure8FlagDownDivergence_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTop_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5;
+      bool isM15FigureDown =  figure2FlagDownContinue_M15 || figure4FlagDownShiftUp_M15 || figure6PennantDown_M15 || figure8FlagDownDivergence_M15 || figure10FlagDownShiftDown_M15 || figure12DoubleTop_M15 || figure14DivergentChannelDown_M15 || figure16BalancedTriangleDown_M15;
+      bool isH1FigureDown =  figure2FlagDownContinue_H1 || figure4FlagDownShiftUp_H1 || figure6PennantDown_H1 || figure8FlagDownDivergence_H1 || figure10FlagDownShiftDown_H1 || figure12DoubleTop_H1 || figure14DivergentChannelDown_H1 || figure16BalancedTriangleDown_H1;
+      bool isH4FigureDown =  figure2FlagDownContinue_H4 || figure4FlagDownShiftUp_H4 || figure6PennantDown_H4 || figure8FlagDownDivergence_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTop_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
+      bool isD1FigureDown =  figure2FlagDownContinue_D1 || figure4FlagDownShiftUp_D1 || figure6PennantDown_D1 || figure8FlagDownDivergence_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTop_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
+
 
 
       if
