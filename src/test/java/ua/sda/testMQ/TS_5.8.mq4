@@ -395,7 +395,7 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure10FlagDownShiftDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure10FlagDownShiftDown_D1  = true;}
             print("Figure 10 FlagDownShiftDown ", timeFrames[i]);
-            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+ //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
     }
 
     // Figure 11 "DoubleBottom" from this all was started
