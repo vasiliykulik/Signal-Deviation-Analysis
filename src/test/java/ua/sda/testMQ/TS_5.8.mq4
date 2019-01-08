@@ -585,11 +585,12 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isH4FigureDown =  figure2FlagDownContinue_H4 || figure4FlagDownShiftUp_H4 || figure6PennantDown_H4 || figure8FlagDownDivergence_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTop_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
      isD1FigureDown =  figure2FlagDownContinue_D1 || figure4FlagDownShiftUp_D1 || figure6PennantDown_D1 || figure8FlagDownDivergence_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTop_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
 
+Print("isM5FigureUp =  figure1FlagUpContinue_M5 = ",figure1FlagUpContinue_M5, "figure3FlagUpShiftDown_M5 = ",figure3FlagUpShiftDown_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5," figure7FlagUpDivergence_M5 = ",figure7FlagUpDivergence_M5," figure9FlagUpShiftUp_M5 = ",figure9FlagUpShiftUp_M5," figure11DoubleBottom_M5 = ",figure11DoubleBottom_M5," figure13DivergentChannelUp_M5 = ",figure13DivergentChannelUp_M5," figure15BalancedTriangleUp_M5 = ",figure15BalancedTriangleUp_M5);
 
 
       if
       (
-isM5FigureUp && isM15FigureUp && isH1FigureUp
+isM5FigureUp && isM15FigureUp && isH1FigureUp && isH4FigureUp
       )
 
       {
@@ -598,7 +599,7 @@ isM5FigureUp && isM15FigureUp && isH1FigureUp
 
       if
       (
-isM5FigureDown && isM15FigureDown && isH1FigureDown
+isM5FigureDown && isM15FigureDown && isH1FigureDown && isH4FigureDown
       )
 
       {
@@ -1599,4 +1600,7 @@ bool nonSymmTick()
 
   Print(message," ", timeFrame);
   }
-//+------------------------------------------------------------------+
+
+  void print(){
+
+  }//+------------------------------------------------------------------+
