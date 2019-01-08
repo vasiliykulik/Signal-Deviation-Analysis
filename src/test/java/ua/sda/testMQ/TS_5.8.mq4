@@ -1589,6 +1589,7 @@ bool nonSymmTick()
   }
 
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
+  return;
   string timeFrame;
   if(timeFrameNum == 5){timeFrame = "PERIOD_M5";}
   if(timeFrameNum == 15){timeFrame = "PERIOD_M15";}
