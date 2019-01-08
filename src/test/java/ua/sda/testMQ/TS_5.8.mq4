@@ -585,7 +585,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isH4FigureDown =  figure2FlagDownContinue_H4 || figure4FlagDownShiftUp_H4 || figure6PennantDown_H4 || figure8FlagDownDivergence_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTop_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
      isD1FigureDown =  figure2FlagDownContinue_D1 || figure4FlagDownShiftUp_D1 || figure6PennantDown_D1 || figure8FlagDownDivergence_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTop_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
 
-Print("isM5FigureUp =  figure1FlagUpContinue_M5 = ",figure1FlagUpContinue_M5, "figure3FlagUpShiftDown_M5 = ",figure3FlagUpShiftDown_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5," figure7FlagUpDivergence_M5 = ",figure7FlagUpDivergence_M5," figure9FlagUpShiftUp_M5 = ",figure9FlagUpShiftUp_M5," figure11DoubleBottom_M5 = ",figure11DoubleBottom_M5," figure13DivergentChannelUp_M5 = ",figure13DivergentChannelUp_M5," figure15BalancedTriangleUp_M5 = ",figure15BalancedTriangleUp_M5);
+
 
 
       if
@@ -594,7 +594,25 @@ isM5FigureUp && isM15FigureUp && isH1FigureUp && isH4FigureUp
       )
 
       {
+Print(" isM5FigureUp =  figure1FlagUpContinue_M5 = ",figure1FlagUpContinue_M5, "figure3FlagUpShiftDown_M5 = ",figure3FlagUpShiftDown_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5);
+Print(" figure7FlagUpDivergence_M5 = ",figure7FlagUpDivergence_M5," figure9FlagUpShiftUp_M5 = ",figure9FlagUpShiftUp_M5," figure11DoubleBottom_M5 = ",figure11DoubleBottom_M5);
+Print(" figure13DivergentChannelUp_M5 = ",figure13DivergentChannelUp_M5," figure15BalancedTriangleUp_M5 = ",figure15BalancedTriangleUp_M5);
 
+Print(" isM15FigureUp =  figure1FlagUpContinue_M15 = ",figure1FlagUpContinue_M15, "figure3FlagUpShiftDown_M15 = ",figure3FlagUpShiftDown_M15," figure5PennantUp_M15 = ",figure5PennantUp_M15);
+Print(" figure7FlagUpDivergence_M15 = ",figure7FlagUpDivergence_M15," figure9FlagUpShiftUp_M15 = ",figure9FlagUpShiftUp_M15," figure11DoubleBottom_M15 = ",figure11DoubleBottom_M15);
+Print(" figure13DivergentChannelUp_M15 = ",figure13DivergentChannelUp_M15," figure15BalancedTriangleUp_M15 = ",figure15BalancedTriangleUp_M15);
+
+Print(" isH1FigureUp =  figure1FlagUpContinue_H1 = ",figure1FlagUpContinue_H1, "figure3FlagUpShiftDown_H1 = ",figure3FlagUpShiftDown_H1," figure5PennantUp_H1 = ",figure5PennantUp_H1);
+Print(" figure7FlagUpDivergence_H1 = ",figure7FlagUpDivergence_H1," figure9FlagUpShiftUp_H1 = ",figure9FlagUpShiftUp_H1," figure11DoubleBottom_H1 = ",figure11DoubleBottom_H1);
+Print(" figure13DivergentChannelUp_H1 = ",figure13DivergentChannelUp_H1," figure15BalancedTriangleUp_H1 = ",figure15BalancedTriangleUp_H1);
+
+Print(" isH4FigureUp =  figure1FlagUpContinue_H4 = ",figure1FlagUpContinue_H4, "figure3FlagUpShiftDown_H4 = ",figure3FlagUpShiftDown_H4," figure5PennantUp_H4 = ",figure5PennantUp_H4);
+Print(" figure7FlagUpDivergence_H4 = ",figure7FlagUpDivergence_H4," figure9FlagUpShiftUp_H4 = ",figure9FlagUpShiftUp_H4," figure11DoubleBottom_H4 = ",figure11DoubleBottom_H4);
+Print(" figure13DivergentChannelUp_H4 = ",figure13DivergentChannelUp_H4," figure15BalancedTriangleUp_H4 = ",figure15BalancedTriangleUp_H4);
+
+Print(" isD1FigureUp =  figure1FlagUpContinue_D1 = ",figure1FlagUpContinue_D1, "figure3FlagUpShiftDown_D1 = ",figure3FlagUpShiftDown_D1," figure5PennantUp_D1 = ",figure5PennantUp_D1);
+Print(" figure7FlagUpDivergence_D1 = ",figure7FlagUpDivergence_D1," figure9FlagUpShiftUp_D1 = ",figure9FlagUpShiftUp_D1," figure11DoubleBottom_D1 = ",figure11DoubleBottom_D1);
+Print(" figure13DivergentChannelUp_D1 = ",figure13DivergentChannelUp_D1," figure15BalancedTriangleUp_D1 = ",figure15BalancedTriangleUp_D1);
       buy=1;}
 
       if
@@ -603,7 +621,21 @@ isM5FigureDown && isM15FigureDown && isH1FigureDown && isH4FigureDown
       )
 
       {
+Print(" isM5FigureDown =  figure2FlagDownContinue_M5 = ", figure2FlagDownContinue_M5, " figure4FlagDownShiftUp_M5 = ", figure4FlagDownShiftUp_M5, " figure6PennantDown_M5 =  ", figure6PennantDown_M5);
+Print(" figure8FlagDownDivergence_M5 = ", figure8FlagDownDivergence_M5, " figure10FlagDownShiftDown_M5 = ", figure10FlagDownShiftDown_M5, " figure12DoubleTop_M5 = ", figure12DoubleTop_M5);
+Print(" figure14DivergentChannelDown_M5 = ", figure14DivergentChannelDown_M5, " figure16BalancedTriangleDown_M5 = ",figure16BalancedTriangleDown_M5);
 
+Print(" isM15FigureDown =  figure2FlagDownContinue_M15 = ", figure2FlagDownContinue_M15, " figure4FlagDownShiftUp_M15 = ", figure4FlagDownShiftUp_M15, " figure6PennantDown_M15 =  ", figure6PennantDown_M15);
+Print(" figure8FlagDownDivergence_M15 = ", figure8FlagDownDivergence_M15, " figure10FlagDownShiftDown_M15 = ", figure10FlagDownShiftDown_M15, " figure12DoubleTop_M15 = ", figure12DoubleTop_M15);
+Print(" figure14DivergentChannelDown_M15 = ", figure14DivergentChannelDown_M15, " figure16BalancedTriangleDown_M15 = ",figure16BalancedTriangleDown_M15);
+
+Print(" isH1FigureDown =  figure2FlagDownContinue_H1 = ", figure2FlagDownContinue_H1, " figure4FlagDownShiftUp_H1 = ", figure4FlagDownShiftUp_H1, " figure6PennantDown_H1 =  ", figure6PennantDown_H1);
+Print(" figure8FlagDownDivergence_H1 = ", figure8FlagDownDivergence_H1, " figure10FlagDownShiftDown_H1 = ", figure10FlagDownShiftDown_H1, " figure12DoubleTop_H1 = ", figure12DoubleTop_H1);
+Print(" figure14DivergentChannelDown_H1 = ", figure14DivergentChannelDown_H1, " figure16BalancedTriangleDown_H1 = ",figure16BalancedTriangleDown_H1);
+
+Print(" isH4FigureDown =  figure2FlagDownContinue_H4 = ", figure2FlagDownContinue_H4, " figure4FlagDownShiftUp_H4 = ", figure4FlagDownShiftUp_H4, " figure6PennantDown_H4 =  ", figure6PennantDown_H4);
+Print(" figure8FlagDownDivergence_H4 = ", figure8FlagDownDivergence_H4, " figure10FlagDownShiftDown_H4 = ", figure10FlagDownShiftDown_H4, " figure12DoubleTop_H4 = ", figure12DoubleTop_H4);
+Print(" figure14DivergentChannelDown_H4 = ", figure14DivergentChannelDown_H4, " figure16BalancedTriangleDown_H4 = ",figure16BalancedTriangleDown_H4);
  sell=1;}
 
       if(AccountFreeMargin()<(1*Lots))
