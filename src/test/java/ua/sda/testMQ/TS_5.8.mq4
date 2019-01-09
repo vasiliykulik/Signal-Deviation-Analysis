@@ -23,7 +23,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
 double c5MinGlobal=0.00000000,c5MaxGlobal=0.00000000;
 bool isC5Min = false; bool isC5Max = false;
 
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -50,10 +50,10 @@ void OnTick(void)
    bool lowAndHighUpdateViaNonSymm = false;
    bool lowAndHighUpdateViaNonSymmForTrailing = false;
 
-   bool isFiboModuleGreenState_M5=false,isFiboModuleGreenState_M15=false,isFiboModuleGreenState_H1=false,isFiboModuleGreenState_H4=false,isFiboModuleGreenState_D1=false;
-   bool isFiboModuleRedState_M5=false,isFiboModuleRedState_M15=false,isFiboModuleRedState_H1=false,isFiboModuleRedState_H4=false,isFiboModuleRedState_D1=false;
-   bool isFiboModuleGreenLevel_100_IsPassed_M5=false,isFiboModuleGreenLevel_100_IsPassed_M15=false,isFiboModuleGreenLevel_100_IsPassed_H1=false,isFiboModuleGreenLevel_100_IsPassed_H4=false,isFiboModuleGreenLevel_100_IsPassed_D1=false;
-   bool isFiboModuleRedLevel_100_IsPassed_M5=false,isFiboModuleRedLevel_100_IsPassed_M15=false,isFiboModuleRedLevel_100_IsPassed_H1=false,isFiboModuleRedLevel_100_IsPassed_H4=false,isFiboModuleRedLevel_100_IsPassed_D1=false;
+   bool isFiboModuleGreenState_M1=false, isFiboModuleGreenState_M5=false,isFiboModuleGreenState_M15=false,isFiboModuleGreenState_H1=false,isFiboModuleGreenState_H4=false,isFiboModuleGreenState_D1=false;
+   bool isFiboModuleRedState_M1=false,isFiboModuleRedState_M5=false,isFiboModuleRedState_M15=false,isFiboModuleRedState_H1=false,isFiboModuleRedState_H4=false,isFiboModuleRedState_D1=false;
+   bool isFiboModuleGreenLevel_100_IsPassed_M1=false,isFiboModuleGreenLevel_100_IsPassed_M5=false,isFiboModuleGreenLevel_100_IsPassed_M15=false,isFiboModuleGreenLevel_100_IsPassed_H1=false,isFiboModuleGreenLevel_100_IsPassed_H4=false,isFiboModuleGreenLevel_100_IsPassed_D1=false;
+   bool isFiboModuleRedLevel_100_IsPassed_M1=false,isFiboModuleRedLevel_100_IsPassed_M5=false,isFiboModuleRedLevel_100_IsPassed_M15=false,isFiboModuleRedLevel_100_IsPassed_H1=false,isFiboModuleRedLevel_100_IsPassed_H4=false,isFiboModuleRedLevel_100_IsPassed_D1=false;
 
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight=0,sellWeight=0;
@@ -78,6 +78,7 @@ void OnTick(void)
          double lowGreen =  iLow(NULL, timeFrames[i], firstPointTick);
          if(highGreen>lowGreen) // if green
            {
+            if(timeFrames[i]==PERIOD_M1){isFiboModuleGreenState_M1=true;}
             if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenState_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenState_M15=true;}
             if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenState_H1 = true;}
@@ -91,6 +92,7 @@ void OnTick(void)
 
             if(iClose(NULL,timeFrames[i],0)>highGreen && iClose(NULL,timeFrames[i],1)<highGreen)
               {
+               if(timeFrames[i]==PERIOD_M1){isFiboModuleGreenLevel_100_IsPassed_M1=true;}
                if(timeFrames[i]==PERIOD_M5){isFiboModuleGreenLevel_100_IsPassed_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isFiboModuleGreenLevel_100_IsPassed_M15=true;}
                if(timeFrames[i]==PERIOD_H1){isFiboModuleGreenLevel_100_IsPassed_H1 = true;}
@@ -108,6 +110,7 @@ void OnTick(void)
 
          if(lowRed<highRed) // red
            {
+            if(timeFrames[i]==PERIOD_M1){isFiboModuleRedState_M5=true;}
             if(timeFrames[i]==PERIOD_M5){isFiboModuleRedState_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isFiboModuleRedState_M15=true;}
             if(timeFrames[i]==PERIOD_H1){isFiboModuleRedState_H1 = true;}
@@ -115,6 +118,7 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_D1){isFiboModuleRedState_D1 = true;}
             if(iClose(NULL,timeFrames[i],0)<lowRed && iClose(NULL,timeFrames[i],1)>lowRed) // not defined cyclePeriod - now defined
               {
+               if(timeFrames[i]==PERIOD_M1){isFiboModuleRedLevel_100_IsPassed_M5=true;}
                if(timeFrames[i]==PERIOD_M5){isFiboModuleRedLevel_100_IsPassed_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isFiboModuleRedLevel_100_IsPassed_M15=true;}
                if(timeFrames[i]==PERIOD_H1){isFiboModuleRedLevel_100_IsPassed_H1 = true;}
@@ -124,37 +128,37 @@ void OnTick(void)
            }
         }// end of TimeFrames for loop for FiboModule State and IsPassed flag
 // First layer Analyzing Block plus Figures Analyzing Block
-      bool isTrendBull_M5 = false, isTrendBull_M15 = false, isTrendBull_H1 = false, isTrendBull_H4 = false, isTrendBull_D1 = false;
-      bool isTrendBear_M5 = false, isTrendBear_M15 = false, isTrendBear_H1 = false, isTrendBear_H4 = false, isTrendBear_D1 = false;
+      bool isTrendBull_M1 = false, isTrendBull_M5 = false, isTrendBull_M15 = false, isTrendBull_H1 = false, isTrendBull_H4 = false, isTrendBull_D1 = false;
+      bool isTrendBear_M1 = false, isTrendBear_M5 = false, isTrendBear_M15 = false, isTrendBear_H1 = false, isTrendBear_H4 = false, isTrendBear_D1 = false;
 
-      bool isPriceConvergence_M5=false,isPriceConvergence_M15=false,isPriceConvergence_H1=false,isPriceConvergence_H4=false,isPriceConvergence_D1=false;
-      bool isPriceDivergence_M5=false,isPriceDivergence_M15=false,isPriceDivergence_H1=false,isPriceDivergence_H4=false,isPriceDivergence_D1=false;
+      bool isPriceConvergence_M1=false, isPriceConvergence_M5=false, isPriceConvergence_M15=false,isPriceConvergence_H1=false,isPriceConvergence_H4=false,isPriceConvergence_D1=false;
+      bool isPriceDivergence_M1=false,  isPriceDivergence_M5=false,  isPriceDivergence_M15=false,isPriceDivergence_H1=false,isPriceDivergence_H4=false,isPriceDivergence_D1=false;
 
-      bool isDivergenceMACDUp_M5=false,isDivergenceMACDUp_M15=false,isDivergenceMACDUp_H1=false,isDivergenceMACDUp_H4=false,isDivergenceMACDUp_D1=false;
-      bool isDivergenceMACDDown_M5=false,isDivergenceMACDDown_M15=false,isDivergenceMACDDown_H1=false,isDivergenceMACDDown_H4=false,isDivergenceMACDDown_D1=false;
+        bool isDivergenceMACDUp_M1=false,        isDivergenceMACDUp_M5=false,     isDivergenceMACDUp_M15=false,isDivergenceMACDUp_H1=false,isDivergenceMACDUp_H4=false,isDivergenceMACDUp_D1=false;
+        bool isDivergenceMACDDown_M1=false,      isDivergenceMACDDown_M5=false,   isDivergenceMACDDown_M15=false,isDivergenceMACDDown_H1=false,isDivergenceMACDDown_H4=false,isDivergenceMACDDown_D1=false;
 
-      bool isDivergenceMACDForPriceConv_M5=false,isDivergenceMACDForPriceConv_M15=false,isDivergenceMACDForPriceConv_H1=false,isDivergenceMACDForPriceConv_H4=false,isDivergenceMACDForPriceConv_D1=false;
-      bool isDivergenceMACDForPriceDiv_M5=false,isDivergenceMACDForPriceDiv_M15=false,isDivergenceMACDForPriceDiv_H1=false,isDivergenceMACDForPriceDiv_H4=false,isDivergenceMACDForPriceDiv_D1=false;
+        bool isDivergenceMACDForPriceConv_M1=false,       isDivergenceMACDForPriceConv_M5=false,   isDivergenceMACDForPriceConv_M15=false,isDivergenceMACDForPriceConv_H1=false,isDivergenceMACDForPriceConv_H4=false,isDivergenceMACDForPriceConv_D1=false;
+        bool isDivergenceMACDForPriceDiv_M1=false,        isDivergenceMACDForPriceDiv_M5=false,    isDivergenceMACDForPriceDiv_M15=false,isDivergenceMACDForPriceDiv_H1=false,isDivergenceMACDForPriceDiv_H4=false,isDivergenceMACDForPriceDiv_D1=false;
 
-      bool figure1FlagUpContinue_M5  = false;        bool figure1FlagUpContinue_M15 = false;         bool figure1FlagUpContinue_H1  = false;         bool figure1FlagUpContinue_H4  = false;         bool figure1FlagUpContinue_D1  = false;
-      bool figure2FlagDownContinue_M5  = false;      bool figure2FlagDownContinue_M15 = false;       bool figure2FlagDownContinue_H1  = false;       bool figure2FlagDownContinue_H4  = false;       bool figure2FlagDownContinue_D1  = false;
-      bool figure3FlagUpShiftDown_M5  = false;       bool figure3FlagUpShiftDown_M15 = false;        bool figure3FlagUpShiftDown_H1  = false;        bool figure3FlagUpShiftDown_H4  = false;        bool figure3FlagUpShiftDown_D1  = false;
-      bool figure4FlagDownShiftUp_M5  = false;       bool figure4FlagDownShiftUp_M15 = false;        bool figure4FlagDownShiftUp_H1  = false;        bool figure4FlagDownShiftUp_H4  = false;        bool figure4FlagDownShiftUp_D1  = false;
-      bool figure5PennantUp_M5  = false;             bool figure5PennantUp_M15 = false;              bool figure5PennantUp_H1  = false;              bool figure5PennantUp_H4  = false;              bool figure5PennantUp_D1  = false;
-      bool figure6PennantDown_M5  = false;           bool figure6PennantDown_M15 = false;            bool figure6PennantDown_H1  = false;            bool figure6PennantDown_H4  = false;            bool figure6PennantDown_D1  = false;
-      bool figure7FlagUpDivergence_M5  = false;      bool figure7FlagUpDivergence_M15 = false;       bool figure7FlagUpDivergence_H1  = false;       bool figure7FlagUpDivergence_H4  = false;       bool figure7FlagUpDivergence_D1  = false;
-      bool figure8FlagDownDivergence_M5  = false;    bool figure8FlagDownDivergence_M15 = false;     bool figure8FlagDownDivergence_H1  = false;     bool figure8FlagDownDivergence_H4  = false;     bool figure8FlagDownDivergence_D1  = false;
-      bool figure9FlagUpShiftUp_M5  = false;         bool figure9FlagUpShiftUp_M15 = false;          bool figure9FlagUpShiftUp_H1  = false;          bool figure9FlagUpShiftUp_H4  = false;          bool figure9FlagUpShiftUp_D1  = false;
-      bool figure10FlagDownShiftDown_M5  = false;    bool figure10FlagDownShiftDown_M15 = false;     bool figure10FlagDownShiftDown_H1  = false;     bool figure10FlagDownShiftDown_H4  = false;     bool figure10FlagDownShiftDown_D1  = false;
-      bool figure11DoubleBottom_M5  = false;         bool figure11DoubleBottom_M15 = false;          bool figure11DoubleBottom_H1  = false;          bool figure11DoubleBottom_H4  = false;          bool figure11DoubleBottom_D1  = false;
-      bool figure12DoubleTop_M5  = false;            bool figure12DoubleTop_M15 = false;             bool figure12DoubleTop_H1  = false;             bool figure12DoubleTop_H4  = false;             bool figure12DoubleTop_D1  = false;
-      bool figure13DivergentChannelUp_M5  = false;   bool figure13DivergentChannelUp_M15 = false;    bool figure13DivergentChannelUp_H1  = false;    bool figure13DivergentChannelUp_H4  = false;    bool figure13DivergentChannelUp_D1  = false;
-      bool figure14DivergentChannelDown_M5  = false; bool figure14DivergentChannelDown_M15 = false;  bool figure14DivergentChannelDown_H1  = false;  bool figure14DivergentChannelDown_H4  = false;  bool figure14DivergentChannelDown_D1  = false;
-      bool figure15BalancedTriangleUp_M5  = false;   bool figure15BalancedTriangleUp_M15 = false;    bool figure15BalancedTriangleUp_H1  = false;    bool figure15BalancedTriangleUp_H4  = false;    bool figure15BalancedTriangleUp_D1  = false;
-      bool figure16BalancedTriangleDown_M5  = false; bool figure16BalancedTriangleDown_M15 = false;  bool figure16BalancedTriangleDown_H1  = false;  bool figure16BalancedTriangleDown_H4  = false;  bool figure16BalancedTriangleDown_D1  = false;
+      bool figure1FlagUpContinue_M1  = false;        bool figure1FlagUpContinue_M5  = false;        bool figure1FlagUpContinue_M15 = false;         bool figure1FlagUpContinue_H1  = false;         bool figure1FlagUpContinue_H4  = false;         bool figure1FlagUpContinue_D1  = false;
+      bool figure2FlagDownContinue_M1  = false;      bool figure2FlagDownContinue_M5  = false;      bool figure2FlagDownContinue_M15 = false;       bool figure2FlagDownContinue_H1  = false;       bool figure2FlagDownContinue_H4  = false;       bool figure2FlagDownContinue_D1  = false;
+      bool figure3FlagUpShiftDown_M1  = false;       bool figure3FlagUpShiftDown_M5  = false;       bool figure3FlagUpShiftDown_M15 = false;        bool figure3FlagUpShiftDown_H1  = false;        bool figure3FlagUpShiftDown_H4  = false;        bool figure3FlagUpShiftDown_D1  = false;
+      bool figure4FlagDownShiftUp_M1  = false;       bool figure4FlagDownShiftUp_M5  = false;       bool figure4FlagDownShiftUp_M15 = false;        bool figure4FlagDownShiftUp_H1  = false;        bool figure4FlagDownShiftUp_H4  = false;        bool figure4FlagDownShiftUp_D1  = false;
+      bool figure5PennantUp_M1  = false;             bool figure5PennantUp_M5  = false;             bool figure5PennantUp_M15 = false;              bool figure5PennantUp_H1  = false;              bool figure5PennantUp_H4  = false;              bool figure5PennantUp_D1  = false;
+      bool figure6PennantDown_M1  = false;           bool figure6PennantDown_M5  = false;           bool figure6PennantDown_M15 = false;            bool figure6PennantDown_H1  = false;            bool figure6PennantDown_H4  = false;            bool figure6PennantDown_D1  = false;
+      bool figure7FlagUpDivergence_M1  = false;      bool figure7FlagUpDivergence_M5  = false;      bool figure7FlagUpDivergence_M15 = false;       bool figure7FlagUpDivergence_H1  = false;       bool figure7FlagUpDivergence_H4  = false;       bool figure7FlagUpDivergence_D1  = false;
+      bool figure8FlagDownDivergence_M1  = false;    bool figure8FlagDownDivergence_M5  = false;    bool figure8FlagDownDivergence_M15 = false;     bool figure8FlagDownDivergence_H1  = false;     bool figure8FlagDownDivergence_H4  = false;     bool figure8FlagDownDivergence_D1  = false;
+      bool figure9FlagUpShiftUp_M1  = false;         bool figure9FlagUpShiftUp_M5  = false;         bool figure9FlagUpShiftUp_M15 = false;          bool figure9FlagUpShiftUp_H1  = false;          bool figure9FlagUpShiftUp_H4  = false;          bool figure9FlagUpShiftUp_D1  = false;
+      bool figure10FlagDownShiftDown_M1  = false;    bool figure10FlagDownShiftDown_M5  = false;    bool figure10FlagDownShiftDown_M15 = false;     bool figure10FlagDownShiftDown_H1  = false;     bool figure10FlagDownShiftDown_H4  = false;     bool figure10FlagDownShiftDown_D1  = false;
+      bool figure11DoubleBottom_M1  = false;         bool figure11DoubleBottom_M5  = false;         bool figure11DoubleBottom_M15 = false;          bool figure11DoubleBottom_H1  = false;          bool figure11DoubleBottom_H4  = false;          bool figure11DoubleBottom_D1  = false;
+      bool figure12DoubleTop_M1  = false;            bool figure12DoubleTop_M5  = false;            bool figure12DoubleTop_M15 = false;             bool figure12DoubleTop_H1  = false;             bool figure12DoubleTop_H4  = false;             bool figure12DoubleTop_D1  = false;
+      bool figure13DivergentChannelUp_M1  = false;   bool figure13DivergentChannelUp_M5  = false;   bool figure13DivergentChannelUp_M15 = false;    bool figure13DivergentChannelUp_H1  = false;    bool figure13DivergentChannelUp_H4  = false;    bool figure13DivergentChannelUp_D1  = false;
+      bool figure14DivergentChannelDown_M1  = false; bool figure14DivergentChannelDown_M5  = false; bool figure14DivergentChannelDown_M15 = false;  bool figure14DivergentChannelDown_H1  = false;  bool figure14DivergentChannelDown_H4  = false;  bool figure14DivergentChannelDown_D1  = false;
+      bool figure15BalancedTriangleUp_M1  = false;   bool figure15BalancedTriangleUp_M5  = false;   bool figure15BalancedTriangleUp_M15 = false;    bool figure15BalancedTriangleUp_H1  = false;    bool figure15BalancedTriangleUp_H4  = false;    bool figure15BalancedTriangleUp_D1  = false;
+      bool figure16BalancedTriangleDown_M1  = false; bool figure16BalancedTriangleDown_M5  = false; bool figure16BalancedTriangleDown_M15 = false;  bool figure16BalancedTriangleDown_H1  = false;  bool figure16BalancedTriangleDown_H4  = false;  bool figure16BalancedTriangleDown_D1  = false;
 
-      bool isM5FigureUp =  false; bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
-      bool isM5FigureDown =  false; bool isM15FigureDown = false; bool isH1FigureDown = false; bool isH4FigureDown = false; bool isD1FigureDown = false;
+      bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
+      bool isM1FigureDown =  false; bool isM5FigureDown =  false; bool isM15FigureDown = false; bool isH1FigureDown = false; bool isH4FigureDown = false; bool isD1FigureDown = false;
 
 
 
@@ -165,7 +169,8 @@ void OnTick(void)
          lowAndHighUpdateViaNonSymm=nonSymm();
          if(firstMinGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal) // Trend up, new, more comprehensive clause
            {
-            if(timeFrames[i]==PERIOD_M5) {isTrendBull_M5   = true;}
+            if(timeFrames[i]==PERIOD_M1) {isTrendBull_M1   = true;}
+            if(timeFrames[i]==PERIOD_M5) {isTrendBull_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){isTrendBull_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {isTrendBull_H1   = true;}
             if(timeFrames[i]==PERIOD_H4) {isTrendBull_H4   = true;}
@@ -175,6 +180,7 @@ void OnTick(void)
             // not defined cyclePeriod; cyclePeriod equals timeFrames[i]; ie TimeFrame; for example PERIOD_M5
             if(firstMinGlobalMACD>secondMinGlobalMACD) // Divergence MACD ! сontrary
               {
+               if(timeFrames[i]==PERIOD_M1) {isDivergenceMACDUp_M1  = true;}
                if(timeFrames[i]==PERIOD_M5) {isDivergenceMACDUp_M5  = true;}
                if(timeFrames[i]==PERIOD_M15){isDivergenceMACDUp_M15 = true;}
                if(timeFrames[i]==PERIOD_H1) {isDivergenceMACDUp_H1  = true;}
@@ -184,6 +190,7 @@ void OnTick(void)
            }
          if(firstMaxGlobal<secondMaxGlobal && firstMinGlobal<secondMinGlobal) // Trend down , new, more comprehensive clause
            {
+            if(timeFrames[i]==PERIOD_M1){isTrendBear_M1=true;}
             if(timeFrames[i]==PERIOD_M5){isTrendBear_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isTrendBear_M15=true;}
             if(timeFrames[i]==PERIOD_H1){isTrendBear_H1 = true;}
@@ -191,6 +198,7 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_D1){isTrendBear_D1 = true;}
             if(firstMaxGlobalMACD<secondMaxGlobalMACD) // Divergence MACD ! сontrary
               {
+               if(timeFrames[i]==PERIOD_M1){isDivergenceMACDDown_M1=true;}
                if(timeFrames[i]==PERIOD_M5){isDivergenceMACDDown_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isDivergenceMACDDown_M15=true;}
                if(timeFrames[i]==PERIOD_H1){isDivergenceMACDDown_H1 = true;}
@@ -200,6 +208,7 @@ void OnTick(void)
            }
          if(firstMaxGlobal<secondMaxGlobal && firstMinGlobal>secondMinGlobal) // Convergence
            {
+            if(timeFrames[i]==PERIOD_M1){isPriceConvergence_M1=true;}
             if(timeFrames[i]==PERIOD_M5){isPriceConvergence_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isPriceConvergence_M15=true;}
             if(timeFrames[i]==PERIOD_H1){isPriceConvergence_H1 = true;}
@@ -207,6 +216,7 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_D1){isPriceConvergence_D1 = true;}
             if(firstMinGlobalMACD>secondMinGlobalMACD || firstMaxGlobalMACD<secondMaxGlobalMACD) // Divergence MACD ! сontrary
               {
+               if(timeFrames[i]==PERIOD_M1){isDivergenceMACDForPriceConv_M1=true;}
                if(timeFrames[i]==PERIOD_M5){isDivergenceMACDForPriceConv_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isDivergenceMACDForPriceConv_M15=true;}
                if(timeFrames[i]==PERIOD_H1){isDivergenceMACDForPriceConv_H1 = true;}
@@ -216,6 +226,7 @@ void OnTick(void)
            }
          if(firstMaxGlobal>secondMaxGlobal && firstMinGlobal<secondMinGlobal) // Divergence
            {
+            if(timeFrames[i]==PERIOD_M1){isPriceDivergence_M1=true;}
             if(timeFrames[i]==PERIOD_M5){isPriceDivergence_M5=true;}
             if(timeFrames[i]==PERIOD_M15){isPriceDivergence_M15=true;}
             if(timeFrames[i]==PERIOD_H1){isPriceDivergence_H1 = true;}
@@ -223,6 +234,7 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_D1){isPriceDivergence_D1 = true;}
             if(firstMinGlobalMACD>secondMinGlobalMACD || firstMaxGlobalMACD<secondMaxGlobalMACD) // Divergence MACD ! сontrary
               {
+               if(timeFrames[i]==PERIOD_M1){isDivergenceMACDForPriceDiv_M1=true;}
                if(timeFrames[i]==PERIOD_M5){isDivergenceMACDForPriceDiv_M5=true;}
                if(timeFrames[i]==PERIOD_M15){isDivergenceMACDForPriceDiv_M15=true;}
                if(timeFrames[i]==PERIOD_H1){isDivergenceMACDForPriceDiv_H1 = true;}
@@ -246,6 +258,7 @@ void OnTick(void)
         secondMinGlobal < secondMaxGlobal && isC5Min
 
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure1FlagUpContinue_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure1FlagUpContinue_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure1FlagUpContinue_H1  = true;}
@@ -262,6 +275,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinue_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure2FlagDownContinue_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure2FlagDownContinue_H1  = true;}
@@ -278,6 +292,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure3FlagUpShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure3FlagUpShiftDown_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure3FlagUpShiftDown_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure3FlagUpShiftDown_H1  = true;}
@@ -294,6 +309,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure4FlagDownShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure4FlagDownShiftUp_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure4FlagDownShiftUp_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure4FlagDownShiftUp_H1  = true;}
@@ -310,6 +326,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure5PennantUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure5PennantUp_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure5PennantUp_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure5PennantUp_H1  = true;}
@@ -326,6 +343,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure6PennantDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure6PennantDown_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure6PennantDown_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure6PennantDown_H1  = true;}
@@ -342,6 +360,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && // and  this firstMaxGlobal apperantly not obligatory, but we adhere uniformity
         secondMinGlobal<secondMaxGlobal // this clause is obligatory && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure7FlagUpDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure7FlagUpDivergence_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure7FlagUpDivergence_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure7FlagUpDivergence_H1  = true;}
@@ -358,6 +377,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure8FlagDownDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure8FlagDownDivergence_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure8FlagDownDivergence_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure8FlagDownDivergence_H1  = true;}
@@ -374,12 +394,14 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure9FlagUpShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure9FlagUpShiftUp_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure9FlagUpShiftUp_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure9FlagUpShiftUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure9FlagUpShiftUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure9FlagUpShiftUp_D1  = true;}
             print("Figure 9 FlagUpShiftUp ", timeFrames[i]);
+//            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
     }
 
     // Figure 10 "FlagDownShiftDown"
@@ -390,6 +412,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure10FlagDownShiftDown_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure10FlagDownShiftDown_H1  = true;}
@@ -407,6 +430,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure11DoubleBottom_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure11DoubleBottom_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure11DoubleBottom_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure11DoubleBottom_H1  = true;}
@@ -423,6 +447,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure12DoubleTop_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure12DoubleTop_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure12DoubleTop_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure12DoubleTop_H1  = true;}
@@ -439,6 +464,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure13DivergentChannelUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure13DivergentChannelUp_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure13DivergentChannelUp_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure13DivergentChannelUp_H1  = true;}
@@ -455,6 +481,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure14DivergentChannelDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure14DivergentChannelDown_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure14DivergentChannelDown_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure14DivergentChannelDown_H1  = true;}
@@ -472,6 +499,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure15BalancedTriangleUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure15BalancedTriangleUp_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure15BalancedTriangleUp_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure15BalancedTriangleUp_H1  = true;}
@@ -488,6 +516,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure16BalancedTriangleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure16BalancedTriangleDown_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure16BalancedTriangleDown_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure16BalancedTriangleDown_H1  = true;}
@@ -574,12 +603,14 @@ MACDForelockFilterForBuyPosition  = macdUp_H1 && macdUp_H4   && macdUp_D1   && m
 MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
 
+     isM1FigureUp =  figure1FlagUpContinue_M1 || figure3FlagUpShiftDown_M1 || figure5PennantUp_M1 || figure7FlagUpDivergence_M1 || figure9FlagUpShiftUp_M1 || figure11DoubleBottom_M1 || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1;
      isM5FigureUp =  figure1FlagUpContinue_M5 || figure3FlagUpShiftDown_M5 || figure5PennantUp_M5 || figure7FlagUpDivergence_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottom_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5;
      isM15FigureUp =  figure1FlagUpContinue_M15 || figure3FlagUpShiftDown_M15 || figure5PennantUp_M15 || figure7FlagUpDivergence_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottom_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15;
      isH1FigureUp =  figure1FlagUpContinue_H1 || figure3FlagUpShiftDown_H1 || figure5PennantUp_H1 || figure7FlagUpDivergence_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottom_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1;
      isH4FigureUp =  figure1FlagUpContinue_H4 || figure3FlagUpShiftDown_H4 || figure5PennantUp_H4 || figure7FlagUpDivergence_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottom_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4;
      isD1FigureUp =  figure1FlagUpContinue_D1 || figure3FlagUpShiftDown_D1 || figure5PennantUp_D1 || figure7FlagUpDivergence_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottom_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1;
 
+     isM1FigureDown =  figure2FlagDownContinue_M1 || figure4FlagDownShiftUp_M1 || figure6PennantDown_M1 || figure8FlagDownDivergence_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTop_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1;
      isM5FigureDown =  figure2FlagDownContinue_M5 || figure4FlagDownShiftUp_M5 || figure6PennantDown_M5 || figure8FlagDownDivergence_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTop_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5;
      isM15FigureDown =  figure2FlagDownContinue_M15 || figure4FlagDownShiftUp_M15 || figure6PennantDown_M15 || figure8FlagDownDivergence_M15 || figure10FlagDownShiftDown_M15 || figure12DoubleTop_M15 || figure14DivergentChannelDown_M15 || figure16BalancedTriangleDown_M15;
      isH1FigureDown =  figure2FlagDownContinue_H1 || figure4FlagDownShiftUp_H1 || figure6PennantDown_H1 || figure8FlagDownDivergence_H1 || figure10FlagDownShiftDown_H1 || figure12DoubleTop_H1 || figure14DivergentChannelDown_H1 || figure16BalancedTriangleDown_H1;
@@ -591,7 +622,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 
       if
       (
-isM5FigureUp && isM15FigureUp && isH1FigureUp
+isM1FigureUp && isM5FigureUp && isM15FigureUp && isH1FigureUp
       )
 
       {
@@ -618,7 +649,7 @@ Print(" figure13DivergentChannelUp_D1 = ",figure13DivergentChannelUp_D1," figure
 
       if
       (
-isM5FigureDown && isM15FigureDown && isH1FigureDown
+isM1FigureDown && isM5FigureDown && isM15FigureDown && isH1FigureDown
       )
 
       {
@@ -1631,6 +1662,7 @@ bool nonSymmTick()
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
   return;
   string timeFrame;
+  if(timeFrameNum == 1){timeFrame = "PERIOD_M1";}
   if(timeFrameNum == 5){timeFrame = "PERIOD_M5";}
   if(timeFrameNum == 15){timeFrame = "PERIOD_M15";}
   if(timeFrameNum == 60){timeFrame = "PERIOD_H1";}
