@@ -741,7 +741,7 @@ Print(" figure13DivergentChannelUp_D1 = ",figure13DivergentChannelUp_D1," figure
 
 Print(" blockingFigure9BlockingFlagUpShiftUp_M1 = ", blockingFigure9BlockingFlagUpShiftUp_M1, " blockingFigure15BlockingBalancedTriangleUp_M1 = ", blockingFigure15BlockingBalancedTriangleUp_M1);
 Print(" blockingFigure9BlockingFlagUpShiftUp_M5 = ", blockingFigure9BlockingFlagUpShiftUp_M5, " blockingFigure15BlockingBalancedTriangleUp_M5 = ", blockingFigure15BlockingBalancedTriangleUp_M5);
-Print( " blockingFigure9BlockingFlagUpShiftUp_M15 = , "blockingFigure9BlockingFlagUpShiftUp_M15, " blockingFigure15BlockingBalancedTriangleUp_M15 = ", blockingFigure15BlockingBalancedTriangleUp_M15);
+Print( " blockingFigure9BlockingFlagUpShiftUp_M15 = , ",blockingFigure9BlockingFlagUpShiftUp_M15, " blockingFigure15BlockingBalancedTriangleUp_M15 = ", blockingFigure15BlockingBalancedTriangleUp_M15);
 Print(" blockingFigure9BlockingFlagUpShiftUp_H1 = ", blockingFigure9BlockingFlagUpShiftUp_H1, " blockingFigure15BlockingBalancedTriangleUp_H1 = ", blockingFigure15BlockingBalancedTriangleUp_H1);
 Print(" blockingFigure9BlockingFlagUpShiftUp_H4 = ", blockingFigure9BlockingFlagUpShiftUp_H4, " blockingFigure15BlockingBalancedTriangleUp_H4 = ", blockingFigure15BlockingBalancedTriangleUp_H4);
 Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlagUpShiftUp_D1, " blockingFigure15BlockingBalancedTriangleUp_D1 = ", blockingFigure15BlockingBalancedTriangleUp_D1);
