@@ -400,7 +400,8 @@ void OnTick(void)
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
-        secondMinGlobal<secondMaxGlobal && isC5Min
+        secondMinGlobal<secondMaxGlobal && isC5Min &&
+        c5MaxGlobal < firstMaxGlobal && isC6Max
         ){
             if(timeFrames[i]==PERIOD_M1) {figure9FlagUpShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure9FlagUpShiftUp_M5  = true;}
@@ -418,7 +419,8 @@ void OnTick(void)
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal<secondMinGlobal && isC5Max
+        firstMinGlobal<secondMinGlobal && isC5Max &&
+        c5MinGlobal > firstMinGlobal && isC6Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
@@ -505,7 +507,8 @@ void OnTick(void)
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
-        secondMinGlobal<secondMaxGlobal && isC5Min
+        secondMinGlobal<secondMaxGlobal && isC5Min &&
+        c5MaxGlobal < firstMaxGlobal && isC6Max
         ){
             if(timeFrames[i]==PERIOD_M1) {figure15BalancedTriangleUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure15BalancedTriangleUp_M5  = true;}
@@ -522,7 +525,8 @@ void OnTick(void)
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal>secondMinGlobal && isC5Max
+        firstMinGlobal>secondMinGlobal && isC5Max &&
+        c5MinGlobal > secondMinGlobal && isC6Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure16BalancedTriangleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure16BalancedTriangleDown_M5  = true;}
@@ -711,8 +715,7 @@ isD1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_D1 || blockingFi
 
       if
       (
-isM5FigureUp && isM15FigureUp && isH1FigureUp &&
-!isM5FigureUpBlocked && !isM15FigureUpBlocked && !isH1FigureUpBlocked
+isM5FigureUp && isM15FigureUp && isH1FigureUp
       )
 
       {
@@ -746,8 +749,7 @@ Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlag
 
       if
       (
-isM5FigureDown && isM15FigureDown && isH1FigureDown &&
-!isM5FigureDownBlocked && !isM15FigureDownBlocked && !isH1FigureDownBlocked
+isM5FigureDown && isM15FigureDown && isH1FigureDown
       )
 
       {
