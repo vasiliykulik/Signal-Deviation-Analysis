@@ -22,6 +22,7 @@ int firstPointTick=0,secondPointTick=0;
 int localFirstPointTick=0,localSecondPointTick=0;
 double c5MinGlobal=0.00000000,c5MaxGlobal=0.00000000;
 bool isC5Min = false; bool isC5Max = false;
+bool isC6Min = false; bool isC6Max = false;
 
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
@@ -161,6 +162,13 @@ void OnTick(void)
       bool isM1FigureDown =  false; bool isM5FigureDown =  false; bool isM15FigureDown = false; bool isH1FigureDown = false; bool isH4FigureDown = false; bool isD1FigureDown = false;
 
 
+      bool blockingFigure9BlockingFlagUpShiftUp_M1 = false;         bool blockingFigure9BlockingFlagUpShiftUp_M5 = false;       bool blockingFigure9BlockingFlagUpShiftUp_M15 = false;       bool blockingFigure9BlockingFlagUpShiftUp_H1 = false;       bool blockingFigure9BlockingFlagUpShiftUp_H4 = false;       bool blockingFigure9BlockingFlagUpShiftUp_D1 = false;
+      bool blockingFigure10BlockingFlagUpShiftDown_M1 = false;      bool blockingFigure10BlockingFlagUpShiftDown_M5 = false;    bool blockingFigure10BlockingFlagUpShiftDown_M15 = false;    bool blockingFigure10BlockingFlagUpShiftDown_H1 = false;    bool blockingFigure10BlockingFlagUpShiftDown_H4 = false;    bool blockingFigure10BlockingFlagUpShiftDown_D1 = false;
+      bool blockingFigure15BlockingBalancedTriangleUp_M1 = false;   bool blockingFigure15BlockingBalancedTriangleUp_M5 = false; bool blockingFigure15BlockingBalancedTriangleUp_M15 = false; bool blockingFigure15BlockingBalancedTriangleUp_H1 = false; bool blockingFigure15BlockingBalancedTriangleUp_H4 = false; bool blockingFigure15BlockingBalancedTriangleUp_D1 = false;
+      bool blockingFigure16BlockingBalancedTriangleUp_M1 = false;   bool blockingFigure16BlockingBalancedTriangleUp_M5 = false; bool blockingFigure16BlockingBalancedTriangleUp_M15 = false; bool blockingFigure16BlockingBalancedTriangleUp_H1 = false; bool blockingFigure16BlockingBalancedTriangleUp_H4 = false; bool blockingFigure16BlockingBalancedTriangleUp_D1 = false;
+
+      bool isM1FigureUpBlocked = false; bool isM5FigureUpBlocked = false; bool isM15FigureUpBlocked = false; bool isH1FigureUpBlocked = false; bool isH4FigureUpBlocked = false; bool isD1FigureUpBlocked = false;
+      bool isM1FigureDownBlocked = false; bool isM5FigureDownBlocked = false; bool isM15FigureDownBlocked = false; bool isH1FigureDownBlocked = false; bool isH4FigureDownBlocked = false; bool isD1FigureDownBlocked = false;
 
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
@@ -526,7 +534,74 @@ void OnTick(void)
     }
 
 
+// Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
 
+    // Blocking Figure 9  "BlockingFlagUpShiftUp"
+     if(
+            c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+            firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
+            firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
+            secondMinGlobal<secondMaxGlobal && isC5Min &&
+            c5MaxGlobal < firstMaxGlobal && isC6Max
+            ){
+                if(timeFrames[i]==PERIOD_M1) {blockingFigure9BlockingFlagUpShiftUp_M1  = true;}
+                if(timeFrames[i]==PERIOD_M5) {blockingFigure9BlockingFlagUpShiftUp_M5  = true;}
+                if(timeFrames[i]==PERIOD_M15){blockingFigure9BlockingFlagUpShiftUp_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1) {blockingFigure9BlockingFlagUpShiftUp_H1  = true;}
+                if(timeFrames[i]==PERIOD_H4) {blockingFigure9BlockingFlagUpShiftUp_H4  = true;}
+                if(timeFrames[i]==PERIOD_D1) {blockingFigure9BlockingFlagUpShiftUp_D1  = true;}
+                print("Blocking Figure 9 BlockingFlagUpShiftUp ", timeFrames[i]);
+    //            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+        }
+    // Blocking Figure 10 "BlockingFlagUpShiftDown"
+     if(
+            c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+            firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
+            secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
+            firstMinGlobal<secondMinGlobal && isC5Max &&
+            c5MinGlobal > firstMinGlobal && isC6Min
+            ){
+                if(timeFrames[i]==PERIOD_M1) {blockingFigure10BlockingFlagUpShiftDown_M1  = true;}
+                if(timeFrames[i]==PERIOD_M5) {blockingFigure10BlockingFlagUpShiftDown_M5  = true;}
+                if(timeFrames[i]==PERIOD_M15){blockingFigure10BlockingFlagUpShiftDown_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1) {blockingFigure10BlockingFlagUpShiftDown_H1  = true;}
+                if(timeFrames[i]==PERIOD_H4) {blockingFigure10BlockingFlagUpShiftDown_H4  = true;}
+                if(timeFrames[i]==PERIOD_D1) {blockingFigure10BlockingFlagUpShiftDown_D1  = true;}
+                print("Blocking Figure 10 BlockingFlagUpShiftDown ", timeFrames[i]);
+     //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+        }
+    // Blocking Figure 15 "BlockingBalancedTriangleUp"
+    if(
+            c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+            firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
+            firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
+            secondMinGlobal<secondMaxGlobal && isC5Min &&
+            c5MaxGlobal > firstMaxGlobal && isC6Max
+            ){
+                if(timeFrames[i]==PERIOD_M1) {blockingFigure15BlockingBalancedTriangleUp_M1  = true;}
+                if(timeFrames[i]==PERIOD_M5) {blockingFigure15BlockingBalancedTriangleUp_M5  = true;}
+                if(timeFrames[i]==PERIOD_M15){blockingFigure15BlockingBalancedTriangleUp_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1) {blockingFigure15BlockingBalancedTriangleUp_H1  = true;}
+                if(timeFrames[i]==PERIOD_H4) {blockingFigure15BlockingBalancedTriangleUp_H4  = true;}
+                if(timeFrames[i]==PERIOD_D1) {blockingFigure15BlockingBalancedTriangleUp_D1  = true;}
+                print("Blocking Figure 15 BlockingBalancedTriangleUp ", timeFrames[i]);
+        }
+    // Blocking Figure 16 "BlockingBalancedTriangleUp"
+    if(
+            c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+            firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
+            secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
+            firstMinGlobal>secondMinGlobal && isC5Max &&
+            c5MinGlobal < firstMinGlobal && isC6Min
+            ){
+                if(timeFrames[i]==PERIOD_M1) {blockingFigure16BlockingBalancedTriangleUp_M1  = true;}
+                if(timeFrames[i]==PERIOD_M5) {blockingFigure16BlockingBalancedTriangleUp_M5  = true;}
+                if(timeFrames[i]==PERIOD_M15){blockingFigure16BlockingBalancedTriangleUp_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1) {blockingFigure16BlockingBalancedTriangleUp_H1  = true;}
+                if(timeFrames[i]==PERIOD_H4) {blockingFigure16BlockingBalancedTriangleUp_H4  = true;}
+                if(timeFrames[i]==PERIOD_D1) {blockingFigure16BlockingBalancedTriangleUp_D1  = true;}
+                print("Blocking Figure 16 BlockingBalancedTriangleUp ", timeFrames[i]);
+        }
 
 }
 
@@ -617,12 +692,27 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isH4FigureDown =  figure2FlagDownContinue_H4 || figure4FlagDownShiftUp_H4 || figure6PennantDown_H4 || figure8FlagDownDivergence_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTop_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
      isD1FigureDown =  figure2FlagDownContinue_D1 || figure4FlagDownShiftUp_D1 || figure6PennantDown_D1 || figure8FlagDownDivergence_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTop_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
 
+isM1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M1 || blockingFigure15BlockingBalancedTriangleUp_M1;
+isM5FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M5 || blockingFigure15BlockingBalancedTriangleUp_M5;
+isM15FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M15 || blockingFigure15BlockingBalancedTriangleUp_M15;
+isH1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_H1 || blockingFigure15BlockingBalancedTriangleUp_H1;
+isH4FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_H4 || blockingFigure15BlockingBalancedTriangleUp_H4;
+isD1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_D1 || blockingFigure15BlockingBalancedTriangleUp_D1;
+
+
+isM1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_M1 || blockingFigure16BlockingBalancedTriangleUp_M1;
+isM5FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_M5 || blockingFigure16BlockingBalancedTriangleUp_M5;
+isM15FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_M15 || blockingFigure16BlockingBalancedTriangleUp_M15;
+isH1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_H1 || blockingFigure16BlockingBalancedTriangleUp_H1;
+isH4FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_H4 || blockingFigure16BlockingBalancedTriangleUp_H4;
+isD1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_D1 || blockingFigure16BlockingBalancedTriangleUp_D1;
 
 
 
       if
       (
-isM1FigureUp && isM5FigureUp && isM15FigureUp && isH1FigureUp
+isM5FigureUp && isM15FigureUp && isH1FigureUp &&
+!isM5FigureUpBlocked && !isM15FigureUpBlocked && !isH1FigureUpBlocked
       )
 
       {
@@ -645,11 +735,19 @@ Print(" figure13DivergentChannelUp_H4 = ",figure13DivergentChannelUp_H4," figure
 Print(" isD1FigureUp =  figure1FlagUpContinue_D1 = ",figure1FlagUpContinue_D1, "figure3FlagUpShiftDown_D1 = ",figure3FlagUpShiftDown_D1," figure5PennantUp_D1 = ",figure5PennantUp_D1);
 Print(" figure7FlagUpDivergence_D1 = ",figure7FlagUpDivergence_D1," figure9FlagUpShiftUp_D1 = ",figure9FlagUpShiftUp_D1," figure11DoubleBottom_D1 = ",figure11DoubleBottom_D1);
 Print(" figure13DivergentChannelUp_D1 = ",figure13DivergentChannelUp_D1," figure15BalancedTriangleUp_D1 = ",figure15BalancedTriangleUp_D1);
+
+Print(" blockingFigure9BlockingFlagUpShiftUp_M1 = ", blockingFigure9BlockingFlagUpShiftUp_M1, " blockingFigure15BlockingBalancedTriangleUp_M1 = ", blockingFigure15BlockingBalancedTriangleUp_M1);
+Print(" blockingFigure9BlockingFlagUpShiftUp_M5 = ", blockingFigure9BlockingFlagUpShiftUp_M5, " blockingFigure15BlockingBalancedTriangleUp_M5 = ", blockingFigure15BlockingBalancedTriangleUp_M5);
+Print( " blockingFigure9BlockingFlagUpShiftUp_M15 = , "blockingFigure9BlockingFlagUpShiftUp_M15, " blockingFigure15BlockingBalancedTriangleUp_M15 = ", blockingFigure15BlockingBalancedTriangleUp_M15);
+Print(" blockingFigure9BlockingFlagUpShiftUp_H1 = ", blockingFigure9BlockingFlagUpShiftUp_H1, " blockingFigure15BlockingBalancedTriangleUp_H1 = ", blockingFigure15BlockingBalancedTriangleUp_H1);
+Print(" blockingFigure9BlockingFlagUpShiftUp_H4 = ", blockingFigure9BlockingFlagUpShiftUp_H4, " blockingFigure15BlockingBalancedTriangleUp_H4 = ", blockingFigure15BlockingBalancedTriangleUp_H4);
+Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlagUpShiftUp_D1, " blockingFigure15BlockingBalancedTriangleUp_D1 = ", blockingFigure15BlockingBalancedTriangleUp_D1);
       buy=1;}
 
       if
       (
-isM1FigureDown && isM5FigureDown && isM15FigureDown && isH1FigureDown
+isM5FigureDown && isM15FigureDown && isH1FigureDown &&
+!isM5FigureDownBlocked && !isM15FigureDownBlocked && !isH1FigureDownBlocked
       )
 
       {
@@ -668,6 +766,14 @@ Print(" figure14DivergentChannelDown_H1 = ", figure14DivergentChannelDown_H1, " 
 Print(" isH4FigureDown =  figure2FlagDownContinue_H4 = ", figure2FlagDownContinue_H4, " figure4FlagDownShiftUp_H4 = ", figure4FlagDownShiftUp_H4, " figure6PennantDown_H4 =  ", figure6PennantDown_H4);
 Print(" figure8FlagDownDivergence_H4 = ", figure8FlagDownDivergence_H4, " figure10FlagDownShiftDown_H4 = ", figure10FlagDownShiftDown_H4, " figure12DoubleTop_H4 = ", figure12DoubleTop_H4);
 Print(" figure14DivergentChannelDown_H4 = ", figure14DivergentChannelDown_H4, " figure16BalancedTriangleDown_H4 = ",figure16BalancedTriangleDown_H4);
+
+Print(" blockingFigure10BlockingFlagUpShiftDown_M1 = ",blockingFigure10BlockingFlagUpShiftDown_M1, " blockingFigure16BlockingBalancedTriangleUp_M1 = ", blockingFigure16BlockingBalancedTriangleUp_M1);
+Print(" blockingFigure10BlockingFlagUpShiftDown_M5 = ",blockingFigure10BlockingFlagUpShiftDown_M5, " blockingFigure16BlockingBalancedTriangleUp_M5 = ", blockingFigure16BlockingBalancedTriangleUp_M5);
+Print(" blockingFigure10BlockingFlagUpShiftDown_M15 = ", blockingFigure10BlockingFlagUpShiftDown_M15, " blockingFigure16BlockingBalancedTriangleUp_M15 = ", blockingFigure16BlockingBalancedTriangleUp_M15);
+Print(" blockingFigure10BlockingFlagUpShiftDown_H1 = ",blockingFigure10BlockingFlagUpShiftDown_H1, " blockingFigure16BlockingBalancedTriangleUp_H1 = ", blockingFigure16BlockingBalancedTriangleUp_H1);
+Print(" blockingFigure10BlockingFlagUpShiftDown_H4 = ",blockingFigure10BlockingFlagUpShiftDown_H4, " blockingFigure16BlockingBalancedTriangleUp_H4 = ", blockingFigure16BlockingBalancedTriangleUp_H4);
+Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingFlagUpShiftDown_D1, " blockingFigure16BlockingBalancedTriangleUp_D1 = ", blockingFigure16BlockingBalancedTriangleUp_D1);
+
  sell=1;}
 
       if(AccountFreeMargin()<(1*Lots))
@@ -1313,6 +1419,7 @@ isC5Max = true;
                         }
                         w6++;
                     }
+isC6Max = true;
                 }
         if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
@@ -1332,6 +1439,7 @@ isC5Max = true;
                 }
                 w6++;
             }
+isC6Min = true;
         }
 
 
