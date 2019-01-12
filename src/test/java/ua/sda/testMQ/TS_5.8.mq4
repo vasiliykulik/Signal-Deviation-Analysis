@@ -398,14 +398,14 @@ void OnTick(void)
             print("Figure 8 FlagDownDivergence ", timeFrames[i]);
     }
 
-    // Figure 9 "FlagUpShiftUp"
+    // Figure 9 "FlagUpShiftUp" v10.6
 
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal < firstMaxGlobal && isC6Max
+        c5MaxGlobal < firstMaxGlobal && c5MaxGlobal < secondMaxGlobal && c5MaxGlobal > firstMinGlobal && c5MaxGlobal > secondMinGlobal && isC6Max
         ){
             if(timeFrames[i]==PERIOD_M1) {figure9FlagUpShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure9FlagUpShiftUp_M5  = true;}
@@ -417,14 +417,14 @@ void OnTick(void)
 //            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
     }
 
-    // Figure 10 "FlagDownShiftDown"
+    // Figure 10 "FlagDownShiftDown" v 10.6
 
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal > firstMinGlobal && isC6Min
+        c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && && isC6Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
