@@ -428,7 +428,7 @@ void OnTick(void)
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && && isC6Min
+        c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
