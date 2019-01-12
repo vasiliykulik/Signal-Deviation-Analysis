@@ -257,13 +257,14 @@ void OnTick(void)
 // Print("c5MinGlobal = ", c5MinGlobal, " c5MaxGlobal = ", c5MaxGlobal);
 
 
-    // Figure 1 "FlagUpContinue"
+    // Figure 1 "FlagUpContinue" v10.6
 
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
-        secondMinGlobal < secondMaxGlobal && isC5Min
+        secondMinGlobal < secondMaxGlobal && isC5Min &&
+        c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
 
         ){
             if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinue_M1  = true;}
@@ -275,13 +276,14 @@ void OnTick(void)
             print("Figure 1 FlagUpContinue ", timeFrames[i]);
     }
 
-    // Figure 2 "FlagDownContinue"
+    // Figure 2 "FlagDownContinue" v10.6
 
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal>secondMinGlobal && isC5Max
+        firstMinGlobal>secondMinGlobal && isC5Max &&
+        c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinue_M5  = true;}
@@ -326,13 +328,14 @@ void OnTick(void)
             print("Figure 4 FlagDownShiftUp ", timeFrames[i]);
     }
 
-    // Figure 5 "PennantUp"
+    // Figure 5 "PennantUp" v10.6
 
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
-        secondMinGlobal<secondMaxGlobal && isC5Min
+        secondMinGlobal<secondMaxGlobal && isC5Min &&
+        c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMinGlobal && isC6Max
         ){
             if(timeFrames[i]==PERIOD_M1) {figure5PennantUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure5PennantUp_M5  = true;}
@@ -343,13 +346,14 @@ void OnTick(void)
             print("Figure 5 PennantUp ", timeFrames[i]);
     }
 
-    // Figure 6 "PennantDown"
+    // Figure 6 "PennantDown" v10.6
 
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal>secondMinGlobal && isC5Max
+        firstMinGlobal>secondMinGlobal && isC5Max &&
+        c5MinGlobal < c5MaxGlobal && c5MinGlobal > secondMaxGlobal && isC6Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure6PennantDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure6PennantDown_M5  = true;}
