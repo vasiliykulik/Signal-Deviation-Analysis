@@ -266,6 +266,7 @@ void OnTick(void)
         secondMinGlobal < secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
 
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure1FlagUpContinue_M5  = true;}
@@ -284,6 +285,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinue_M5  = true;}
@@ -302,6 +304,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && c5MaxGlobal > firstMinGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure3TripleTop_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure3TripleTop_M5  = true;}
@@ -320,6 +323,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal < firstMaxGlobal && c5MinGlobal > firstMinGlobal && isC6Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure4TripleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure4TripleDown_M5  = true;}
@@ -338,6 +342,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMinGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure5PennantUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure5PennantUp_M5  = true;}
@@ -356,6 +361,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > secondMaxGlobal && isC6Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure6PennantDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure6PennantDown_M5  = true;}
@@ -374,6 +380,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && // and  this firstMaxGlobal apperantly not obligatory, but we adhere uniformity
         secondMinGlobal<secondMaxGlobal /* this clause is obligatory*/ && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure7FlagUpDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure7FlagUpDivergence_M5  = true;}
@@ -392,6 +399,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Max
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure8FlagDownDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure8FlagDownDivergence_M5  = true;}
@@ -410,6 +418,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && c5MaxGlobal < secondMaxGlobal && c5MaxGlobal > firstMinGlobal && c5MaxGlobal > secondMinGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure9FlagUpShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure9FlagUpShiftUp_M5  = true;}
@@ -429,6 +438,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
@@ -448,6 +458,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > secondMaxGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure11DoubleBottom_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure11DoubleBottom_M5  = true;}
@@ -466,6 +477,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < secondMinGlobal && isC5Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure12DoubleTop_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure12DoubleTop_M5  = true;}
@@ -484,6 +496,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMaxGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure13DivergentChannelUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure13DivergentChannelUp_M5  = true;}
@@ -502,6 +515,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal > secondMinGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure14DivergentChannelDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure14DivergentChannelDown_M5  = true;}
@@ -521,6 +535,7 @@ void OnTick(void)
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && isC6Max
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure15BalancedTriangleUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure15BalancedTriangleUp_M5  = true;}
@@ -539,6 +554,7 @@ void OnTick(void)
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal > secondMinGlobal && isC6Min
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure16BalancedTriangleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure16BalancedTriangleDown_M5  = true;}
@@ -1797,3 +1813,72 @@ bool nonSymmTick()
   void print(){
 
   }//+------------------------------------------------------------------+
+  bool isMACDNewlyCrossedUpFilter1(ENUM_TIMEFRAMES timeFrameForMACD){
+    bool isMACDCrossed = false;
+    double macd0 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+
+        if(  macd0>0 && (macd1<0 || macd2<0 || macd3<0)  ) {
+          isMACDCrossed = true;
+        }
+
+    return isMACDCrossed;
+  }
+    bool isMACDNewlyCrossedDownFilter1(ENUM_TIMEFRAMES timeFrameForMACD){
+      bool isMACDCrossed = false;
+      double macd0 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+      double macd1 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+      double macd2 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+      double macd3 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+
+          if(  macd0<0 && (macd1>0 || macd2>0 || macd3>0)  ) {
+            isMACDCrossed = true;
+          }
+
+      return isMACDCrossed;
+    }
+
+   bool isSecondHalfWaveCommitedToTrendUpFilter2(double secondHalfWavePrice, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
+    bool isSecondHalfWaveCommitedToTrend = true;
+    double currentHalfWavePrice = iClose(NULL,timeFrameForSecondHalfWaveCommitedToTrend,0);
+
+        if(secondHalfWavePrice > currentHalfWavePrice){
+            isSecondHalfWaveCommitedToTrend = false;
+        }
+
+    return isSecondHalfWaveCommitedToTrend;
+   }
+
+      bool isSecondHalfWaveCommitedToTrendDownFilter2(double secondHalfWavePrice, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
+       bool isSecondHalfWaveCommitedToTrend = true;
+       double currentHalfWavePrice = iClose(NULL,timeFrameForSecondHalfWaveCommitedToTrend,0);
+
+           if(secondHalfWavePrice < currentHalfWavePrice){
+               isSecondHalfWaveCommitedToTrend = false;
+           }
+
+       return isSecondHalfWaveCommitedToTrend;
+      }
+
+    bool isH1ConsistentForBuyFilter3(){
+             bool resultH1 = false;
+             double macdH1_0 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+             double macdH1_1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+
+             if(macdH1_0>macdH1_1){
+                 resultH1 = true;
+             }
+             return resultH1;
+         }
+    bool isH1ConsistentForSellFilter3(){
+        bool resultH1 = false;
+        double macdH1_0 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+        double macdH1_1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+
+        if(macdH1_0<macdH1_1){
+            resultH1 = true;
+        }
+        return resultH1;
+    }
