@@ -170,6 +170,8 @@ void OnTick(void)
       bool isM1FigureUpBlocked = false; bool isM5FigureUpBlocked = false; bool isM15FigureUpBlocked = false; bool isH1FigureUpBlocked = false; bool isH4FigureUpBlocked = false; bool isD1FigureUpBlocked = false;
       bool isM1FigureDownBlocked = false; bool isM5FigureDownBlocked = false; bool isM15FigureDownBlocked = false; bool isH1FigureDownBlocked = false; bool isH4FigureDownBlocked = false; bool isD1FigureDownBlocked = false;
 
+      bool isMACDNewlyCrossedUpFilter1 = false; bool isMACDNewlyCrossedDownFilter1 = false;
+
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymm()
@@ -258,7 +260,7 @@ void OnTick(void)
 
 
     // Figure 1 "FlagUpContinue" v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -266,7 +268,7 @@ void OnTick(void)
         secondMinGlobal < secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
 
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure1FlagUpContinue_M5  = true;}
@@ -278,14 +280,14 @@ void OnTick(void)
     }
 
     // Figure 2 "FlagDownContinue" v10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinue_M5  = true;}
@@ -297,14 +299,14 @@ void OnTick(void)
     }
 
     // Figure 3 "TripleTop" v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && c5MaxGlobal > firstMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure3TripleTop_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure3TripleTop_M5  = true;}
@@ -316,14 +318,14 @@ void OnTick(void)
     }
 
     // Figure 4 "TripleDown" v10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal < firstMaxGlobal && c5MinGlobal > firstMinGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure4TripleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure4TripleDown_M5  = true;}
@@ -335,14 +337,14 @@ void OnTick(void)
     }
 
     // Figure 5 "PennantUp" v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure5PennantUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure5PennantUp_M5  = true;}
@@ -354,14 +356,14 @@ void OnTick(void)
     }
 
     // Figure 6 "PennantDown" v10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > secondMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure6PennantDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure6PennantDown_M5  = true;}
@@ -373,14 +375,14 @@ void OnTick(void)
     }
 
     // Figure 7 "FlagUpDivergence" v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && // and  this firstMaxGlobal apperantly not obligatory, but we adhere uniformity
         secondMinGlobal<secondMaxGlobal /* this clause is obligatory*/ && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure7FlagUpDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure7FlagUpDivergence_M5  = true;}
@@ -392,14 +394,14 @@ void OnTick(void)
     }
 
     // Figure 8 "FlagDownDivergence" v10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Max
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure8FlagDownDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure8FlagDownDivergence_M5  = true;}
@@ -411,14 +413,14 @@ void OnTick(void)
     }
 
     // Figure 9 "FlagUpShiftUp" v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && c5MaxGlobal < secondMaxGlobal && c5MaxGlobal > firstMinGlobal && c5MaxGlobal > secondMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure9FlagUpShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure9FlagUpShiftUp_M5  = true;}
@@ -431,14 +433,14 @@ void OnTick(void)
     }
 
     // Figure 10 "FlagDownShiftDown" v 10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
@@ -451,14 +453,14 @@ void OnTick(void)
     }
 
     // Figure 11 "DoubleBottom" from this all was started, v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal>firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > secondMaxGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure11DoubleBottom_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure11DoubleBottom_M5  = true;}
@@ -470,14 +472,14 @@ void OnTick(void)
     }
 
     // Figure 12 "DoubleTop" v10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal<firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < secondMinGlobal && isC5Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure12DoubleTop_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure12DoubleTop_M5  = true;}
@@ -489,14 +491,14 @@ void OnTick(void)
     }
 
     // Figure 13 "DivergentChannelUp" from this all was started, v10.6
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMaxGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure13DivergentChannelUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure13DivergentChannelUp_M5  = true;}
@@ -508,14 +510,14 @@ void OnTick(void)
     }
 
     // Figure 14 "DivergentChannelDown" v10.6
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal > secondMinGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure14DivergentChannelDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure14DivergentChannelDown_M5  = true;}
@@ -528,14 +530,14 @@ void OnTick(void)
 
 
     // Figure 15 "BalancedTriangleUp" from this all was started
-
+isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure15BalancedTriangleUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure15BalancedTriangleUp_M5  = true;}
@@ -547,14 +549,14 @@ void OnTick(void)
     }
 
     // Figure 16 "BalancedTriangleDown"
-
+isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal > secondMinGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1
         ){
             if(timeFrames[i]==PERIOD_M1) {figure16BalancedTriangleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure16BalancedTriangleDown_M5  = true;}
@@ -1891,9 +1893,9 @@ bool nonSymmTick()
         return trendNoError;
     }
 
-    bool isTrendNoErrorForSellFilter4(double firstMin, double secondMin, doublethirdMin){
+    bool isTrendNoErrorForSellFilter4(double firstMin, double secondMin, double thirdMin){
         bool trendNoError = true;
-        if(firstMax > secondMax && secondMax > thirdMax){
+        if(firstMin > secondMin && secondMin > thirdMin){
             trendNoError = false;
         }
         return trendNoError;
