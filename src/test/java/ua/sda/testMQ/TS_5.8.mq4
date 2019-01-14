@@ -1882,3 +1882,19 @@ bool nonSymmTick()
         }
         return resultH1;
     }
+
+    bool isTrendNoErrorForBuyFilter4(double firstMax, double secondMax, double thirdMax){
+        bool trendNoError = true;
+        if(firstMax < secondMax && secondMax < thirdMax){
+            trendNoError = false;
+        }
+        return trendNoError;
+    }
+
+    bool isTrendNoErrorForSellFilter4(double firstMin, double secondMin, doublethirdMin){
+        bool trendNoError = true;
+        if(firstMax > secondMax && secondMax > thirdMax){
+            trendNoError = false;
+        }
+        return trendNoError;
+    }
