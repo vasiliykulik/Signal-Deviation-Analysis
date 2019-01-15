@@ -23,8 +23,14 @@ int localFirstPointTick=0,localSecondPointTick=0;
 double c5MinGlobal=0.00000000,c5MaxGlobal=0.00000000;
 bool isC5Min = false; bool isC5Max = false;
 bool isC6Min = false; bool isC6Max = false;
+ string messageGlobalPERIOD_M1 ;
+ string messageGlobalPERIOD_M5 ;
+ string messageGlobalPERIOD_M15;
+ string messageGlobalPERIOD_H1 ;
+ string messageGlobalPERIOD_H4 ;
+ string messageGlobalPERIOD_D1 ;
 
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+ ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -47,6 +53,12 @@ void OnTick(void)
 
    buy=0;
    sell=0;
+   messageGlobalPERIOD_M1 ="nothing";
+   messageGlobalPERIOD_M5 ="nothing";
+   messageGlobalPERIOD_M15="nothing";
+   messageGlobalPERIOD_H1 ="nothing";
+   messageGlobalPERIOD_H4 ="nothing";
+   messageGlobalPERIOD_D1 ="nothing" ;
    bool lowAndHighUpdateViaNonSymmTick=false;
    bool lowAndHighUpdateViaNonSymm = false;
    bool lowAndHighUpdateViaNonSymmForTrailing = false;
@@ -143,7 +155,7 @@ void OnTick(void)
 
       bool figure1FlagUpContinue_M1  = false;        bool figure1FlagUpContinue_M5  = false;        bool figure1FlagUpContinue_M15 = false;         bool figure1FlagUpContinue_H1  = false;         bool figure1FlagUpContinue_H4  = false;         bool figure1FlagUpContinue_D1  = false;
       bool figure2FlagDownContinue_M1  = false;      bool figure2FlagDownContinue_M5  = false;      bool figure2FlagDownContinue_M15 = false;       bool figure2FlagDownContinue_H1  = false;       bool figure2FlagDownContinue_H4  = false;       bool figure2FlagDownContinue_D1  = false;
-      bool figure3TripleTop_M1  = false;       bool figure3TripleTop_M5  = false;       bool figure3TripleTop_M15 = false;        bool figure3TripleTop_H1  = false;        bool figure3TripleTop_H4  = false;        bool figure3TripleTop_D1  = false;
+      bool figure3TripleUp_M1  = false;       bool figure3TripleUp_M5  = false;       bool figure3TripleUp_M15 = false;        bool figure3TripleUp_H1  = false;        bool figure3TripleUp_H4  = false;        bool figure3TripleUp_D1  = false;
       bool figure4TripleDown_M1  = false;       bool figure4TripleDown_M5  = false;       bool figure4TripleDown_M15 = false;        bool figure4TripleDown_H1  = false;        bool figure4TripleDown_H4  = false;        bool figure4TripleDown_D1  = false;
       bool figure5PennantUp_M1  = false;             bool figure5PennantUp_M5  = false;             bool figure5PennantUp_M15 = false;              bool figure5PennantUp_H1  = false;              bool figure5PennantUp_H4  = false;              bool figure5PennantUp_D1  = false;
       bool figure6PennantDown_M1  = false;           bool figure6PennantDown_M5  = false;           bool figure6PennantDown_M15 = false;            bool figure6PennantDown_H1  = false;            bool figure6PennantDown_H4  = false;            bool figure6PennantDown_D1  = false;
@@ -170,7 +182,6 @@ void OnTick(void)
       bool isM1FigureUpBlocked = false; bool isM5FigureUpBlocked = false; bool isM15FigureUpBlocked = false; bool isH1FigureUpBlocked = false; bool isH4FigureUpBlocked = false; bool isD1FigureUpBlocked = false;
       bool isM1FigureDownBlocked = false; bool isM5FigureDownBlocked = false; bool isM15FigureDownBlocked = false; bool isH1FigureDownBlocked = false; bool isH4FigureDownBlocked = false; bool isD1FigureDownBlocked = false;
 
-      bool isMACDNewlyCrossedUpFilter1 = false; bool isMACDNewlyCrossedDownFilter1 = false;
 
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
@@ -260,7 +271,7 @@ void OnTick(void)
 
 
     // Figure 1 "FlagUpContinue" v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
@@ -268,7 +279,11 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
         secondMinGlobal < secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
 
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure1FlagUpContinue_M5  = true;}
@@ -280,14 +295,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 2 "FlagDownContinue" v10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinue_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinue_M5  = true;}
@@ -298,34 +317,42 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
             print("Figure 2 FlagDownContinue ", timeFrames[i]);
     }
 
-    // Figure 3 "TripleTop" v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+    // Figure 3 "TripleUp" v10.6
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal < firstMaxGlobal && c5MaxGlobal > firstMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        c5MaxGlobal<secondMaxGlobal && c5MaxGlobal < firstMaxGlobal && c5MaxGlobal > firstMinGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure3TripleTop_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure3TripleTop_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure3TripleTop_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure3TripleTop_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure3TripleTop_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure3TripleTop_D1  = true;}
-            print("Figure 3 TripleTop ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure3TripleUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure3TripleUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure3TripleUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure3TripleUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure3TripleUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure3TripleUp_D1  = true;}
+            print("Figure 3 TripleUp ", timeFrames[i]);
     }
 
     // Figure 4 "TripleDown" v10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal < firstMaxGlobal && c5MinGlobal > firstMinGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure4TripleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure4TripleDown_M5  = true;}
@@ -337,14 +364,18 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     }
 
     // Figure 5 "PennantUp" v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure5PennantUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure5PennantUp_M5  = true;}
@@ -356,14 +387,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 6 "PennantDown" v10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > secondMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure6PennantDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure6PennantDown_M5  = true;}
@@ -375,14 +410,18 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     }
 
     // Figure 7 "FlagUpDivergence" v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && // and  this firstMaxGlobal apperantly not obligatory, but we adhere uniformity
         secondMinGlobal<secondMaxGlobal /* this clause is obligatory*/ && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure7FlagUpDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure7FlagUpDivergence_M5  = true;}
@@ -394,14 +433,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 8 "FlagDownDivergence" v10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Max
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure8FlagDownDivergence_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure8FlagDownDivergence_M5  = true;}
@@ -413,14 +456,18 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     }
 
     // Figure 9 "FlagUpShiftUp" v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && c5MaxGlobal < secondMaxGlobal && c5MaxGlobal > firstMinGlobal && c5MaxGlobal > secondMinGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure9FlagUpShiftUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure9FlagUpShiftUp_M5  = true;}
@@ -433,14 +480,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 10 "FlagDownShiftDown" v 10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
         c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure10FlagDownShiftDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure10FlagDownShiftDown_M5  = true;}
@@ -453,14 +504,18 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     }
 
     // Figure 11 "DoubleBottom" from this all was started, v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal>firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > secondMaxGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure11DoubleBottom_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure11DoubleBottom_M5  = true;}
@@ -472,14 +527,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 12 "DoubleTop" v10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal<firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal < secondMinGlobal && isC5Min
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure12DoubleTop_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure12DoubleTop_M5  = true;}
@@ -491,14 +550,18 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
     }
 
     // Figure 13 "DivergentChannelUp" from this all was started, v10.6
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMaxGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure13DivergentChannelUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure13DivergentChannelUp_M5  = true;}
@@ -510,14 +573,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 14 "DivergentChannelDown" v10.6
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal > secondMinGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1
+        c5MinGlobal<c5MaxGlobal&&  c5MinGlobal > secondMinGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure14DivergentChannelDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure14DivergentChannelDown_M5  = true;}
@@ -530,14 +597,18 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
 
 
     // Figure 15 "BalancedTriangleUp" from this all was started
-isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
+
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
         c5MaxGlobal < firstMaxGlobal && isC6Max
-        && isMACDNewlyCrossedUpFilter1
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isH1ConsistentForBuyFilter3()
+        && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure15BalancedTriangleUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure15BalancedTriangleUp_M5  = true;}
@@ -549,14 +620,18 @@ isMACDNewlyCrossedUpFilter1 = isMACDNewlyCrossedUpFilter1(timeFrames[i]);
     }
 
     // Figure 16 "BalancedTriangleDown"
-isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
+
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
         c5MinGlobal > secondMinGlobal && isC6Min
-        && isMACDNewlyCrossedDownFilter1
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
             if(timeFrames[i]==PERIOD_M1) {figure16BalancedTriangleDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure16BalancedTriangleDown_M5  = true;}
@@ -567,6 +642,7 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
             print("Figure 16 BalancedTriangleDown ", timeFrames[i]);
     }
 
+/*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
 
@@ -636,6 +712,7 @@ isMACDNewlyCrossedDownFilter1 = isMACDNewlyCrossedDownFilter1(timeFrames[i]);
                 if(timeFrames[i]==PERIOD_D1) {blockingFigure16BlockingBalancedTriangleUp_D1  = true;}
                 print("Blocking Figure 16 BlockingBalancedTriangleUp ", timeFrames[i]);
         }
+*/
 
 }
 
@@ -712,12 +789,12 @@ MACDForelockFilterForBuyPosition  = macdUp_H1 && macdUp_H4   && macdUp_D1   && m
 MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
 
-     isM1FigureUp =  figure1FlagUpContinue_M1 || figure3TripleTop_M1 || figure5PennantUp_M1 || figure7FlagUpDivergence_M1 || figure9FlagUpShiftUp_M1 || figure11DoubleBottom_M1 || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1;
-     isM5FigureUp =  figure1FlagUpContinue_M5 || figure3TripleTop_M5 || figure5PennantUp_M5 || figure7FlagUpDivergence_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottom_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5;
-     isM15FigureUp =  figure1FlagUpContinue_M15 || figure3TripleTop_M15 || figure5PennantUp_M15 || figure7FlagUpDivergence_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottom_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15;
-     isH1FigureUp =  figure1FlagUpContinue_H1 || figure3TripleTop_H1 || figure5PennantUp_H1 || figure7FlagUpDivergence_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottom_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1;
-     isH4FigureUp =  figure1FlagUpContinue_H4 || figure3TripleTop_H4 || figure5PennantUp_H4 || figure7FlagUpDivergence_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottom_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4;
-     isD1FigureUp =  figure1FlagUpContinue_D1 || figure3TripleTop_D1 || figure5PennantUp_D1 || figure7FlagUpDivergence_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottom_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1;
+     isM1FigureUp =  figure1FlagUpContinue_M1 || figure3TripleUp_M1 || figure5PennantUp_M1 || figure7FlagUpDivergence_M1 || figure9FlagUpShiftUp_M1 || figure11DoubleBottom_M1 || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1;
+     isM5FigureUp =  figure1FlagUpContinue_M5 || figure3TripleUp_M5 || figure5PennantUp_M5 || figure7FlagUpDivergence_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottom_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5;
+     isM15FigureUp =  figure1FlagUpContinue_M15 || figure3TripleUp_M15 || figure5PennantUp_M15 || figure7FlagUpDivergence_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottom_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15;
+     isH1FigureUp =  figure1FlagUpContinue_H1 || figure3TripleUp_H1 || figure5PennantUp_H1 || figure7FlagUpDivergence_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottom_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1;
+     isH4FigureUp =  figure1FlagUpContinue_H4 || figure3TripleUp_H4 || figure5PennantUp_H4 || figure7FlagUpDivergence_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottom_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4;
+     isD1FigureUp =  figure1FlagUpContinue_D1 || figure3TripleUp_D1 || figure5PennantUp_D1 || figure7FlagUpDivergence_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottom_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1;
 
      isM1FigureDown =  figure2FlagDownContinue_M1 || figure4TripleDown_M1 || figure6PennantDown_M1 || figure8FlagDownDivergence_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTop_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1;
      isM5FigureDown =  figure2FlagDownContinue_M5 || figure4TripleDown_M5 || figure6PennantDown_M5 || figure8FlagDownDivergence_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTop_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5;
@@ -745,27 +822,27 @@ isD1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_D1 || blockingFi
 
       if
       (
-isM5FigureUp && isM15FigureUp && isH1FigureUp
+isH1FigureUp
       )
 
       {
-Print(" isM5FigureUp =  figure1FlagUpContinue_M5 = ",figure1FlagUpContinue_M5, "figure3TripleTop_M5 = ",figure3TripleTop_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5);
+Print(" isM5FigureUp =  figure1FlagUpContinue_M5 = ",figure1FlagUpContinue_M5, "figure3TripleUp_M5 = ",figure3TripleUp_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5);
 Print(" figure7FlagUpDivergence_M5 = ",figure7FlagUpDivergence_M5," figure9FlagUpShiftUp_M5 = ",figure9FlagUpShiftUp_M5," figure11DoubleBottom_M5 = ",figure11DoubleBottom_M5);
 Print(" figure13DivergentChannelUp_M5 = ",figure13DivergentChannelUp_M5," figure15BalancedTriangleUp_M5 = ",figure15BalancedTriangleUp_M5);
 
-Print(" isM15FigureUp =  figure1FlagUpContinue_M15 = ",figure1FlagUpContinue_M15, "figure3TripleTop_M15 = ",figure3TripleTop_M15," figure5PennantUp_M15 = ",figure5PennantUp_M15);
+Print(" isM15FigureUp =  figure1FlagUpContinue_M15 = ",figure1FlagUpContinue_M15, "figure3TripleUp_M15 = ",figure3TripleUp_M15," figure5PennantUp_M15 = ",figure5PennantUp_M15);
 Print(" figure7FlagUpDivergence_M15 = ",figure7FlagUpDivergence_M15," figure9FlagUpShiftUp_M15 = ",figure9FlagUpShiftUp_M15," figure11DoubleBottom_M15 = ",figure11DoubleBottom_M15);
 Print(" figure13DivergentChannelUp_M15 = ",figure13DivergentChannelUp_M15," figure15BalancedTriangleUp_M15 = ",figure15BalancedTriangleUp_M15);
 
-Print(" isH1FigureUp =  figure1FlagUpContinue_H1 = ",figure1FlagUpContinue_H1, "figure3TripleTop_H1 = ",figure3TripleTop_H1," figure5PennantUp_H1 = ",figure5PennantUp_H1);
+Print(" isH1FigureUp =  figure1FlagUpContinue_H1 = ",figure1FlagUpContinue_H1, "figure3TripleUp_H1 = ",figure3TripleUp_H1," figure5PennantUp_H1 = ",figure5PennantUp_H1);
 Print(" figure7FlagUpDivergence_H1 = ",figure7FlagUpDivergence_H1," figure9FlagUpShiftUp_H1 = ",figure9FlagUpShiftUp_H1," figure11DoubleBottom_H1 = ",figure11DoubleBottom_H1);
 Print(" figure13DivergentChannelUp_H1 = ",figure13DivergentChannelUp_H1," figure15BalancedTriangleUp_H1 = ",figure15BalancedTriangleUp_H1);
 
-Print(" isH4FigureUp =  figure1FlagUpContinue_H4 = ",figure1FlagUpContinue_H4, "figure3TripleTop_H4 = ",figure3TripleTop_H4," figure5PennantUp_H4 = ",figure5PennantUp_H4);
+Print(" isH4FigureUp =  figure1FlagUpContinue_H4 = ",figure1FlagUpContinue_H4, "figure3TripleUp_H4 = ",figure3TripleUp_H4," figure5PennantUp_H4 = ",figure5PennantUp_H4);
 Print(" figure7FlagUpDivergence_H4 = ",figure7FlagUpDivergence_H4," figure9FlagUpShiftUp_H4 = ",figure9FlagUpShiftUp_H4," figure11DoubleBottom_H4 = ",figure11DoubleBottom_H4);
 Print(" figure13DivergentChannelUp_H4 = ",figure13DivergentChannelUp_H4," figure15BalancedTriangleUp_H4 = ",figure15BalancedTriangleUp_H4);
 
-Print(" isD1FigureUp =  figure1FlagUpContinue_D1 = ",figure1FlagUpContinue_D1, "figure3TripleTop_D1 = ",figure3TripleTop_D1," figure5PennantUp_D1 = ",figure5PennantUp_D1);
+Print(" isD1FigureUp =  figure1FlagUpContinue_D1 = ",figure1FlagUpContinue_D1, "figure3TripleUp_D1 = ",figure3TripleUp_D1," figure5PennantUp_D1 = ",figure5PennantUp_D1);
 Print(" figure7FlagUpDivergence_D1 = ",figure7FlagUpDivergence_D1," figure9FlagUpShiftUp_D1 = ",figure9FlagUpShiftUp_D1," figure11DoubleBottom_D1 = ",figure11DoubleBottom_D1);
 Print(" figure13DivergentChannelUp_D1 = ",figure13DivergentChannelUp_D1," figure15BalancedTriangleUp_D1 = ",figure15BalancedTriangleUp_D1);
 
@@ -775,11 +852,12 @@ Print( " blockingFigure9BlockingFlagUpShiftUp_M15 = , ",blockingFigure9BlockingF
 Print(" blockingFigure9BlockingFlagUpShiftUp_H1 = ", blockingFigure9BlockingFlagUpShiftUp_H1, " blockingFigure15BlockingBalancedTriangleUp_H1 = ", blockingFigure15BlockingBalancedTriangleUp_H1);
 Print(" blockingFigure9BlockingFlagUpShiftUp_H4 = ", blockingFigure9BlockingFlagUpShiftUp_H4, " blockingFigure15BlockingBalancedTriangleUp_H4 = ", blockingFigure15BlockingBalancedTriangleUp_H4);
 Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlagUpShiftUp_D1, " blockingFigure15BlockingBalancedTriangleUp_D1 = ", blockingFigure15BlockingBalancedTriangleUp_D1);
-      buy=1;}
+//      buy=1;
+      }
 
       if
       (
-isM5FigureDown && isM15FigureDown && isH1FigureDown
+isH1FigureDown
       )
 
       {
@@ -806,7 +884,8 @@ Print(" blockingFigure10BlockingFlagUpShiftDown_H1 = ",blockingFigure10BlockingF
 Print(" blockingFigure10BlockingFlagUpShiftDown_H4 = ",blockingFigure10BlockingFlagUpShiftDown_H4, " blockingFigure16BlockingBalancedTriangleUp_H4 = ", blockingFigure16BlockingBalancedTriangleUp_H4);
 Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingFlagUpShiftDown_D1, " blockingFigure16BlockingBalancedTriangleUp_D1 = ", blockingFigure16BlockingBalancedTriangleUp_D1);
 
- sell=1;}
+ //sell=1;
+ }
 
       if(AccountFreeMargin()<(1*Lots))
         {
@@ -1800,16 +1879,23 @@ bool nonSymmTick()
   }
 
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
-  return;
   string timeFrame;
-  if(timeFrameNum == 1){timeFrame = "PERIOD_M1";}
-  if(timeFrameNum == 5){timeFrame = "PERIOD_M5";}
-  if(timeFrameNum == 15){timeFrame = "PERIOD_M15";}
-  if(timeFrameNum == 60){timeFrame = "PERIOD_H1";}
-  if(timeFrameNum == 240){timeFrame = "PERIOD_H4";}
-  if(timeFrameNum == 1440){timeFrame = "PERIOD_D1";}
 
-  Print(message," ", timeFrame);
+  if(timeFrameNum == 1){messageGlobalPERIOD_M1 = message;}
+  if(timeFrameNum == 5){messageGlobalPERIOD_M5 = message;}
+  if(timeFrameNum == 15){messageGlobalPERIOD_M15 = message;}
+  if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
+  if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
+  if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
+
+  Comment(
+  "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
+  "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
+  "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
+  "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
+  "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
+  "\nPERIOD_D1     ", messageGlobalPERIOD_D1
+  );
   }
 
   void print(){
@@ -1834,30 +1920,32 @@ bool nonSymmTick()
       double macd1 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,1);
       double macd2 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,2);
       double macd3 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,3);
-
+//      Print("timeFrameForMACD = ",timeFrameForMACD);
+//      Print ("macd0 = ",macd0,"macd1 = ",macd1,"macd2 = ",macd2,"macd3 = ",macd3);
           if(  macd0<0 && (macd1>0 || macd2>0 || macd3>0)  ) {
             isMACDCrossed = true;
+ //           Print("isMACDCrossed = ", isMACDCrossed);
           }
 
       return isMACDCrossed;
     }
 
-   bool isSecondHalfWaveCommitedToTrendUpFilter2(double secondHalfWavePrice, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
+   bool isSecondHalfWaveCommitedToTrendUpFilter2(double secondMin, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
     bool isSecondHalfWaveCommitedToTrend = true;
     double currentHalfWavePrice = iClose(NULL,timeFrameForSecondHalfWaveCommitedToTrend,0);
 
-        if(secondHalfWavePrice > currentHalfWavePrice){
+        if(secondMin > currentHalfWavePrice){
             isSecondHalfWaveCommitedToTrend = false;
         }
 
     return isSecondHalfWaveCommitedToTrend;
    }
 
-      bool isSecondHalfWaveCommitedToTrendDownFilter2(double secondHalfWavePrice, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
+      bool isSecondHalfWaveCommitedToTrendDownFilter2(double secondMax, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
        bool isSecondHalfWaveCommitedToTrend = true;
        double currentHalfWavePrice = iClose(NULL,timeFrameForSecondHalfWaveCommitedToTrend,0);
 
-           if(secondHalfWavePrice < currentHalfWavePrice){
+           if(secondMax < currentHalfWavePrice){
                isSecondHalfWaveCommitedToTrend = false;
            }
 
@@ -1896,6 +1984,23 @@ bool nonSymmTick()
     bool isTrendNoErrorForSellFilter4(double firstMin, double secondMin, double thirdMin){
         bool trendNoError = true;
         if(firstMin > secondMin && secondMin > thirdMin){
+            trendNoError = false;
+        }
+        return trendNoError;
+    }
+
+
+    bool isTrendNoErrorForBuyReverseFilter5(double firstMin, double secondMin, double thirdMin){
+        bool trendNoError = true;
+        if(firstMin < secondMin && secondMin < thirdMin){
+            trendNoError = false;
+        }
+        return trendNoError;
+    }
+
+    bool isTrendNoErrorForSellReverseFilter5(double firstMax, double secondMax, double thirdMax){
+        bool trendNoError = true;
+        if(firstMax > secondMax && secondMax > thirdMax){
             trendNoError = false;
         }
         return trendNoError;
