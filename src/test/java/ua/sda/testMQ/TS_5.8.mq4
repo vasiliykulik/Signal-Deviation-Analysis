@@ -59,6 +59,7 @@ void OnTick(void)
    messageGlobalPERIOD_H1 ="nothing";
    messageGlobalPERIOD_H4 ="nothing";
    messageGlobalPERIOD_D1 ="nothing" ;
+Comment("nothing");
    bool lowAndHighUpdateViaNonSymmTick=false;
    bool lowAndHighUpdateViaNonSymm = false;
    bool lowAndHighUpdateViaNonSymmForTrailing = false;
@@ -1887,7 +1888,7 @@ bool nonSymmTick()
   if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
   if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
   if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
-
+Print("Hello from Print - Comment method");
   Comment(
   "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
   "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
