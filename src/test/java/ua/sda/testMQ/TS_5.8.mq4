@@ -59,7 +59,8 @@ void OnTick(void)
    messageGlobalPERIOD_H1 ="nothing";
    messageGlobalPERIOD_H4 ="nothing";
    messageGlobalPERIOD_D1 ="nothing" ;
-Comment("nothing");
+
+
    bool lowAndHighUpdateViaNonSymmTick=false;
    bool lowAndHighUpdateViaNonSymm = false;
    bool lowAndHighUpdateViaNonSymmForTrailing = false;
@@ -72,6 +73,9 @@ Comment("nothing");
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight=0,sellWeight=0;
    total=OrdersTotal();
+   if(total>0){
+    Comment("Open Order");
+   }else{Comment("nothing");}
    if(total<1)
      {
 /*      мы убираем
