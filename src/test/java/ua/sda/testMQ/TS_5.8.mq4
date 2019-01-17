@@ -81,9 +81,7 @@ void OnTick(void)
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight=0,sellWeight=0;
    total=OrdersTotal();
-   if(total>0){
-    Comment("Open Order, nothing");
-   }
+
 
 /*      мы убираем
       блок условий по пересечению MACD + MA 83
@@ -153,6 +151,9 @@ void OnTick(void)
            }
         }// end of TimeFrames for loop for FiboModule State and IsPassed flag
 // First layer Analyzing Block plus Figures Analyzing Block
+
+
+
       bool isTrendBull_M1 = false, isTrendBull_M5 = false, isTrendBull_M15 = false, isTrendBull_H1 = false, isTrendBull_H4 = false, isTrendBull_D1 = false;
       bool isTrendBear_M1 = false, isTrendBear_M5 = false, isTrendBear_M15 = false, isTrendBear_H1 = false, isTrendBear_H4 = false, isTrendBear_D1 = false;
 
@@ -727,6 +728,9 @@ void OnTick(void)
 */
 
 }
+
+     print();
+
    if(total<1)
      {
 // Second layer analyzing Block
@@ -953,6 +957,8 @@ Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingF
 // it is important to enter the market correctly,
 // but it is more important to exit it correctly...
 
+
+
 // Block 4 Ведение позиций
 /*Вызывая метод nonSymm
    для periodGlobal мы будем update-ить цену*/
@@ -1065,6 +1071,7 @@ Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingF
            }
         }
      }
+
      Sleep(3333);
   }
 
@@ -2159,7 +2166,6 @@ bool nonSymmTick()
 
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
   string timeFrame;
-  string start;
 
   countFigures++;
 
@@ -2169,12 +2175,18 @@ bool nonSymmTick()
   if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
   if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
   if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
-  int total=OrdersTotal();
+
+  }
+
+  void print(){
+  string start;
+  int total = OrdersTotal();
   if(total>0){
     start = "Open Order";
    }else{start = " ";};
 
-  Comment(
+
+Comment(
   "\n     ", start ,
   "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
   "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
@@ -2183,10 +2195,6 @@ bool nonSymmTick()
   "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
   "\nPERIOD_D1     ", messageGlobalPERIOD_D1
   );
-  }
-
-  void print(){
-
   }//+------------------------------------------------------------------+
   bool isMACDNewlyCrossedUpFilter1(ENUM_TIMEFRAMES timeFrameForMACD){
     bool isMACDCrossed = false;
