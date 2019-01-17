@@ -1582,7 +1582,7 @@ isC6Min = true;
         }
         // from 6 to 12
 // Fourth 7 0
-        if(countHalfWaves==7 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==7 && what_7HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
                     what_8HalfWaveMACDH4=1;
                     q7 = q6+1;
@@ -1602,7 +1602,7 @@ isC6Min = true;
                     }
                 }
 // Fourth 7 1
-        if(countHalfWaves==7 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==7 && what_7HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
             what_8HalfWaveMACDH4=0;
             q7 = q6 + 1;
@@ -1623,217 +1623,207 @@ isC6Min = true;
         }
 
 //Fourth 8 0
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==8 && what_8HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4=1;
-                    q6 = q5+1;
-                    resize6H4 = (i+2)-q6;
-                    ArrayResize (halfWave_6H4, resize6H4);
-                    w6=0;
-                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                    thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q6<i+2;q6++){
-                        halfWave_6H4[w6]=q6;
-                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
-                            thirdMaxLocalNonSymmetric = priceForMinMax;
-                            isThirdMax = true;
+                    what_9HalfWaveMACDH4=1;
+                    q8 = q7+1;
+                    resize8H4 = (i+2)-q8;
+                    ArrayResize (halfWave_8H4, resize8H4);
+                    w8=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q8);
+                    fourthMaxLocalNonSymmetric = priceForMinMax;
+                    for(q8;q8<i+2;q8++){
+                        halfWave_8H4[w8]=q8;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q8);
+                        if(fourthMaxLocalNonSymmetric < priceForMinMax){
+                            fourthMaxLocalNonSymmetric = priceForMinMax;
+                            isFourthMax = true;
                         }
-                        w6++;
+                        w8++;
                     }
-isC6Max = true;
                 }
 // Fourth 8 1
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==8 && what_8HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4=0;
-            q6 = q5 + 1;
-            resize6H4 = (i+2)-q6;
-            ArrayResize (halfWave_6H4, resize6H4);
-            w6=0;
-            priceForMinMax = iOpen(NULL,periodGlobal,q6);
-            thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q6<i+2;q6++){
-                halfWave_6H4[w6]=q6;
-                priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                if(thirdMinLocalNonSymmetric > priceForMinMax){
-                    thirdMinLocalNonSymmetric = priceForMinMax;
-                    isThirdMin = true;
+            what_9HalfWaveMACDH4=0;
+            q8 = q7 + 1;
+            resize8H4 = (i+2)-q8;
+            ArrayResize (halfWave_8H4, resize8H4);
+            w8=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q8);
+            fourthMinLocalNonSymmetric = priceForMinMax;
+            for(q8;q8<i+2;q8++){
+                halfWave_8H4[w8]=q8;
+                priceForMinMax = iOpen(NULL,periodGlobal,q8);
+                if(fourthMinLocalNonSymmetric > priceForMinMax){
+                    fourthMinLocalNonSymmetric = priceForMinMax;
+                    isFourthMin = true;
                 }
-                w6++;
+                w8++;
             }
-isC6Min = true;
         }
 // Fifth 9 0
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==9 && what_9HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4=1;
-                    q6 = q5+1;
-                    resize6H4 = (i+2)-q6;
-                    ArrayResize (halfWave_6H4, resize6H4);
-                    w6=0;
-                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                    thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q6<i+2;q6++){
-                        halfWave_6H4[w6]=q6;
-                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
-                            thirdMaxLocalNonSymmetric = priceForMinMax;
-                            isThirdMax = true;
+                    what_10HalfWaveMACDH4=1;
+                    q9 = q8+1;
+                    resize9H4 = (i+2)-q9;
+                    ArrayResize (halfWave_9H4, resize9H4);
+                    w9=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q9);
+                    fifthMaxLocalNonSymmetric = priceForMinMax;
+                    for(q9;q9<i+2;q9++){
+                        halfWave_9H4[w9]=q9;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q9);
+                        if(fifthMaxLocalNonSymmetric < priceForMinMax){
+                            fifthMaxLocalNonSymmetric = priceForMinMax;
+                            isFifthMax = true;
                         }
-                        w6++;
+                        w9++;
                     }
-isC6Max = true;
                 }
 // Fifth 9 1
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==9 && what_9HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4=0;
-            q6 = q5 + 1;
-            resize6H4 = (i+2)-q6;
-            ArrayResize (halfWave_6H4, resize6H4);
-            w6=0;
-            priceForMinMax = iOpen(NULL,periodGlobal,q6);
-            thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q6<i+2;q6++){
-                halfWave_6H4[w6]=q6;
-                priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                if(thirdMinLocalNonSymmetric > priceForMinMax){
-                    thirdMinLocalNonSymmetric = priceForMinMax;
-                    isThirdMin = true;
+            what_10HalfWaveMACDH4=0;
+            q9 = q8 + 1;
+            resize9H4 = (i+2)-q9;
+            ArrayResize (halfWave_9H4, resize9H4);
+            w9=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q9);
+            fifthMinLocalNonSymmetric = priceForMinMax;
+            for(q9;q9<i+2;q9++){
+                halfWave_9H4[w9]=q9;
+                priceForMinMax = iOpen(NULL,periodGlobal,q9);
+                if(fifthMinLocalNonSymmetric > priceForMinMax){
+                    fifthMinLocalNonSymmetric = priceForMinMax;
+                    isFifthMin = true;
                 }
-                w6++;
+                w9++;
             }
-isC6Min = true;
         }
 
 // Fifth 10 0
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==10 && what_10HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4=1;
-                    q6 = q5+1;
-                    resize6H4 = (i+2)-q6;
-                    ArrayResize (halfWave_6H4, resize6H4);
-                    w6=0;
-                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                    thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q6<i+2;q6++){
-                        halfWave_6H4[w6]=q6;
-                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
-                            thirdMaxLocalNonSymmetric = priceForMinMax;
-                            isThirdMax = true;
+                    what_11HalfWaveMACDH4=1;
+                    q10 = q9+1;
+                    resize10H4 = (i+2)-q10;
+                    ArrayResize (halfWave_10H4, resize10H4);
+                    w10=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q10);
+                    fifthMaxLocalNonSymmetric = priceForMinMax;
+                    for(q10;q10<i+2;q10++){
+                        halfWave_10H4[w10]=q10;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q10);
+                        if(fifthMaxLocalNonSymmetric < priceForMinMax){
+                            fifthMaxLocalNonSymmetric = priceForMinMax;
+                            isFifthMax = true;
                         }
-                        w6++;
+                        w10++;
                     }
-isC6Max = true;
                 }
 // Fifth 10 1
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==10 && what_10HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4=0;
-            q6 = q5 + 1;
-            resize6H4 = (i+2)-q6;
-            ArrayResize (halfWave_6H4, resize6H4);
-            w6=0;
-            priceForMinMax = iOpen(NULL,periodGlobal,q6);
-            thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q6<i+2;q6++){
-                halfWave_6H4[w6]=q6;
-                priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                if(thirdMinLocalNonSymmetric > priceForMinMax){
-                    thirdMinLocalNonSymmetric = priceForMinMax;
-                    isThirdMin = true;
+            what_11HalfWaveMACDH4=0;
+            q10 = q9 + 1;
+            resize10H4 = (i+2)-q10;
+            ArrayResize (halfWave_10H4, resize10H4);
+            w10=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q10);
+            fifthMinLocalNonSymmetric = priceForMinMax;
+            for(q10;q10<i+2;q10++){
+                halfWave_10H4[w10]=q10;
+                priceForMinMax = iOpen(NULL,periodGlobal,q10);
+                if(fifthMinLocalNonSymmetric > priceForMinMax){
+                    fifthMinLocalNonSymmetric = priceForMinMax;
+                    isFifthMin = true;
                 }
-                w6++;
+                w10++;
             }
-isC6Min = true;
         }
 
 // Sixth 11 0
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==11 && what_11HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4=1;
-                    q6 = q5+1;
-                    resize6H4 = (i+2)-q6;
-                    ArrayResize (halfWave_6H4, resize6H4);
-                    w6=0;
-                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                    thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q6<i+2;q6++){
-                        halfWave_6H4[w6]=q6;
-                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
-                            thirdMaxLocalNonSymmetric = priceForMinMax;
-                            isThirdMax = true;
+                    what_12HalfWaveMACDH4=1;
+                    q11 = q10+1;
+                    resize11H4 = (i+2)-q11;
+                    ArrayResize (halfWave_11H4, resize11H4);
+                    w11=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q11);
+                    sixthMaxLocalNonSymmetric = priceForMinMax;
+                    for(q11;q11<i+2;q11++){
+                        halfWave_11H4[w11]=q11;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q11);
+                        if(sixthMaxLocalNonSymmetric < priceForMinMax){
+                            sixthMaxLocalNonSymmetric = priceForMinMax;
+                            isSixthMax = true;
                         }
-                        w6++;
+                        w11++;
                     }
-isC6Max = true;
                 }
 // Sixth 11 1
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==11 && what_11HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4=0;
-            q6 = q5 + 1;
-            resize6H4 = (i+2)-q6;
-            ArrayResize (halfWave_6H4, resize6H4);
-            w6=0;
-            priceForMinMax = iOpen(NULL,periodGlobal,q6);
+            what_12HalfWaveMACDH4=0;
+            q11 = q10 + 1;
+            resize11H4 = (i+2)-q11;
+            ArrayResize (halfWave_11H4, resize11H4);
+            w11=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q11);
             thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q6<i+2;q6++){
-                halfWave_6H4[w6]=q6;
-                priceForMinMax = iOpen(NULL,periodGlobal,q6);
+            for(q11;q11<i+2;q11++){
+                halfWave_11H4[w11]=q11;
+                priceForMinMax = iOpen(NULL,periodGlobal,q11);
                 if(thirdMinLocalNonSymmetric > priceForMinMax){
                     thirdMinLocalNonSymmetric = priceForMinMax;
-                    isThirdMin = true;
+                    isSixthMin = true;
                 }
-                w6++;
+                w11++;
             }
-isC6Min = true;
         }
 
 // Sixth 12 0
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==12 && what_12HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4=1;
-                    q6 = q5+1;
-                    resize6H4 = (i+2)-q6;
-                    ArrayResize (halfWave_6H4, resize6H4);
-                    w6=0;
-                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                    thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q6<i+2;q6++){
-                        halfWave_6H4[w6]=q6;
-                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
-                            thirdMaxLocalNonSymmetric = priceForMinMax;
-                            isThirdMax = true;
+                    what_13HalfWaveMACDH4=1;
+                    q12 = q11+1;
+                    resize12H4 = (i+2)-q12;
+                    ArrayResize (halfWave_12H4, resize12H4);
+                    w12=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q12);
+                    sixthMaxLocalNonSymmetric = priceForMinMax;
+                    for(q12;q12<i+2;q12++){
+                        halfWave_12H4[w12]=q12;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q12);
+                        if(sixthMaxLocalNonSymmetric < priceForMinMax){
+                            sixthMaxLocalNonSymmetric = priceForMinMax;
+                            isSixthMax = true;
                         }
-                        w6++;
+                        w12++;
                     }
-isC6Max = true;
                 }
 // Sixth 12 1
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==12 && what_12HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4=0;
-            q6 = q5 + 1;
-            resize6H4 = (i+2)-q6;
-            ArrayResize (halfWave_6H4, resize6H4);
-            w6=0;
-            priceForMinMax = iOpen(NULL,periodGlobal,q6);
-            thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q6<i+2;q6++){
-                halfWave_6H4[w6]=q6;
-                priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                if(thirdMinLocalNonSymmetric > priceForMinMax){
-                    thirdMinLocalNonSymmetric = priceForMinMax;
-                    isThirdMin = true;
+            what_13HalfWaveMACDH4=0;
+            q12 = q11 + 1;
+            resize12H4 = (i+2)-q12;
+            ArrayResize (halfWave_12H4, resize12H4);
+            w12=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q12);
+            sixthMinLocalNonSymmetric = priceForMinMax;
+            for(q12;q12<i+2;q12++){
+                halfWave_12H4[w12]=q12;
+                priceForMinMax = iOpen(NULL,periodGlobal,q12);
+                if(sixthMinLocalNonSymmetric > priceForMinMax){
+                    sixthMinLocalNonSymmetric = priceForMinMax;
+                    isSixthMin = true;
                 }
-                w6++;
+                w12++;
             }
-isC6Min = true;
         }
 
 
