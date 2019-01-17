@@ -691,6 +691,28 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_D1) {figure16BalancedTriangleDown_D1  = true;}
             print("Figure 16 BalancedTriangleDown ", timeFrames[i]);
     }
+    // Figure 17 "FlagConfirmationUp"
+
+    if(
+        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+        firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
+        secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
+        firstMinGlobal>secondMinGlobal && isC5Max &&
+        c5MinGlobal > secondMinGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure17FlagConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure17FlagConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure17FlagConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure17FlagConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure17FlagConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure17FlagConfirmationUp_D1  = true;}
+            print("Figure 17 FlagConfirmationUp ", timeFrames[i]);
+    }
 
 /*
 
