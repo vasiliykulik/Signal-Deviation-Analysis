@@ -29,6 +29,7 @@ bool isC6Min = false; bool isC6Max = false;
  string messageGlobalPERIOD_H1 ;
  string messageGlobalPERIOD_H4 ;
  string messageGlobalPERIOD_D1 ;
+ int countFigures;
 
  ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
@@ -59,6 +60,7 @@ void OnTick(void)
    messageGlobalPERIOD_H1 ="nothing";
    messageGlobalPERIOD_H4 ="nothing";
    messageGlobalPERIOD_D1 ="nothing" ;
+   countFigures = 0;
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -158,18 +160,18 @@ void OnTick(void)
         bool isDivergenceMACDForPriceConv_M1=false,       isDivergenceMACDForPriceConv_M5=false,   isDivergenceMACDForPriceConv_M15=false,isDivergenceMACDForPriceConv_H1=false,isDivergenceMACDForPriceConv_H4=false,isDivergenceMACDForPriceConv_D1=false;
         bool isDivergenceMACDForPriceDiv_M1=false,        isDivergenceMACDForPriceDiv_M5=false,    isDivergenceMACDForPriceDiv_M15=false,isDivergenceMACDForPriceDiv_H1=false,isDivergenceMACDForPriceDiv_H4=false,isDivergenceMACDForPriceDiv_D1=false;
 
-      bool figure1FlagUpContinue_M1  = false;        bool figure1FlagUpContinue_M5  = false;        bool figure1FlagUpContinue_M15 = false;         bool figure1FlagUpContinue_H1  = false;         bool figure1FlagUpContinue_H4  = false;         bool figure1FlagUpContinue_D1  = false;
-      bool figure2FlagDownContinue_M1  = false;      bool figure2FlagDownContinue_M5  = false;      bool figure2FlagDownContinue_M15 = false;       bool figure2FlagDownContinue_H1  = false;       bool figure2FlagDownContinue_H4  = false;       bool figure2FlagDownContinue_D1  = false;
+      bool figure1FlagUpContinueUp_M1  = false;        bool figure1FlagUpContinueUp_M5  = false;        bool figure1FlagUpContinueUp_M15 = false;         bool figure1FlagUpContinueUp_H1  = false;         bool figure1FlagUpContinueUp_H4  = false;         bool figure1FlagUpContinueUp_D1  = false;
+      bool figure2FlagDownContinueDown_M1  = false;      bool figure2FlagDownContinueDown_M5  = false;      bool figure2FlagDownContinueDown_M15 = false;       bool figure2FlagDownContinueDown_H1  = false;       bool figure2FlagDownContinueDown_H4  = false;       bool figure2FlagDownContinueDown_D1  = false;
       bool figure3TripleUp_M1  = false;       bool figure3TripleUp_M5  = false;       bool figure3TripleUp_M15 = false;        bool figure3TripleUp_H1  = false;        bool figure3TripleUp_H4  = false;        bool figure3TripleUp_D1  = false;
       bool figure4TripleDown_M1  = false;       bool figure4TripleDown_M5  = false;       bool figure4TripleDown_M15 = false;        bool figure4TripleDown_H1  = false;        bool figure4TripleDown_H4  = false;        bool figure4TripleDown_D1  = false;
       bool figure5PennantUp_M1  = false;             bool figure5PennantUp_M5  = false;             bool figure5PennantUp_M15 = false;              bool figure5PennantUp_H1  = false;              bool figure5PennantUp_H4  = false;              bool figure5PennantUp_D1  = false;
       bool figure6PennantDown_M1  = false;           bool figure6PennantDown_M5  = false;           bool figure6PennantDown_M15 = false;            bool figure6PennantDown_H1  = false;            bool figure6PennantDown_H4  = false;            bool figure6PennantDown_D1  = false;
-      bool figure7FlagUpDivergence_M1  = false;      bool figure7FlagUpDivergence_M5  = false;      bool figure7FlagUpDivergence_M15 = false;       bool figure7FlagUpDivergence_H1  = false;       bool figure7FlagUpDivergence_H4  = false;       bool figure7FlagUpDivergence_D1  = false;
-      bool figure8FlagDownDivergence_M1  = false;    bool figure8FlagDownDivergence_M5  = false;    bool figure8FlagDownDivergence_M15 = false;     bool figure8FlagDownDivergence_H1  = false;     bool figure8FlagDownDivergence_H4  = false;     bool figure8FlagDownDivergence_D1  = false;
+      bool figure7FlagUpDivergenceUp_M1  = false;      bool figure7FlagUpDivergenceUp_M5  = false;      bool figure7FlagUpDivergenceUp_M15 = false;       bool figure7FlagUpDivergenceUp_H1  = false;       bool figure7FlagUpDivergenceUp_H4  = false;       bool figure7FlagUpDivergenceUp_D1  = false;
+      bool figure8FlagDownDivergenceDown_M1  = false;    bool figure8FlagDownDivergenceDown_M5  = false;    bool figure8FlagDownDivergenceDown_M15 = false;     bool figure8FlagDownDivergenceDown_H1  = false;     bool figure8FlagDownDivergenceDown_H4  = false;     bool figure8FlagDownDivergenceDown_D1  = false;
       bool figure9FlagUpShiftUp_M1  = false;         bool figure9FlagUpShiftUp_M5  = false;         bool figure9FlagUpShiftUp_M15 = false;          bool figure9FlagUpShiftUp_H1  = false;          bool figure9FlagUpShiftUp_H4  = false;          bool figure9FlagUpShiftUp_D1  = false;
       bool figure10FlagDownShiftDown_M1  = false;    bool figure10FlagDownShiftDown_M5  = false;    bool figure10FlagDownShiftDown_M15 = false;     bool figure10FlagDownShiftDown_H1  = false;     bool figure10FlagDownShiftDown_H4  = false;     bool figure10FlagDownShiftDown_D1  = false;
-      bool figure11DoubleBottom_M1  = false;         bool figure11DoubleBottom_M5  = false;         bool figure11DoubleBottom_M15 = false;          bool figure11DoubleBottom_H1  = false;          bool figure11DoubleBottom_H4  = false;          bool figure11DoubleBottom_D1  = false;
-      bool figure12DoubleTop_M1  = false;            bool figure12DoubleTop_M5  = false;            bool figure12DoubleTop_M15 = false;             bool figure12DoubleTop_H1  = false;             bool figure12DoubleTop_H4  = false;             bool figure12DoubleTop_D1  = false;
+      bool figure11DoubleBottomUp_M1  = false;         bool figure11DoubleBottomUp_M5  = false;         bool figure11DoubleBottomUp_M15 = false;          bool figure11DoubleBottomUp_H1  = false;          bool figure11DoubleBottomUp_H4  = false;          bool figure11DoubleBottomUp_D1  = false;
+      bool figure12DoubleTopDown_M1  = false;            bool figure12DoubleTopDown_M5  = false;            bool figure12DoubleTopDown_M15 = false;             bool figure12DoubleTopDown_H1  = false;             bool figure12DoubleTopDown_H4  = false;             bool figure12DoubleTopDown_D1  = false;
       bool figure13DivergentChannelUp_M1  = false;   bool figure13DivergentChannelUp_M5  = false;   bool figure13DivergentChannelUp_M15 = false;    bool figure13DivergentChannelUp_H1  = false;    bool figure13DivergentChannelUp_H4  = false;    bool figure13DivergentChannelUp_D1  = false;
       bool figure14DivergentChannelDown_M1  = false; bool figure14DivergentChannelDown_M5  = false; bool figure14DivergentChannelDown_M15 = false;  bool figure14DivergentChannelDown_H1  = false;  bool figure14DivergentChannelDown_H4  = false;  bool figure14DivergentChannelDown_D1  = false;
       bool figure15BalancedTriangleUp_M1  = false;   bool figure15BalancedTriangleUp_M5  = false;   bool figure15BalancedTriangleUp_M15 = false;    bool figure15BalancedTriangleUp_H1  = false;    bool figure15BalancedTriangleUp_H4  = false;    bool figure15BalancedTriangleUp_D1  = false;
@@ -275,7 +277,7 @@ void OnTick(void)
 // Print("c5MinGlobal = ", c5MinGlobal, " c5MaxGlobal = ", c5MaxGlobal);
 
 
-    // Figure 1 "FlagUpContinue" v10.6
+    // Figure 1 "FlagUpContinueUp" v10.6
 
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
@@ -290,16 +292,16 @@ void OnTick(void)
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinue_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure1FlagUpContinue_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure1FlagUpContinue_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure1FlagUpContinue_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure1FlagUpContinue_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure1FlagUpContinue_D1  = true;}
-            print("Figure 1 FlagUpContinue ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure1FlagUpContinueUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure1FlagUpContinueUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure1FlagUpContinueUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure1FlagUpContinueUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure1FlagUpContinueUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure1FlagUpContinueUp_D1  = true;}
+            print("Figure 1 FlagUpContinueUp ", timeFrames[i]);
     }
 
-    // Figure 2 "FlagDownContinue" v10.6
+    // Figure 2 "FlagDownContinueDown" v10.6
 
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
@@ -313,13 +315,13 @@ void OnTick(void)
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinue_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinue_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure2FlagDownContinue_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure2FlagDownContinue_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure2FlagDownContinue_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure2FlagDownContinue_D1  = true;}
-            print("Figure 2 FlagDownContinue ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure2FlagDownContinueDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure2FlagDownContinueDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure2FlagDownContinueDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure2FlagDownContinueDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure2FlagDownContinueDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure2FlagDownContinueDown_D1  = true;}
+            print("Figure 2 FlagDownContinueDown ", timeFrames[i]);
     }
 
     // Figure 3 "TripleUp" v10.6
@@ -414,7 +416,7 @@ void OnTick(void)
             print("Figure 6 PennantDown ", timeFrames[i]);
     }
 
-    // Figure 7 "FlagUpDivergence" v10.6
+    // Figure 7 "FlagUpDivergenceUp" v10.6
 
     if(
         c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
@@ -428,16 +430,16 @@ void OnTick(void)
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure7FlagUpDivergence_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure7FlagUpDivergence_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure7FlagUpDivergence_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure7FlagUpDivergence_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure7FlagUpDivergence_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure7FlagUpDivergence_D1  = true;}
-            print("Figure 7 FlagUpDivergence ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure7FlagUpDivergenceUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure7FlagUpDivergenceUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure7FlagUpDivergenceUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure7FlagUpDivergenceUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure7FlagUpDivergenceUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure7FlagUpDivergenceUp_D1  = true;}
+            print("Figure 7 FlagUpDivergenceUp ", timeFrames[i]);
     }
 
-    // Figure 8 "FlagDownDivergence" v10.6
+    // Figure 8 "FlagDownDivergenceDown" v10.6
 
     if(
         c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
@@ -451,13 +453,13 @@ void OnTick(void)
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure8FlagDownDivergence_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure8FlagDownDivergence_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure8FlagDownDivergence_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure8FlagDownDivergence_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure8FlagDownDivergence_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure8FlagDownDivergence_D1  = true;}
-            print("Figure 8 FlagDownDivergence ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure8FlagDownDivergenceDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure8FlagDownDivergenceDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure8FlagDownDivergenceDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure8FlagDownDivergenceDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure8FlagDownDivergenceDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure8FlagDownDivergenceDown_D1  = true;}
+            print("Figure 8 FlagDownDivergenceDown ", timeFrames[i]);
     }
 
     // Figure 9 "FlagUpShiftUp" v10.6
@@ -508,7 +510,7 @@ void OnTick(void)
  //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
     }
 
-    // Figure 11 "DoubleBottom" from this all was started, v10.6
+    // Figure 11 "DoubleBottomUp" from this all was started, v10.6
 
     if(
         c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal>firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
@@ -522,16 +524,16 @@ void OnTick(void)
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure11DoubleBottom_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure11DoubleBottom_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure11DoubleBottom_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure11DoubleBottom_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure11DoubleBottom_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure11DoubleBottom_D1  = true;}
-            print("Figure 11 DoubleBottom ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure11DoubleBottomUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure11DoubleBottomUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure11DoubleBottomUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure11DoubleBottomUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure11DoubleBottomUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure11DoubleBottomUp_D1  = true;}
+            print("Figure 11 DoubleBottomUp ", timeFrames[i]);
     }
 
-    // Figure 12 "DoubleTop" v10.6
+    // Figure 12 "DoubleTopDown" v10.6
 
     if(
         c5MaxGlobal<firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
@@ -545,13 +547,13 @@ void OnTick(void)
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure12DoubleTop_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure12DoubleTop_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure12DoubleTop_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure12DoubleTop_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure12DoubleTop_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure12DoubleTop_D1  = true;}
-            print("Figure 12 DoubleTop ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure12DoubleTopDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure12DoubleTopDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure12DoubleTopDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure12DoubleTopDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure12DoubleTopDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure12DoubleTopDown_D1  = true;}
+            print("Figure 12 DoubleTopDown ", timeFrames[i]);
     }
 
     // Figure 13 "DivergentChannelUp" from this all was started, v10.6
@@ -794,19 +796,19 @@ MACDForelockFilterForBuyPosition  = macdUp_H1 && macdUp_H4   && macdUp_D1   && m
 MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
 
-     isM1FigureUp =  figure1FlagUpContinue_M1 || figure3TripleUp_M1 || figure5PennantUp_M1 || figure7FlagUpDivergence_M1 || figure9FlagUpShiftUp_M1 || figure11DoubleBottom_M1 || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1;
-     isM5FigureUp =  figure1FlagUpContinue_M5 || figure3TripleUp_M5 || figure5PennantUp_M5 || figure7FlagUpDivergence_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottom_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5;
-     isM15FigureUp =  figure1FlagUpContinue_M15 || figure3TripleUp_M15 || figure5PennantUp_M15 || figure7FlagUpDivergence_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottom_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15;
-     isH1FigureUp =  figure1FlagUpContinue_H1 || figure3TripleUp_H1 || figure5PennantUp_H1 || figure7FlagUpDivergence_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottom_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1;
-     isH4FigureUp =  figure1FlagUpContinue_H4 || figure3TripleUp_H4 || figure5PennantUp_H4 || figure7FlagUpDivergence_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottom_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4;
-     isD1FigureUp =  figure1FlagUpContinue_D1 || figure3TripleUp_D1 || figure5PennantUp_D1 || figure7FlagUpDivergence_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottom_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1;
+     isM1FigureUp =  figure1FlagUpContinueUp_M1 || figure3TripleUp_M1 || figure5PennantUp_M1 || figure7FlagUpDivergenceUp_M1 || figure9FlagUpShiftUp_M1 || figure11DoubleBottomUp_M1 || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1;
+     isM5FigureUp =  figure1FlagUpContinueUp_M5 || figure3TripleUp_M5 || figure5PennantUp_M5 || figure7FlagUpDivergenceUp_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottomUp_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5;
+     isM15FigureUp =  figure1FlagUpContinueUp_M15 || figure3TripleUp_M15 || figure5PennantUp_M15 || figure7FlagUpDivergenceUp_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottomUp_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15;
+     isH1FigureUp =  figure1FlagUpContinueUp_H1 || figure3TripleUp_H1 || figure5PennantUp_H1 || figure7FlagUpDivergenceUp_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottomUp_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1;
+     isH4FigureUp =  figure1FlagUpContinueUp_H4 || figure3TripleUp_H4 || figure5PennantUp_H4 || figure7FlagUpDivergenceUp_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottomUp_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4;
+     isD1FigureUp =  figure1FlagUpContinueUp_D1 || figure3TripleUp_D1 || figure5PennantUp_D1 || figure7FlagUpDivergenceUp_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottomUp_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1;
 
-     isM1FigureDown =  figure2FlagDownContinue_M1 || figure4TripleDown_M1 || figure6PennantDown_M1 || figure8FlagDownDivergence_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTop_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1;
-     isM5FigureDown =  figure2FlagDownContinue_M5 || figure4TripleDown_M5 || figure6PennantDown_M5 || figure8FlagDownDivergence_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTop_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5;
-     isM15FigureDown =  figure2FlagDownContinue_M15 || figure4TripleDown_M15 || figure6PennantDown_M15 || figure8FlagDownDivergence_M15 || figure10FlagDownShiftDown_M15 || figure12DoubleTop_M15 || figure14DivergentChannelDown_M15 || figure16BalancedTriangleDown_M15;
-     isH1FigureDown =  figure2FlagDownContinue_H1 || figure4TripleDown_H1 || figure6PennantDown_H1 || figure8FlagDownDivergence_H1 || figure10FlagDownShiftDown_H1 || figure12DoubleTop_H1 || figure14DivergentChannelDown_H1 || figure16BalancedTriangleDown_H1;
-     isH4FigureDown =  figure2FlagDownContinue_H4 || figure4TripleDown_H4 || figure6PennantDown_H4 || figure8FlagDownDivergence_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTop_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
-     isD1FigureDown =  figure2FlagDownContinue_D1 || figure4TripleDown_D1 || figure6PennantDown_D1 || figure8FlagDownDivergence_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTop_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
+     isM1FigureDown =  figure2FlagDownContinueDown_M1 || figure4TripleDown_M1 || figure6PennantDown_M1 || figure8FlagDownDivergenceDown_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTopDown_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1;
+     isM5FigureDown =  figure2FlagDownContinueDown_M5 || figure4TripleDown_M5 || figure6PennantDown_M5 || figure8FlagDownDivergenceDown_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTopDown_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5;
+     isM15FigureDown =  figure2FlagDownContinueDown_M15 || figure4TripleDown_M15 || figure6PennantDown_M15 || figure8FlagDownDivergenceDown_M15 || figure10FlagDownShiftDown_M15 || figure12DoubleTopDown_M15 || figure14DivergentChannelDown_M15 || figure16BalancedTriangleDown_M15;
+     isH1FigureDown =  figure2FlagDownContinueDown_H1 || figure4TripleDown_H1 || figure6PennantDown_H1 || figure8FlagDownDivergenceDown_H1 || figure10FlagDownShiftDown_H1 || figure12DoubleTopDown_H1 || figure14DivergentChannelDown_H1 || figure16BalancedTriangleDown_H1;
+     isH4FigureDown =  figure2FlagDownContinueDown_H4 || figure4TripleDown_H4 || figure6PennantDown_H4 || figure8FlagDownDivergenceDown_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTopDown_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
+     isD1FigureDown =  figure2FlagDownContinueDown_D1 || figure4TripleDown_D1 || figure6PennantDown_D1 || figure8FlagDownDivergenceDown_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTopDown_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
 
 isM1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M1 || blockingFigure15BlockingBalancedTriangleUp_M1;
 isM5FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M5 || blockingFigure15BlockingBalancedTriangleUp_M5;
@@ -831,24 +833,24 @@ isH1FigureUp
       )
 
       {
-Print(" isM5FigureUp =  figure1FlagUpContinue_M5 = ",figure1FlagUpContinue_M5, "figure3TripleUp_M5 = ",figure3TripleUp_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5);
-Print(" figure7FlagUpDivergence_M5 = ",figure7FlagUpDivergence_M5," figure9FlagUpShiftUp_M5 = ",figure9FlagUpShiftUp_M5," figure11DoubleBottom_M5 = ",figure11DoubleBottom_M5);
+/*Print(" isM5FigureUp =  figure1FlagUpContinueUp_M5 = ",figure1FlagUpContinueUp_M5, "figure3TripleUp_M5 = ",figure3TripleUp_M5," figure5PennantUp_M5 = ",figure5PennantUp_M5);
+Print(" figure7FlagUpDivergenceUp_M5 = ",figure7FlagUpDivergenceUp_M5," figure9FlagUpShiftUp_M5 = ",figure9FlagUpShiftUp_M5," figure11DoubleBottomUp_M5 = ",figure11DoubleBottomUp_M5);
 Print(" figure13DivergentChannelUp_M5 = ",figure13DivergentChannelUp_M5," figure15BalancedTriangleUp_M5 = ",figure15BalancedTriangleUp_M5);
 
-Print(" isM15FigureUp =  figure1FlagUpContinue_M15 = ",figure1FlagUpContinue_M15, "figure3TripleUp_M15 = ",figure3TripleUp_M15," figure5PennantUp_M15 = ",figure5PennantUp_M15);
-Print(" figure7FlagUpDivergence_M15 = ",figure7FlagUpDivergence_M15," figure9FlagUpShiftUp_M15 = ",figure9FlagUpShiftUp_M15," figure11DoubleBottom_M15 = ",figure11DoubleBottom_M15);
+Print(" isM15FigureUp =  figure1FlagUpContinueUp_M15 = ",figure1FlagUpContinueUp_M15, "figure3TripleUp_M15 = ",figure3TripleUp_M15," figure5PennantUp_M15 = ",figure5PennantUp_M15);
+Print(" figure7FlagUpDivergenceUp_M15 = ",figure7FlagUpDivergenceUp_M15," figure9FlagUpShiftUp_M15 = ",figure9FlagUpShiftUp_M15," figure11DoubleBottomUp_M15 = ",figure11DoubleBottomUp_M15);
 Print(" figure13DivergentChannelUp_M15 = ",figure13DivergentChannelUp_M15," figure15BalancedTriangleUp_M15 = ",figure15BalancedTriangleUp_M15);
 
-Print(" isH1FigureUp =  figure1FlagUpContinue_H1 = ",figure1FlagUpContinue_H1, "figure3TripleUp_H1 = ",figure3TripleUp_H1," figure5PennantUp_H1 = ",figure5PennantUp_H1);
-Print(" figure7FlagUpDivergence_H1 = ",figure7FlagUpDivergence_H1," figure9FlagUpShiftUp_H1 = ",figure9FlagUpShiftUp_H1," figure11DoubleBottom_H1 = ",figure11DoubleBottom_H1);
+Print(" isH1FigureUp =  figure1FlagUpContinueUp_H1 = ",figure1FlagUpContinueUp_H1, "figure3TripleUp_H1 = ",figure3TripleUp_H1," figure5PennantUp_H1 = ",figure5PennantUp_H1);
+Print(" figure7FlagUpDivergenceUp_H1 = ",figure7FlagUpDivergenceUp_H1," figure9FlagUpShiftUp_H1 = ",figure9FlagUpShiftUp_H1," figure11DoubleBottomUp_H1 = ",figure11DoubleBottomUp_H1);
 Print(" figure13DivergentChannelUp_H1 = ",figure13DivergentChannelUp_H1," figure15BalancedTriangleUp_H1 = ",figure15BalancedTriangleUp_H1);
 
-Print(" isH4FigureUp =  figure1FlagUpContinue_H4 = ",figure1FlagUpContinue_H4, "figure3TripleUp_H4 = ",figure3TripleUp_H4," figure5PennantUp_H4 = ",figure5PennantUp_H4);
-Print(" figure7FlagUpDivergence_H4 = ",figure7FlagUpDivergence_H4," figure9FlagUpShiftUp_H4 = ",figure9FlagUpShiftUp_H4," figure11DoubleBottom_H4 = ",figure11DoubleBottom_H4);
+Print(" isH4FigureUp =  figure1FlagUpContinueUp_H4 = ",figure1FlagUpContinueUp_H4, "figure3TripleUp_H4 = ",figure3TripleUp_H4," figure5PennantUp_H4 = ",figure5PennantUp_H4);
+Print(" figure7FlagUpDivergenceUp_H4 = ",figure7FlagUpDivergenceUp_H4," figure9FlagUpShiftUp_H4 = ",figure9FlagUpShiftUp_H4," figure11DoubleBottomUp_H4 = ",figure11DoubleBottomUp_H4);
 Print(" figure13DivergentChannelUp_H4 = ",figure13DivergentChannelUp_H4," figure15BalancedTriangleUp_H4 = ",figure15BalancedTriangleUp_H4);
 
-Print(" isD1FigureUp =  figure1FlagUpContinue_D1 = ",figure1FlagUpContinue_D1, "figure3TripleUp_D1 = ",figure3TripleUp_D1," figure5PennantUp_D1 = ",figure5PennantUp_D1);
-Print(" figure7FlagUpDivergence_D1 = ",figure7FlagUpDivergence_D1," figure9FlagUpShiftUp_D1 = ",figure9FlagUpShiftUp_D1," figure11DoubleBottom_D1 = ",figure11DoubleBottom_D1);
+Print(" isD1FigureUp =  figure1FlagUpContinueUp_D1 = ",figure1FlagUpContinueUp_D1, "figure3TripleUp_D1 = ",figure3TripleUp_D1," figure5PennantUp_D1 = ",figure5PennantUp_D1);
+Print(" figure7FlagUpDivergenceUp_D1 = ",figure7FlagUpDivergenceUp_D1," figure9FlagUpShiftUp_D1 = ",figure9FlagUpShiftUp_D1," figure11DoubleBottomUp_D1 = ",figure11DoubleBottomUp_D1);
 Print(" figure13DivergentChannelUp_D1 = ",figure13DivergentChannelUp_D1," figure15BalancedTriangleUp_D1 = ",figure15BalancedTriangleUp_D1);
 
 Print(" blockingFigure9BlockingFlagUpShiftUp_M1 = ", blockingFigure9BlockingFlagUpShiftUp_M1, " blockingFigure15BlockingBalancedTriangleUp_M1 = ", blockingFigure15BlockingBalancedTriangleUp_M1);
@@ -856,7 +858,7 @@ Print(" blockingFigure9BlockingFlagUpShiftUp_M5 = ", blockingFigure9BlockingFlag
 Print( " blockingFigure9BlockingFlagUpShiftUp_M15 = , ",blockingFigure9BlockingFlagUpShiftUp_M15, " blockingFigure15BlockingBalancedTriangleUp_M15 = ", blockingFigure15BlockingBalancedTriangleUp_M15);
 Print(" blockingFigure9BlockingFlagUpShiftUp_H1 = ", blockingFigure9BlockingFlagUpShiftUp_H1, " blockingFigure15BlockingBalancedTriangleUp_H1 = ", blockingFigure15BlockingBalancedTriangleUp_H1);
 Print(" blockingFigure9BlockingFlagUpShiftUp_H4 = ", blockingFigure9BlockingFlagUpShiftUp_H4, " blockingFigure15BlockingBalancedTriangleUp_H4 = ", blockingFigure15BlockingBalancedTriangleUp_H4);
-Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlagUpShiftUp_D1, " blockingFigure15BlockingBalancedTriangleUp_D1 = ", blockingFigure15BlockingBalancedTriangleUp_D1);
+Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlagUpShiftUp_D1, " blockingFigure15BlockingBalancedTriangleUp_D1 = ", blockingFigure15BlockingBalancedTriangleUp_D1);*/
 //      buy=1;
       }
 
@@ -866,20 +868,20 @@ isH1FigureDown
       )
 
       {
-Print(" isM5FigureDown =  figure2FlagDownContinue_M5 = ", figure2FlagDownContinue_M5, " figure4TripleDown_M5 = ", figure4TripleDown_M5, " figure6PennantDown_M5 =  ", figure6PennantDown_M5);
-Print(" figure8FlagDownDivergence_M5 = ", figure8FlagDownDivergence_M5, " figure10FlagDownShiftDown_M5 = ", figure10FlagDownShiftDown_M5, " figure12DoubleTop_M5 = ", figure12DoubleTop_M5);
+/*Print(" isM5FigureDown =  figure2FlagDownContinueDown_M5 = ", figure2FlagDownContinueDown_M5, " figure4TripleDown_M5 = ", figure4TripleDown_M5, " figure6PennantDown_M5 =  ", figure6PennantDown_M5);
+Print(" figure8FlagDownDivergenceDown_M5 = ", figure8FlagDownDivergenceDown_M5, " figure10FlagDownShiftDown_M5 = ", figure10FlagDownShiftDown_M5, " figure12DoubleTopDown_M5 = ", figure12DoubleTopDown_M5);
 Print(" figure14DivergentChannelDown_M5 = ", figure14DivergentChannelDown_M5, " figure16BalancedTriangleDown_M5 = ",figure16BalancedTriangleDown_M5);
 
-Print(" isM15FigureDown =  figure2FlagDownContinue_M15 = ", figure2FlagDownContinue_M15, " figure4TripleDown_M15 = ", figure4TripleDown_M15, " figure6PennantDown_M15 =  ", figure6PennantDown_M15);
-Print(" figure8FlagDownDivergence_M15 = ", figure8FlagDownDivergence_M15, " figure10FlagDownShiftDown_M15 = ", figure10FlagDownShiftDown_M15, " figure12DoubleTop_M15 = ", figure12DoubleTop_M15);
+Print(" isM15FigureDown =  figure2FlagDownContinueDown_M15 = ", figure2FlagDownContinueDown_M15, " figure4TripleDown_M15 = ", figure4TripleDown_M15, " figure6PennantDown_M15 =  ", figure6PennantDown_M15);
+Print(" figure8FlagDownDivergenceDown_M15 = ", figure8FlagDownDivergenceDown_M15, " figure10FlagDownShiftDown_M15 = ", figure10FlagDownShiftDown_M15, " figure12DoubleTopDown_M15 = ", figure12DoubleTopDown_M15);
 Print(" figure14DivergentChannelDown_M15 = ", figure14DivergentChannelDown_M15, " figure16BalancedTriangleDown_M15 = ",figure16BalancedTriangleDown_M15);
 
-Print(" isH1FigureDown =  figure2FlagDownContinue_H1 = ", figure2FlagDownContinue_H1, " figure4TripleDown_H1 = ", figure4TripleDown_H1, " figure6PennantDown_H1 =  ", figure6PennantDown_H1);
-Print(" figure8FlagDownDivergence_H1 = ", figure8FlagDownDivergence_H1, " figure10FlagDownShiftDown_H1 = ", figure10FlagDownShiftDown_H1, " figure12DoubleTop_H1 = ", figure12DoubleTop_H1);
+Print(" isH1FigureDown =  figure2FlagDownContinueDown_H1 = ", figure2FlagDownContinueDown_H1, " figure4TripleDown_H1 = ", figure4TripleDown_H1, " figure6PennantDown_H1 =  ", figure6PennantDown_H1);
+Print(" figure8FlagDownDivergenceDown_H1 = ", figure8FlagDownDivergenceDown_H1, " figure10FlagDownShiftDown_H1 = ", figure10FlagDownShiftDown_H1, " figure12DoubleTopDown_H1 = ", figure12DoubleTopDown_H1);
 Print(" figure14DivergentChannelDown_H1 = ", figure14DivergentChannelDown_H1, " figure16BalancedTriangleDown_H1 = ",figure16BalancedTriangleDown_H1);
 
-Print(" isH4FigureDown =  figure2FlagDownContinue_H4 = ", figure2FlagDownContinue_H4, " figure4TripleDown_H4 = ", figure4TripleDown_H4, " figure6PennantDown_H4 =  ", figure6PennantDown_H4);
-Print(" figure8FlagDownDivergence_H4 = ", figure8FlagDownDivergence_H4, " figure10FlagDownShiftDown_H4 = ", figure10FlagDownShiftDown_H4, " figure12DoubleTop_H4 = ", figure12DoubleTop_H4);
+Print(" isH4FigureDown =  figure2FlagDownContinueDown_H4 = ", figure2FlagDownContinueDown_H4, " figure4TripleDown_H4 = ", figure4TripleDown_H4, " figure6PennantDown_H4 =  ", figure6PennantDown_H4);
+Print(" figure8FlagDownDivergenceDown_H4 = ", figure8FlagDownDivergenceDown_H4, " figure10FlagDownShiftDown_H4 = ", figure10FlagDownShiftDown_H4, " figure12DoubleTopDown_H4 = ", figure12DoubleTopDown_H4);
 Print(" figure14DivergentChannelDown_H4 = ", figure14DivergentChannelDown_H4, " figure16BalancedTriangleDown_H4 = ",figure16BalancedTriangleDown_H4);
 
 Print(" blockingFigure10BlockingFlagUpShiftDown_M1 = ",blockingFigure10BlockingFlagUpShiftDown_M1, " blockingFigure16BlockingBalancedTriangleUp_M1 = ", blockingFigure16BlockingBalancedTriangleUp_M1);
@@ -887,7 +889,7 @@ Print(" blockingFigure10BlockingFlagUpShiftDown_M5 = ",blockingFigure10BlockingF
 Print(" blockingFigure10BlockingFlagUpShiftDown_M15 = ", blockingFigure10BlockingFlagUpShiftDown_M15, " blockingFigure16BlockingBalancedTriangleUp_M15 = ", blockingFigure16BlockingBalancedTriangleUp_M15);
 Print(" blockingFigure10BlockingFlagUpShiftDown_H1 = ",blockingFigure10BlockingFlagUpShiftDown_H1, " blockingFigure16BlockingBalancedTriangleUp_H1 = ", blockingFigure16BlockingBalancedTriangleUp_H1);
 Print(" blockingFigure10BlockingFlagUpShiftDown_H4 = ",blockingFigure10BlockingFlagUpShiftDown_H4, " blockingFigure16BlockingBalancedTriangleUp_H4 = ", blockingFigure16BlockingBalancedTriangleUp_H4);
-Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingFlagUpShiftDown_D1, " blockingFigure16BlockingBalancedTriangleUp_D1 = ", blockingFigure16BlockingBalancedTriangleUp_D1);
+Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingFlagUpShiftDown_D1, " blockingFigure16BlockingBalancedTriangleUp_D1 = ", blockingFigure16BlockingBalancedTriangleUp_D1);*/
 
  //sell=1;
  }
@@ -1886,13 +1888,17 @@ bool nonSymmTick()
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
   string timeFrame;
 
+  countFigures++;
+
   if(timeFrameNum == 1){messageGlobalPERIOD_M1 = message;}
   if(timeFrameNum == 5){messageGlobalPERIOD_M5 = message;}
   if(timeFrameNum == 15){messageGlobalPERIOD_M15 = message;}
   if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
   if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
   if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
-Print("Hello from Print - Comment method");
+
+
+
   Comment(
   "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
   "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
