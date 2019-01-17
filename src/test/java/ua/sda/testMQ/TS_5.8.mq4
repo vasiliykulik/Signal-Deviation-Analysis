@@ -75,11 +75,10 @@ void OnTick(void)
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight=0,sellWeight=0;
    total=OrdersTotal();
-   if(total>0){
+/*   if(total>0){
     Comment("Open Order");
-   }else{Comment("nothing");}
-   if(total<1)
-     {
+   }else{Comment("nothing");}*/
+
 /*      мы убираем
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
@@ -722,7 +721,8 @@ void OnTick(void)
 */
 
 }
-
+   if(total<1)
+     {
 // Second layer analyzing Block
 bool isFiboModuleGreenState = false;
 bool isFiboModuleGreenLevel_100_IsPassed = false;
@@ -1887,6 +1887,7 @@ bool nonSymmTick()
 
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
   string timeFrame;
+  string start;
 
   countFigures++;
 
@@ -1897,9 +1898,12 @@ bool nonSymmTick()
   if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
   if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
 
-
+if(total>0){
+    start = "Open Order";
+   }else{start = " ";
 
   Comment(
+  "\n     ", start ,
   "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
   "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
   "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
