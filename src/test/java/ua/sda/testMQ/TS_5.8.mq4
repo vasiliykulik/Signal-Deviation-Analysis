@@ -1900,7 +1900,7 @@ bool nonSymmTick()
 int total=OrdersTotal();
 if(total>0){
     start = "Open Order";
-   }else{start = " "};
+   }else{start = " ";};
 
   Comment(
   "\n     ", start ,
