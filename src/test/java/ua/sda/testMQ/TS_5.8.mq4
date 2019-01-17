@@ -1897,7 +1897,7 @@ bool nonSymmTick()
   if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
   if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
   if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
-
+int total=OrdersTotal();
 if(total>0){
     start = "Open Order";
    }else{start = " "};
