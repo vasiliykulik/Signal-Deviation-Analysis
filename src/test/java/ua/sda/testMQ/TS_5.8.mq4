@@ -1092,7 +1092,7 @@ bool nonSymm()
    double thirdMinLocalNonSymmetric=0.00000000, thirdMaxLocalNonSymmetric=0.00000000;
    double macdForMinMax;
 
-   double foutrhMinLocalNonSymmetric; = 0.00000000
+   double fourthMinLocalNonSymmetric = 0.00000000;
    double fifthMinLocalNonSymmetric = 0.00000000;
    double sixthMinLocalNonSymmetric = 0.00000000;
    double fourthMaxLocalNonSymmetric = 0.00000000;
@@ -1861,7 +1861,7 @@ max для sell
    c5MinGlobal = thirdMinLocalNonSymmetric;
    c5MaxGlobal = thirdMaxLocalNonSymmetric;
 
-   foutrhMinGlobal  =   foutrhMinLocalNonSymmetric;
+   foutrhMinGlobal  =   fourthMinLocalNonSymmetric;
    fourthMaxGlobal  =   fourthMaxLocalNonSymmetric;
    fifthMinGlobal   =   fifthMinLocalNonSymmetric;
    fifthMaxGlobal   =   fifthMaxLocalNonSymmetric;
