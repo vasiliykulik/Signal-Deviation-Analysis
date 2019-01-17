@@ -2224,37 +2224,57 @@ bool nonSymmTick()
   }
 
   void print(string message, ENUM_TIMEFRAMES timeFrameNum){
-  string timeFrame;
+    string timeFrame;
+    countFigures++;
 
-  countFigures++;
+        if(messageGlobalPERIOD_M1 != "nothing"){
+            messageGlobalPERIOD_M1 = StringConcatenate(messageGlobalPERIOD_M1, " + ", message);
+        }
+        if(messageGlobalPERIOD_M5 != "nothing"){
+            messageGlobalPERIOD_M5 = StringConcatenate(messageGlobalPERIOD_M5, " + ", message);
+        }
+        if(messageGlobalPERIOD_M15 != "nothing"){
+            messageGlobalPERIOD_M15 = StringConcatenate(messageGlobalPERIOD_M15, " + ", message);
+        }
+        if(messageGlobalPERIOD_H1 != "nothing"){
+            messageGlobalPERIOD_H1 = StringConcatenate(messageGlobalPERIOD_H1, " + ", message);
+        }
+        if(messageGlobalPERIOD_H4 != "nothing"){
+            messageGlobalPERIOD_H4 = StringConcatenate(messageGlobalPERIOD_H4, " + ", message);
+        }
+        if(messageGlobalPERIOD_D1 != "nothing"){
+            messageGlobalPERIOD_D1 = StringConcatenate(messageGlobalPERIOD_D1, " + ", message);
+        }
 
-  if(timeFrameNum == 1){messageGlobalPERIOD_M1 = message;}
-  if(timeFrameNum == 5){messageGlobalPERIOD_M5 = message;}
-  if(timeFrameNum == 15){messageGlobalPERIOD_M15 = message;}
-  if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
-  if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
-  if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
+
+    if(timeFrameNum == 1){messageGlobalPERIOD_M1 = message;}
+    if(timeFrameNum == 5){messageGlobalPERIOD_M5 = message;}
+    if(timeFrameNum == 15){messageGlobalPERIOD_M15 = message;}
+    if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
+    if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
+    if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
 
   }
 
   void print(){
-  string start;
-  int total = OrdersTotal();
-  if(total>0){
-    start = "Open Order";
-   }else{start = " ";};
+    string start;
+    int total = OrdersTotal();
+    if(total>0){
+      start = "Open Order";
+    } else { start = " "; };
 
 
-Comment(
-  "\n     ", start ,
-  "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
-  "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
-  "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
-  "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
-  "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
-  "\nPERIOD_D1     ", messageGlobalPERIOD_D1
-  );
-  }//+------------------------------------------------------------------+
+    Comment(
+        "\n     ", start ,
+        "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
+        "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
+        "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
+        "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
+        "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
+        "\nPERIOD_D1     ", messageGlobalPERIOD_D1
+    );
+  }
+  //+------------------------------------------------------------------+
   bool isMACDNewlyCrossedUpFilter1(ENUM_TIMEFRAMES timeFrameForMACD){
     bool isMACDCrossed = false;
     double macd0 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,0);
