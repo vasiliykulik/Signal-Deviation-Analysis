@@ -1086,6 +1086,7 @@ bool nonSymm()
 
    bool isFirstMin=false,isSecondMin=false,isFirstMax=false,isSecondMax=false;
    bool isThirdMin = false, isThirdMax = false;
+   bool isFourthMin = false, isFourthMax = false, isFifthMin = false, isFifthMax = false, isSixthMin = false, isSixthMax = false;
    bool pricesUpdate=false;
    double firstMinLocalNonSymmetricMACD=0.00000000,secondMinLocalNonSymmetricMACD=0.00000000,firstMaxLocalNonSymmetricMACD=0.00000000,secondMaxLocalNonSymmetricMACD=0.00000000;
    double thirdMinLocalNonSymmetric=0.00000000, thirdMaxLocalNonSymmetric=0.00000000;
@@ -1581,46 +1582,44 @@ isC6Min = true;
         }
         // from 6 to 12
 // Fourth 7 0
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
+        if(countHalfWaves==7 && what_6HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0){
                     countHalfWaves++;
-                    what_7HalfWaveMACDH4=1;
-                    q6 = q5+1;
-                    resize6H4 = (i+2)-q6;
-                    ArrayResize (halfWave_6H4, resize6H4);
-                    w6=0;
-                    priceForMinMax = iOpen(NULL,periodGlobal,q6);
+                    what_8HalfWaveMACDH4=1;
+                    q7 = q6+1;
+                    resize7H4 = (i+2)-q7;
+                    ArrayResize (halfWave_7H4, resize7H4);
+                    w7=0;
+                    priceForMinMax = iOpen(NULL,periodGlobal,q7);
                     thirdMaxLocalNonSymmetric = priceForMinMax;
-                    for(q6;q6<i+2;q6++){
-                        halfWave_6H4[w6]=q6;
-                        priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                        if(thirdMaxLocalNonSymmetric < priceForMinMax){
-                            thirdMaxLocalNonSymmetric = priceForMinMax;
-                            isThirdMax = true;
+                    for(q7;q7<i+2;q7++){
+                        halfWave_7H4[w7]=q7;
+                        priceForMinMax = iOpen(NULL,periodGlobal,q7);
+                        if(fourthMaxLocalNonSymmetric < priceForMinMax){
+                            fourthMaxLocalNonSymmetric = priceForMinMax;
+                            isFourthMax = true;
                         }
-                        w6++;
+                        w7++;
                     }
-isC6Max = true;
                 }
 // Fourth 7 1
-        if(countHalfWaves==6 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
+        if(countHalfWaves==7 && what_6HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0){
             countHalfWaves++;
-            what_7HalfWaveMACDH4=0;
-            q6 = q5 + 1;
-            resize6H4 = (i+2)-q6;
-            ArrayResize (halfWave_6H4, resize6H4);
-            w6=0;
-            priceForMinMax = iOpen(NULL,periodGlobal,q6);
-            thirdMinLocalNonSymmetric = priceForMinMax;
-            for(q6;q6<i+2;q6++){
-                halfWave_6H4[w6]=q6;
-                priceForMinMax = iOpen(NULL,periodGlobal,q6);
-                if(thirdMinLocalNonSymmetric > priceForMinMax){
-                    thirdMinLocalNonSymmetric = priceForMinMax;
-                    isThirdMin = true;
+            what_8HalfWaveMACDH4=0;
+            q7 = q6 + 1;
+            resize7H4 = (i+2)-q7;
+            ArrayResize (halfWave_7H4, resize7H4);
+            w7=0;
+            priceForMinMax = iOpen(NULL,periodGlobal,q7);
+            fourthMinLocalNonSymmetric = priceForMinMax;
+            for(q7;q7<i+2;q7++){
+                halfWave_7H4[w7]=q7;
+                priceForMinMax = iOpen(NULL,periodGlobal,q7);
+                if(fourthMinLocalNonSymmetric > priceForMinMax){
+                    fourthMinLocalNonSymmetric = priceForMinMax;
+                    isFourthMin = true;
                 }
-                w6++;
+                w7++;
             }
-isC6Min = true;
         }
 
 //Fourth 8 0
@@ -1873,10 +1872,10 @@ max для sell
    c5MaxGlobal = thirdMaxLocalNonSymmetric;
 
    foutrhMinGlobal  =   foutrhMinLocalNonSymmetric;
-   fifthMinGlobal   =   fifthMinLocalNonSymmetric;
-   sixthMinGlobal   =   sixthMinLocalNonSymmetric;
    fourthMaxGlobal  =   fourthMaxLocalNonSymmetric;
+   fifthMinGlobal   =   fifthMinLocalNonSymmetric;
    fifthMaxGlobal   =   fifthMaxLocalNonSymmetric;
+   sixthMinGlobal   =   sixthMinLocalNonSymmetric;
    sixthMaxGlobal   =   sixthMaxLocalNonSymmetric;
 
 
