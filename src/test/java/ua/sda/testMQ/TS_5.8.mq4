@@ -75,9 +75,9 @@ void OnTick(void)
    int halfWave0H4[];  int halfWave_1H4[];  int halfWave_2H4[];  int halfWave_3H4[];
    int buyWeight=0,sellWeight=0;
    total=OrdersTotal();
-/*   if(total>0){
+   if(total>0){
     Comment("Open Order");
-   }else{Comment("nothing");}*/
+   }else{Comment("nothing");}
 
 /*      мы убираем
       блок условий по пересечению MACD + MA 83
@@ -1897,8 +1897,8 @@ bool nonSymmTick()
   if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
   if(timeFrameNum == 240){messageGlobalPERIOD_H4 = message;}
   if(timeFrameNum == 1440){messageGlobalPERIOD_D1 = message;}
-int total=OrdersTotal();
-if(total>0){
+  int total=OrdersTotal();
+  if(total>0){
     start = "Open Order";
    }else{start = " ";};
 
