@@ -76,8 +76,8 @@ void OnTick(void)
    int buyWeight=0,sellWeight=0;
    total=OrdersTotal();
    if(total>0){
-    Comment("Open Order");
-   }else{Comment("nothing");}
+    Comment("Open Order, nothing");
+   }
 
 /*      мы убираем
       блок условий по пересечению MACD + MA 83
