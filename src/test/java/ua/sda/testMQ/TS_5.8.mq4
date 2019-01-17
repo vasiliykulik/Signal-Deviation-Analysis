@@ -452,7 +452,7 @@ void OnTick(void)
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Max
+        c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
         && isH1ConsistentForSellFilter3()
@@ -546,7 +546,7 @@ void OnTick(void)
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
-        c5MinGlobal < secondMinGlobal && isC5Min
+        c5MinGlobal < secondMinGlobal && isC6Min
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
         && isH1ConsistentForSellFilter3()
