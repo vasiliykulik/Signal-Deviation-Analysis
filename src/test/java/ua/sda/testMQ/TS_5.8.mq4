@@ -2227,9 +2227,7 @@ bool nonSymmTick()
     string timeFrame;
     countFigures++;
 
-        if(messageGlobalPERIOD_M1 != "nothing"){
-            messageGlobalPERIOD_M1 = StringConcatenate(messageGlobalPERIOD_M1, " + ", message);
-        }
+
         if(messageGlobalPERIOD_M5 != "nothing"){
             messageGlobalPERIOD_M5 = StringConcatenate(messageGlobalPERIOD_M5, " + ", message);
         }
@@ -2247,7 +2245,14 @@ bool nonSymmTick()
         }
 
 
-    if(timeFrameNum == 1){messageGlobalPERIOD_M1 = message;}
+    if(timeFrameNum == 1){
+        if(messageGlobalPERIOD_M1 == "nothing"){
+            messageGlobalPERIOD_M1 = message;
+        } else {
+            messageGlobalPERIOD_M1 = StringConcatenate(messageGlobalPERIOD_M1, " + ", message);
+        }
+
+    }
     if(timeFrameNum == 5){messageGlobalPERIOD_M5 = message;}
     if(timeFrameNum == 15){messageGlobalPERIOD_M15 = message;}
     if(timeFrameNum == 60){messageGlobalPERIOD_H1 = message;}
