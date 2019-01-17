@@ -2282,7 +2282,7 @@ bool nonSymmTick()
         "\n     ", start ,
         "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
         "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
-        "\nPERIOD_M15    ", messageGlobalPERIOD_M15 ,
+        "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
         "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
         "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
         "\nPERIOD_D1     ", messageGlobalPERIOD_D1
