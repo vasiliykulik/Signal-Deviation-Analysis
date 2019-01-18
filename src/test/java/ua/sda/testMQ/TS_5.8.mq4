@@ -17,11 +17,11 @@ double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
 double firstMinGlobalMACD=0.00000000,secondMinGlobalMACD=0.00000000,firstMaxGlobalMACD=0.00000000,secondMaxGlobalMACD=0.00000000;
-double c5MinGlobal=0.00000000,c5MaxGlobal=0.00000000;
+double thirdMinGlobal=0.00000000,thirdMaxGlobal=0.00000000;
 bool isC5Min = false; bool isC5Max = false;
 bool isC6Min = false; bool isC6Max = false;
 
-double foutrhMinGlobal = 0.00000000, fourthMaxGlobal = 0.00000000;
+double fourthMinGlobal = 0.00000000, fourthMaxGlobal = 0.00000000;
 double fifthMinGlobal  = 0.00000000, fifthMaxGlobal  = 0.00000000;
 double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 
@@ -317,20 +317,20 @@ void OnTick(void)
 // Print("Figures Analyzing Block" );
 // Print("firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal );
 // Print("firstMaxGlobal = ", firstMaxGlobal, " secondMaxGlobal", secondMaxGlobal);
-// Print("c5MinGlobal = ", c5MinGlobal, " c5MaxGlobal = ", c5MaxGlobal);
+// Print("thirdMinGlobal = ", thirdMinGlobal, " thirdMaxGlobal = ", thirdMaxGlobal);
 
 
     // Figure 1 "FlagUpContinueUp" v10.6
 
     if(
-        c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal < secondMaxGlobal && isC5Min &&
-        c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < firstMinGlobal && isC6Max
 
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -347,13 +347,13 @@ void OnTick(void)
     // Figure 2 "FlagDownContinueDown" v10.6
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
-        c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > firstMaxGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -370,13 +370,13 @@ void OnTick(void)
     // Figure 3 "TripleUp" v10.6
 
     if(
-        c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal<secondMaxGlobal && c5MaxGlobal < firstMaxGlobal && c5MaxGlobal > firstMinGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal<secondMaxGlobal && thirdMaxGlobal < firstMaxGlobal && thirdMaxGlobal > firstMinGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -393,13 +393,13 @@ void OnTick(void)
     // Figure 4 "TripleDown" v10.6
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal < firstMaxGlobal && c5MinGlobal > firstMinGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal < firstMaxGlobal && thirdMinGlobal > firstMinGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -416,13 +416,13 @@ void OnTick(void)
     // Figure 5 "PennantUp" v10.6
 
     if(
-        c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMinGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < secondMinGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -439,13 +439,13 @@ void OnTick(void)
     // Figure 6 "PennantDown" v10.6
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
-        c5MinGlobal < c5MaxGlobal && c5MinGlobal > secondMaxGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > secondMaxGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -462,13 +462,13 @@ void OnTick(void)
     // Figure 7 "FlagUpDivergenceUp" v10.6
 
     if(
-        c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && // and  this firstMaxGlobal apperantly not obligatory, but we adhere uniformity
         secondMinGlobal<secondMaxGlobal /* this clause is obligatory*/ && isC5Min &&
-        c5MaxGlobal > c5MinGlobal && c5MaxGlobal < firstMinGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < firstMinGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -485,13 +485,13 @@ void OnTick(void)
     // Figure 8 "FlagDownDivergenceDown" v10.6
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal < c5MaxGlobal && c5MinGlobal > firstMaxGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > firstMaxGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -508,13 +508,13 @@ void OnTick(void)
     // Figure 9 "FlagUpShiftUp" v10.6
 
     if(
-        c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal < firstMaxGlobal && c5MaxGlobal < secondMaxGlobal && c5MaxGlobal > firstMinGlobal && c5MaxGlobal > secondMinGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal < firstMaxGlobal && thirdMaxGlobal < secondMaxGlobal && thirdMaxGlobal > firstMinGlobal && thirdMaxGlobal > secondMinGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -526,19 +526,19 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure9FlagUpShiftUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure9FlagUpShiftUp_D1  = true;}
             print("Figure 9 FlagUpShiftUp ", timeFrames[i]);
-//            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+//            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "thirdMaxGlobal = ",thirdMaxGlobal  );
     }
 
     // Figure 10 "FlagDownShiftDown" v 10.6
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal > firstMinGlobal && c5MinGlobal > secondMinGlobal && c5MinGlobal < firstMaxGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal > firstMinGlobal && thirdMinGlobal > secondMinGlobal && thirdMinGlobal < firstMaxGlobal && thirdMinGlobal < secondMaxGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -550,19 +550,19 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure10FlagDownShiftDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure10FlagDownShiftDown_D1  = true;}
             print("Figure 10 FlagDownShiftDown ", timeFrames[i]);
- //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+ //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "thirdMaxGlobal = ",thirdMaxGlobal  );
     }
 
     // Figure 11 "DoubleBottomUp" from this all was started, v10.6
 
     if(
-        c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal>firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal>firstMinGlobal && thirdMinGlobal>secondMinGlobal && thirdMinGlobal>firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal > secondMaxGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal > secondMaxGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -579,13 +579,13 @@ void OnTick(void)
     // Figure 12 "DoubleTopDown" v10.6
 
     if(
-        c5MaxGlobal<firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+        thirdMaxGlobal<firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
-        c5MinGlobal < secondMinGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal < secondMinGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -602,13 +602,13 @@ void OnTick(void)
     // Figure 13 "DivergentChannelUp" from this all was started, v10.6
 
     if(
-        c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal>firstMinGlobal && thirdMinGlobal>secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal > c5MinGlobal && c5MaxGlobal < secondMaxGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < secondMaxGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -625,13 +625,13 @@ void OnTick(void)
     // Figure 14 "DivergentChannelDown" v10.6
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal<secondMinGlobal && isC5Max &&
-        c5MinGlobal<c5MaxGlobal&&  c5MinGlobal > secondMinGlobal && c5MinGlobal < secondMaxGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal<thirdMaxGlobal&&  thirdMinGlobal > secondMinGlobal && thirdMinGlobal < secondMaxGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -649,13 +649,13 @@ void OnTick(void)
     // Figure 15 "BalancedTriangleUp" from this all was started
 
     if(
-        c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+        thirdMinGlobal>firstMinGlobal && thirdMinGlobal>secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
         firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal<secondMaxGlobal && isC5Min &&
-        c5MaxGlobal < firstMaxGlobal && isC6Max
-        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
+        thirdMaxGlobal < firstMaxGlobal && isC6Max
+        /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
         && isSecondHalfWaveCommitedToTrendUpFilter2(secondMinGlobal, timeFrames[i])
         && isMACDNewlyCrossedUpFilter1(timeFrames[i])*/
@@ -672,13 +672,13 @@ void OnTick(void)
     // Figure 16 "BalancedTriangleDown"
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
         firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
-        c5MinGlobal > secondMinGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
+        thirdMinGlobal > secondMinGlobal && isC6Min
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
         && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
         && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
@@ -694,16 +694,15 @@ void OnTick(void)
     // Figure 17 "FlagConfirmationUp"
 
     if(
-        c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
-        firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
-        secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal>secondMinGlobal && isC5Max &&
-        c5MinGlobal > secondMinGlobal && isC6Min
-        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, c5MaxGlobal)
-        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, c5MinGlobal)
-        && isH1ConsistentForSellFilter3()
-        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])
-        && isMACDNewlyCrossedDownFilter1(timeFrames[i])*/
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal &&
+        // firstMaxGlobal к thirdMinGlobal Вот здесь описание уровня "примерно такой же", а именно отношение firstMaxGlobal к thirdMinGlobal, всередине, то есть мы можем сказать что описание этих двух точек одинаково, тоесть они находятся в одном и том же диапазоне. Напрямую между ними, простых, отношений не будет - будут косвенные отношения с другими, но они будут одинаковыми.
+        firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure17FlagConfirmationUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure17FlagConfirmationUp_M5  = true;}
@@ -714,17 +713,38 @@ void OnTick(void)
             print("Figure 17 FlagConfirmationUp ", timeFrames[i]);
     }
 
+    // Figure 18 "FlagConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        // а здесь firstMinGlobal к thirdMaxGlobal Вот здесь описание уровня "примерно такой же", а именно отношение firstMinGlobal к thirdMaxGlobal, всередине, то есть мы можем сказать что описание этих двух точек одинаково, тоесть они находятся в одном и том же диапазоне. Напрямую между ними, простых, отношений не будет - будут косвенные отношения с другими, но они будут одинаковыми.
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure18FlagConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure18FlagConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure18FlagConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure18FlagConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure18FlagConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure18FlagConfirmationDown_D1  = true;}
+            print("Figure 18 FlagConfirmationDown ", timeFrames[i]);
+    }
+
 /*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
 
     // Blocking Figure 9  "BlockingFlagUpShiftUp"
      if(
-            c5MinGlobal<firstMinGlobal && c5MinGlobal<secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+            thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<firstMaxGlobal &&
             firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
             firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
             secondMinGlobal<secondMaxGlobal && isC5Min &&
-            c5MaxGlobal < firstMaxGlobal && isC6Max
+            thirdMaxGlobal < firstMaxGlobal && isC6Max
             ){
                 if(timeFrames[i]==PERIOD_M1) {blockingFigure9BlockingFlagUpShiftUp_M1  = true;}
                 if(timeFrames[i]==PERIOD_M5) {blockingFigure9BlockingFlagUpShiftUp_M5  = true;}
@@ -733,15 +753,15 @@ void OnTick(void)
                 if(timeFrames[i]==PERIOD_H4) {blockingFigure9BlockingFlagUpShiftUp_H4  = true;}
                 if(timeFrames[i]==PERIOD_D1) {blockingFigure9BlockingFlagUpShiftUp_D1  = true;}
                 print("Blocking Figure 9 BlockingFlagUpShiftUp ", timeFrames[i]);
-    //            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+    //            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "thirdMaxGlobal = ",thirdMaxGlobal  );
         }
     // Blocking Figure 10 "BlockingFlagUpShiftDown"
      if(
-            c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal>firstMaxGlobal && c5MaxGlobal>secondMaxGlobal &&
+            thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
             firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
             secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
             firstMinGlobal<secondMinGlobal && isC5Max &&
-            c5MinGlobal > firstMinGlobal && isC6Min
+            thirdMinGlobal > firstMinGlobal && isC6Min
             ){
                 if(timeFrames[i]==PERIOD_M1) {blockingFigure10BlockingFlagUpShiftDown_M1  = true;}
                 if(timeFrames[i]==PERIOD_M5) {blockingFigure10BlockingFlagUpShiftDown_M5  = true;}
@@ -750,15 +770,15 @@ void OnTick(void)
                 if(timeFrames[i]==PERIOD_H4) {blockingFigure10BlockingFlagUpShiftDown_H4  = true;}
                 if(timeFrames[i]==PERIOD_D1) {blockingFigure10BlockingFlagUpShiftDown_D1  = true;}
                 print("Blocking Figure 10 BlockingFlagUpShiftDown ", timeFrames[i]);
-     //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "c5MaxGlobal = ",c5MaxGlobal  );
+     //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "thirdMaxGlobal = ",thirdMaxGlobal  );
         }
     // Blocking Figure 15 "BlockingBalancedTriangleUp"
     if(
-            c5MinGlobal>firstMinGlobal && c5MinGlobal>secondMinGlobal && c5MinGlobal<firstMaxGlobal && c5MinGlobal<secondMaxGlobal &&
+            thirdMinGlobal>firstMinGlobal && thirdMinGlobal>secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
             firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
             firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
             secondMinGlobal<secondMaxGlobal && isC5Min &&
-            c5MaxGlobal > firstMaxGlobal && isC6Max
+            thirdMaxGlobal > firstMaxGlobal && isC6Max
             ){
                 if(timeFrames[i]==PERIOD_M1) {blockingFigure15BlockingBalancedTriangleUp_M1  = true;}
                 if(timeFrames[i]==PERIOD_M5) {blockingFigure15BlockingBalancedTriangleUp_M5  = true;}
@@ -770,11 +790,11 @@ void OnTick(void)
         }
     // Blocking Figure 16 "BlockingBalancedTriangleUp"
     if(
-            c5MaxGlobal>firstMinGlobal && c5MaxGlobal>secondMinGlobal && c5MaxGlobal<firstMaxGlobal && c5MaxGlobal<secondMaxGlobal &&
+            thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
             firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
             secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
             firstMinGlobal>secondMinGlobal && isC5Max &&
-            c5MinGlobal < firstMinGlobal && isC6Min
+            thirdMinGlobal < firstMinGlobal && isC6Min
             ){
                 if(timeFrames[i]==PERIOD_M1) {blockingFigure16BlockingBalancedTriangleUp_M1  = true;}
                 if(timeFrames[i]==PERIOD_M5) {blockingFigure16BlockingBalancedTriangleUp_M5  = true;}
@@ -1924,10 +1944,10 @@ max для sell
    secondMaxGlobalMACD = secondMaxLocalNonSymmetricMACD;
 //   Print("thirdMinLocalNonSymmetric", thirdMinLocalNonSymmetric);
 //   Print("thirdMaxLocalNonSymmetric", thirdMaxLocalNonSymmetric);
-   c5MinGlobal = thirdMinLocalNonSymmetric;
-   c5MaxGlobal = thirdMaxLocalNonSymmetric;
+   thirdMinGlobal = thirdMinLocalNonSymmetric;
+   thirdMaxGlobal = thirdMaxLocalNonSymmetric;
 
-   foutrhMinGlobal  =   fourthMinLocalNonSymmetric;
+   fourthMinGlobal  =   fourthMinLocalNonSymmetric;
    fourthMaxGlobal  =   fourthMaxLocalNonSymmetric;
    fifthMinGlobal   =   fifthMinLocalNonSymmetric;
    fifthMaxGlobal   =   fifthMaxLocalNonSymmetric;
