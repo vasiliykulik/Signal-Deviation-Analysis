@@ -734,6 +734,55 @@ void OnTick(void)
             print("Figure 18 FlagConfirmationDown ", timeFrames[i]);
     }
 
+    // Figure 19 "HeadAndShouldersConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal &&
+        // firstMinGlobal and secondMaxGlobal approximately on one level so this relation leave undefined in simple context, description will be indirect, relative to other points, as we can restrict within some channel
+        && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        // secondMinGlobal and fourthMinGlobal have no simple relation, restricted within upper and lower channels
+        secondMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        fourthMinGlobal < fourthMaxGlobal
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure19HeadAndShouldersConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure19HeadAndShouldersConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure19HeadAndShouldersConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure19HeadAndShouldersConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure19HeadAndShouldersConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure19HeadAndShouldersConfirmationUp_D1  = true;}
+            print("Figure 19 HeadAndShouldersConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 20 "HeadAndShouldersConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal &&
+        // firstMaxGlobal and secondMinGlobal
+        firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal >fourthMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        // secondMaxGlobal and fourthMaxGlobal
+        secondMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMaxGlobal
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure18HeadAndShouldersConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure18HeadAndShouldersConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure18HeadAndShouldersConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure18HeadAndShouldersConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure18HeadAndShouldersConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure18HeadAndShouldersConfirmationDown_D1  = true;}
+            print("Figure 20 HeadAndShouldersConfirmationDown ", timeFrames[i]);
+    }
+
 /*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
