@@ -785,11 +785,9 @@ void OnTick(void)
 
     // Figure 21 "WedgeUp"
 
-
-
     if(
         firstMinGlobal < firstMaxGlobal &&
-        secondMinGlobal > channelLimiterForBuy(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than. *min > max -fmm(Buy) *max < min+fmm (Sell). For outer border of channel description
+        secondMinGlobal > channelLimiterForLowerEdgeMaxMinMin(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than. *min > max -fmm(Buy) *max < min+fmm (Sell). For outer border of channel description
         firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
         firstMaxGlobal > secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         // firstMaxGlobal and thirdMinGlobal // just do not to descript, relation will be clarify by simple comparisons between another points
@@ -812,7 +810,7 @@ void OnTick(void)
 
     if(
         firstMaxGlobal > firstMinGlobal &&
-        secondMaxGlobal < channelLimiterForSell(firstMinGlobal, firstMaxGlobal,secondMaxGlobal) &&
+        secondMaxGlobal < channelLimiterForUpperEdgeMinMaxMax(firstMinGlobal, firstMaxGlobal,secondMaxGlobal) &&
         firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
         firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && /*firstMinGlobal and thirdMaxGlobal*/ firstMinGlobal > thirdMinGlobal &&
         secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
@@ -827,6 +825,87 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure22WedgeDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure22WedgeDown_D1  = true;}
             print("Figure 22 WedgeDown ", timeFrames[i]);
+    }
+
+    // Figure 23 "DiamondUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal<secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure23DiamondUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure23DiamondUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure23DiamondUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure23DiamondUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure23DiamondUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure23DiamondUp_D1  = true;}
+            print("Figure 23 DiamondUp ", timeFrames[i]);
+    }
+
+    // Figure 24 "DiamondDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure24DiamondDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure24DiamondDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure24DiamondDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure24DiamondDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure24DiamondDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure24DiamondDown_D1  = true;}
+            print("Figure 24 DiamondDown ", timeFrames[i]);
+    }
+
+    // Figure 25 "TriangleConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal > fourthMaxGlobal && firstMinGlobal > fifthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fourthMaxGlobal && firstMaxGlobal > fifthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal >fourthMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fifthMinGlobal
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMinGlobal && secondMaxGlobal > fifthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal  && thirdMinGlobal > fifthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fifthMinGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal > fifthMinGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure25TriangleConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure25TriangleConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure25TriangleConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure25TriangleConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure25TriangleConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure25TriangleConfirmationUp_D1  = true;}
+            print("Figure 25 TriangleConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 26 "TriangleConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < secondMinGlobal && firstMaxGlobal < thirdMaxGlobal  && firstMaxGlobal < thirdMinGlobal &&  firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal < fourthMinGlobal && firstMaxGlobal < fifthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal &&  firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fourthMinGlobal  && firstMinGlobal < fifthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fifthMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fifthMaxGlobal
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fifthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fifthMaxGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal < fifthMaxGlobal &&
+        fourthMinGlobal < fifthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure26TriangleConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure26TriangleConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure26TriangleConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure26TriangleConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure26TriangleConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure26TriangleConfirmationDown_D1  = true;}
+            print("Figure 26 TriangleConfirmationDown ", timeFrames[i]);
     }
 
 /*
@@ -1306,6 +1385,8 @@ bool nonSymm()
 
    isC5Min = false;
    isC5Max = false;
+   isC6Min = false;
+   isC6Max = false;
 
    for(begin=0;isMACDReady; begin++)
      {
@@ -2509,7 +2590,7 @@ bool nonSymmTick()
         return trendNoError;
     }
 
-    double channelLimiterForBuy(double max, double min1, double min2){
+    double channelLimiterForLowerEdgeMaxMinMin(double max, double min1, double min2){
         double fmm;
         if(min1 < min2){
             fmm = (max - min2)*2; // deltaMin*2
@@ -2519,7 +2600,7 @@ bool nonSymmTick()
         return max - fmm; // returns lower visual border of channel minimalDelta*2
     }
 
-    double channelLimiterForSell(double min, double max1, double max2){
+    double channelLimiterForUpperEdgeMinMaxMax(double min, double max1, double max2){
         double fmm;
         if(max1 < max2){
             fmm = (max1 - min)*2; // deltaMax*2
