@@ -739,15 +739,15 @@ void OnTick(void)
     if(
         firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal &&
         // firstMinGlobal and secondMaxGlobal approximately on one level so this relation leave undefined in simple context, description will be indirect, relative to other points, as we can restrict within some channel
-        && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal
+        firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal &&
         secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
         // secondMinGlobal and fourthMinGlobal have no simple relation, restricted within upper and lower channels
         secondMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal &&
         thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
-        fourthMinGlobal < fourthMaxGlobal
+        fourthMinGlobal < fourthMaxGlobal &&
         isC5Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure19HeadAndShouldersConfirmationUp_M1  = true;}
@@ -771,15 +771,15 @@ void OnTick(void)
         secondMaxGlobal > fourthMinGlobal &&
         secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal &&
         thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal &&
-        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMaxGlobal
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMaxGlobal &&
         isC5Max
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure18HeadAndShouldersConfirmationDown_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure18HeadAndShouldersConfirmationDown_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure18HeadAndShouldersConfirmationDown_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure18HeadAndShouldersConfirmationDown_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure18HeadAndShouldersConfirmationDown_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure18HeadAndShouldersConfirmationDown_D1  = true;}
+            if(timeFrames[i]==PERIOD_M1) {figure20HeadAndShouldersConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure20HeadAndShouldersConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure20HeadAndShouldersConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure20HeadAndShouldersConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure20HeadAndShouldersConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure20HeadAndShouldersConfirmationDown_D1  = true;}
             print("Figure 20 HeadAndShouldersConfirmationDown ", timeFrames[i]);
     }
 
@@ -789,17 +789,14 @@ void OnTick(void)
 
     if(
         firstMinGlobal < firstMaxGlobal &&
-        secondMinGlobal > channelLimiterForBuy(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than
-        //
-        && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal
-        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
-        // secondMinGlobal and fourthMinGlobal have no simple relation, restricted within upper and lower channels
-        secondMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal
-        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
-        fourthMinGlobal < fourthMaxGlobal
+        secondMinGlobal > channelLimiterForBuy(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than. *min > max -fmm(Buy) *max < min+fmm (Sell). For outer border of channel description
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
+        // firstMaxGlobal and thirdMinGlobal // just do not to descript, relation will be clarify by simple comparisons between another points
+        firstMaxGlobal < thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
         isC5Min
         ){
             if(timeFrames[i]==PERIOD_M1) {figure21WedgeUp_M1  = true;}
@@ -814,16 +811,13 @@ void OnTick(void)
     // Figure 22 "WedgeDown"
 
     if(
-        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal &&
-        // firstMaxGlobal and secondMinGlobal
-        firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal >fourthMinGlobal &&
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fourthMinGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
-        // secondMaxGlobal and fourthMaxGlobal
-        secondMaxGlobal > fourthMinGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal &&
-        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMaxGlobal
+        firstMaxGlobal > firstMinGlobal &&
+        secondMaxGlobal < channelLimiterForSell(firstMinGlobal, firstMaxGlobal,secondMaxGlobal) &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && /*firstMinGlobal and thirdMaxGlobal*/ firstMinGlobal > thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
         isC5Max
         ){
             if(timeFrames[i]==PERIOD_M1) {figure22WedgeDown_M1  = true;}
