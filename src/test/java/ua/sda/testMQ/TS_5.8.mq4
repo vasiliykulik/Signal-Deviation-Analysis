@@ -783,6 +783,58 @@ void OnTick(void)
             print("Figure 20 HeadAndShouldersConfirmationDown ", timeFrames[i]);
     }
 
+    // Figure 21 "WedgeUp"
+
+
+
+    if(
+        firstMinGlobal < firstMaxGlobal &&
+        secondMinGlobal > channelLimiterForBuy(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than
+        //
+        && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        // secondMinGlobal and fourthMinGlobal have no simple relation, restricted within upper and lower channels
+        secondMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        fourthMinGlobal < fourthMaxGlobal
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure21WedgeUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure21WedgeUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure21WedgeUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure21WedgeUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure21WedgeUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure21WedgeUp_D1  = true;}
+            print("Figure 21 WedgeUp ", timeFrames[i]);
+    }
+
+    // Figure 22 "WedgeDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal &&
+        // firstMaxGlobal and secondMinGlobal
+        firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal >fourthMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        // secondMaxGlobal and fourthMaxGlobal
+        secondMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMaxGlobal
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure22WedgeDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure22WedgeDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure22WedgeDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure22WedgeDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure22WedgeDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure22WedgeDown_D1  = true;}
+            print("Figure 22 WedgeDown ", timeFrames[i]);
+    }
+
 /*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
@@ -2461,4 +2513,24 @@ bool nonSymmTick()
             trendNoError = false;
         }
         return trendNoError;
+    }
+
+    double channelLimiterForBuy(double max, double min1, double min2){
+        double fmm;
+        if(min1 < min2){
+            fmm = (max - min2)*2; // deltaMin*2
+        } else {
+            fmm = (max - min1)*2;
+        }
+        return max - fmm; // returns lower visual border of channel minimalDelta*2
+    }
+
+    double channelLimiterForSell(double min, double max1, double max2){
+        double fmm;
+        if(max1 < max2){
+            fmm = (max1 - min)*2; // deltaMax*2
+        } else {
+            fmm = (max2 - min)*2;
+        }
+        return min + fmm; // returns upper visual border of channel minimalDelta*2
     }
