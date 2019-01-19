@@ -1000,6 +1000,94 @@ void OnTick(void)
     }
 
 
+
+    // Figure 31 "DivergentFlagConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure31DivergentFlagConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure31DivergentFlagConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure31DivergentFlagConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure31DivergentFlagConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure31DivergentFlagConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure31DivergentFlagConfirmationUp_D1  = true;}
+            print("Figure 31 DivergentFlagConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 32 "DivergentFlagConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure32DivergentFlagConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure32DivergentFlagConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure32DivergentFlagConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure32DivergentFlagConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure32DivergentFlagConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure32DivergentFlagConfirmationDown_D1  = true;}
+            print("Figure 32 DivergentFlagConfirmationDown ", timeFrames[i]);
+    }
+
+    // Figure 33 "FlagWedgeForelockConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && /*firstMinGlobal and fourthMaxGlobal */&& firstMinGlobal > fifthMinGlobal && /*firstMinGlobal and fifthMaxGlobal*/
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fourthMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fifthMinGlobal &&
+        fourthMinGlobal > fifthMinGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure33FlagWedgeForelockConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure33FlagWedgeForelockConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure33FlagWedgeForelockConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure33FlagWedgeForelockConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure33FlagWedgeForelockConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure33FlagWedgeForelockConfirmationUp_D1  = true;}
+            print("Figure 33 FlagWedgeForelockConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 34 "FlagWedgeForelockConfirmationDown"
+// TODO
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < secondMinGlobal && firstMaxGlobal < thirdMaxGlobal  && firstMaxGlobal < thirdMinGlobal &&  firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal < fourthMinGlobal && firstMaxGlobal < fifthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal &&  firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fourthMinGlobal  && firstMinGlobal < fifthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fifthMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fifthMaxGlobal
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fifthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fifthMaxGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal < fifthMaxGlobal &&
+        fourthMinGlobal < fifthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure34FlagWedgeForelockConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure34FlagWedgeForelockConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure34FlagWedgeForelockConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure34FlagWedgeForelockConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure34FlagWedgeForelockConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure34FlagWedgeForelockConfirmationDown_D1  = true;}
+            print("Figure 34 FlagWedgeForelockConfirmationDown ", timeFrames[i]);
+    }
+
+
+
+
+
 /*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
