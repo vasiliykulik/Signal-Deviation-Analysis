@@ -985,7 +985,7 @@ void OnTick(void)
         thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fifthMaxGlobal && thirdMaxGlobal > fifthMinGlobal && thirdMaxGlobal > sixthMaxGlobal &&
         thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fifthMaxGlobal && thirdMinGlobal >fifthMinGlobal && thirdMinGlobal > sixthMaxGlobal &&
         fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal> sixthMaxGlobal &&
-        fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal < fifthMinGlobal && fourthMaxGlobal < sixthMaxGlobal &&
+        fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal < fifthMinGlobal && fourthMinGlobal < sixthMaxGlobal &&
         fifthMaxGlobal > fifthMinGlobal && /*fifthMaxGlobal and sixthMaxGlobal*/
         fifthMinGlobal < sixthMaxGlobal &&
         isC5Max
@@ -1287,6 +1287,101 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure44ChannelFlagDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure44ChannelFlagDown_D1  = true;}
             print("Figure 44 ChannelFlagDown ", timeFrames[i]);
+    }
+
+    // Figure 45 "PennantAfterWedgeConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal > fourthMaxGlobal && firstMinGlobal > fifthMinGlobal && firstMinGlobal > fifthMaxGlobal && firstMinGlobal > sixthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fourthMaxGlobal && firstMaxGlobal > fifthMinGlobal && firstMaxGlobal > fifthMaxGlobal && firstMaxGlobal > sixthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal > fourthMaxGlobal && secondMinGlobal > fifthMinGlobal && secondMinGlobal > fifthMaxGlobal && secondMinGlobal > sixthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal > fourthMaxGlobal && secondMinGlobal > fifthMinGlobal && secondMaxGlobal > fifthMaxGlobal && secondMinGlobal > sixthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fourthMaxGlobal && thirdMinGlobal > fifthMinGlobal && thirdMinGlobal > fifthMaxGlobal && thirdMinGlobal > sixthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fourthMaxGlobal && thirdMaxGlobal > fifthMinGlobal && thirdMaxGlobal > fifthMaxGlobal && thirdMaxGlobal > sixthMinGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal < fifthMinGlobal && fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal < sixthMinGlobal &&
+        fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal < fifthMaxGlobal && fourthMaxGlobal > sixthMinGlobal &&
+        fifthMinGlobal < fifthMaxGlobal && fifthMaxGlobal > sixthMinGlobal &&
+        fifthMaxGlobal > sixthMinGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure45PennantAfterWedgeConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure45PennantAfterWedgeConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure45PennantAfterWedgeConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure45PennantAfterWedgeConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure45PennantAfterWedgeConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure45PennantAfterWedgeConfirmationUp_D1  = true;}
+            print("Figure 45 PennantAfterWedgeConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 46 "PennantAfterWedgeConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal < fourthMinGlobal && firstMaxGlobal < fifthMaxGlobal && firstMaxGlobal < fifthMinGlobal && firstMaxGlobal < sixthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fourthMinGlobal && firstMinGlobal < fifthMaxGlobal  firstMinGlobal < fifthMinGlobal && firstMinGlobal < sixthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal  && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal < fourthMinGlobal && secondMaxGlobal < fifthMaxGlobal && secondMaxGlobal < fifthMinGlobal && secondMaxGlobal < sixthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fourthMinGlobal && secondMinGlobal < fifthMaxGlobal && secondMinGlobal < fifthMinGlobal && secondMinGlobal < sixthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal < fourthMinGlobal && thirdMaxGlobal < fifthMaxGlobal && thirdMaxGlobal < fifthMinGlobal && thirdMaxGlobal < sixthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fifthMaxGlobal && thirdMinGlobal <fifthMinGlobal && thirdMinGlobal < sixthMaxGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal> sixthMaxGlobal &&
+        fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal > fifthMinGlobal && fourthMinGlobal < sixthMaxGlobal &&
+        fifthMaxGlobal > fifthMinGlobal && fifthMaxGlobal < sixthMaxGlobal &&
+        fifthMinGlobal < sixthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure46PennantAfterWedgeConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure46PennantAfterWedgeConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure46PennantAfterWedgeConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure46PennantAfterWedgeConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure46PennantAfterWedgeConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure46PennantAfterWedgeConfirmationDown_D1  = true;}
+            print("Figure 46 PennantAfterWedgeConfirmationDown ", timeFrames[i]);
+    }
+
+    // Figure 47 "PennantAfterFlagConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal > fourthMaxGlobal && firstMinGlobal > fifthMinGlobal && firstMinGlobal > fifthMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fourthMaxGlobal && firstMaxGlobal > fifthMinGlobal && firstMaxGlobal > fifthMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal > fourthMaxGlobal && secondMinGlobal > fifthMinGlobal && secondMinGlobal > fifthMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal > fourthMaxGlobal && secondMinGlobal > fifthMinGlobal && secondMaxGlobal > fifthMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fourthMaxGlobal && thirdMinGlobal > fifthMinGlobal && thirdMinGlobal > fifthMaxGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fourthMaxGlobal && thirdMaxGlobal > fifthMinGlobal && thirdMaxGlobal > fifthMaxGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal > fifthMinGlobal && fourthMinGlobal > fifthMaxGlobal &&
+        fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal > fifthMaxGlobal &&
+        fifthMinGlobal < fifthMaxGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure47PennantAfterFlagConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure47PennantAfterFlagConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure47PennantAfterFlagConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure47PennantAfterFlagConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure47PennantAfterFlagConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure47PennantAfterFlagConfirmationUp_D1  = true;}
+            print("Figure 47 PennantAfterFlagConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 48 "PennantAfterFlagConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal < fourthMinGlobal && firstMaxGlobal < fifthMaxGlobal && firstMaxGlobal < fifthMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fourthMinGlobal && firstMinGlobal < fifthMaxGlobal  firstMinGlobal < fifthMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal  && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal < fourthMinGlobal && secondMaxGlobal < fifthMaxGlobal && secondMaxGlobal < fifthMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fourthMinGlobal && secondMinGlobal < fifthMaxGlobal && secondMinGlobal < fifthMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal < fourthMinGlobal && thirdMaxGlobal < fifthMaxGlobal && thirdMaxGlobal < fifthMinGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fourthMinGlobal && thirdMinGlobal < fifthMaxGlobal && thirdMinGlobal <fifthMinGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal < fifthMaxGlobal && fourthMaxGlobal < fifthMinGlobal &&
+        fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal < fifthMinGlobal &&
+        fifthMaxGlobal > fifthMinGlobal &&
+
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure48PennantAfterFlagConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure48PennantAfterFlagConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure48PennantAfterFlagConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure48PennantAfterFlagConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure48PennantAfterFlagConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure48PennantAfterFlagConfirmationDown_D1  = true;}
+            print("Figure 48 PennantAfterFlagConfirmationDown ", timeFrames[i]);
     }
 
 
