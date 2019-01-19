@@ -932,11 +932,10 @@ void OnTick(void)
     // Figure 28 "ModerateDivergentFlagConfirmationDown"
 
     if(
-        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
-        // а здесь firstMinGlobal к thirdMaxGlobal Вот здесь описание уровня "примерно такой же", а именно отношение firstMinGlobal к thirdMaxGlobal, всередине, то есть мы можем сказать что описание этих двух точек одинаково, тоесть они находятся в одном и том же диапазоне. Напрямую между ними, простых, отношений не будет - будут косвенные отношения с другими, но они будут одинаковыми.
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && /*secondMaxGlobal and thirdMinGlobal */&& secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
         thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
         thirdMinGlobal < fourthMaxGlobal &&
         isC5Max
@@ -948,6 +947,52 @@ void OnTick(void)
             if(timeFrames[i]==PERIOD_H4) {figure28ModerateDivergentFlagConfirmationDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure28ModerateDivergentFlagConfirmationDown_D1  = true;}
             print("Figure 28 ModerateDivergentFlagConfirmationDown ", timeFrames[i]);
+    }
+
+
+
+    // Figure 29 "DoubleBottomConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fifthMinGlobal && firstMinGlobal < fifthMaxGlobal && firstMinGlobal < sixthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal < fifthMinGlobal && firstMaxGlobal < fifthMaxGlobal && firstMaxGlobal < sixthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && /*secondMinGlobal and thirdMinGlobal*/ secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fifthMinGlobal && secondMinGlobal < fifthMaxGlobal && secondMinGlobal < sixthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMinGlobal < fifthMinGlobal && secondMaxGlobal < fifthMaxGlobal && secondMinGlobal < sixthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fifthMinGlobal && thirdMinGlobal < fifthMaxGlobal && thirdMinGlobal < sixthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal < fifthMinGlobal && thirdMaxGlobal < fifthMaxGlobal && thirdMaxGlobal < sixthMinGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal < fifthMinGlobal && fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal < sixthMinGlobal &&
+        fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > sixthMinGlobal &&
+        fifthMinGlobal < fifthMaxGlobal && /*fifthMaxGlobal and sixthMinGlobal*/
+        fifthMaxGlobal > sixthMinGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure29DoubleBottomConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure29DoubleBottomConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure29DoubleBottomConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure29DoubleBottomConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure29DoubleBottomConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure29DoubleBottomConfirmationUp_D1  = true;}
+            print("Figure 29 DoubleBottomConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 30 "DoubleTopConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && /*secondMaxGlobal and thirdMinGlobal */&& secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure30DoubleTopConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure30DoubleTopConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure30DoubleTopConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure30DoubleTopConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure30DoubleTopConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure30DoubleTopConfirmationDown_D1  = true;}
+            print("Figure 30 DoubleTopConfirmationDown ", timeFrames[i]);
     }
 
 
