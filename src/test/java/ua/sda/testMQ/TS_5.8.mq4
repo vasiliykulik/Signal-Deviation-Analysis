@@ -908,6 +908,49 @@ void OnTick(void)
             print("Figure 26 TriangleConfirmationDown ", timeFrames[i]);
     }
 
+
+    // Figure 27 "ModerateDivergentFlagConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && /*secondMinGlobal and thirdMaxGlobal */&& secondMinGlobal > fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure27ModerateDivergentFlagConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure27ModerateDivergentFlagConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure27ModerateDivergentFlagConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure27ModerateDivergentFlagConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure27ModerateDivergentFlagConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure27ModerateDivergentFlagConfirmationUp_D1  = true;}
+            print("Figure 27 ModerateDivergentFlagConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 28 "ModerateDivergentFlagConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        // а здесь firstMinGlobal к thirdMaxGlobal Вот здесь описание уровня "примерно такой же", а именно отношение firstMinGlobal к thirdMaxGlobal, всередине, то есть мы можем сказать что описание этих двух точек одинаково, тоесть они находятся в одном и том же диапазоне. Напрямую между ними, простых, отношений не будет - будут косвенные отношения с другими, но они будут одинаковыми.
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure28ModerateDivergentFlagConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure28ModerateDivergentFlagConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure28ModerateDivergentFlagConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure28ModerateDivergentFlagConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure28ModerateDivergentFlagConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure28ModerateDivergentFlagConfirmationDown_D1  = true;}
+            print("Figure 28 ModerateDivergentFlagConfirmationDown ", timeFrames[i]);
+    }
+
+
 /*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
