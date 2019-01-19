@@ -232,6 +232,7 @@ void OnTick(void)
       bool isM1FigureUpBlocked = false; bool isM5FigureUpBlocked = false; bool isM15FigureUpBlocked = false; bool isH1FigureUpBlocked = false; bool isH4FigureUpBlocked = false; bool isD1FigureUpBlocked = false;
       bool isM1FigureDownBlocked = false; bool isM5FigureDownBlocked = false; bool isM15FigureDownBlocked = false; bool isH1FigureDownBlocked = false; bool isH4FigureDownBlocked = false; bool isD1FigureDownBlocked = false;
 
+bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9PositionFigureUp_M15 = false, is11PositionFigureDown_M15 = false, is10PositionFigureDown_M15 = false, is9PositionFigureDown_M15 = false;
 
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
@@ -1636,26 +1637,21 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isH4FigureDown =  figure2FlagDownContinueDown_H4 || figure4TripleDown_H4 || figure6PennantDown_H4 || figure8FlagDownDivergenceDown_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTopDown_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4;
      isD1FigureDown =  figure2FlagDownContinueDown_D1 || figure4TripleDown_D1 || figure6PennantDown_D1 || figure8FlagDownDivergenceDown_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTopDown_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1;
 
-isM1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M1 || blockingFigure15BlockingBalancedTriangleUp_M1;
-isM5FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M5 || blockingFigure15BlockingBalancedTriangleUp_M5;
-isM15FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_M15 || blockingFigure15BlockingBalancedTriangleUp_M15;
-isH1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_H1 || blockingFigure15BlockingBalancedTriangleUp_H1;
-isH4FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_H4 || blockingFigure15BlockingBalancedTriangleUp_H4;
-isD1FigureUpBlocked =  blockingFigure9BlockingFlagUpShiftUp_D1 || blockingFigure15BlockingBalancedTriangleUp_D1;
 
+is11PositionFigureUp_M15    = figure29DoubleBottomConfirmationUp_M15 ||figure45PennantAfterWedgeConfirmationUp_M15;
+is10PositionFigureUp_M15    = figure47PennantAfterFlagConfirmationUp_M15 || figure49DoublePennantAfterConfirmationUp_M15;
+is9PositionFigureUp_M15     = figure25TriangleConfirmationUp_M15 || figure39RollbackChannelPennantConfirmationUp_M15;
 
-isM1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_M1 || blockingFigure16BlockingBalancedTriangleUp_M1;
-isM5FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_M5 || blockingFigure16BlockingBalancedTriangleUp_M5;
-isM15FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_M15 || blockingFigure16BlockingBalancedTriangleUp_M15;
-isH1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_H1 || blockingFigure16BlockingBalancedTriangleUp_H1;
-isH4FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_H4 || blockingFigure16BlockingBalancedTriangleUp_H4;
-isD1FigureDownBlocked = blockingFigure10BlockingFlagUpShiftDown_D1 || blockingFigure16BlockingBalancedTriangleUp_D1;
-
+is11PositionFigureDown_M15  = figure30DoubleTopConfirmationDown_M15 || figure46PennantAfterWedgeConfirmationDown_M15;
+is10PositionFigureDown_M15  = figure48PennantAfterFlagConfirmationDown_M15 || figure50DoublePennantAfterConfirmationDown_M15;
+is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40RollbackChannelPennantConfirmationDown_M15;
 
 
       if
       (
-isH1FigureUp
+is11PositionFigureUp_M15 &&
+is10PositionFigureUp_M15&&
+is9PositionFigureUp_M15
       )
 
       {
@@ -1685,12 +1681,14 @@ Print( " blockingFigure9BlockingFlagUpShiftUp_M15 = , ",blockingFigure9BlockingF
 Print(" blockingFigure9BlockingFlagUpShiftUp_H1 = ", blockingFigure9BlockingFlagUpShiftUp_H1, " blockingFigure15BlockingBalancedTriangleUp_H1 = ", blockingFigure15BlockingBalancedTriangleUp_H1);
 Print(" blockingFigure9BlockingFlagUpShiftUp_H4 = ", blockingFigure9BlockingFlagUpShiftUp_H4, " blockingFigure15BlockingBalancedTriangleUp_H4 = ", blockingFigure15BlockingBalancedTriangleUp_H4);
 Print(" blockingFigure9BlockingFlagUpShiftUp_D1 = ", blockingFigure9BlockingFlagUpShiftUp_D1, " blockingFigure15BlockingBalancedTriangleUp_D1 = ", blockingFigure15BlockingBalancedTriangleUp_D1);*/
-//      buy=1;
+      buy=1;
       }
 
       if
       (
-isH1FigureDown
+is11PositionFigureDown_M15 &&
+is10PositionFigureDown_M15&&
+is9PositionFigureDown_M15
       )
 
       {
@@ -1717,7 +1715,7 @@ Print(" blockingFigure10BlockingFlagUpShiftDown_H1 = ",blockingFigure10BlockingF
 Print(" blockingFigure10BlockingFlagUpShiftDown_H4 = ",blockingFigure10BlockingFlagUpShiftDown_H4, " blockingFigure16BlockingBalancedTriangleUp_H4 = ", blockingFigure16BlockingBalancedTriangleUp_H4);
 Print(" blockingFigure10BlockingFlagUpShiftDown_D1 = ",blockingFigure10BlockingFlagUpShiftDown_D1, " blockingFigure16BlockingBalancedTriangleUp_D1 = ", blockingFigure16BlockingBalancedTriangleUp_D1);*/
 
- //sell=1;
+sell=1;
  }
 
       if(AccountFreeMargin()<(1*Lots))
