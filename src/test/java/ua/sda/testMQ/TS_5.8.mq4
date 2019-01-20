@@ -223,6 +223,8 @@ void OnTick(void)
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
       bool isM1FigureDown =  false; bool isM5FigureDown =  false; bool isM15FigureDown = false; bool isH1FigureDown = false; bool isH4FigureDown = false; bool isD1FigureDown = false;
 
+      bool isFigureUp = false; bool isFigureDown = false;
+
 
       bool blockingFigure9BlockingFlagUpShiftUp_M1 = false;         bool blockingFigure9BlockingFlagUpShiftUp_M5 = false;       bool blockingFigure9BlockingFlagUpShiftUp_M15 = false;       bool blockingFigure9BlockingFlagUpShiftUp_H1 = false;       bool blockingFigure9BlockingFlagUpShiftUp_H4 = false;       bool blockingFigure9BlockingFlagUpShiftUp_D1 = false;
       bool blockingFigure10BlockingFlagUpShiftDown_M1 = false;      bool blockingFigure10BlockingFlagUpShiftDown_M5 = false;    bool blockingFigure10BlockingFlagUpShiftDown_M15 = false;    bool blockingFigure10BlockingFlagUpShiftDown_H1 = false;    bool blockingFigure10BlockingFlagUpShiftDown_H4 = false;    bool blockingFigure10BlockingFlagUpShiftDown_D1 = false;
@@ -1674,6 +1676,9 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isM5FigureDown  =  figure2FlagDownContinueDown_M5 || figure4TripleDown_M5 || figure6PennantDown_M5 || figure8FlagDownDivergenceDown_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTopDown_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5 || figure18FlagConfirmationDown_M5 || figure20HeadAndShouldersConfirmationDown_M5 || figure22WedgeDown_M5 || figure24DiamondDown_M5 || figure26TriangleConfirmationDown_M5 || figure28ModerateDivergentFlagConfirmationDown_M5 || figure30DoubleTopConfirmationDown_M5 || figure32DivergentFlagConfirmationDown_M5 || figure34FlagWedgeForelockConfirmationDown_M5 || figure36TripleTopConfirmationDown_M5 || figure38PennantWedgeDown_M5 || figure40RollbackChannelPennantConfirmationDown_M5 || figure42MoreDivergentFlagConfirmationDown_M5 || figure44ChannelFlagDown_M5 || figure46PennantAfterWedgeConfirmationDown_M5 || figure48PennantAfterFlagConfirmationDown_M5 || figure50DoublePennantAfterConfirmationDown_M5 || figure52WedgeConfirmationDown_M5;
      isM1FigureDown  =  figure2FlagDownContinueDown_M1 || figure4TripleDown_M1 || figure6PennantDown_M1 || figure8FlagDownDivergenceDown_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTopDown_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1 || figure18FlagConfirmationDown_M1 || figure20HeadAndShouldersConfirmationDown_M1 || figure22WedgeDown_M1 || figure24DiamondDown_M1 || figure26TriangleConfirmationDown_M1 || figure28ModerateDivergentFlagConfirmationDown_M1 || figure30DoubleTopConfirmationDown_M1 || figure32DivergentFlagConfirmationDown_M1 || figure34FlagWedgeForelockConfirmationDown_M1 || figure36TripleTopConfirmationDown_M1 || figure38PennantWedgeDown_M1 || figure40RollbackChannelPennantConfirmationDown_M1 || figure42MoreDivergentFlagConfirmationDown_M1 || figure44ChannelFlagDown_M1 || figure46PennantAfterWedgeConfirmationDown_M1 || figure48PennantAfterFlagConfirmationDown_M1 || figure50DoublePennantAfterConfirmationDown_M1 || figure52WedgeConfirmationDown_M1;
 
+     isFigureUp     = isD1FigureUp || isH4FigureUp || isH1FigureUp || isM15FigureUp|| isM5FigureUp || isM1FigureUp;
+     isFigureDown   = isD1FigureDown || isH4FigureDown || isH1FigureDown || isM15FigureDown || isM5FigureDown || isM1FigureDown;
+
 
 is11PositionFigureUp_M15    = figure29DoubleBottomConfirmationUp_M15 ||figure45PennantAfterWedgeConfirmationUp_M15;
 is10PositionFigureUp_M15    = figure47PennantAfterFlagConfirmationUp_M15 || figure49DoublePennantAfterConfirmationUp_M15;
@@ -1686,9 +1691,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
       if
       (
-is11PositionFigureUp_M15 &&
-is10PositionFigureUp_M15&&
-is9PositionFigureUp_M15
+isFigureUp
       )
 
       {
@@ -1777,9 +1780,7 @@ Print("figure49DoublePennantAfterConfirmationUp_D1 = ",figure49DoublePennantAfte
 
       if
       (
-is11PositionFigureDown_M15 &&
-is10PositionFigureDown_M15&&
-is9PositionFigureDown_M15
+isFigureDown
       )
 
       {
