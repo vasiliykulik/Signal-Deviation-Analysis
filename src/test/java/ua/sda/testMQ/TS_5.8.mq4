@@ -1676,8 +1676,8 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isM5FigureDown  =  figure2FlagDownContinueDown_M5 || figure4TripleDown_M5 || figure6PennantDown_M5 || figure8FlagDownDivergenceDown_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTopDown_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5 || figure18FlagConfirmationDown_M5 || figure20HeadAndShouldersConfirmationDown_M5 || figure22WedgeDown_M5 || figure24DiamondDown_M5 || figure26TriangleConfirmationDown_M5 || figure28ModerateDivergentFlagConfirmationDown_M5 || figure30DoubleTopConfirmationDown_M5 || figure32DivergentFlagConfirmationDown_M5 || figure34FlagWedgeForelockConfirmationDown_M5 || figure36TripleTopConfirmationDown_M5 || figure38PennantWedgeDown_M5 || figure40RollbackChannelPennantConfirmationDown_M5 || figure42MoreDivergentFlagConfirmationDown_M5 || figure44ChannelFlagDown_M5 || figure46PennantAfterWedgeConfirmationDown_M5 || figure48PennantAfterFlagConfirmationDown_M5 || figure50DoublePennantAfterConfirmationDown_M5 || figure52WedgeConfirmationDown_M5;
      isM1FigureDown  =  figure2FlagDownContinueDown_M1 || figure4TripleDown_M1 || figure6PennantDown_M1 || figure8FlagDownDivergenceDown_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTopDown_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1 || figure18FlagConfirmationDown_M1 || figure20HeadAndShouldersConfirmationDown_M1 || figure22WedgeDown_M1 || figure24DiamondDown_M1 || figure26TriangleConfirmationDown_M1 || figure28ModerateDivergentFlagConfirmationDown_M1 || figure30DoubleTopConfirmationDown_M1 || figure32DivergentFlagConfirmationDown_M1 || figure34FlagWedgeForelockConfirmationDown_M1 || figure36TripleTopConfirmationDown_M1 || figure38PennantWedgeDown_M1 || figure40RollbackChannelPennantConfirmationDown_M1 || figure42MoreDivergentFlagConfirmationDown_M1 || figure44ChannelFlagDown_M1 || figure46PennantAfterWedgeConfirmationDown_M1 || figure48PennantAfterFlagConfirmationDown_M1 || figure50DoublePennantAfterConfirmationDown_M1 || figure52WedgeConfirmationDown_M1;
 
-     isFigureUp     = isD1FigureUp || isH4FigureUp || isH1FigureUp || isM15FigureUp|| isM5FigureUp || isM1FigureUp;
-     isFigureDown   = isD1FigureDown || isH4FigureDown || isH1FigureDown || isM15FigureDown || isM5FigureDown || isM1FigureDown;
+     isFigureUp     = isD1FigureUp || isH4FigureUp || isH1FigureUp || isM15FigureUp|| isM5FigureUp ;
+     isFigureDown   = isD1FigureDown || isH4FigureDown || isH1FigureDown || isM15FigureDown || isM5FigureDown ;
 
 
 is11PositionFigureUp_M15    = figure29DoubleBottomConfirmationUp_M15 ||figure45PennantAfterWedgeConfirmationUp_M15;
@@ -1722,18 +1722,18 @@ Print("figure45PennantAfterWedgeConfirmationUp_M5 =  ",figure45PennantAfterWedge
 Print("figure49DoublePennantAfterConfirmationUp_M5 = ",figure49DoublePennantAfterConfirmationUp_M5, " figure51WedgeConfirmationUp_M5 =                  ",figure51WedgeConfirmationUp_M5);
 
 
-Print("figure1FlagUpContinueUp_M15 =                  ",figure1FlagUpContinueUp_M15,                  " figure3TripleUp_M15 =                              ",figure3TripleUp_M15,               " figure5PennantUp_M15 =         ",figure5PennantUp_M15);
-Print("figure7FlagUpDivergenceUp_M15 =                ",figure7FlagUpDivergenceUp_M15,                " figure9FlagUpShiftUp_M15 =                         ",figure9FlagUpShiftUp_M15,          " figure11DoubleBottomUp_M15 =   ",figure11DoubleBottomUp_M15);
-Print("figure13DivergentChannelUp_M15 =               ",figure13DivergentChannelUp_M15,               " figure15BalancedTriangleUp_M15 =                   ",figure15BalancedTriangleUp_M15);
-Print("figure17FlagConfirmationUp_M15 =               ",figure17FlagConfirmationUp_M15,               " figure19HeadAndShouldersConfirmationUp_M15 =       ",figure19HeadAndShouldersConfirmationUp_M15);
-Print("figure21WedgeUp_M15 =                          ",figure21WedgeUp_M15,                          " figure23DiamondUp_M15 =                            ",figure23DiamondUp_M15);
-Print("figure25TriangleConfirmationUp_M15 =           ",figure25TriangleConfirmationUp_M15,           " figure27ModerateDivergentFlagConfirmationUp_M15 =  ",figure27ModerateDivergentFlagConfirmationUp_M15);
-Print("figure29DoubleBottomConfirmationUp_M15 =       ",figure29DoubleBottomConfirmationUp_M15,       " figure31DivergentFlagConfirmationUp_M15 =          ",figure31DivergentFlagConfirmationUp_M15);
-Print("figure33FlagWedgeForelockConfirmationUp_M15 =  ",figure33FlagWedgeForelockConfirmationUp_M15,  " figure35TripleBottomConfirmationUp_M15 =           ",figure35TripleBottomConfirmationUp_M15);
-Print("figure37PennantWedgeUp_M15 =                   ",figure37PennantWedgeUp_M15,                   " figure39RollbackChannelPennantConfirmationUp_M15 = ",figure39RollbackChannelPennantConfirmationUp_M15);
-Print("figure41MoreDivergentFlagConfirmationUp_M15 =  ",figure41MoreDivergentFlagConfirmationUp_M15,  " figure43ChannelFlagUp_M15 =                        ",figure43ChannelFlagUp_M15);
-Print("figure45PennantAfterWedgeConfirmationUp_M15 =  ",figure45PennantAfterWedgeConfirmationUp_M15,  " figure47PennantAfterFlagConfirmationUp_M15 =       ",figure47PennantAfterFlagConfirmationUp_M15);
-Print("figure49DoublePennantAfterConfirmationUp_M15 = ",figure49DoublePennantAfterConfirmationUp_M15, " figure51WedgeConfirmationUp_M15 =                  ",figure51WedgeConfirmationUp_M15);
+Print("figure1FlagUpContinueUp_M15 =                 ",figure1FlagUpContinueUp_M15,                 " figure3TripleUp_M15 =                             ",figure3TripleUp_M15,               " figure5PennantUp_M15 =         ",figure5PennantUp_M15);
+Print("figure7FlagUpDivergenceUp_M15 =               ",figure7FlagUpDivergenceUp_M15,               " figure9FlagUpShiftUp_M15 =                        ",figure9FlagUpShiftUp_M15,          " figure11DoubleBottomUp_M15 =   ",figure11DoubleBottomUp_M15);
+Print("figure13DivergentChannelUp_M15 =              ",figure13DivergentChannelUp_M15,              " figure15BalancedTriangleUp_M15 =                  ",figure15BalancedTriangleUp_M15);
+Print("figure17FlagConfirmationUp_M15 =              ",figure17FlagConfirmationUp_M15,              " figure19HeadAndShouldersConfirmationUp_M15 =      ",figure19HeadAndShouldersConfirmationUp_M15);
+Print("figure21WedgeUp_M15 =                         ",figure21WedgeUp_M15,                         " figure23DiamondUp_M15 =                           ",figure23DiamondUp_M15);
+Print("figure25TriangleConfirmationUp_M15 =          ",figure25TriangleConfirmationUp_M15,          " figure27ModerateDivergentFlagConfirmationUp_M15 = ",figure27ModerateDivergentFlagConfirmationUp_M15);
+Print("figure29DoubleBottomConfirmationUp_M15 =      ",figure29DoubleBottomConfirmationUp_M15,      " figure31DivergentFlagConfirmationUp_M15 =         ",figure31DivergentFlagConfirmationUp_M15);
+Print("figure33FlagWedgeForelockConfirmationUp_M15 = ",figure33FlagWedgeForelockConfirmationUp_M15, " figure35TripleBottomConfirmationUp_M15 =          ",figure35TripleBottomConfirmationUp_M15);
+Print("figure37PennantWedgeUp_M15 =                  ",figure37PennantWedgeUp_M15,                  " figure39RollbackChannelPennantConfirmationUp_M15 =",figure39RollbackChannelPennantConfirmationUp_M15);
+Print("figure41MoreDivergentFlagConfirmationUp_M15 = ",figure41MoreDivergentFlagConfirmationUp_M15, " figure43ChannelFlagUp_M15 =                       ",figure43ChannelFlagUp_M15);
+Print("figure45PennantAfterWedgeConfirmationUp_M15 = ",figure45PennantAfterWedgeConfirmationUp_M15, " figure47PennantAfterFlagConfirmationUp_M15 =      ",figure47PennantAfterFlagConfirmationUp_M15);
+Print("figure49DoublePennantAfterConfirmationUp_M15 =",figure49DoublePennantAfterConfirmationUp_M15," figure51WedgeConfirmationUp_M15 =                 ",figure51WedgeConfirmationUp_M15);
 
 
 Print("figure1FlagUpContinueUp_H1 =                  ",figure1FlagUpContinueUp_H1,                  " figure3TripleUp_H1 =                              ",figure3TripleUp_H1,               " figure5PennantUp_H1 =         ",figure5PennantUp_H1);
@@ -1813,18 +1813,18 @@ Print("figure46PennantAfterWedgeConfirmationDown_M5 =   ", figure46PennantAfterW
 Print("figure50DoublePennantAfterConfirmationDown_M5 =  ", figure50DoublePennantAfterConfirmationDown_M5,   " figure52WedgeConfirmationDown_M5 =                    ",figure52WedgeConfirmationDown_M5);
 
 
-Print("figure2FlagDownContinueDown_M15 =                 ", figure2FlagDownContinueDown_M15,                  " figure4TripleDown_M15 =                                ", figure4TripleDown_M15,            " figure6PennantDown_M15 =       ", figure6PennantDown_M15);
-Print("figure8FlagDownDivergenceDown_M15 =               ", figure8FlagDownDivergenceDown_M15,                " figure10FlagDownShiftDown_M15 =                        ", figure10FlagDownShiftDown_M15,    " figure12DoubleTopDown_M15 =    ", figure12DoubleTopDown_M15);
-Print("figure14DivergentChannelDown_M15 =                ", figure14DivergentChannelDown_M15,                 " figure16BalancedTriangleDown_M15 =                     ",figure16BalancedTriangleDown_M15);
-Print("figure18FlagConfirmationDown_M15 =                ", figure18FlagConfirmationDown_M15,                 " figure20HeadAndShouldersConfirmationDown_M15 =         ",figure20HeadAndShouldersConfirmationDown_M15);
-Print("figure22WedgeDown_M15 =                           ", figure22WedgeDown_M15,                            " figure24DiamondDown_M15 =                              ",figure24DiamondDown_M15);
-Print("figure26TriangleConfirmationDown_M15 =            ", figure26TriangleConfirmationDown_M15,             " figure28ModerateDivergentFlagConfirmationDown_M15 =    ",figure28ModerateDivergentFlagConfirmationDown_M15);
-Print("figure30DoubleTopConfirmationDown_M15 =           ", figure30DoubleTopConfirmationDown_M15,            " figure32DivergentFlagConfirmationDown_M15 =            ",figure32DivergentFlagConfirmationDown_M15);
-Print("figure34FlagWedgeForelockConfirmationDown_M15 =   ", figure34FlagWedgeForelockConfirmationDown_M15,    " figure36TripleTopConfirmationDown_M15 =                ",figure36TripleTopConfirmationDown_M15);
-Print("figure38PennantWedgeDown_M15 =                    ", figure38PennantWedgeDown_M15,                     " figure40RollbackChannelPennantConfirmationDown_M15 =   ",figure40RollbackChannelPennantConfirmationDown_M15);
-Print("figure42MoreDivergentFlagConfirmationDown_M15 =   ", figure42MoreDivergentFlagConfirmationDown_M15,    " figure44ChannelFlagDown_M15 =                          ",figure44ChannelFlagDown_M15);
-Print("figure46PennantAfterWedgeConfirmationDown_M15 =   ", figure46PennantAfterWedgeConfirmationDown_M15,    " figure48PennantAfterFlagConfirmationDown_M15 =         ",figure48PennantAfterFlagConfirmationDown_M15);
-Print("figure50DoublePennantAfterConfirmationDown_M15 =  ", figure50DoublePennantAfterConfirmationDown_M15,   " figure52WedgeConfirmationDown_M15 =                    ",figure52WedgeConfirmationDown_M15);
+Print("figure2FlagDownContinueDown_M15 =                ", figure2FlagDownContinueDown_M15,                 " figure4TripleDown_M15 =                               ", figure4TripleDown_M15,            " figure6PennantDown_M15 =       ", figure6PennantDown_M15);
+Print("figure8FlagDownDivergenceDown_M15 =              ", figure8FlagDownDivergenceDown_M15,               " figure10FlagDownShiftDown_M15 =                       ", figure10FlagDownShiftDown_M15,    " figure12DoubleTopDown_M15 =    ", figure12DoubleTopDown_M15);
+Print("figure14DivergentChannelDown_M15 =               ", figure14DivergentChannelDown_M15,                " figure16BalancedTriangleDown_M15 =                    ", figure16BalancedTriangleDown_M15);
+Print("figure18FlagConfirmationDown_M15 =               ", figure18FlagConfirmationDown_M15,                " figure20HeadAndShouldersConfirmationDown_M15 =        ", figure20HeadAndShouldersConfirmationDown_M15);
+Print("figure22WedgeDown_M15 =                          ", figure22WedgeDown_M15,                           " figure24DiamondDown_M15 =                             ", figure24DiamondDown_M15);
+Print("figure26TriangleConfirmationDown_M15 =           ", figure26TriangleConfirmationDown_M15,            " figure28ModerateDivergentFlagConfirmationDown_M15 =   ", figure28ModerateDivergentFlagConfirmationDown_M15);
+Print("figure30DoubleTopConfirmationDown_M15 =          ", figure30DoubleTopConfirmationDown_M15,           " figure32DivergentFlagConfirmationDown_M15 =           ", figure32DivergentFlagConfirmationDown_M15);
+Print("figure34FlagWedgeForelockConfirmationDown_M15 =  ", figure34FlagWedgeForelockConfirmationDown_M15,   " figure36TripleTopConfirmationDown_M15 =               ", figure36TripleTopConfirmationDown_M15);
+Print("figure38PennantWedgeDown_M15 =                   ", figure38PennantWedgeDown_M15,                    " figure40RollbackChannelPennantConfirmationDown_M15 =  ", figure40RollbackChannelPennantConfirmationDown_M15);
+Print("figure42MoreDivergentFlagConfirmationDown_M15 =  ", figure42MoreDivergentFlagConfirmationDown_M15,   " figure44ChannelFlagDown_M15 =                         ", figure44ChannelFlagDown_M15);
+Print("figure46PennantAfterWedgeConfirmationDown_M15 =  ", figure46PennantAfterWedgeConfirmationDown_M15,   " figure48PennantAfterFlagConfirmationDown_M15 =        ", figure48PennantAfterFlagConfirmationDown_M15);
+Print("figure50DoublePennantAfterConfirmationDown_M15 = ", figure50DoublePennantAfterConfirmationDown_M15,  " figure52WedgeConfirmationDown_M15 =                   ", figure52WedgeConfirmationDown_M15);
 
 
 Print("figure2FlagDownContinueDown_D1 =                 ", figure2FlagDownContinueDown_H1,                  " figure4TripleDown_H1 =                                ", figure4TripleDown_H1,            " figure6PennantDown_H1 =       ", figure6PennantDown_H1);
@@ -1952,9 +1952,9 @@ sell=1;
 
                if(Bid>OrderOpenPrice()&& (Bid - OrderOpenPrice())> (Ask - Bid)*2)// если текущая цена БОЛЬШЕ цены открытия И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
                  {
-                  if(Bid-((Bid - OrderOpenPrice())*0.618)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
+                  if(Bid-((Bid - OrderOpenPrice())*0.13)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*0.618),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*0.13),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
                     }
                  }
 
@@ -2002,9 +2002,9 @@ sell=1;
               {
                if(OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask - Bid)*2))// если текущая цена + двойной спред МЕНЬШЕ цены открытия (Уберу двойной спред) И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
                  {
-                  if(Ask+((OrderOpenPrice()-Ask)*0.618)<OrderStopLoss()|| (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
+                  if(Ask+((OrderOpenPrice()-Ask)*0.13)<OrderStopLoss()|| (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*0.618),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*0.13),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
                     }
                  }
               }
