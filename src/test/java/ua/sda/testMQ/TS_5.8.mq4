@@ -1064,7 +1064,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure21WedgeUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure21WedgeUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure21WedgeUp_D1  = true;}
-            print("Figure 21 WedgeUp ", timeFrames[i]);
+            print("Figure 21 WedgeUp Fully Inverted", timeFrames[i]);
     }
 
     // Figure 22 "WedgeDown" v11 fully inverted
@@ -1088,7 +1088,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure22WedgeDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure22WedgeDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure22WedgeDown_D1  = true;}
-            print("Figure 22 WedgeDown ", timeFrames[i]);
+            print("Figure 22 WedgeDown Fully Inverted", timeFrames[i]);
     }
 
     // Figure 23 "DiamondUp"
