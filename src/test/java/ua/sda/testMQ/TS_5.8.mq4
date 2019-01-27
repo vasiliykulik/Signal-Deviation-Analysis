@@ -1044,7 +1044,30 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             print("Figure 20 HeadAndShouldersConfirmationDown ", timeFrames[i]);
     }
 
-    // Figure 21 "WedgeUp"
+    // Figure 21 "WedgeUp" v11 fully inverted
+
+    if(
+        firstMaxGlobal > firstMinGlobal &&
+        secondMaxGlobal < channelLimiterForUpperEdgeMinMaxMax(firstMinGlobal, firstMaxGlobal,secondMaxGlobal) &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && /*firstMinGlobal and thirdMaxGlobal*/ firstMinGlobal > thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure21WedgeUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure21WedgeUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure21WedgeUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure21WedgeUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure21WedgeUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure21WedgeUp_D1  = true;}
+            print("Figure 21 WedgeUp ", timeFrames[i]);
+    }
+
+    // Figure 22 "WedgeDown" v11 fully inverted
 
     if(
         firstMinGlobal < firstMaxGlobal &&
@@ -1058,28 +1081,6 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         thirdMinGlobal < thirdMaxGlobal &&
         isC5Min &&
         isMACDNewlyCrossedUpFilter1(timeFrames[i])
-        ){
-            if(timeFrames[i]==PERIOD_M1) {figure21WedgeUp_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure21WedgeUp_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure21WedgeUp_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure21WedgeUp_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure21WedgeUp_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure21WedgeUp_D1  = true;}
-            print("Figure 21 WedgeUp ", timeFrames[i]);
-    }
-
-    // Figure 22 "WedgeDown"
-
-    if(
-        firstMaxGlobal > firstMinGlobal &&
-        secondMaxGlobal < channelLimiterForUpperEdgeMinMaxMax(firstMinGlobal, firstMaxGlobal,secondMaxGlobal) &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && /*firstMinGlobal and thirdMaxGlobal*/ firstMinGlobal > thirdMinGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
-        thirdMaxGlobal > thirdMinGlobal &&
-        isC5Max &&
-        isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure22WedgeDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure22WedgeDown_M5  = true;}
