@@ -901,14 +901,15 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 
 
-    // Figure 15 "BalancedTriangleUp" from this all was started
+    // Figure 15 "BalancedTriangleUp" from this all was started v11 rewriting terms
 
     if(
-        thirdMinGlobal>firstMinGlobal && thirdMinGlobal>secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
-        firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
-        firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
-        secondMinGlobal<secondMaxGlobal && isC5Min &&
-        thirdMaxGlobal < firstMaxGlobal && isC6Max
+        firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+        firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal<secondMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal &&
+        thirdMaxGlobal < firstMaxGlobal
+        && isC5Min
         /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
@@ -924,14 +925,15 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             print("Figure 15 BalancedTriangleUp ", timeFrames[i]);
     }
 
-    // Figure 16 "BalancedTriangleDown"
+    // Figure 16 "BalancedTriangleDown" v11 rewriting terms
 
     if(
-        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
-        firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
-        secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal>secondMinGlobal && isC5Max &&
-        thirdMinGlobal > secondMinGlobal && isC6Min
+        firstMaxGlobal>firstMinGlobal && firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>secondMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal>secondMinGlobal && secondMaxGlobal>thirdMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal &&
+        thirdMinGlobal > firstMinGlobal &&
+        isC5Max &&
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
