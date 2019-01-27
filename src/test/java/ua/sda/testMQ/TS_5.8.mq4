@@ -168,12 +168,20 @@ void OnTick(void)
 
       bool figure1FlagUpContinueUp_M1  =                false;         bool figure1FlagUpContinueUp_M5  = false;        bool figure1FlagUpContinueUp_M15 = false;         bool figure1FlagUpContinueUp_H1  = false;         bool figure1FlagUpContinueUp_H4  = false;         bool figure1FlagUpContinueUp_D1  = false;
       bool figure2FlagDownContinueDown_M1  =            false;     bool figure2FlagDownContinueDown_M5  = false;      bool figure2FlagDownContinueDown_M15 = false;       bool figure2FlagDownContinueDown_H1  = false;       bool figure2FlagDownContinueDown_H4  = false;       bool figure2FlagDownContinueDown_D1  = false;
+      bool figure1_1FlagUpContinueAfterDecliningUp_M1  =                false;         bool figure1_1FlagUpContinueAfterDecliningUp_M5  = false;        bool figure1_1FlagUpContinueAfterDecliningUp_M15 = false;         bool figure1_1FlagUpContinueAfterDecliningUp_H1  = false;         bool figure1_1FlagUpContinueAfterDecliningUp_H4  = false;         bool figure1_1FlagUpContinueAfterDecliningUp_D1  = false;
+      bool figure2_1FlagDownContinueAfterDecreaseDown_M1  =            false;     bool figure2_1FlagDownContinueAfterDecreaseDown_M5  = false;      bool figure2_1FlagDownContinueAfterDecreaseDown_M15 = false;       bool figure2_1FlagDownContinueAfterDecreaseDown_H1  = false;       bool figure2_1FlagDownContinueAfterDecreaseDown_H4  = false;       bool figure2_1FlagDownContinueAfterDecreaseDown_D1  = false;
       bool figure3TripleUp_M1  =                        false;                 bool figure3TripleUp_M5  = false;       bool figure3TripleUp_M15 = false;        bool figure3TripleUp_H1  = false;        bool figure3TripleUp_H4  = false;        bool figure3TripleUp_D1  = false;
       bool figure4TripleDown_M1  =                      false;               bool figure4TripleDown_M5  = false;       bool figure4TripleDown_M15 = false;        bool figure4TripleDown_H1  = false;        bool figure4TripleDown_H4  = false;        bool figure4TripleDown_D1  = false;
       bool figure5PennantUp_M1  =                       false;                bool figure5PennantUp_M5  = false;             bool figure5PennantUp_M15 = false;              bool figure5PennantUp_H1  = false;              bool figure5PennantUp_H4  = false;              bool figure5PennantUp_D1  = false;
       bool figure6PennantDown_M1  =                     false;              bool figure6PennantDown_M5  = false;           bool figure6PennantDown_M15 = false;            bool figure6PennantDown_H1  = false;            bool figure6PennantDown_H4  = false;            bool figure6PennantDown_D1  = false;
+      bool figure5_1PennantUpConfirmationUp_M1  =                       false;                bool figure5_1PennantUpConfirmationUp_M5  = false;             bool figure5_1PennantUpConfirmationUp_M15 = false;              bool figure5_1PennantUpConfirmationUp_H1  = false;              bool figure5_1PennantUpConfirmationUp_H4  = false;              bool figure5_1PennantUpConfirmationUp_D1  = false;
+      bool figure6_1PennantDownConfirmationDown_M1  =                     false;              bool figure6_1PennantDownConfirmationDown_M5  = false;           bool figure6_1PennantDownConfirmationDown_M15 = false;            bool figure6_1PennantDownConfirmationDown_H1  = false;            bool figure6_1PennantDownConfirmationDown_H4  = false;            bool figure6_1PennantDownConfirmationDown_D1  = false;
       bool figure7FlagUpDivergenceUp_M1  =              false;       bool figure7FlagUpDivergenceUp_M5  = false;      bool figure7FlagUpDivergenceUp_M15 = false;       bool figure7FlagUpDivergenceUp_H1  = false;       bool figure7FlagUpDivergenceUp_H4  = false;       bool figure7FlagUpDivergenceUp_D1  = false;
       bool figure8FlagDownDivergenceDown_M1  =          false;   bool figure8FlagDownDivergenceDown_M5  = false;    bool figure8FlagDownDivergenceDown_M15 = false;     bool figure8FlagDownDivergenceDown_H1  = false;     bool figure8FlagDownDivergenceDown_H4  = false;     bool figure8FlagDownDivergenceDown_D1  = false;
+      bool figure7_1TurnUpDivergenceUp_M1  =              false;       bool figure7_1TurnUpDivergenceUp_M5  = false;      bool figure7_1TurnUpDivergenceUp_M15 = false;       bool figure7_1TurnUpDivergenceUp_H1  = false;       bool figure7_1TurnUpDivergenceUp_H4  = false;       bool figure7_1TurnUpDivergenceUp_D1  = false;
+      bool figure8_1TurnDownDivergenceDown_M1  =          false;   bool figure8_1TurnDownDivergenceDown_M5  = false;    bool figure8_1TurnDownDivergenceDown_M15 = false;     bool figure8_1TurnDownDivergenceDown_H1  = false;     bool figure8_1TurnDownDivergenceDown_H4  = false;     bool figure8_1TurnDownDivergenceDown_D1  = false;
+      bool figure7_2TurnDivergenceConfirmationUp_M1  =              false;       bool figure7_2TurnDivergenceConfirmationUp_M5  = false;      bool figure7_2TurnDivergenceConfirmationUp_M15 = false;       bool figure7_2TurnDivergenceConfirmationUp_H1  = false;       bool figure7_2TurnDivergenceConfirmationUp_H4  = false;       bool figure7_2TurnDivergenceConfirmationUp_D1  = false;
+      bool figure8_2TurnDivergenceConfirmationDown_M1  =          false;   bool figure8_2TurnDivergenceConfirmationDown_M5  = false;    bool figure8_2TurnDivergenceConfirmationDown_M15 = false;     bool figure8_2TurnDivergenceConfirmationDown_H1  = false;     bool figure8_2TurnDivergenceConfirmationDown_H4  = false;     bool figure8_2TurnDivergenceConfirmationDown_D1  = false;
       bool figure9FlagUpShiftUp_M1  =                   false;            bool figure9FlagUpShiftUp_M5  = false;         bool figure9FlagUpShiftUp_M15 = false;          bool figure9FlagUpShiftUp_H1  = false;          bool figure9FlagUpShiftUp_H4  = false;          bool figure9FlagUpShiftUp_D1  = false;
       bool figure10FlagDownShiftDown_M1  =              false;       bool figure10FlagDownShiftDown_M5  = false;    bool figure10FlagDownShiftDown_M15 = false;     bool figure10FlagDownShiftDown_H1  = false;     bool figure10FlagDownShiftDown_H4  = false;     bool figure10FlagDownShiftDown_D1  = false;
       bool figure11DoubleBottomUp_M1  =                 false;          bool figure11DoubleBottomUp_M5  = false;         bool figure11DoubleBottomUp_M15 = false;          bool figure11DoubleBottomUp_H1  = false;          bool figure11DoubleBottomUp_H4  = false;          bool figure11DoubleBottomUp_D1  = false;
@@ -330,7 +338,10 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
         firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
         secondMinGlobal < secondMaxGlobal && isC5Min &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < firstMinGlobal && isC6Max
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < firstMinGlobal && isC6Max &&
+        firstMinGlobal  > channelLimiterForLowerEdgeMaxMinMin(firstMaxGlobal, firstMinGlobal, secondMinGlobal) &&
+        secondMinGlobal > channelLimiterForLowerEdgeMaxMinMin(firstMaxGlobal, firstMinGlobal, secondMinGlobal)
+
 
         /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
@@ -354,7 +365,10 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
         secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
         firstMinGlobal>secondMinGlobal && isC5Max &&
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > firstMaxGlobal && isC6Min
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > firstMaxGlobal && isC6Min &&
+        firstMaxGlobal < channelLimiterForUpperEdgeMinMaxMax (firstMinGlobal, firstMaxGlobal, secondMaxGlobal) &&
+        secondMaxGlobal < channelLimiterForUpperEdgeMinMaxMax (firstMinGlobal, firstMaxGlobal, secondMaxGlobal)
+
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
@@ -368,6 +382,58 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H4) {figure2FlagDownContinueDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure2FlagDownContinueDown_D1  = true;}
             print("Figure 2 FlagDownContinueDown ", timeFrames[i]);
+    }
+
+    // Figure 1_1 "FlagUpContinueAfterDecliningUp" v11
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal < fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min
+
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])*/
+        && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure1_1FlagUpContinueAfterDecliningUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure1_1FlagUpContinueAfterDecliningUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure1_1FlagUpContinueAfterDecliningUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure1_1FlagUpContinueAfterDecliningUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure1_1FlagUpContinueAfterDecliningUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure1_1FlagUpContinueAfterDecliningUp_D1  = true;}
+            print("Figure 1_1 FlagUpContinueAfterDecliningUp ", timeFrames[i]);
+    }
+
+    // Figure 2_1 "FlagDownContinueAfterDecreaseDown" v11
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < secondMinGlobal  && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal > fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        && isC5Max
+
+        /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
+        && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
+        && isH1ConsistentForSellFilter3()
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i])*/
+        && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure2_1FlagDownContinueAfterDecreaseDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure2_1FlagDownContinueAfterDecreaseDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure2_1FlagDownContinueAfterDecreaseDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure2_1FlagDownContinueAfterDecreaseDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure2_1FlagDownContinueAfterDecreaseDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure2_1FlagDownContinueAfterDecreaseDown_D1  = true;}
+            print("Figure 2_1 FlagDownContinueAfterDecreaseDown ", timeFrames[i]);
     }
 
     // Figure 3 "TripleUp" v10.6
@@ -436,7 +502,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure5PennantUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure5PennantUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure5PennantUp_D1  = true;}
-            print("Figure 5 PennantUp ", timeFrames[i]);
+            print("Figure 5 PennantUp Removed", timeFrames[i]);
     }
 
     // Figure 6 "PennantDown" v10.6
@@ -459,17 +525,63 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure6PennantDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure6PennantDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure6PennantDown_D1  = true;}
-            print("Figure 6 PennantDown ", timeFrames[i]);
+            print("Figure 6 PennantDown Removed", timeFrames[i]);
     }
 
-    // Figure 7 "FlagUpDivergenceUp" v10.6
+    // Figure 5_1 "PennantUpConfirmationUp" v11
 
     if(
-        thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
-        firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
-        firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && // and  this firstMaxGlobal apperantly not obligatory, but we adhere uniformity
-        secondMinGlobal<secondMaxGlobal /* this clause is obligatory*/ && isC5Min &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < firstMinGlobal && isC6Max
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal > fourthMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fourthMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal > fourthMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMinGlobal > fourthMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fourthMaxGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
+        fourthMinGlobal < fourthMaxGlobal &&
+        isC5Min &&
+        isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure5_1PennantUpConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure5_1PennantUpConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure5_1PennantUpConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure5_1PennantUpConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure5_1PennantUpConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure5_1PennantUpConfirmationUp_D1  = true;}
+            print("Figure 5_1 PennantUpConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 6_1 "PennantDownConfirmationDown" v11
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < secondMinGlobal  && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal < fourthMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fourthMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal < fourthMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fourthMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal < fourthMinGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fourthMinGlobal &&
+        fourthMaxGlobal > fourthMinGlobal &&
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure6_1PennantDownConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure6_1PennantDownConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure6_1PennantDownConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure6_1PennantDownConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure6_1PennantDownConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure6_1PennantDownConfirmationDown_D1  = true;}
+            print("Figure 6_1 PennantDownConfirmationDown ", timeFrames[i]);
+    }
+
+
+    // Figure 7 "FlagUpDivergenceUp" v10.6 v11 rewriting the terms
+
+    if(
+        firstMinGlobal<firstMaxGlobal && firstMinGlobal<secondMinGlobal && firstMinGlobal<secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal &&
+        firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
         /*&& isTrendNoErrorForBuyReverseFilter5(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isTrendNoErrorForBuyFilter4(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isH1ConsistentForBuyFilter3()
@@ -482,17 +594,18 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure7FlagUpDivergenceUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure7FlagUpDivergenceUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure7FlagUpDivergenceUp_D1  = true;}
-            print("Figure 7 FlagUpDivergenceUp ", timeFrames[i]);
+            print("Figure 7 FlagUpDivergenceUp Removed", timeFrames[i]);
     }
 
-    // Figure 8 "FlagDownDivergenceDown" v10.6
+    // Figure 8 "FlagDownDivergenceDown" v10.6 v11 rewriting the terms
 
     if(
-        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
-        firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
-        secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal<secondMinGlobal && isC5Max &&
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > firstMaxGlobal && isC6Min
+        firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal &&
+        firstMinGlobal<secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+        secondMaxGlobal>secondMinGlobal && secondMaxGlobal<thirdMaxGlobal && secondMaxGlobal < thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+        thirdMaxGlobal>thirdMinGlobal &&
+        isC5Max
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
@@ -505,8 +618,97 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure8FlagDownDivergenceDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure8FlagDownDivergenceDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure8FlagDownDivergenceDown_D1  = true;}
-            print("Figure 8 FlagDownDivergenceDown ", timeFrames[i]);
+            print("Figure 8 FlagDownDivergenceDown Removed", timeFrames[i]);
     }
+
+
+    // Figure 7_1 "TurnDivergenceUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal < fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min &&
+        isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure7_1TurnDivergenceUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure7_1TurnDivergenceUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure7_1TurnDivergenceUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure7_1TurnDivergenceUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure7_1TurnDivergenceUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure7_1TurnDivergenceUp_D1  = true;}
+            print("Figure 7_1 TurnDivergenceUp ", timeFrames[i]);
+    }
+
+    // Figure 8_1 "TurnDivergenceDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal  && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal > fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure8_1TurnDivergenceDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure8_1TurnDivergenceDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure8_1TurnDivergenceDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure8_1TurnDivergenceDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure8_1TurnDivergenceDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure8_1TurnDivergenceDown_D1  = true;}
+            print("Figure 8_1 TurnDivergenceDown ", timeFrames[i]);
+    }
+
+
+
+    // Figure 7_2 "TurnDivergenceConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal < fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min &&
+        isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure7_2TurnDivergenceConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure7_2TurnDivergenceConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure7_2TurnDivergenceConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure7_2TurnDivergenceConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure7_2TurnDivergenceConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure7_2TurnDivergenceConfirmationUp_D1  = true;}
+            print("Figure 7_2 TurnDivergenceConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 8_2 "TurnDivergenceConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal  && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal > fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure8_2TurnDivergenceConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure8_2TurnDivergenceConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure8_2TurnDivergenceConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure8_2TurnDivergenceConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure8_2TurnDivergenceConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure8_2TurnDivergenceConfirmationDown_D1  = true;}
+            print("Figure 8_2 TurnDivergenceConfirmationDown ", timeFrames[i]);
+    }
+
+
 
     // Figure 9 "FlagUpShiftUp" v10.6
 
@@ -576,7 +778,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure11DoubleBottomUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure11DoubleBottomUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure11DoubleBottomUp_D1  = true;}
-            print("Figure 11 DoubleBottomUp ", timeFrames[i]);
+            print("Figure 11 DoubleBottomUp Removed", timeFrames[i]);
     }
 
     // Figure 12 "DoubleTopDown" v10.6
@@ -599,7 +801,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure12DoubleTopDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure12DoubleTopDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure12DoubleTopDown_D1  = true;}
-            print("Figure 12 DoubleTopDown ", timeFrames[i]);
+            print("Figure 12 DoubleTopDown Removed", timeFrames[i]);
     }
 
     // Figure 13 "DivergentChannelUp" from this all was started, v10.6
@@ -622,17 +824,18 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure13DivergentChannelUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure13DivergentChannelUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure13DivergentChannelUp_D1  = true;}
-            print("Figure 13 DivergentChannelUp ", timeFrames[i]);
+            print("Figure 13 DivergentChannelUp Removed", timeFrames[i]);
     }
 
     // Figure 14 "DivergentChannelDown" v10.6
 
     if(
-        thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
-        firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
-        secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-        firstMinGlobal<secondMinGlobal && isC5Max &&
-        thirdMinGlobal<thirdMaxGlobal&&  thirdMinGlobal > secondMinGlobal && thirdMinGlobal < secondMaxGlobal && isC6Min
+        firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMaxGlobal && firstMaxGlobal>secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal &&
+        secondMaxGlobal> secondMinGlobal && secondMaxGlobal>thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+        isC5Max &&
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
@@ -645,8 +848,52 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure14DivergentChannelDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure14DivergentChannelDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure14DivergentChannelDown_D1  = true;}
-            print("Figure 14 DivergentChannelDown ", timeFrames[i]);
+            print("Figure 14 DivergentChannelDown Removed", timeFrames[i]);
     }
+
+
+    // Figure 13_1 "TurnDivergenceUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal < fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal < fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min &&
+        isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure13_1TurnDivergenceUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure13_1TurnDivergenceUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure13_1TurnDivergenceUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure13_1TurnDivergenceUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure13_1TurnDivergenceUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure13_1TurnDivergenceUp_D1  = true;}
+            print("Figure 13_1 TurnDivergenceUp ", timeFrames[i]);
+    }
+
+    // Figure 14_1 "TurnDivergenceDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal  && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal > fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure14_1TurnDivergenceDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure14_1TurnDivergenceDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure14_1TurnDivergenceDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure14_1TurnDivergenceDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure14_1TurnDivergenceDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure14_1TurnDivergenceDown_D1  = true;}
+            print("Figure 14_1 TurnDivergenceDown ", timeFrames[i]);
+    }
+
 
 
     // Figure 15 "BalancedTriangleUp" from this all was started
@@ -1661,20 +1908,20 @@ MACDForelockFilterForBuyPosition  = macdUp_H1 && macdUp_H4   && macdUp_D1   && m
 MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && macdDown_MN1;
 
 
-     isD1FigureUp  =  figure1FlagUpContinueUp_D1 || figure3TripleUp_D1 || figure5PennantUp_D1 || figure7FlagUpDivergenceUp_D1 || figure9FlagUpShiftUp_D1 || figure11DoubleBottomUp_D1 || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1 || figure17FlagConfirmationUp_D1 || figure19HeadAndShouldersConfirmationUp_D1 || figure21WedgeUp_D1 || figure23DiamondUp_D1 || figure25TriangleConfirmationUp_D1 || figure27ModerateDivergentFlagConfirmationUp_D1 || figure29DoubleBottomConfirmationUp_D1 || figure31DivergentFlagConfirmationUp_D1 || figure33FlagWedgeForelockConfirmationUp_D1 || figure35TripleBottomConfirmationUp_D1 || figure37PennantWedgeUp_D1 || figure39RollbackChannelPennantConfirmationUp_D1 || figure41MoreDivergentFlagConfirmationUp_D1 || figure43ChannelFlagUp_D1 || figure45PennantAfterWedgeConfirmationUp_D1 || figure47PennantAfterFlagConfirmationUp_D1 || figure49DoublePennantAfterConfirmationUp_D1 || figure51WedgeConfirmationUp_D1;
-     isH4FigureUp  =  figure1FlagUpContinueUp_H4 || figure3TripleUp_H4 || figure5PennantUp_H4 || figure7FlagUpDivergenceUp_H4 || figure9FlagUpShiftUp_H4 || figure11DoubleBottomUp_H4 || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4 || figure17FlagConfirmationUp_H4 || figure19HeadAndShouldersConfirmationUp_H4 || figure21WedgeUp_H4 || figure23DiamondUp_H4 || figure25TriangleConfirmationUp_H4 || figure27ModerateDivergentFlagConfirmationUp_H4 || figure29DoubleBottomConfirmationUp_H4 || figure31DivergentFlagConfirmationUp_H4 || figure33FlagWedgeForelockConfirmationUp_H4 || figure35TripleBottomConfirmationUp_H4 || figure37PennantWedgeUp_H4 || figure39RollbackChannelPennantConfirmationUp_H4 || figure41MoreDivergentFlagConfirmationUp_H4 || figure43ChannelFlagUp_H4 || figure45PennantAfterWedgeConfirmationUp_H4 || figure47PennantAfterFlagConfirmationUp_H4 || figure49DoublePennantAfterConfirmationUp_H4 || figure51WedgeConfirmationUp_H4;
-     isH1FigureUp  =  figure1FlagUpContinueUp_H1 || figure3TripleUp_H1 || figure5PennantUp_H1 || figure7FlagUpDivergenceUp_H1 || figure9FlagUpShiftUp_H1 || figure11DoubleBottomUp_H1 || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1 || figure17FlagConfirmationUp_H1 || figure19HeadAndShouldersConfirmationUp_H1 || figure21WedgeUp_H1 || figure23DiamondUp_H1 || figure25TriangleConfirmationUp_H1 || figure27ModerateDivergentFlagConfirmationUp_H1 || figure29DoubleBottomConfirmationUp_H1 || figure31DivergentFlagConfirmationUp_H1 || figure33FlagWedgeForelockConfirmationUp_H1 || figure35TripleBottomConfirmationUp_H1 || figure37PennantWedgeUp_H1 || figure39RollbackChannelPennantConfirmationUp_H1 || figure41MoreDivergentFlagConfirmationUp_H1 || figure43ChannelFlagUp_H1 || figure45PennantAfterWedgeConfirmationUp_H1 || figure47PennantAfterFlagConfirmationUp_H1 || figure49DoublePennantAfterConfirmationUp_H1 || figure51WedgeConfirmationUp_H1;
-     isM15FigureUp =  figure1FlagUpContinueUp_M15 || figure3TripleUp_M15 || figure5PennantUp_M15 || figure7FlagUpDivergenceUp_M15 || figure9FlagUpShiftUp_M15 || figure11DoubleBottomUp_M15 || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15 || figure17FlagConfirmationUp_M15 || figure19HeadAndShouldersConfirmationUp_M15 || figure21WedgeUp_M15 || figure23DiamondUp_M15 || figure25TriangleConfirmationUp_M15 || figure27ModerateDivergentFlagConfirmationUp_M15 || figure29DoubleBottomConfirmationUp_M15 || figure31DivergentFlagConfirmationUp_M15 || figure33FlagWedgeForelockConfirmationUp_M15 || figure35TripleBottomConfirmationUp_M15 || figure37PennantWedgeUp_M15 || figure39RollbackChannelPennantConfirmationUp_M15 || figure41MoreDivergentFlagConfirmationUp_M15 || figure43ChannelFlagUp_M15 || figure45PennantAfterWedgeConfirmationUp_M15 || figure47PennantAfterFlagConfirmationUp_M15 || figure49DoublePennantAfterConfirmationUp_M15 || figure51WedgeConfirmationUp_M15;
-     isM5FigureUp  =  figure1FlagUpContinueUp_M5 || figure3TripleUp_M5 || figure5PennantUp_M5 || figure7FlagUpDivergenceUp_M5 || figure9FlagUpShiftUp_M5 || figure11DoubleBottomUp_M5 || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5 || figure17FlagConfirmationUp_M5 || figure19HeadAndShouldersConfirmationUp_M5 || figure21WedgeUp_M5 || figure23DiamondUp_M5 || figure25TriangleConfirmationUp_M5 || figure27ModerateDivergentFlagConfirmationUp_M5 || figure29DoubleBottomConfirmationUp_M5 || figure31DivergentFlagConfirmationUp_M5 || figure33FlagWedgeForelockConfirmationUp_M5 || figure35TripleBottomConfirmationUp_M5 || figure37PennantWedgeUp_M5 || figure39RollbackChannelPennantConfirmationUp_M5 || figure41MoreDivergentFlagConfirmationUp_M5 || figure43ChannelFlagUp_M5 || figure45PennantAfterWedgeConfirmationUp_M5 || figure47PennantAfterFlagConfirmationUp_M5 || figure49DoublePennantAfterConfirmationUp_M5 || figure51WedgeConfirmationUp_M5;
-     isM1FigureUp  =  figure1FlagUpContinueUp_M1 || figure3TripleUp_M1 || figure5PennantUp_M1 || figure7FlagUpDivergenceUp_M1 || figure9FlagUpShiftUp_M1 || figure11DoubleBottomUp_M1 || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1 || figure17FlagConfirmationUp_M1 || figure19HeadAndShouldersConfirmationUp_M1 || figure21WedgeUp_M1 || figure23DiamondUp_M1 || figure25TriangleConfirmationUp_M1 || figure27ModerateDivergentFlagConfirmationUp_M1 || figure29DoubleBottomConfirmationUp_M1 || figure31DivergentFlagConfirmationUp_M1 || figure33FlagWedgeForelockConfirmationUp_M1 || figure35TripleBottomConfirmationUp_M1 || figure37PennantWedgeUp_M1 || figure39RollbackChannelPennantConfirmationUp_M1 || figure41MoreDivergentFlagConfirmationUp_M1 || figure43ChannelFlagUp_M1 || figure45PennantAfterWedgeConfirmationUp_M1 || figure47PennantAfterFlagConfirmationUp_M1 || figure49DoublePennantAfterConfirmationUp_M1 || figure51WedgeConfirmationUp_M1;
+     isD1FigureUp  =  figure1FlagUpContinueUp_D1 || figure1_1FlagUpContinueAfterDecliningUp_D1 || figure3TripleUp_D1    || figure5_1PennantUpConfirmationUp_D1  || figure7_1TurnUpDivergenceUp_D1  || figure7_2TurnDivergenceConfirmationUp_D1 || figure9FlagUpShiftUp_D1   /*|| figure11DoubleBottomUp_D1 */ || figure13DivergentChannelUp_D1 || figure15BalancedTriangleUp_D1 || figure17FlagConfirmationUp_D1 || figure19HeadAndShouldersConfirmationUp_D1 || figure21WedgeUp_D1 || figure23DiamondUp_D1 || figure25TriangleConfirmationUp_D1 || figure27ModerateDivergentFlagConfirmationUp_D1 || figure29DoubleBottomConfirmationUp_D1 || figure31DivergentFlagConfirmationUp_D1 || figure33FlagWedgeForelockConfirmationUp_D1 || figure35TripleBottomConfirmationUp_D1 || figure37PennantWedgeUp_D1 || figure39RollbackChannelPennantConfirmationUp_D1 || figure41MoreDivergentFlagConfirmationUp_D1 || figure43ChannelFlagUp_D1 || figure45PennantAfterWedgeConfirmationUp_D1 || figure47PennantAfterFlagConfirmationUp_D1 || figure49DoublePennantAfterConfirmationUp_D1 || figure51WedgeConfirmationUp_D1;
+     isH4FigureUp  =  figure1FlagUpContinueUp_H4 || figure1_1FlagUpContinueAfterDecliningUp_H4 || figure3TripleUp_H4    || figure5_1PennantUpConfirmationUp_H4  || figure7_1TurnUpDivergenceUp_H4  || figure7_2TurnDivergenceConfirmationUp_H4 || figure9FlagUpShiftUp_H4   /*|| figure11DoubleBottomUp_H4 */ || figure13DivergentChannelUp_H4 || figure15BalancedTriangleUp_H4 || figure17FlagConfirmationUp_H4 || figure19HeadAndShouldersConfirmationUp_H4 || figure21WedgeUp_H4 || figure23DiamondUp_H4 || figure25TriangleConfirmationUp_H4 || figure27ModerateDivergentFlagConfirmationUp_H4 || figure29DoubleBottomConfirmationUp_H4 || figure31DivergentFlagConfirmationUp_H4 || figure33FlagWedgeForelockConfirmationUp_H4 || figure35TripleBottomConfirmationUp_H4 || figure37PennantWedgeUp_H4 || figure39RollbackChannelPennantConfirmationUp_H4 || figure41MoreDivergentFlagConfirmationUp_H4 || figure43ChannelFlagUp_H4 || figure45PennantAfterWedgeConfirmationUp_H4 || figure47PennantAfterFlagConfirmationUp_H4 || figure49DoublePennantAfterConfirmationUp_H4 || figure51WedgeConfirmationUp_H4;
+     isH1FigureUp  =  figure1FlagUpContinueUp_H1 || figure1_1FlagUpContinueAfterDecliningUp_H1 || figure3TripleUp_H1    || figure5_1PennantUpConfirmationUp_H1  || figure7_1TurnUpDivergenceUp_H1  || figure7_2TurnDivergenceConfirmationUp_H1 || figure9FlagUpShiftUp_H1   /*|| figure11DoubleBottomUp_H1 */ || figure13DivergentChannelUp_H1 || figure15BalancedTriangleUp_H1 || figure17FlagConfirmationUp_H1 || figure19HeadAndShouldersConfirmationUp_H1 || figure21WedgeUp_H1 || figure23DiamondUp_H1 || figure25TriangleConfirmationUp_H1 || figure27ModerateDivergentFlagConfirmationUp_H1 || figure29DoubleBottomConfirmationUp_H1 || figure31DivergentFlagConfirmationUp_H1 || figure33FlagWedgeForelockConfirmationUp_H1 || figure35TripleBottomConfirmationUp_H1 || figure37PennantWedgeUp_H1 || figure39RollbackChannelPennantConfirmationUp_H1 || figure41MoreDivergentFlagConfirmationUp_H1 || figure43ChannelFlagUp_H1 || figure45PennantAfterWedgeConfirmationUp_H1 || figure47PennantAfterFlagConfirmationUp_H1 || figure49DoublePennantAfterConfirmationUp_H1 || figure51WedgeConfirmationUp_H1;
+     isM15FigureUp =  figure1FlagUpContinueUp_M15 || figure1_1FlagUpContinueAfterDecliningUp_M15 || figure3TripleUp_M15 || figure5_1PennantUpConfirmationUp_M15 || figure7_1TurnUpDivergenceUp_M15 || figure7_2TurnDivergenceConfirmationUp_M15 || figure9FlagUpShiftUp_M15 /*|| figure11DoubleBottomUp_M15*/ || figure13DivergentChannelUp_M15 || figure15BalancedTriangleUp_M15 || figure17FlagConfirmationUp_M15 || figure19HeadAndShouldersConfirmationUp_M15 || figure21WedgeUp_M15 || figure23DiamondUp_M15 || figure25TriangleConfirmationUp_M15 || figure27ModerateDivergentFlagConfirmationUp_M15 || figure29DoubleBottomConfirmationUp_M15 || figure31DivergentFlagConfirmationUp_M15 || figure33FlagWedgeForelockConfirmationUp_M15 || figure35TripleBottomConfirmationUp_M15 || figure37PennantWedgeUp_M15 || figure39RollbackChannelPennantConfirmationUp_M15 || figure41MoreDivergentFlagConfirmationUp_M15 || figure43ChannelFlagUp_M15 || figure45PennantAfterWedgeConfirmationUp_M15 || figure47PennantAfterFlagConfirmationUp_M15 || figure49DoublePennantAfterConfirmationUp_M15 || figure51WedgeConfirmationUp_M15;
+     isM5FigureUp  =  figure1FlagUpContinueUp_M5 || figure1_1FlagUpContinueAfterDecliningUp_M5 || figure3TripleUp_M5    || figure5_1PennantUpConfirmationUp_M5  || figure7_1TurnUpDivergenceUp_M5  || figure7_2TurnDivergenceConfirmationUp_M5 || figure9FlagUpShiftUp_M5   /*|| figure11DoubleBottomUp_M5 */ || figure13DivergentChannelUp_M5 || figure15BalancedTriangleUp_M5 || figure17FlagConfirmationUp_M5 || figure19HeadAndShouldersConfirmationUp_M5 || figure21WedgeUp_M5 || figure23DiamondUp_M5 || figure25TriangleConfirmationUp_M5 || figure27ModerateDivergentFlagConfirmationUp_M5 || figure29DoubleBottomConfirmationUp_M5 || figure31DivergentFlagConfirmationUp_M5 || figure33FlagWedgeForelockConfirmationUp_M5 || figure35TripleBottomConfirmationUp_M5 || figure37PennantWedgeUp_M5 || figure39RollbackChannelPennantConfirmationUp_M5 || figure41MoreDivergentFlagConfirmationUp_M5 || figure43ChannelFlagUp_M5 || figure45PennantAfterWedgeConfirmationUp_M5 || figure47PennantAfterFlagConfirmationUp_M5 || figure49DoublePennantAfterConfirmationUp_M5 || figure51WedgeConfirmationUp_M5;
+     isM1FigureUp  =  figure1FlagUpContinueUp_M1 || figure1_1FlagUpContinueAfterDecliningUp_M1 || figure3TripleUp_M1    || figure5_1PennantUpConfirmationUp_M1  || figure7_1TurnUpDivergenceUp_M1  || figure7_2TurnDivergenceConfirmationUp_M1 || figure9FlagUpShiftUp_M1   /*|| figure11DoubleBottomUp_M1 */ || figure13DivergentChannelUp_M1 || figure15BalancedTriangleUp_M1 || figure17FlagConfirmationUp_M1 || figure19HeadAndShouldersConfirmationUp_M1 || figure21WedgeUp_M1 || figure23DiamondUp_M1 || figure25TriangleConfirmationUp_M1 || figure27ModerateDivergentFlagConfirmationUp_M1 || figure29DoubleBottomConfirmationUp_M1 || figure31DivergentFlagConfirmationUp_M1 || figure33FlagWedgeForelockConfirmationUp_M1 || figure35TripleBottomConfirmationUp_M1 || figure37PennantWedgeUp_M1 || figure39RollbackChannelPennantConfirmationUp_M1 || figure41MoreDivergentFlagConfirmationUp_M1 || figure43ChannelFlagUp_M1 || figure45PennantAfterWedgeConfirmationUp_M1 || figure47PennantAfterFlagConfirmationUp_M1 || figure49DoublePennantAfterConfirmationUp_M1 || figure51WedgeConfirmationUp_M1;
 
 
-     isD1FigureDown  =  figure2FlagDownContinueDown_D1 || figure4TripleDown_D1 || figure6PennantDown_D1 || figure8FlagDownDivergenceDown_D1 || figure10FlagDownShiftDown_D1 || figure12DoubleTopDown_D1 || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1 || figure18FlagConfirmationDown_D1 || figure20HeadAndShouldersConfirmationDown_D1 || figure22WedgeDown_D1 || figure24DiamondDown_D1 || figure26TriangleConfirmationDown_D1 || figure28ModerateDivergentFlagConfirmationDown_D1 || figure30DoubleTopConfirmationDown_D1 || figure32DivergentFlagConfirmationDown_D1 || figure34FlagWedgeForelockConfirmationDown_D1 || figure36TripleTopConfirmationDown_D1 || figure38PennantWedgeDown_D1 || figure40RollbackChannelPennantConfirmationDown_D1 || figure42MoreDivergentFlagConfirmationDown_D1 || figure44ChannelFlagDown_D1 || figure46PennantAfterWedgeConfirmationDown_D1 || figure48PennantAfterFlagConfirmationDown_D1 || figure50DoublePennantAfterConfirmationDown_D1 || figure52WedgeConfirmationDown_D1;
-     isH4FigureDown  =  figure2FlagDownContinueDown_H4 || figure4TripleDown_H4 || figure6PennantDown_H4 || figure8FlagDownDivergenceDown_H4 || figure10FlagDownShiftDown_H4 || figure12DoubleTopDown_H4 || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4 || figure18FlagConfirmationDown_H4 || figure20HeadAndShouldersConfirmationDown_H4 || figure22WedgeDown_H4 || figure24DiamondDown_H4 || figure26TriangleConfirmationDown_H4 || figure28ModerateDivergentFlagConfirmationDown_H4 || figure30DoubleTopConfirmationDown_H4 || figure32DivergentFlagConfirmationDown_H4 || figure34FlagWedgeForelockConfirmationDown_H4 || figure36TripleTopConfirmationDown_H4 || figure38PennantWedgeDown_H4 || figure40RollbackChannelPennantConfirmationDown_H4 || figure42MoreDivergentFlagConfirmationDown_H4 || figure44ChannelFlagDown_H4 || figure46PennantAfterWedgeConfirmationDown_H4 || figure48PennantAfterFlagConfirmationDown_H4 || figure50DoublePennantAfterConfirmationDown_H4 || figure52WedgeConfirmationDown_H4;
-     isH1FigureDown  =  figure2FlagDownContinueDown_H1 || figure4TripleDown_H1 || figure6PennantDown_H1 || figure8FlagDownDivergenceDown_H1 || figure10FlagDownShiftDown_H1 || figure12DoubleTopDown_H1 || figure14DivergentChannelDown_H1 || figure16BalancedTriangleDown_H1 || figure18FlagConfirmationDown_H1 || figure20HeadAndShouldersConfirmationDown_H1 || figure22WedgeDown_H1 || figure24DiamondDown_H1 || figure26TriangleConfirmationDown_H1 || figure28ModerateDivergentFlagConfirmationDown_H1 || figure30DoubleTopConfirmationDown_H1 || figure32DivergentFlagConfirmationDown_H1 || figure34FlagWedgeForelockConfirmationDown_H1 || figure36TripleTopConfirmationDown_H1 || figure38PennantWedgeDown_H1 || figure40RollbackChannelPennantConfirmationDown_H1 || figure42MoreDivergentFlagConfirmationDown_H1 || figure44ChannelFlagDown_H1 || figure46PennantAfterWedgeConfirmationDown_H1 || figure48PennantAfterFlagConfirmationDown_H1 || figure50DoublePennantAfterConfirmationDown_H1 || figure52WedgeConfirmationDown_H1;
-     isM15FigureDown =  figure2FlagDownContinueDown_M15 || figure4TripleDown_M15 || figure6PennantDown_M15 || figure8FlagDownDivergenceDown_M15 || figure10FlagDownShiftDown_M15 || figure12DoubleTopDown_M15 || figure14DivergentChannelDown_M15 || figure16BalancedTriangleDown_M15 || figure18FlagConfirmationDown_M15 || figure20HeadAndShouldersConfirmationDown_M15 || figure22WedgeDown_M15 || figure24DiamondDown_M15 || figure26TriangleConfirmationDown_M15 || figure28ModerateDivergentFlagConfirmationDown_M15 || figure30DoubleTopConfirmationDown_M15 || figure32DivergentFlagConfirmationDown_M15 || figure34FlagWedgeForelockConfirmationDown_M15 || figure36TripleTopConfirmationDown_M15 || figure38PennantWedgeDown_M15 || figure40RollbackChannelPennantConfirmationDown_M15 || figure42MoreDivergentFlagConfirmationDown_M15 || figure44ChannelFlagDown_M15 || figure46PennantAfterWedgeConfirmationDown_M15 || figure48PennantAfterFlagConfirmationDown_M15 || figure50DoublePennantAfterConfirmationDown_M15 || figure52WedgeConfirmationDown_M15;
-     isM5FigureDown  =  figure2FlagDownContinueDown_M5 || figure4TripleDown_M5 || figure6PennantDown_M5 || figure8FlagDownDivergenceDown_M5 || figure10FlagDownShiftDown_M5 || figure12DoubleTopDown_M5 || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5 || figure18FlagConfirmationDown_M5 || figure20HeadAndShouldersConfirmationDown_M5 || figure22WedgeDown_M5 || figure24DiamondDown_M5 || figure26TriangleConfirmationDown_M5 || figure28ModerateDivergentFlagConfirmationDown_M5 || figure30DoubleTopConfirmationDown_M5 || figure32DivergentFlagConfirmationDown_M5 || figure34FlagWedgeForelockConfirmationDown_M5 || figure36TripleTopConfirmationDown_M5 || figure38PennantWedgeDown_M5 || figure40RollbackChannelPennantConfirmationDown_M5 || figure42MoreDivergentFlagConfirmationDown_M5 || figure44ChannelFlagDown_M5 || figure46PennantAfterWedgeConfirmationDown_M5 || figure48PennantAfterFlagConfirmationDown_M5 || figure50DoublePennantAfterConfirmationDown_M5 || figure52WedgeConfirmationDown_M5;
-     isM1FigureDown  =  figure2FlagDownContinueDown_M1 || figure4TripleDown_M1 || figure6PennantDown_M1 || figure8FlagDownDivergenceDown_M1 || figure10FlagDownShiftDown_M1 || figure12DoubleTopDown_M1 || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1 || figure18FlagConfirmationDown_M1 || figure20HeadAndShouldersConfirmationDown_M1 || figure22WedgeDown_M1 || figure24DiamondDown_M1 || figure26TriangleConfirmationDown_M1 || figure28ModerateDivergentFlagConfirmationDown_M1 || figure30DoubleTopConfirmationDown_M1 || figure32DivergentFlagConfirmationDown_M1 || figure34FlagWedgeForelockConfirmationDown_M1 || figure36TripleTopConfirmationDown_M1 || figure38PennantWedgeDown_M1 || figure40RollbackChannelPennantConfirmationDown_M1 || figure42MoreDivergentFlagConfirmationDown_M1 || figure44ChannelFlagDown_M1 || figure46PennantAfterWedgeConfirmationDown_M1 || figure48PennantAfterFlagConfirmationDown_M1 || figure50DoublePennantAfterConfirmationDown_M1 || figure52WedgeConfirmationDown_M1;
+     isD1FigureDown  =  figure2FlagDownContinueDown_D1 || figure2_1FlagDownContinueAfterDecreaseDown_D1 ||figure4TripleDown_D1      || figure6_1PennantDownConfirmationDown_D1  || figure8_1TurnDownDivergenceDown_D1  || figure8_2TurnDivergenceConfirmationDown_D1  || figure10FlagDownShiftDown_D1  /*|| figure12DoubleTopDown_D1 */ || figure14DivergentChannelDown_D1 || figure16BalancedTriangleDown_D1 || figure18FlagConfirmationDown_D1 || figure20HeadAndShouldersConfirmationDown_D1 || figure22WedgeDown_D1 || figure24DiamondDown_D1 || figure26TriangleConfirmationDown_D1 || figure28ModerateDivergentFlagConfirmationDown_D1 || figure30DoubleTopConfirmationDown_D1 || figure32DivergentFlagConfirmationDown_D1 || figure34FlagWedgeForelockConfirmationDown_D1 || figure36TripleTopConfirmationDown_D1 || figure38PennantWedgeDown_D1 || figure40RollbackChannelPennantConfirmationDown_D1 || figure42MoreDivergentFlagConfirmationDown_D1 || figure44ChannelFlagDown_D1 || figure46PennantAfterWedgeConfirmationDown_D1 || figure48PennantAfterFlagConfirmationDown_D1 || figure50DoublePennantAfterConfirmationDown_D1 || figure52WedgeConfirmationDown_D1;
+     isH4FigureDown  =  figure2FlagDownContinueDown_H4 || figure2_1FlagDownContinueAfterDecreaseDown_H4 ||figure4TripleDown_H4      || figure6_1PennantDownConfirmationDown_H4  || figure8_1TurnDownDivergenceDown_H4  || figure8_2TurnDivergenceConfirmationDown_H4  || figure10FlagDownShiftDown_H4  /*|| figure12DoubleTopDown_H4 */ || figure14DivergentChannelDown_H4 || figure16BalancedTriangleDown_H4 || figure18FlagConfirmationDown_H4 || figure20HeadAndShouldersConfirmationDown_H4 || figure22WedgeDown_H4 || figure24DiamondDown_H4 || figure26TriangleConfirmationDown_H4 || figure28ModerateDivergentFlagConfirmationDown_H4 || figure30DoubleTopConfirmationDown_H4 || figure32DivergentFlagConfirmationDown_H4 || figure34FlagWedgeForelockConfirmationDown_H4 || figure36TripleTopConfirmationDown_H4 || figure38PennantWedgeDown_H4 || figure40RollbackChannelPennantConfirmationDown_H4 || figure42MoreDivergentFlagConfirmationDown_H4 || figure44ChannelFlagDown_H4 || figure46PennantAfterWedgeConfirmationDown_H4 || figure48PennantAfterFlagConfirmationDown_H4 || figure50DoublePennantAfterConfirmationDown_H4 || figure52WedgeConfirmationDown_H4;
+     isH1FigureDown  =  figure2FlagDownContinueDown_H1 || figure2_1FlagDownContinueAfterDecreaseDown_H1 ||figure4TripleDown_H1      || figure6_1PennantDownConfirmationDown_H1  || figure8_1TurnDownDivergenceDown_H1  || figure8_2TurnDivergenceConfirmationDown_H1  || figure10FlagDownShiftDown_H1  /*|| figure12DoubleTopDown_H1 */ || figure14DivergentChannelDown_H1 || figure16BalancedTriangleDown_H1 || figure18FlagConfirmationDown_H1 || figure20HeadAndShouldersConfirmationDown_H1 || figure22WedgeDown_H1 || figure24DiamondDown_H1 || figure26TriangleConfirmationDown_H1 || figure28ModerateDivergentFlagConfirmationDown_H1 || figure30DoubleTopConfirmationDown_H1 || figure32DivergentFlagConfirmationDown_H1 || figure34FlagWedgeForelockConfirmationDown_H1 || figure36TripleTopConfirmationDown_H1 || figure38PennantWedgeDown_H1 || figure40RollbackChannelPennantConfirmationDown_H1 || figure42MoreDivergentFlagConfirmationDown_H1 || figure44ChannelFlagDown_H1 || figure46PennantAfterWedgeConfirmationDown_H1 || figure48PennantAfterFlagConfirmationDown_H1 || figure50DoublePennantAfterConfirmationDown_H1 || figure52WedgeConfirmationDown_H1;
+     isM15FigureDown =  figure2FlagDownContinueDown_M15 || figure2_1FlagDownContinueAfterDecreaseDown_M15 ||figure4TripleDown_M15   || figure6_1PennantDownConfirmationDown_M15 || figure8_1TurnDownDivergenceDown_M15 || figure8_2TurnDivergenceConfirmationDown_M15 || figure10FlagDownShiftDown_M15 /*|| figure12DoubleTopDown_M15*/ || figure14DivergentChannelDown_M15 || figure16BalancedTriangleDown_M15 || figure18FlagConfirmationDown_M15 || figure20HeadAndShouldersConfirmationDown_M15 || figure22WedgeDown_M15 || figure24DiamondDown_M15 || figure26TriangleConfirmationDown_M15 || figure28ModerateDivergentFlagConfirmationDown_M15 || figure30DoubleTopConfirmationDown_M15 || figure32DivergentFlagConfirmationDown_M15 || figure34FlagWedgeForelockConfirmationDown_M15 || figure36TripleTopConfirmationDown_M15 || figure38PennantWedgeDown_M15 || figure40RollbackChannelPennantConfirmationDown_M15 || figure42MoreDivergentFlagConfirmationDown_M15 || figure44ChannelFlagDown_M15 || figure46PennantAfterWedgeConfirmationDown_M15 || figure48PennantAfterFlagConfirmationDown_M15 || figure50DoublePennantAfterConfirmationDown_M15 || figure52WedgeConfirmationDown_M15;
+     isM5FigureDown  =  figure2FlagDownContinueDown_M5 || figure2_1FlagDownContinueAfterDecreaseDown_M5 ||figure4TripleDown_M5      || figure6_1PennantDownConfirmationDown_M5  || figure8_1TurnDownDivergenceDown_M5  || figure8_2TurnDivergenceConfirmationDown_M5  || figure10FlagDownShiftDown_M5  /*|| figure12DoubleTopDown_M5 */ || figure14DivergentChannelDown_M5 || figure16BalancedTriangleDown_M5 || figure18FlagConfirmationDown_M5 || figure20HeadAndShouldersConfirmationDown_M5 || figure22WedgeDown_M5 || figure24DiamondDown_M5 || figure26TriangleConfirmationDown_M5 || figure28ModerateDivergentFlagConfirmationDown_M5 || figure30DoubleTopConfirmationDown_M5 || figure32DivergentFlagConfirmationDown_M5 || figure34FlagWedgeForelockConfirmationDown_M5 || figure36TripleTopConfirmationDown_M5 || figure38PennantWedgeDown_M5 || figure40RollbackChannelPennantConfirmationDown_M5 || figure42MoreDivergentFlagConfirmationDown_M5 || figure44ChannelFlagDown_M5 || figure46PennantAfterWedgeConfirmationDown_M5 || figure48PennantAfterFlagConfirmationDown_M5 || figure50DoublePennantAfterConfirmationDown_M5 || figure52WedgeConfirmationDown_M5;
+     isM1FigureDown  =  figure2FlagDownContinueDown_M1 || figure2_1FlagDownContinueAfterDecreaseDown_M1 ||figure4TripleDown_M1      || figure6_1PennantDownConfirmationDown_M1  || figure8_1TurnDownDivergenceDown_M1  || figure8_2TurnDivergenceConfirmationDown_M1  || figure10FlagDownShiftDown_M1  /*|| figure12DoubleTopDown_M1 */ || figure14DivergentChannelDown_M1 || figure16BalancedTriangleDown_M1 || figure18FlagConfirmationDown_M1 || figure20HeadAndShouldersConfirmationDown_M1 || figure22WedgeDown_M1 || figure24DiamondDown_M1 || figure26TriangleConfirmationDown_M1 || figure28ModerateDivergentFlagConfirmationDown_M1 || figure30DoubleTopConfirmationDown_M1 || figure32DivergentFlagConfirmationDown_M1 || figure34FlagWedgeForelockConfirmationDown_M1 || figure36TripleTopConfirmationDown_M1 || figure38PennantWedgeDown_M1 || figure40RollbackChannelPennantConfirmationDown_M1 || figure42MoreDivergentFlagConfirmationDown_M1 || figure44ChannelFlagDown_M1 || figure46PennantAfterWedgeConfirmationDown_M1 || figure48PennantAfterFlagConfirmationDown_M1 || figure50DoublePennantAfterConfirmationDown_M1 || figure52WedgeConfirmationDown_M1;
 
      isFigureUp     = isD1FigureUp || isH4FigureUp || isH1FigureUp || isM15FigureUp|| isM5FigureUp ;
      isFigureDown   = isD1FigureDown || isH4FigureDown || isH1FigureDown || isM15FigureDown || isM5FigureDown ;
@@ -1695,6 +1942,10 @@ isFigureUp
       )
 
       {
+Print("figure1_1FlagUpContinueAfterDecliningUp_M1 =  ",figure1_1FlagUpContinueAfterDecliningUp_M1);
+Print("figure5_1PennantUpConfirmationUp_M1 =         ",figure5_1PennantUpConfirmationUp_M1);
+Print("figure7_1TurnUpDivergenceUp_M1 =              ",figure7_1TurnUpDivergenceUp_M1);
+Print("figure7_2TurnDivergenceConfirmationUp_M1 =    ",figure7_2TurnDivergenceConfirmationUp_M1);
 Print("figure1FlagUpContinueUp_M1 =                  ",figure1FlagUpContinueUp_M1,                  " figure3TripleUp_M1 =                              ",figure3TripleUp_M1,               " figure5PennantUp_M1 =         ",figure5PennantUp_M1);
 Print("figure7FlagUpDivergenceUp_M1 =                ",figure7FlagUpDivergenceUp_M1,                " figure9FlagUpShiftUp_M1 =                         ",figure9FlagUpShiftUp_M1,          " figure11DoubleBottomUp_M1 =   ",figure11DoubleBottomUp_M1);
 Print("figure13DivergentChannelUp_M1 =               ",figure13DivergentChannelUp_M1,               " figure15BalancedTriangleUp_M1 =                   ",figure15BalancedTriangleUp_M1);
@@ -1708,6 +1959,10 @@ Print("figure41MoreDivergentFlagConfirmationUp_M1 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_M1 =  ",figure45PennantAfterWedgeConfirmationUp_M1,  " figure47PennantAfterFlagConfirmationUp_M1 =       ",figure47PennantAfterFlagConfirmationUp_M1);
 Print("figure49DoublePennantAfterConfirmationUp_M1 = ",figure49DoublePennantAfterConfirmationUp_M1, " figure51WedgeConfirmationUp_M1 =                  ",figure51WedgeConfirmationUp_M1);
 
+Print("figure1_1FlagUpContinueAfterDecliningUp_M5 =  ",figure1_1FlagUpContinueAfterDecliningUp_M5);
+Print("figure5_1PennantUpConfirmationUp_M5 =         ",figure5_1PennantUpConfirmationUp_M5);
+Print("figure7_1TurnUpDivergenceUp_M5 =              ",figure7_1TurnUpDivergenceUp_M5);
+Print("figure7_2TurnDivergenceConfirmationUp_M5 =    ",figure7_2TurnDivergenceConfirmationUp_M5);
 Print("figure1FlagUpContinueUp_M5 =                  ",figure1FlagUpContinueUp_M5,                  " figure3TripleUp_M5 =                              ",figure3TripleUp_M5,               " figure5PennantUp_M5 =         ",figure5PennantUp_M5);
 Print("figure7FlagUpDivergenceUp_M5 =                ",figure7FlagUpDivergenceUp_M5,                " figure9FlagUpShiftUp_M5 =                         ",figure9FlagUpShiftUp_M5,          " figure11DoubleBottomUp_M5 =   ",figure11DoubleBottomUp_M5);
 Print("figure13DivergentChannelUp_M5 =               ",figure13DivergentChannelUp_M5,               " figure15BalancedTriangleUp_M5 =                   ",figure15BalancedTriangleUp_M5);
@@ -1721,7 +1976,10 @@ Print("figure41MoreDivergentFlagConfirmationUp_M5 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_M5 =  ",figure45PennantAfterWedgeConfirmationUp_M5,  " figure47PennantAfterFlagConfirmationUp_M5 =       ",figure47PennantAfterFlagConfirmationUp_M5);
 Print("figure49DoublePennantAfterConfirmationUp_M5 = ",figure49DoublePennantAfterConfirmationUp_M5, " figure51WedgeConfirmationUp_M5 =                  ",figure51WedgeConfirmationUp_M5);
 
-
+Print("figure1_1FlagUpContinueAfterDecliningUp_M15 = ",figure1_1FlagUpContinueAfterDecliningUp_M15);
+Print("figure5_1PennantUpConfirmationUp_M15 =        ",figure5_1PennantUpConfirmationUp_M15);
+Print("figure7_1TurnUpDivergenceUp_M15 =             ",figure7_1TurnUpDivergenceUp_M15);
+Print("figure7_2TurnDivergenceConfirmationUp_M15 =   ",figure7_2TurnDivergenceConfirmationUp_M15);
 Print("figure1FlagUpContinueUp_M15 =                 ",figure1FlagUpContinueUp_M15,                 " figure3TripleUp_M15 =                             ",figure3TripleUp_M15,               " figure5PennantUp_M15 =         ",figure5PennantUp_M15);
 Print("figure7FlagUpDivergenceUp_M15 =               ",figure7FlagUpDivergenceUp_M15,               " figure9FlagUpShiftUp_M15 =                        ",figure9FlagUpShiftUp_M15,          " figure11DoubleBottomUp_M15 =   ",figure11DoubleBottomUp_M15);
 Print("figure13DivergentChannelUp_M15 =              ",figure13DivergentChannelUp_M15,              " figure15BalancedTriangleUp_M15 =                  ",figure15BalancedTriangleUp_M15);
@@ -1735,7 +1993,10 @@ Print("figure41MoreDivergentFlagConfirmationUp_M15 = ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_M15 = ",figure45PennantAfterWedgeConfirmationUp_M15, " figure47PennantAfterFlagConfirmationUp_M15 =      ",figure47PennantAfterFlagConfirmationUp_M15);
 Print("figure49DoublePennantAfterConfirmationUp_M15 =",figure49DoublePennantAfterConfirmationUp_M15," figure51WedgeConfirmationUp_M15 =                 ",figure51WedgeConfirmationUp_M15);
 
-
+Print("figure1_1FlagUpContinueAfterDecliningUp_H1 =  ",figure1_1FlagUpContinueAfterDecliningUp_H1);
+Print("figure5_1PennantUpConfirmationUp_H1 =         ",figure5_1PennantUpConfirmationUp_H1);
+Print("figure7_1TurnUpDivergenceUp_H1 =              ",figure7_1TurnUpDivergenceUp_H1);
+Print("figure7_2TurnDivergenceConfirmationUp_H1 =    ",figure7_2TurnDivergenceConfirmationUp_H1);
 Print("figure1FlagUpContinueUp_H1 =                  ",figure1FlagUpContinueUp_H1,                  " figure3TripleUp_H1 =                              ",figure3TripleUp_H1,               " figure5PennantUp_H1 =         ",figure5PennantUp_H1);
 Print("figure7FlagUpDivergenceUp_H1 =                ",figure7FlagUpDivergenceUp_H1,                " figure9FlagUpShiftUp_H1 =                         ",figure9FlagUpShiftUp_H1,          " figure11DoubleBottomUp_H1 =   ",figure11DoubleBottomUp_H1);
 Print("figure13DivergentChannelUp_H1 =               ",figure13DivergentChannelUp_H1,               " figure15BalancedTriangleUp_H1 =                   ",figure15BalancedTriangleUp_H1);
@@ -1749,6 +2010,10 @@ Print("figure41MoreDivergentFlagConfirmationUp_H1 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_H1 =  ",figure45PennantAfterWedgeConfirmationUp_H1,  " figure47PennantAfterFlagConfirmationUp_H1 =       ",figure47PennantAfterFlagConfirmationUp_H1);
 Print("figure49DoublePennantAfterConfirmationUp_H1 = ",figure49DoublePennantAfterConfirmationUp_H1, " figure51WedgeConfirmationUp_H1 =                  ",figure51WedgeConfirmationUp_H1);
 
+Print("figure1_1FlagUpContinueAfterDecliningUp_H4 =  ",figure1_1FlagUpContinueAfterDecliningUp_H4);
+Print("figure5_1PennantUpConfirmationUp_H4 =         ",figure5_1PennantUpConfirmationUp_H4);
+Print("figure7_1TurnUpDivergenceUp_H4 =              ",figure7_1TurnUpDivergenceUp_H4);
+Print("figure7_2TurnDivergenceConfirmationUp_H4 =    ",figure7_2TurnDivergenceConfirmationUp_H4);
 Print("figure1FlagUpContinueUp_H4 =                  ",figure1FlagUpContinueUp_H4,                  " figure3TripleUp_H4 =                              ",figure3TripleUp_H4,               " figure5PennantUp_H4 =         ",figure5PennantUp_H4);
 Print("figure7FlagUpDivergenceUp_H4 =                ",figure7FlagUpDivergenceUp_H4,                " figure9FlagUpShiftUp_H4 =                         ",figure9FlagUpShiftUp_H4,          " figure11DoubleBottomUp_H4 =   ",figure11DoubleBottomUp_H4);
 Print("figure13DivergentChannelUp_H4 =               ",figure13DivergentChannelUp_H4,               " figure15BalancedTriangleUp_H4 =                   ",figure15BalancedTriangleUp_H4);
@@ -1762,6 +2027,10 @@ Print("figure41MoreDivergentFlagConfirmationUp_H4 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_H4 =  ",figure45PennantAfterWedgeConfirmationUp_H4,  " figure47PennantAfterFlagConfirmationUp_H4 =       ",figure47PennantAfterFlagConfirmationUp_H4);
 Print("figure49DoublePennantAfterConfirmationUp_H4 = ",figure49DoublePennantAfterConfirmationUp_H4, " figure51WedgeConfirmationUp_H4 =                  ",figure51WedgeConfirmationUp_H4);
 
+Print("figure1_1FlagUpContinueAfterDecliningUp_D1 =  ",figure1_1FlagUpContinueAfterDecliningUp_D1);
+Print("figure5_1PennantUpConfirmationUp_D1 =         ",figure5_1PennantUpConfirmationUp_D1);
+Print("figure7_1TurnUpDivergenceUp_D1 =              ",figure7_1TurnUpDivergenceUp_D1);
+Print("figure7_2TurnDivergenceConfirmationUp_D1 =    ",figure7_2TurnDivergenceConfirmationUp_D1);
 Print("figure1FlagUpContinueUp_D1 =                  ",figure1FlagUpContinueUp_D1,                  " figure3TripleUp_D1 =                              ",figure3TripleUp_D1,               " figure5PennantUp_D1 =         ",figure5PennantUp_D1);
 Print("figure7FlagUpDivergenceUp_D1 =                ",figure7FlagUpDivergenceUp_D1,                " figure9FlagUpShiftUp_D1 =                         ",figure9FlagUpShiftUp_D1,          " figure11DoubleBottomUp_D1 =   ",figure11DoubleBottomUp_D1);
 Print("figure13DivergentChannelUp_D1 =               ",figure13DivergentChannelUp_D1,               " figure15BalancedTriangleUp_D1 =                   ",figure15BalancedTriangleUp_D1);
@@ -1785,6 +2054,10 @@ isFigureDown
 
       {
 
+Print("figure2_1FlagDownContinueAfterDecreaseDown_M1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_M1);
+Print("figure6_1PennantDownConfirmationDown_M1 =        ", figure6_1PennantDownConfirmationDown_M1);
+Print("figure8_1TurnDownDivergenceDown_M1 =             ", figure8_1TurnDownDivergenceDown_M1);
+Print("figure8_2TurnDivergenceConfirmationDown_M1 =     ", figure8_2TurnDivergenceConfirmationDown_M1);
 Print("figure2FlagDownContinueDown_M1 =                 ", figure2FlagDownContinueDown_M1,                  " figure4TripleDown_M1 =                                ", figure4TripleDown_M1,            " figure6PennantDown_M1 =       ", figure6PennantDown_M1);
 Print("figure8FlagDownDivergenceDown_M1 =               ", figure8FlagDownDivergenceDown_M1,                " figure10FlagDownShiftDown_M1 =                        ", figure10FlagDownShiftDown_M1,    " figure12DoubleTopDown_M1 =    ", figure12DoubleTopDown_M1);
 Print("figure14DivergentChannelDown_M1 =                ", figure14DivergentChannelDown_M1,                 " figure16BalancedTriangleDown_M1 =                     ",figure16BalancedTriangleDown_M1);
@@ -1798,7 +2071,10 @@ Print("figure42MoreDivergentFlagConfirmationDown_M1 =   ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_M1 =   ", figure46PennantAfterWedgeConfirmationDown_M1,    " figure48PennantAfterFlagConfirmationDown_M1 =         ",figure48PennantAfterFlagConfirmationDown_M1);
 Print("figure50DoublePennantAfterConfirmationDown_M1 =  ", figure50DoublePennantAfterConfirmationDown_M1,   " figure52WedgeConfirmationDown_M1 =                    ",figure52WedgeConfirmationDown_M1);
 
-
+Print("figure2_1FlagDownContinueAfterDecreaseDown_M5 =  ", figure2_1FlagDownContinueAfterDecreaseDown_M5);
+Print("figure6_1PennantDownConfirmationDown_M5 =        ", figure6_1PennantDownConfirmationDown_M5);
+Print("figure8_1TurnDownDivergenceDown_M5 =             ", figure8_1TurnDownDivergenceDown_M5);
+Print("figure8_2TurnDivergenceConfirmationDown_M5 =     ", figure8_2TurnDivergenceConfirmationDown_M5);
 Print("figure2FlagDownContinueDown_M5 =                 ", figure2FlagDownContinueDown_M5,                  " figure4TripleDown_M5 =                                ", figure4TripleDown_M5,            " figure6PennantDown_M5 =       ", figure6PennantDown_M5);
 Print("figure8FlagDownDivergenceDown_M5 =               ", figure8FlagDownDivergenceDown_M5,                " figure10FlagDownShiftDown_M5 =                        ", figure10FlagDownShiftDown_M5,    " figure12DoubleTopDown_M5 =    ", figure12DoubleTopDown_M5);
 Print("figure14DivergentChannelDown_M5 =                ", figure14DivergentChannelDown_M5,                 " figure16BalancedTriangleDown_M5 =                     ",figure16BalancedTriangleDown_M5);
@@ -1813,6 +2089,10 @@ Print("figure46PennantAfterWedgeConfirmationDown_M5 =   ", figure46PennantAfterW
 Print("figure50DoublePennantAfterConfirmationDown_M5 =  ", figure50DoublePennantAfterConfirmationDown_M5,   " figure52WedgeConfirmationDown_M5 =                    ",figure52WedgeConfirmationDown_M5);
 
 
+Print("figure2_1FlagDownContinueAfterDecreaseDown_M15 = ", figure2_1FlagDownContinueAfterDecreaseDown_M15);
+Print("figure6_1PennantDownConfirmationDown_M15 =       ", figure6_1PennantDownConfirmationDown_M15);
+Print("figure8_1TurnDownDivergenceDown_M15 =            ", figure8_1TurnDownDivergenceDown_M15);
+Print("figure6_1PennantDownConfirmationDown_M15 =       ", figure2_1FlagDownContinueAfterDecreaseDown_M15);
 Print("figure2FlagDownContinueDown_M15 =                ", figure2FlagDownContinueDown_M15,                 " figure4TripleDown_M15 =                               ", figure4TripleDown_M15,            " figure6PennantDown_M15 =       ", figure6PennantDown_M15);
 Print("figure8FlagDownDivergenceDown_M15 =              ", figure8FlagDownDivergenceDown_M15,               " figure10FlagDownShiftDown_M15 =                       ", figure10FlagDownShiftDown_M15,    " figure12DoubleTopDown_M15 =    ", figure12DoubleTopDown_M15);
 Print("figure14DivergentChannelDown_M15 =               ", figure14DivergentChannelDown_M15,                " figure16BalancedTriangleDown_M15 =                    ", figure16BalancedTriangleDown_M15);
@@ -1827,6 +2107,10 @@ Print("figure46PennantAfterWedgeConfirmationDown_M15 =  ", figure46PennantAfterW
 Print("figure50DoublePennantAfterConfirmationDown_M15 = ", figure50DoublePennantAfterConfirmationDown_M15,  " figure52WedgeConfirmationDown_M15 =                   ", figure52WedgeConfirmationDown_M15);
 
 
+Print("figure2_1FlagDownContinueAfterDecreaseDown_H1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_H1);
+Print("figure6_1PennantDownConfirmationDown_H1 =        ", figure6_1PennantDownConfirmationDown_H1);
+Print("figure8_1TurnDownDivergenceDown_H1 =             ", figure8_1TurnDownDivergenceDown_H1);
+Print("figure8_2TurnDivergenceConfirmationDown_H1 =     ", figure8_2TurnDivergenceConfirmationDown_H1);
 Print("figure2FlagDownContinueDown_D1 =                 ", figure2FlagDownContinueDown_H1,                  " figure4TripleDown_H1 =                                ", figure4TripleDown_H1,            " figure6PennantDown_H1 =       ", figure6PennantDown_H1);
 Print("figure8FlagDownDivergenceDown_H1 =               ", figure8FlagDownDivergenceDown_H1,                " figure10FlagDownShiftDown_H1 =                        ", figure10FlagDownShiftDown_H1,    " figure12DoubleTopDown_H1 =    ", figure12DoubleTopDown_H1);
 Print("figure14DivergentChannelDown_H1 =                ", figure14DivergentChannelDown_H1,                 " figure16BalancedTriangleDown_H1 =                     ",figure16BalancedTriangleDown_H1);
@@ -1841,6 +2125,10 @@ Print("figure46PennantAfterWedgeConfirmationDown_H1 =   ", figure46PennantAfterW
 Print("figure50DoublePennantAfterConfirmationDown_H1 =  ", figure50DoublePennantAfterConfirmationDown_H1,   " figure52WedgeConfirmationDown_H1 =                    ",figure52WedgeConfirmationDown_H1);
 
 
+Print("figure2_1FlagDownContinueAfterDecreaseDown_H4 =  ", figure2_1FlagDownContinueAfterDecreaseDown_H4);
+Print("figure6_1PennantDownConfirmationDown_H4 =        ", figure6_1PennantDownConfirmationDown_H4);
+Print("figure8_1TurnDownDivergenceDown_H4 =             ", figure8_1TurnDownDivergenceDown_H4);
+Print("figure8_2TurnDivergenceConfirmationDown_H4 =     ", figure8_2TurnDivergenceConfirmationDown_H4);
 Print("figure2FlagDownContinueDown_H4 =                 ", figure2FlagDownContinueDown_H4,                  " figure4TripleDown_H4 =                                ", figure4TripleDown_H4,            " figure6PennantDown_H4 =       ", figure6PennantDown_H4);
 Print("figure8FlagDownDivergenceDown_H4 =               ", figure8FlagDownDivergenceDown_H4,                " figure10FlagDownShiftDown_H4 =                        ", figure10FlagDownShiftDown_H4,    " figure12DoubleTopDown_H4 =    ", figure12DoubleTopDown_H4);
 Print("figure14DivergentChannelDown_H4 =                ", figure14DivergentChannelDown_H4,                 " figure16BalancedTriangleDown_H4 =                     ",figure16BalancedTriangleDown_H4);
@@ -1855,6 +2143,10 @@ Print("figure46PennantAfterWedgeConfirmationDown_H4 =   ", figure46PennantAfterW
 Print("figure50DoublePennantAfterConfirmationDown_H4 =  ", figure50DoublePennantAfterConfirmationDown_H4,   " figure52WedgeConfirmationDown_H4 =                    ",figure52WedgeConfirmationDown_H4);
 
 
+Print("figure2_1FlagDownContinueAfterDecreaseDown_D1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_D1);
+Print("figure6_1PennantDownConfirmationDown_D1 =        ", figure6_1PennantDownConfirmationDown_D1);
+Print("figure8_1TurnDownDivergenceDown_D1 =             ", figure8_1TurnDownDivergenceDown_D1);
+Print("figure8_2TurnDivergenceConfirmationDown_D1 =     ", figure8_2TurnDivergenceConfirmationDown_D1);
 Print("figure2FlagDownContinueDown_D1 =                 ", figure2FlagDownContinueDown_D1,                  " figure4TripleDown_D1 =                                ", figure4TripleDown_D1,            " figure6PennantDown_D1 =       ", figure6PennantDown_D1);
 Print("figure8FlagDownDivergenceDown_D1 =               ", figure8FlagDownDivergenceDown_D1,                " figure10FlagDownShiftDown_D1 =                        ", figure10FlagDownShiftDown_D1,    " figure12DoubleTopDown_D1 =    ", figure12DoubleTopDown_D1);
 Print("figure14DivergentChannelDown_D1 =                ", figure14DivergentChannelDown_D1,                 " figure16BalancedTriangleDown_D1 =                     ",figure16BalancedTriangleDown_D1);
