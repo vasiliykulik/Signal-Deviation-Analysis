@@ -1459,12 +1459,16 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 27_6 "DoubleBottomDivConDivConfirmationUp"
 
     if(
-        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
-        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && /*secondMinGlobal and thirdMaxGlobal */ secondMinGlobal > fourthMinGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
-        thirdMaxGlobal > fourthMinGlobal &&
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fifthMinGlobal && firstMinGlobal > fifthMaxGlobal && firstMinGlobal > sixthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal > fifthMinGlobal && firstMaxGlobal > fifthMaxGlobal && firstMaxGlobal > sixthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&  secondMinGlobal < fourthMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fifthMinGlobal && secondMinGlobal > fifthMaxGlobal && secondMinGlobal > sixthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fifthMinGlobal && secondMaxGlobal > fifthMaxGlobal && secondMaxGlobal > sixthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fifthMinGlobal && thirdMinGlobal > fifthMaxGlobal && thirdMinGlobal > sixthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fifthMinGlobal && thirdMaxGlobal > fifthMaxGlobal && thirdMaxGlobal > sixthMinGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal > fifthMinGlobal && fourthMinGlobal > fifthMaxGlobal && fourthMinGlobal > sixthMinGlobal &&
+        fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > sixthMinGlobal &&
+        fifthMinGlobal < fifthMaxGlobal && fifthMinGlobal > sixthMinGlobal &&
+        fifthMaxGlobal > sixthMinGlobal &&
         isC5Min &&
         isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
@@ -1480,12 +1484,15 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 28_6 "DoubleTopDivConDivConfirmationDown"
 
     if(
-        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && /*secondMaxGlobal and thirdMinGlobal */ secondMaxGlobal < fourthMaxGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
-        thirdMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fifthMaxGlobal && firstMaxGlobal > fifthMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal > fifthMaxGlobal && firstMinGlobal > fifthMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal > fifthMaxGlobal && secondMaxGlobal > fifthMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal > fifthMaxGlobal && secondMinGlobal > fifthMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fifthMaxGlobal && thirdMaxGlobal > fifthMinGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fifthMaxGlobal && thirdMinGlobal > fifthMinGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > fifthMinGlobal &&
+        fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal > fifthMinGlobal &&
+        fifthMaxGlobal > fifthMinGlobal &&
         isC5Max &&
         isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
@@ -1502,12 +1509,16 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 27_7 "DoubleBottom12PosUp"
 
     if(
-        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
-        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && /*secondMinGlobal and thirdMaxGlobal */ secondMinGlobal > fourthMinGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
-        thirdMaxGlobal > fourthMinGlobal &&
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fifthMinGlobal && firstMinGlobal > fifthMaxGlobal && firstMinGlobal > sixthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal > fifthMinGlobal && firstMaxGlobal > fifthMaxGlobal && firstMaxGlobal > sixthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&  secondMinGlobal < fourthMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fifthMinGlobal && secondMinGlobal > fifthMaxGlobal && secondMinGlobal > sixthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fifthMinGlobal && secondMaxGlobal > fifthMaxGlobal && secondMaxGlobal > sixthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fifthMinGlobal && thirdMinGlobal > fifthMaxGlobal && thirdMinGlobal > sixthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fifthMinGlobal && thirdMaxGlobal > fifthMaxGlobal && thirdMaxGlobal > sixthMinGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal > fifthMinGlobal && fourthMinGlobal > fifthMaxGlobal && fourthMinGlobal > sixthMinGlobal &&
+        fourthMaxGlobal > fifthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > sixthMinGlobal &&
+        fifthMinGlobal < fifthMaxGlobal && fifthMinGlobal > sixthMinGlobal &&
+        fifthMaxGlobal > sixthMinGlobal &&
         isC5Min &&
         isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
@@ -1523,12 +1534,15 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 28_7 "DoubleTop12PosDown"
 
     if(
-        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && /*secondMaxGlobal and thirdMinGlobal */ secondMaxGlobal < fourthMaxGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
-        thirdMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fifthMaxGlobal && firstMaxGlobal > fifthMinGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal > fifthMaxGlobal && firstMinGlobal > fifthMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal > fifthMaxGlobal && secondMaxGlobal > fifthMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal > fifthMaxGlobal && secondMinGlobal > fifthMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fifthMaxGlobal && thirdMaxGlobal > fifthMinGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fifthMaxGlobal && thirdMinGlobal > fifthMinGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal > fifthMaxGlobal && fourthMaxGlobal > fifthMinGlobal &&
+        fourthMinGlobal < fifthMaxGlobal && fourthMinGlobal > fifthMinGlobal &&
+        fifthMaxGlobal > fifthMinGlobal &&
         isC5Max &&
         isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
