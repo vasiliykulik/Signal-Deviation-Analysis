@@ -2350,13 +2350,13 @@ Print("figure41MoreDivergentFlagConfirmationUp_M5 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_M5 =  ",figure45PennantAfterWedgeConfirmationUp_M5,  " figure47PennantAfterFlagConfirmationUp_M5 =       ",figure47PennantAfterFlagConfirmationUp_M5);
 Print("figure49DoublePennantAfterConfirmationUp_M5 = ",figure49DoublePennantAfterConfirmationUp_M5, " figure51WedgeConfirmationUp_M5 =                  ",figure51WedgeConfirmationUp_M5);
 Print("figure13_1DivergenceFlagConfirmationUp_M5 =    ",figure13_1DivergenceFlagConfirmationUp_M5);
-Print("figure27_1DoubleBottomFlagUp_M1 = ", figure27_1DoubleBottomFlagUp_M1);
-Print("figure27_2TriangleAsConfirmationUp_M1 = ", figure27_2TriangleAsConfirmationUp_M1);
-Print("figure27_3DoubleBottomChannelUp_M1 = ", figure27_3DoubleBottomChannelUp_M1);
-Print("figure27_4WedgePennantConfirmationUp_M1 = ", figure27_4WedgePennantConfirmationUp_M1);
-Print("figure27_5DoubleBottomConDivDivConfirmationUp_M1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M1);
-Print("figure27_6DoubleBottomDivConDivConfirmationUp_M1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M1);
-Print("figure27_7DoubleBottom12PosUp_M1 = ", figure27_7DoubleBottom12PosUp_M1);
+Print("figure27_1DoubleBottomFlagUp_M5 = ", figure27_1DoubleBottomFlagUp_M5);
+Print("figure27_2TriangleAsConfirmationUp_M5 = ", figure27_2TriangleAsConfirmationUp_M5);
+Print("figure27_3DoubleBottomChannelUp_M5 = ", figure27_3DoubleBottomChannelUp_M5);
+Print("figure27_4WedgePennantConfirmationUp_M5 = ", figure27_4WedgePennantConfirmationUp_M5);
+Print("figure27_5DoubleBottomConDivDivConfirmationUp_M5 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M5);
+Print("figure27_6DoubleBottomDivConDivConfirmationUp_M5 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M5);
+Print("figure27_7DoubleBottom12PosUp_M5 = ", figure27_7DoubleBottom12PosUp_M5);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_M15 = ",figure1_1FlagUpContinueAfterDecliningUp_M15);
 Print("figure5_1PennantUpConfirmationUp_M15 =        ",figure5_1PennantUpConfirmationUp_M15);
@@ -2375,13 +2375,13 @@ Print("figure41MoreDivergentFlagConfirmationUp_M15 = ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_M15 = ",figure45PennantAfterWedgeConfirmationUp_M15, " figure47PennantAfterFlagConfirmationUp_M15 =      ",figure47PennantAfterFlagConfirmationUp_M15);
 Print("figure49DoublePennantAfterConfirmationUp_M15 =",figure49DoublePennantAfterConfirmationUp_M15," figure51WedgeConfirmationUp_M15 =                 ",figure51WedgeConfirmationUp_M15);
 Print("figure13_1DivergenceFlagConfirmationUp_M15 =   ",figure13_1DivergenceFlagConfirmationUp_M15);
-Print("figure27_1DoubleBottomFlagUp_M1 = ", figure27_1DoubleBottomFlagUp_M1);
-Print("figure27_2TriangleAsConfirmationUp_M1 = ", figure27_2TriangleAsConfirmationUp_M1);
-Print("figure27_3DoubleBottomChannelUp_M1 = ", figure27_3DoubleBottomChannelUp_M1);
-Print("figure27_4WedgePennantConfirmationUp_M1 = ", figure27_4WedgePennantConfirmationUp_M1);
-Print("figure27_5DoubleBottomConDivDivConfirmationUp_M1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M1);
-Print("figure27_6DoubleBottomDivConDivConfirmationUp_M1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M1);
-Print("figure27_7DoubleBottom12PosUp_M1 = ", figure27_7DoubleBottom12PosUp_M1);
+Print("figure27_1DoubleBottomFlagUp_M15 = ", figure27_1DoubleBottomFlagUp_M15);
+Print("figure27_2TriangleAsConfirmationUp_M15 = ", figure27_2TriangleAsConfirmationUp_M15);
+Print("figure27_3DoubleBottomChannelUp_M15 = ", figure27_3DoubleBottomChannelUp_M15);
+Print("figure27_4WedgePennantConfirmationUp_M15 = ", figure27_4WedgePennantConfirmationUp_M15);
+Print("figure27_5DoubleBottomConDivDivConfirmationUp_M15 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M15);
+Print("figure27_6DoubleBottomDivConDivConfirmationUp_M15 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M15);
+Print("figure27_7DoubleBottom12PosUp_M15 = ", figure27_7DoubleBottom12PosUp_M15);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_H1 =  ",figure1_1FlagUpContinueAfterDecliningUp_H1);
 Print("figure5_1PennantUpConfirmationUp_H1 =         ",figure5_1PennantUpConfirmationUp_H1);
@@ -2400,13 +2400,13 @@ Print("figure41MoreDivergentFlagConfirmationUp_H1 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_H1 =  ",figure45PennantAfterWedgeConfirmationUp_H1,  " figure47PennantAfterFlagConfirmationUp_H1 =       ",figure47PennantAfterFlagConfirmationUp_H1);
 Print("figure49DoublePennantAfterConfirmationUp_H1 = ",figure49DoublePennantAfterConfirmationUp_H1, " figure51WedgeConfirmationUp_H1 =                  ",figure51WedgeConfirmationUp_H1);
 Print("figure13_1DivergenceFlagConfirmationUp_H1 =    ",figure13_1DivergenceFlagConfirmationUp_H1);
-Print("figure27_1DoubleBottomFlagUp_M1 = ", figure27_1DoubleBottomFlagUp_M1);
-Print("figure27_2TriangleAsConfirmationUp_M1 = ", figure27_2TriangleAsConfirmationUp_M1);
-Print("figure27_3DoubleBottomChannelUp_M1 = ", figure27_3DoubleBottomChannelUp_M1);
-Print("figure27_4WedgePennantConfirmationUp_M1 = ", figure27_4WedgePennantConfirmationUp_M1);
-Print("figure27_5DoubleBottomConDivDivConfirmationUp_M1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M1);
-Print("figure27_6DoubleBottomDivConDivConfirmationUp_M1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M1);
-Print("figure27_7DoubleBottom12PosUp_M1 = ", figure27_7DoubleBottom12PosUp_M1);
+Print("figure27_1DoubleBottomFlagUp_H1 = ", figure27_1DoubleBottomFlagUp_H1);
+Print("figure27_2TriangleAsConfirmationUp_H1 = ", figure27_2TriangleAsConfirmationUp_H1);
+Print("figure27_3DoubleBottomChannelUp_H1 = ", figure27_3DoubleBottomChannelUp_H1);
+Print("figure27_4WedgePennantConfirmationUp_H1 = ", figure27_4WedgePennantConfirmationUp_H1);
+Print("figure27_5DoubleBottomConDivDivConfirmationUp_H1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_H1);
+Print("figure27_6DoubleBottomDivConDivConfirmationUp_H1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_H1);
+Print("figure27_7DoubleBottom12PosUp_H1 = ", figure27_7DoubleBottom12PosUp_H1);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_H4 =  ",figure1_1FlagUpContinueAfterDecliningUp_H4);
 Print("figure5_1PennantUpConfirmationUp_H4 =         ",figure5_1PennantUpConfirmationUp_H4);
@@ -2425,13 +2425,13 @@ Print("figure41MoreDivergentFlagConfirmationUp_H4 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_H4 =  ",figure45PennantAfterWedgeConfirmationUp_H4,  " figure47PennantAfterFlagConfirmationUp_H4 =       ",figure47PennantAfterFlagConfirmationUp_H4);
 Print("figure49DoublePennantAfterConfirmationUp_H4 = ",figure49DoublePennantAfterConfirmationUp_H4, " figure51WedgeConfirmationUp_H4 =                  ",figure51WedgeConfirmationUp_H4);
 Print("figure13_1DivergenceFlagConfirmationUp_H4 =    ",figure13_1DivergenceFlagConfirmationUp_H4);
-Print("figure27_1DoubleBottomFlagUp_M1 = ", figure27_1DoubleBottomFlagUp_M1);
-Print("figure27_2TriangleAsConfirmationUp_M1 = ", figure27_2TriangleAsConfirmationUp_M1);
-Print("figure27_3DoubleBottomChannelUp_M1 = ", figure27_3DoubleBottomChannelUp_M1);
-Print("figure27_4WedgePennantConfirmationUp_M1 = ", figure27_4WedgePennantConfirmationUp_M1);
-Print("figure27_5DoubleBottomConDivDivConfirmationUp_M1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M1);
-Print("figure27_6DoubleBottomDivConDivConfirmationUp_M1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M1);
-Print("figure27_7DoubleBottom12PosUp_M1 = ", figure27_7DoubleBottom12PosUp_M1);
+Print("figure27_1DoubleBottomFlagUp_H4 = ", figure27_1DoubleBottomFlagUp_H4);
+Print("figure27_2TriangleAsConfirmationUp_H4 = ", figure27_2TriangleAsConfirmationUp_H4);
+Print("figure27_3DoubleBottomChannelUp_H4 = ", figure27_3DoubleBottomChannelUp_H4);
+Print("figure27_4WedgePennantConfirmationUp_H4 = ", figure27_4WedgePennantConfirmationUp_H4);
+Print("figure27_5DoubleBottomConDivDivConfirmationUp_H4 = ", figure27_5DoubleBottomConDivDivConfirmationUp_H4);
+Print("figure27_6DoubleBottomDivConDivConfirmationUp_H4 = ", figure27_6DoubleBottomDivConDivConfirmationUp_H4);
+Print("figure27_7DoubleBottom12PosUp_H4 = ", figure27_7DoubleBottom12PosUp_H4);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_D1 =  ",figure1_1FlagUpContinueAfterDecliningUp_D1);
 Print("figure5_1PennantUpConfirmationUp_D1 =         ",figure5_1PennantUpConfirmationUp_D1);
@@ -2450,13 +2450,13 @@ Print("figure41MoreDivergentFlagConfirmationUp_D1 =  ",figure41MoreDivergentFlag
 Print("figure45PennantAfterWedgeConfirmationUp_D1 =  ",figure45PennantAfterWedgeConfirmationUp_D1,  " figure47PennantAfterFlagConfirmationUp_D1 =       ",figure47PennantAfterFlagConfirmationUp_D1);
 Print("figure49DoublePennantAfterConfirmationUp_D1 = ",figure49DoublePennantAfterConfirmationUp_D1, " figure51WedgeConfirmationUp_D1 =                  ",figure51WedgeConfirmationUp_D1);
 Print("figure13_1DivergenceFlagConfirmationUp_D1 =    ",figure13_1DivergenceFlagConfirmationUp_D1);
-Print("figure27_1DoubleBottomFlagUp_M1 = ", figure27_1DoubleBottomFlagUp_M1);
-Print("figure27_2TriangleAsConfirmationUp_M1 = ", figure27_2TriangleAsConfirmationUp_M1);
-Print("figure27_3DoubleBottomChannelUp_M1 = ", figure27_3DoubleBottomChannelUp_M1);
-Print("figure27_4WedgePennantConfirmationUp_M1 = ", figure27_4WedgePennantConfirmationUp_M1);
-Print("figure27_5DoubleBottomConDivDivConfirmationUp_M1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M1);
-Print("figure27_6DoubleBottomDivConDivConfirmationUp_M1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M1);
-Print("figure27_7DoubleBottom12PosUp_M1 = ", figure27_7DoubleBottom12PosUp_M1);
+Print("figure27_1DoubleBottomFlagUp_D1 = ", figure27_1DoubleBottomFlagUp_D1);
+Print("figure27_2TriangleAsConfirmationUp_D1 = ", figure27_2TriangleAsConfirmationUp_D1);
+Print("figure27_3DoubleBottomChannelUp_D1 = ", figure27_3DoubleBottomChannelUp_D1);
+Print("figure27_4WedgePennantConfirmationUp_D1 = ", figure27_4WedgePennantConfirmationUp_D1);
+Print("figure27_5DoubleBottomConDivDivConfirmationUp_D1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_D1);
+Print("figure27_6DoubleBottomDivConDivConfirmationUp_D1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_D1);
+Print("figure27_7DoubleBottom12PosUp_D1 = ", figure27_7DoubleBottom12PosUp_D1);
 
       buy=1;
       }
@@ -2485,6 +2485,13 @@ Print("figure42MoreDivergentFlagConfirmationDown_M1 =   ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_M1 =   ", figure46PennantAfterWedgeConfirmationDown_M1,    " figure48PennantAfterFlagConfirmationDown_M1 =         ",figure48PennantAfterFlagConfirmationDown_M1);
 Print("figure50DoublePennantAfterConfirmationDown_M1 =  ", figure50DoublePennantAfterConfirmationDown_M1,   " figure52WedgeConfirmationDown_M1 =                    ",figure52WedgeConfirmationDown_M1);
 Print("figure14_1DivergenceFlagConfirmationDown_M1  = ", figure14_1DivergenceFlagConfirmationDown_M1);
+Print("figure28_1DoubleTopFlagDown_M1 = ",figure28_1DoubleTopFlagDown_M1);
+Print("figure28_2TriangleAsConfirmationDown_M1 = ",figure28_2TriangleAsConfirmationDown_M1);
+Print("figure28_3DoubleTopChannelDown_M1 = ",figure28_3DoubleTopChannelDown_M1);
+Print("figure28_4WedgePennantConfirmationDown_M1 = ", figure28_4WedgePennantConfirmationDown_M1);
+Print("figure28_5DoubleTopConDivDivConfirmationDown_M1 = ", figure28_5DoubleTopConDivDivConfirmationDown_M1);
+Print("figure28_6DoubleTopDivConDivConfirmationDown_M1 = ", figure28_6DoubleTopDivConDivConfirmationDown_M1);
+Print("figure28_7DoubleTop12PosDown_M1 = ", figure28_7DoubleTop12PosDown_M1);
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_M5 =  ", figure2_1FlagDownContinueAfterDecreaseDown_M5);
 Print("figure6_1PennantDownConfirmationDown_M5 =        ", figure6_1PennantDownConfirmationDown_M5);
@@ -2503,6 +2510,13 @@ Print("figure42MoreDivergentFlagConfirmationDown_M5 =   ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_M5 =   ", figure46PennantAfterWedgeConfirmationDown_M5,    " figure48PennantAfterFlagConfirmationDown_M5 =         ",figure48PennantAfterFlagConfirmationDown_M5);
 Print("figure50DoublePennantAfterConfirmationDown_M5 =  ", figure50DoublePennantAfterConfirmationDown_M5,   " figure52WedgeConfirmationDown_M5 =                    ",figure52WedgeConfirmationDown_M5);
 Print("figure14_1DivergenceFlagConfirmationDown_M5  = ", figure14_1DivergenceFlagConfirmationDown_M5);
+Print("figure28_1DoubleTopFlagDown_M5 = ",figure28_1DoubleTopFlagDown_M5);
+Print("figure28_2TriangleAsConfirmationDown_M5 = ",figure28_2TriangleAsConfirmationDown_M5);
+Print("figure28_3DoubleTopChannelDown_M5 = ",figure28_3DoubleTopChannelDown_M5);
+Print("figure28_4WedgePennantConfirmationDown_M5 = ", figure28_4WedgePennantConfirmationDown_M5);
+Print("figure28_5DoubleTopConDivDivConfirmationDown_M5 = ", figure28_5DoubleTopConDivDivConfirmationDown_M5);
+Print("figure28_6DoubleTopDivConDivConfirmationDown_M5 = ", figure28_6DoubleTopDivConDivConfirmationDown_M5);
+Print("figure28_7DoubleTop12PosDown_M5 = ", figure28_7DoubleTop12PosDown_M5);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_M15 = ", figure2_1FlagDownContinueAfterDecreaseDown_M15);
@@ -2522,6 +2536,13 @@ Print("figure42MoreDivergentFlagConfirmationDown_M15 =  ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_M15 =  ", figure46PennantAfterWedgeConfirmationDown_M15,   " figure48PennantAfterFlagConfirmationDown_M15 =        ", figure48PennantAfterFlagConfirmationDown_M15);
 Print("figure50DoublePennantAfterConfirmationDown_M15 = ", figure50DoublePennantAfterConfirmationDown_M15,  " figure52WedgeConfirmationDown_M15 =                   ", figure52WedgeConfirmationDown_M15);
 Print("figure14_1DivergenceFlagConfirmationDown_M15  = ", figure14_1DivergenceFlagConfirmationDown_M15);
+Print("figure28_1DoubleTopFlagDown_M15 = ",figure28_1DoubleTopFlagDown_M15);
+Print("figure28_2TriangleAsConfirmationDown_M15 = ",figure28_2TriangleAsConfirmationDown_M15);
+Print("figure28_3DoubleTopChannelDown_M15 = ",figure28_3DoubleTopChannelDown_M15);
+Print("figure28_4WedgePennantConfirmationDown_M15 = ", figure28_4WedgePennantConfirmationDown_M15);
+Print("figure28_5DoubleTopConDivDivConfirmationDown_M15 = ", figure28_5DoubleTopConDivDivConfirmationDown_M15);
+Print("figure28_6DoubleTopDivConDivConfirmationDown_M15 = ", figure28_6DoubleTopDivConDivConfirmationDown_M15);
+Print("figure28_7DoubleTop12PosDown_M15 = ", figure28_7DoubleTop12PosDown_M15);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_H1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_H1);
@@ -2541,6 +2562,13 @@ Print("figure42MoreDivergentFlagConfirmationDown_H1 =   ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_H1 =   ", figure46PennantAfterWedgeConfirmationDown_H1,    " figure48PennantAfterFlagConfirmationDown_H1 =         ",figure48PennantAfterFlagConfirmationDown_H1);
 Print("figure50DoublePennantAfterConfirmationDown_H1 =  ", figure50DoublePennantAfterConfirmationDown_H1,   " figure52WedgeConfirmationDown_H1 =                    ",figure52WedgeConfirmationDown_H1);
 Print("figure14_1DivergenceFlagConfirmationDown_H1  = ", figure14_1DivergenceFlagConfirmationDown_H1);
+Print("figure28_1DoubleTopFlagDown_H1 = ",figure28_1DoubleTopFlagDown_H1);
+Print("figure28_2TriangleAsConfirmationDown_H1 = ",figure28_2TriangleAsConfirmationDown_H1);
+Print("figure28_3DoubleTopChannelDown_H1 = ",figure28_3DoubleTopChannelDown_H1);
+Print("figure28_4WedgePennantConfirmationDown_H1 = ", figure28_4WedgePennantConfirmationDown_H1);
+Print("figure28_5DoubleTopConDivDivConfirmationDown_H1 = ", figure28_5DoubleTopConDivDivConfirmationDown_H1);
+Print("figure28_6DoubleTopDivConDivConfirmationDown_H1 = ", figure28_6DoubleTopDivConDivConfirmationDown_H1);
+Print("figure28_7DoubleTop12PosDown_H1 = ", figure28_7DoubleTop12PosDown_H1);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_H4 =  ", figure2_1FlagDownContinueAfterDecreaseDown_H4);
@@ -2560,6 +2588,13 @@ Print("figure42MoreDivergentFlagConfirmationDown_H4 =   ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_H4 =   ", figure46PennantAfterWedgeConfirmationDown_H4,    " figure48PennantAfterFlagConfirmationDown_H4 =         ",figure48PennantAfterFlagConfirmationDown_H4);
 Print("figure50DoublePennantAfterConfirmationDown_H4 =  ", figure50DoublePennantAfterConfirmationDown_H4,   " figure52WedgeConfirmationDown_H4 =                    ",figure52WedgeConfirmationDown_H4);
 Print("figure14_1DivergenceFlagConfirmationDown_H4  = ", figure14_1DivergenceFlagConfirmationDown_H4);
+Print("figure28_1DoubleTopFlagDown_H4 = ",figure28_1DoubleTopFlagDown_H4);
+Print("figure28_2TriangleAsConfirmationDown_H4 = ",figure28_2TriangleAsConfirmationDown_H4);
+Print("figure28_3DoubleTopChannelDown_H4 = ",figure28_3DoubleTopChannelDown_H4);
+Print("figure28_4WedgePennantConfirmationDown_H4 = ", figure28_4WedgePennantConfirmationDown_H4);
+Print("figure28_5DoubleTopConDivDivConfirmationDown_H4 = ", figure28_5DoubleTopConDivDivConfirmationDown_H4);
+Print("figure28_6DoubleTopDivConDivConfirmationDown_H4 = ", figure28_6DoubleTopDivConDivConfirmationDown_H4);
+Print("figure28_7DoubleTop12PosDown_H4 = ", figure28_7DoubleTop12PosDown_H4);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_D1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_D1);
@@ -2579,6 +2614,13 @@ Print("figure42MoreDivergentFlagConfirmationDown_D1 =   ", figure42MoreDivergent
 Print("figure46PennantAfterWedgeConfirmationDown_D1 =   ", figure46PennantAfterWedgeConfirmationDown_D1,    " figure48PennantAfterFlagConfirmationDown_D1 =         ",figure48PennantAfterFlagConfirmationDown_D1);
 Print("figure50DoublePennantAfterConfirmationDown_D1 =  ", figure50DoublePennantAfterConfirmationDown_D1,   " figure52WedgeConfirmationDown_D1 =                    ",figure52WedgeConfirmationDown_D1);
 Print("figure14_1DivergenceFlagConfirmationDown_D1  = ", figure14_1DivergenceFlagConfirmationDown_D1);
+Print("figure28_1DoubleTopFlagDown_D1 = ",figure28_1DoubleTopFlagDown_D1);
+Print("figure28_2TriangleAsConfirmationDown_D1 = ",figure28_2TriangleAsConfirmationDown_D1);
+Print("figure28_3DoubleTopChannelDown_D1 = ",figure28_3DoubleTopChannelDown_D1);
+Print("figure28_4WedgePennantConfirmationDown_D1 = ", figure28_4WedgePennantConfirmationDown_D1);
+Print("figure28_5DoubleTopConDivDivConfirmationDown_D1 = ", figure28_5DoubleTopConDivDivConfirmationDown_D1);
+Print("figure28_6DoubleTopDivConDivConfirmationDown_D1 = ", figure28_6DoubleTopDivConDivConfirmationDown_D1);
+Print("figure28_7DoubleTop12PosDown_D1 = ", figure28_7DoubleTop12PosDown_D1);
 
 sell=1;
  }
