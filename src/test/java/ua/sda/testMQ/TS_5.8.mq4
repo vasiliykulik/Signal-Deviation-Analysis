@@ -1574,11 +1574,6 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     }
 
 
-
-
-
-
-
     // Figure 29 "DoubleBottomConfirmationUp"
 
     if(
@@ -1763,27 +1758,6 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 37 "PennantWedgeUp"
 
     if(
-        firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > channelLimiterForLowerEdgeMaxMinMin(secondMinGlobal, firstMinGlobal,thirdMinGlobal) /*thirdMinGlobal*/ && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
-        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
-        thirdMaxGlobal > fourthMinGlobal &&
-        isC5Min &&
-        isMACDNewlyCrossedUpFilter1(timeFrames[i])
-        ){
-            if(timeFrames[i]==PERIOD_M1) {figure37PennantWedgeUp_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure37PennantWedgeUp_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure37PennantWedgeUp_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure37PennantWedgeUp_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure37PennantWedgeUp_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure37PennantWedgeUp_D1  = true;}
-            print("Figure 37 PennantWedgeUp ", timeFrames[i]);
-    }
-
-    // Figure 38 "PennantWedgeDown"
-
-    if(
         firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal &&  firstMaxGlobal < channelLimiterForUpperEdgeMinMaxMax(secondMaxGlobal,firstMaxGlobal,thirdMaxGlobal)/*thirdMaxGlobal*/ && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
         firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
         secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
@@ -1793,13 +1767,35 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         isC5Max &&
         isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
+            if(timeFrames[i]==PERIOD_M1) {figure37PennantWedgeUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure37PennantWedgeUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure37PennantWedgeUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure37PennantWedgeUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure37PennantWedgeUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure37PennantWedgeUp_D1  = true;}
+            print("Figure 37 PennantWedgeUp ChangedPlaced ", timeFrames[i]);
+    }
+
+    // Figure 38 "PennantWedgeDown"
+
+    if(
+            firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > channelLimiterForLowerEdgeMaxMinMin(secondMinGlobal, firstMinGlobal,thirdMinGlobal) /*thirdMinGlobal*/ && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+            firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
+            secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+            secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
+            thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
+            thirdMaxGlobal > fourthMinGlobal &&
+            isC5Min &&
+            isMACDNewlyCrossedUpFilter1(timeFrames[i])
+
+        ){
             if(timeFrames[i]==PERIOD_M1) {figure38PennantWedgeDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure38PennantWedgeDown_M5  = true;}
             if(timeFrames[i]==PERIOD_M15){figure38PennantWedgeDown_M15 = true;}
             if(timeFrames[i]==PERIOD_H1) {figure38PennantWedgeDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure38PennantWedgeDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure38PennantWedgeDown_D1  = true;}
-            print("Figure 38 PennantWedgeDown ", timeFrames[i]);
+            print("Figure 38 PennantWedgeDown ChangedPlaced ", timeFrames[i]);
     }
 
     // Figure 39 "RollbackChannelPennantConfirmationUp"
@@ -1852,14 +1848,14 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 41 "MoreDivergentFlagConfirmationUp"
 
     if(
-        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
-        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
-        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
-        thirdMaxGlobal > fourthMinGlobal &&
-        isC5Min &&
-        isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal  && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure41MoreDivergentFlagConfirmationUp_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure41MoreDivergentFlagConfirmationUp_M5  = true;}
@@ -1873,14 +1869,15 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 42 "MoreDivergentFlagConfirmationDown"
 
     if(
-        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal  && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
-        thirdMinGlobal < fourthMaxGlobal &&
-        isC5Max &&
-        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+            firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+            firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
+            secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+            secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
+            thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
+            thirdMaxGlobal > fourthMinGlobal &&
+            isC5Min &&
+            isMACDNewlyCrossedUpFilter1(timeFrames[i])
+
         ){
             if(timeFrames[i]==PERIOD_M1) {figure42MoreDivergentFlagConfirmationDown_M1  = true;}
             if(timeFrames[i]==PERIOD_M5) {figure42MoreDivergentFlagConfirmationDown_M5  = true;}
