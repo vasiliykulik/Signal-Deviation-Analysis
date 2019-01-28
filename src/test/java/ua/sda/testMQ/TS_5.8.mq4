@@ -638,7 +638,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     }
 
 
-    // Figure 7_1 "TurnDivergenceUp"
+    // Figure 7_1 "TurnUpDivergenceUp"
 
     if(
         firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal < fourthMinGlobal &&
@@ -650,16 +650,16 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         isC5Min &&
         isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure7_1TurnDivergenceUp_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure7_1TurnDivergenceUp_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure7_1TurnDivergenceUp_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure7_1TurnDivergenceUp_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure7_1TurnDivergenceUp_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure7_1TurnDivergenceUp_D1  = true;}
-            print("Figure 7_1 TurnDivergenceUp ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure7_1TurnUpDivergenceUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure7_1TurnUpDivergenceUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure7_1TurnUpDivergenceUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure7_1TurnUpDivergenceUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure7_1TurnUpDivergenceUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure7_1TurnUpDivergenceUp_D1  = true;}
+            print("Figure 7_1 TurnUpDivergenceUp ", timeFrames[i]);
     }
 
-    // Figure 8_1 "TurnDivergenceDown"
+    // Figure 8_1 "TurnDownDivergenceDown"
 
     if(
         firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal  && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal > fourthMaxGlobal &&
@@ -671,13 +671,13 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         isC5Max &&
         isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
-            if(timeFrames[i]==PERIOD_M1) {figure8_1TurnDivergenceDown_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure8_1TurnDivergenceDown_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure8_1TurnDivergenceDown_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure8_1TurnDivergenceDown_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure8_1TurnDivergenceDown_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure8_1TurnDivergenceDown_D1  = true;}
-            print("Figure 8_1 TurnDivergenceDown ", timeFrames[i]);
+            if(timeFrames[i]==PERIOD_M1) {figure8_1TurnDownDivergenceDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure8_1TurnDownDivergenceDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure8_1TurnDownDivergenceDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure8_1TurnDownDivergenceDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure8_1TurnDownDivergenceDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure8_1TurnDownDivergenceDown_D1  = true;}
+            print("Figure 8_1 TurnDownDivergenceDown ", timeFrames[i]);
     }
 
 
