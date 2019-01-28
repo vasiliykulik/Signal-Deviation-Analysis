@@ -1863,7 +1863,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure41MoreDivergentFlagConfirmationUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure41MoreDivergentFlagConfirmationUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure41MoreDivergentFlagConfirmationUp_D1  = true;}
-            print("Figure 41 MoreDivergentFlagConfirmationUp ", timeFrames[i]);
+            print("Figure 41 MoreDivergentFlagConfirmationUp ChangedPlaced", timeFrames[i]);
     }
 
     // Figure 42 "MoreDivergentFlagConfirmationDown"
@@ -1885,7 +1885,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure42MoreDivergentFlagConfirmationDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure42MoreDivergentFlagConfirmationDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure42MoreDivergentFlagConfirmationDown_D1  = true;}
-            print("Figure 42 MoreDivergentFlagConfirmationDown ", timeFrames[i]);
+            print("Figure 42 MoreDivergentFlagConfirmationDown ChangedPlaced", timeFrames[i]);
     }
 
     // Figure 43 "ChannelFlagUp"
@@ -1897,6 +1897,8 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
         thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
         thirdMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal > channelLimiterForLowerEdgeMaxMinMin (firstMaxGlobal, secondMinGlobal, firstMinGlobal) &&
+        firstMinGlobal > channelLimiterForLowerEdgeMaxMinMin (firstMaxGlobal, secondMinGlobal, firstMinGlobal) &&
         isC5Min &&
         isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
@@ -1918,6 +1920,8 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
         thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
         thirdMinGlobal < fourthMaxGlobal &&
+        firstMaxGlobal < channelLimiterForUpperEdgeMinMaxMax (firstMinGlobal, secondMaxGlobal, firstMaxGlobal) &&
+        secondMaxGlobal < channelLimiterForUpperEdgeMinMaxMax (firstMinGlobal, secondMaxGlobal, firstMaxGlobal) &&
         isC5Max &&
         isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
