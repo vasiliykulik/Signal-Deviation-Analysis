@@ -242,6 +242,8 @@ void OnTick(void)
       bool figure50DoublePennantAfterConfirmationDown_M1  = false,                   figure50DoublePennantAfterConfirmationDown_M5  = false,          figure50DoublePennantAfterConfirmationDown_M15 = false,  figure50DoublePennantAfterConfirmationDown_H1  = false,  figure50DoublePennantAfterConfirmationDown_H4  = false,  figure50DoublePennantAfterConfirmationDown_D1  = false;
       bool figure51WedgeConfirmationUp_M1  = false,                             figure51WedgeConfirmationUp_M5  = false,            figure51WedgeConfirmationUp_M15 = false,  figure51WedgeConfirmationUp_H1  = false,  figure51WedgeConfirmationUp_H4  = false,  figure51WedgeConfirmationUp_D1  = false;
       bool figure52WedgeConfirmationDown_M1  = false,                           figure52WedgeConfirmationDown_M5  = false,          figure52WedgeConfirmationDown_M15 = false,  figure52WedgeConfirmationDown_H1  = false,  figure52WedgeConfirmationDown_H4  = false,  figure52WedgeConfirmationDown_D1  = false;
+      bool figure59TripleBottomWedgeUp_M1  = false,                             figure59TripleBottomWedgeUp_M5  = false,            figure59TripleBottomWedgeUp_M15 = false,  figure59TripleBottomWedgeUp_H1  = false,  figure59TripleBottomWedgeUp_H4  = false,  figure59TripleBottomWedgeUp_D1  = false;
+      bool figure60TripleTopWedgeDown_M1  = false,                           figure60TripleTopWedgeDown_M5  = false,          figure60TripleTopWedgeDown_M15 = false,  figure60TripleTopWedgeDown_H1  = false,  figure60TripleTopWedgeDown_H4  = false,  figure60TripleTopWedgeDown_D1  = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2123,6 +2125,46 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             print("Figure 52 WedgeConfirmationDown ", timeFrames[i]);
     }
 
+   // Figure 59 "TripleBottomWedgeUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min &&
+        isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure59TripleBottomWedgeUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure59TripleBottomWedgeUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure59TripleBottomWedgeUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure59TripleBottomWedgeUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure59TripleBottomWedgeUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure59TripleBottomWedgeUp_D1  = true;}
+            print("Figure 59 TripleBottomWedgeUp ", timeFrames[i]);
+    }
+
+    // Figure 60 "TripleTopWedgeDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal > thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+
+        isC5Max &&
+        isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure60TripleTopWedgeDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure60TripleTopWedgeDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure60TripleTopWedgeDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure60TripleTopWedgeDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure60TripleTopWedgeDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure60TripleTopWedgeDown_D1  = true;}
+            print("Figure 60 TripleTopWedgeDown ", timeFrames[i]);
+    }
 
 /*
 
@@ -2333,6 +2375,7 @@ Print("figure27_4WedgePennantConfirmationUp_M1 = ", figure27_4WedgePennantConfir
 Print("figure27_5DoubleBottomConDivDivConfirmationUp_M1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M1);
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_M1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M1);
 Print("figure27_7DoubleBottom12PosUp_M1 = ", figure27_7DoubleBottom12PosUp_M1);
+Print("figure59TripleBottomWedgeUp_M1 = ", figure59TripleBottomWedgeUp_M1);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_M5 =  ",figure1_1FlagUpContinueAfterDecliningUp_M5);
 Print("figure5_1PennantUpConfirmationUp_M5 =         ",figure5_1PennantUpConfirmationUp_M5);
@@ -2358,6 +2401,7 @@ Print("figure27_4WedgePennantConfirmationUp_M5 = ", figure27_4WedgePennantConfir
 Print("figure27_5DoubleBottomConDivDivConfirmationUp_M5 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M5);
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_M5 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M5);
 Print("figure27_7DoubleBottom12PosUp_M5 = ", figure27_7DoubleBottom12PosUp_M5);
+Print("figure59TripleBottomWedgeUp_M5 = ", figure59TripleBottomWedgeUp_M5);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_M15 = ",figure1_1FlagUpContinueAfterDecliningUp_M15);
 Print("figure5_1PennantUpConfirmationUp_M15 =        ",figure5_1PennantUpConfirmationUp_M15);
@@ -2383,6 +2427,7 @@ Print("figure27_4WedgePennantConfirmationUp_M15 = ", figure27_4WedgePennantConfi
 Print("figure27_5DoubleBottomConDivDivConfirmationUp_M15 = ", figure27_5DoubleBottomConDivDivConfirmationUp_M15);
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_M15 = ", figure27_6DoubleBottomDivConDivConfirmationUp_M15);
 Print("figure27_7DoubleBottom12PosUp_M15 = ", figure27_7DoubleBottom12PosUp_M15);
+Print("figure59TripleBottomWedgeUp_M15 = ", figure59TripleBottomWedgeUp_M15);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_H1 =  ",figure1_1FlagUpContinueAfterDecliningUp_H1);
 Print("figure5_1PennantUpConfirmationUp_H1 =         ",figure5_1PennantUpConfirmationUp_H1);
@@ -2408,6 +2453,7 @@ Print("figure27_4WedgePennantConfirmationUp_H1 = ", figure27_4WedgePennantConfir
 Print("figure27_5DoubleBottomConDivDivConfirmationUp_H1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_H1);
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_H1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_H1);
 Print("figure27_7DoubleBottom12PosUp_H1 = ", figure27_7DoubleBottom12PosUp_H1);
+Print("figure59TripleBottomWedgeUp_H1 = ", figure59TripleBottomWedgeUp_H1);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_H4 =  ",figure1_1FlagUpContinueAfterDecliningUp_H4);
 Print("figure5_1PennantUpConfirmationUp_H4 =         ",figure5_1PennantUpConfirmationUp_H4);
@@ -2433,6 +2479,7 @@ Print("figure27_4WedgePennantConfirmationUp_H4 = ", figure27_4WedgePennantConfir
 Print("figure27_5DoubleBottomConDivDivConfirmationUp_H4 = ", figure27_5DoubleBottomConDivDivConfirmationUp_H4);
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_H4 = ", figure27_6DoubleBottomDivConDivConfirmationUp_H4);
 Print("figure27_7DoubleBottom12PosUp_H4 = ", figure27_7DoubleBottom12PosUp_H4);
+Print("figure59TripleBottomWedgeUp_H4 = ", figure59TripleBottomWedgeUp_H4);
 
 Print("figure1_1FlagUpContinueAfterDecliningUp_D1 =  ",figure1_1FlagUpContinueAfterDecliningUp_D1);
 Print("figure5_1PennantUpConfirmationUp_D1 =         ",figure5_1PennantUpConfirmationUp_D1);
@@ -2458,6 +2505,7 @@ Print("figure27_4WedgePennantConfirmationUp_D1 = ", figure27_4WedgePennantConfir
 Print("figure27_5DoubleBottomConDivDivConfirmationUp_D1 = ", figure27_5DoubleBottomConDivDivConfirmationUp_D1);
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_D1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_D1);
 Print("figure27_7DoubleBottom12PosUp_D1 = ", figure27_7DoubleBottom12PosUp_D1);
+Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       buy=1;
       }
@@ -2493,6 +2541,7 @@ Print("figure28_4WedgePennantConfirmationDown_M1 = ", figure28_4WedgePennantConf
 Print("figure28_5DoubleTopConDivDivConfirmationDown_M1 = ", figure28_5DoubleTopConDivDivConfirmationDown_M1);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_M1 = ", figure28_6DoubleTopDivConDivConfirmationDown_M1);
 Print("figure28_7DoubleTop12PosDown_M1 = ", figure28_7DoubleTop12PosDown_M1);
+Print("figure60TripleTopWedgeDown_M1 = ",figure60TripleTopWedgeDown_M1);
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_M5 =  ", figure2_1FlagDownContinueAfterDecreaseDown_M5);
 Print("figure6_1PennantDownConfirmationDown_M5 =        ", figure6_1PennantDownConfirmationDown_M5);
@@ -2518,6 +2567,7 @@ Print("figure28_4WedgePennantConfirmationDown_M5 = ", figure28_4WedgePennantConf
 Print("figure28_5DoubleTopConDivDivConfirmationDown_M5 = ", figure28_5DoubleTopConDivDivConfirmationDown_M5);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_M5 = ", figure28_6DoubleTopDivConDivConfirmationDown_M5);
 Print("figure28_7DoubleTop12PosDown_M5 = ", figure28_7DoubleTop12PosDown_M5);
+Print("figure60TripleTopWedgeDown_M5 = ",figure60TripleTopWedgeDown_M5);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_M15 = ", figure2_1FlagDownContinueAfterDecreaseDown_M15);
@@ -2544,6 +2594,7 @@ Print("figure28_4WedgePennantConfirmationDown_M15 = ", figure28_4WedgePennantCon
 Print("figure28_5DoubleTopConDivDivConfirmationDown_M15 = ", figure28_5DoubleTopConDivDivConfirmationDown_M15);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_M15 = ", figure28_6DoubleTopDivConDivConfirmationDown_M15);
 Print("figure28_7DoubleTop12PosDown_M15 = ", figure28_7DoubleTop12PosDown_M15);
+Print("figure60TripleTopWedgeDown_M15 = ",figure60TripleTopWedgeDown_M15);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_H1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_H1);
@@ -2570,6 +2621,7 @@ Print("figure28_4WedgePennantConfirmationDown_H1 = ", figure28_4WedgePennantConf
 Print("figure28_5DoubleTopConDivDivConfirmationDown_H1 = ", figure28_5DoubleTopConDivDivConfirmationDown_H1);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_H1 = ", figure28_6DoubleTopDivConDivConfirmationDown_H1);
 Print("figure28_7DoubleTop12PosDown_H1 = ", figure28_7DoubleTop12PosDown_H1);
+Print("figure60TripleTopWedgeDown_H1 = ",figure60TripleTopWedgeDown_H1);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_H4 =  ", figure2_1FlagDownContinueAfterDecreaseDown_H4);
@@ -2596,6 +2648,7 @@ Print("figure28_4WedgePennantConfirmationDown_H4 = ", figure28_4WedgePennantConf
 Print("figure28_5DoubleTopConDivDivConfirmationDown_H4 = ", figure28_5DoubleTopConDivDivConfirmationDown_H4);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_H4 = ", figure28_6DoubleTopDivConDivConfirmationDown_H4);
 Print("figure28_7DoubleTop12PosDown_H4 = ", figure28_7DoubleTop12PosDown_H4);
+Print("figure60TripleTopWedgeDown_H4 = ",figure60TripleTopWedgeDown_H4);
 
 
 Print("figure2_1FlagDownContinueAfterDecreaseDown_D1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_D1);
@@ -2622,6 +2675,7 @@ Print("figure28_4WedgePennantConfirmationDown_D1 = ", figure28_4WedgePennantConf
 Print("figure28_5DoubleTopConDivDivConfirmationDown_D1 = ", figure28_5DoubleTopConDivDivConfirmationDown_D1);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_D1 = ", figure28_6DoubleTopDivConDivConfirmationDown_D1);
 Print("figure28_7DoubleTop12PosDown_D1 = ", figure28_7DoubleTop12PosDown_D1);
+Print("figure60TripleTopWedgeDown_D1 = ",figure60TripleTopWedgeDown_D1);
 
 sell=1;
  }
