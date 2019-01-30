@@ -4037,6 +4037,38 @@ bool nonSymmTick()
       return isMACDCrossed;
     }
 
+
+      bool isOSMANewlyCrossedUpFilter1(ENUM_TIMEFRAMES timeFrameForOSMA){
+        bool isOSMACrossed = false;
+        double osma0 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+        double osma1 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+        double osma2 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+        double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+        double osma4 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+
+            if(  osma0>0 && (osma1<0 || osma2<0 || osma3<0 || osma<0)  ) {
+              isOSMACrossed = true;
+            }
+
+        return isOSMACrossed;
+      }
+        bool isOSMANewlyCrossedDownFilter1(ENUM_TIMEFRAMES timeFrameForOSMA){
+          bool isOSMACrossed = false;
+          double osma0 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+          double osma1 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+          double osma2 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+          double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+          double osma4 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    //      Print("timeFrameForOSMA = ",timeFrameForOSMA);
+    //      Print ("osma0 = ",osma0,"osma1 = ",osma1,"osma2 = ",osma2,"osma3 = ",osma3);
+              if(  osma0<0 && (osma1>0 || osma2>0 || osma3>0 || osma >0)  ) {
+                isOSMACrossed = true;
+     //           Print("isOSMACrossed = ", isOSMACrossed);
+              }
+
+          return isOSMACrossed;
+        }
+
    bool isSecondHalfWaveCommitedToTrendUpFilter2(double secondMin, ENUM_TIMEFRAMES timeFrameForSecondHalfWaveCommitedToTrend){
     bool isSecondHalfWaveCommitedToTrend = true;
     double currentHalfWavePrice = iClose(NULL,timeFrameForSecondHalfWaveCommitedToTrend,0);
