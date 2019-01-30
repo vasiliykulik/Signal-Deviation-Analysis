@@ -4084,7 +4084,7 @@ bool nonSymmTick()
         double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,3);
         double osma4 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,4);
 
-            if(  osma0>0 && (osma1<0 || osma2<0 || osma3<0 || osma<0)  ) {
+            if(  osma0>0 && (osma1 < 0 || osma2 < 0 || osma3 < 0 || osma4 < 0)  ) {
               isOSMACrossed = true;
             }
 
@@ -4099,7 +4099,7 @@ bool nonSymmTick()
           double osma4 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,4);
     //      Print("timeFrameForOSMA = ",timeFrameForOSMA);
     //      Print ("osma0 = ",osma0,"osma1 = ",osma1,"osma2 = ",osma2,"osma3 = ",osma3);
-              if(  osma0<0 && (osma1>0 || osma2>0 || osma3>0 || osma >0)  ) {
+              if(  osma0<0 && (osma1 > 0 || osma2 > 0 || osma3 > 0 || osma4 > 0)  ) {
                 isOSMACrossed = true;
      //           Print("isOSMACrossed = ", isOSMACrossed);
               }
