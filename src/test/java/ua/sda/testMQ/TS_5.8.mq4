@@ -2386,7 +2386,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
       if
       (
-isFigureUp
+isMACDForelockUpFilter1 (PERIOD_M15)
       )
 
       {
@@ -2551,7 +2551,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-isFigureDown
+isMACDForelockDownFilter1(PERIOD_M15)
       )
 
       {
