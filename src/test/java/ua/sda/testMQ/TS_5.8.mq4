@@ -4203,3 +4203,67 @@ bool nonSymmTick()
         }
         return min + fmm; // returns upper visual border of channel minimalDelta*2
     }
+
+
+     bool isMACDForelockUpFilter1(ENUM_TIMEFRAMES timeFrameForMACD){
+        bool isMACDCrossed = false;
+        double macd0 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+        double macd1 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+        double macd2 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+        double macd3 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+        double macd4 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+        double macd5 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+
+            if(  macd0>0 && macd1<0 && macd2<0 && macd3<0 && macd4 < 0 && macd5 <0  ) {
+              isMACDCrossed = true;
+            }
+
+        return isMACDCrossed;
+      }
+        bool isMACDForelockDownFilter1(ENUM_TIMEFRAMES timeFrameForMACD){
+          bool isMACDCrossed = false;
+          double macd0 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+          double macd1 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+          double macd2 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+          double macd3 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+          double macd4 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+          double macd5 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+    //      Print("timeFrameForMACD = ",timeFrameForMACD);
+    //      Print ("macd0 = ",macd0,"macd1 = ",macd1,"macd2 = ",macd2,"macd3 = ",macd3);
+              if(  macd0<0 && macd1>0 && macd2>0 && macd3>0 && macd4 >0 && macd5 >0 && macd1>macd2 && macd2 > macd3 && macd3 > macd4 && macd4 > macd5 ) {
+                isMACDCrossed = true;
+     //           Print("isMACDCrossed = ", isMACDCrossed);
+              }
+
+          return isMACDCrossed;
+        }
+
+
+          bool isOSMAForelockUpFilter1(ENUM_TIMEFRAMES timeFrameForOSMA){
+            bool isOSMACrossed = false;
+            double osma0 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,0);
+            double osma1 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,1);
+            double osma2 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,2);
+            double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,3);
+
+                if(  osma0>0 && osma1 < 0 && osma2 < 0 && osma3 < 0   ) {
+                  isOSMACrossed = true;
+                }
+
+            return isOSMACrossed;
+          }
+            bool isOSMAForelockDownFilter1(ENUM_TIMEFRAMES timeFrameForOSMA){
+              bool isOSMACrossed = false;
+              double osma0 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,0);
+              double osma1 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,1);
+              double osma2 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,2);
+              double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,3);
+        //      Print("timeFrameForOSMA = ",timeFrameForOSMA);
+        //      Print ("osma0 = ",osma0,"osma1 = ",osma1,"osma2 = ",osma2,"osma3 = ",osma3);
+                  if(  osma0<0 && osma1 > 0 && osma2 > 0 && osma3 > 0 ) {
+                    isOSMACrossed = true;
+         //           Print("isOSMACrossed = ", isOSMACrossed);
+                  }
+
+              return isOSMACrossed;
+            }
