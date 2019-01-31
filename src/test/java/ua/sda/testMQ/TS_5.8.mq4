@@ -557,7 +557,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal > fourthMaxGlobal &&
         thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
         fourthMinGlobal < fourthMaxGlobal &&
-        isC5Min &&
+        isC5Min
         // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure5_1PennantUpConfirmationUp_M1  = true;}
@@ -650,7 +650,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal < fourthMinGlobal &&
         thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal < fourthMinGlobal &&
         thirdMaxGlobal > fourthMinGlobal &&
-        isC5Min &&
+        isC5Min
         // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure7_1TurnUpDivergenceUp_M1  = true;}
@@ -671,7 +671,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > fourthMaxGlobal &&
         thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal > fourthMaxGlobal &&
         thirdMinGlobal < fourthMaxGlobal &&
-        isC5Max &&
+        isC5Max
         // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure8_1TurnDownDivergenceDown_M1  = true;}
