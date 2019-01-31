@@ -4214,7 +4214,9 @@ bool nonSymmTick()
         double macd4 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,4);
         double macd5 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,5);
 
-            if(  macd0>0 && macd1<0 && macd2<0 && macd3<0 && macd4 < 0 && macd5 <0  ) {
+            if(  macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 && macd5 < 0 &&
+                 macd5 < macd4 && macd4 < macd3 && macd3 < macd2 && macd2 < macd1 && macd1 < macd0
+              ) {
               isMACDCrossed = true;
             }
 
@@ -4230,7 +4232,9 @@ bool nonSymmTick()
           double macd5 = iMACD(NULL,timeFrameForMACD,12,26,9,PRICE_OPEN,MODE_MAIN,5);
     //      Print("timeFrameForMACD = ",timeFrameForMACD);
     //      Print ("macd0 = ",macd0,"macd1 = ",macd1,"macd2 = ",macd2,"macd3 = ",macd3);
-              if(  macd0<0 && macd1>0 && macd2>0 && macd3>0 && macd4 >0 && macd5 >0 && macd1>macd2 && macd2 > macd3 && macd3 > macd4 && macd4 > macd5 ) {
+              if(  macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 && macd5 > 0 &&
+                   macd5 > macd4 && macd4 > macd3 && macd3 > macd2 && macd2 > macd1 && macd1 > macd0
+                ) {
                 isMACDCrossed = true;
      //           Print("isMACDCrossed = ", isMACDCrossed);
               }
@@ -4246,7 +4250,7 @@ bool nonSymmTick()
             double osma2 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,2);
             double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,3);
 
-                if(  osma0>0 && osma1 < 0 && osma2 < 0 && osma3 < 0   ) {
+                if(  osma0>0 && osma1 > 0 && osma2 > 0 && osma3 < 0   ) {
                   isOSMACrossed = true;
                 }
 
@@ -4260,7 +4264,7 @@ bool nonSymmTick()
               double osma3 = iOsMA(NULL,timeFrameForOSMA,12,26,9,PRICE_OPEN,3);
         //      Print("timeFrameForOSMA = ",timeFrameForOSMA);
         //      Print ("osma0 = ",osma0,"osma1 = ",osma1,"osma2 = ",osma2,"osma3 = ",osma3);
-                  if(  osma0<0 && osma1 > 0 && osma2 > 0 && osma3 > 0 ) {
+                  if(  osma0<0 && osma1 < 0 && osma2 < 0 && osma3 > 0 ) {
                     isOSMACrossed = true;
          //           Print("isOSMACrossed = ", isOSMACrossed);
                   }
