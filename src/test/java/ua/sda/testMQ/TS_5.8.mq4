@@ -10,8 +10,9 @@
 
 extern double TakeProfit=2400;
 extern double StopLoss=1600;
-extern double Lots=0.01;
+extern double externalLots=0.01;
 extern double TrailingStop=10000;
+extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
 
 extern double TrailingFiboLevel = 0.61;
@@ -22,6 +23,8 @@ extern bool OpenOnHalfWaveUp_M15   = false;
 extern bool OpenOnHalfWaveDown_M1  = false;
 extern bool OpenOnHalfWaveDown_M5  = false;
 extern bool OpenOnHalfWaveDown_M15 = false;
+
+
 
 
 int iteration;
@@ -56,6 +59,20 @@ int localFirstPointTick=0,localSecondPointTick=0;
 //+------------------------------------------------------------------+
 void OnTick(void)
   {
+  // Lot calculation
+
+  string myCurrentPair = Symbol();
+  double Lots = externalLots;
+
+  if(myCurrentPair=="EURUSD" || myCurrentPair=="USDJPY" || myCurrentPair=="USDCAD")
+    {
+     resultDifference=(resultHigh-resultLow)/0.00001;
+    }
+  if(myCurrentPair=="GBPJPY" || myCurrentPair=="GBPUSD")
+    {
+     resultDifference=(resultHigh-resultLow)/0.001;
+    }
+
 
    int cnt,ticket,total,buy,sell;
 
