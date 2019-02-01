@@ -2262,27 +2262,27 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
 
  if( OpenOnHalfWaveUp_M1) {
     OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1  ();
-    print(" OpenOnHalfWaveUp_M1 now is Active", PERIOD_M1);
+    print("OpenOnHalfWaveUp_M1 now is Active", PERIOD_M1);
  }
  if( OpenOnHalfWaveUp_M5) {
     OpenOnHalfWaveOpenPermitUp_M5    = isOpenOnHalfWaveUp_M5  ();
-    print(" OpenOnHalfWaveUp_M5 now is Active", PERIOD_M5);
+    print("OpenOnHalfWaveUp_M5 now is Active", PERIOD_M5);
  }
  if( OpenOnHalfWaveUp_M15) {
     OpenOnHalfWaveOpenPermitUp_M15   = isOpenOnHalfWaveUp_M15  ();
-    print(" OpenOnHalfWaveUp_M15 now is Active", PERIOD_M15);
+    print("OpenOnHalfWaveUp_M15 now is Active", PERIOD_M15);
  }
  if( OpenOnHalfWaveDown_M1) {
     OpenOnHalfWaveOpenPermitDown_M1  = isOpenOnHalfWaveUp_M1  ();
-    print(" OpenOnHalfWaveDown_M1 now is Active", PERIOD_M1);
+    print("OpenOnHalfWaveDown_M1 now is Active", PERIOD_M1);
  }
  if( OpenOnHalfWaveDown_M5) {
     OpenOnHalfWaveOpenPermitDown_M5  = isOpenOnHalfWaveDown_M5();
-    print(" OpenOnHalfWaveDown_M5 now is Active", PERIOD_M5);
+    print("OpenOnHalfWaveDown_M5 now is Active", PERIOD_M5);
  }
  if( OpenOnHalfWaveDown_M15) {
     OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveUp_M15  ();
-    print(" OpenOnHalfWaveDown_M15 now is Active", PERIOD_M15);
+    print("OpenOnHalfWaveDown_M15 now is Active", PERIOD_M15);
  }
 
 
