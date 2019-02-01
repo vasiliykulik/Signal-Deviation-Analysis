@@ -13,15 +13,16 @@ extern double StopLoss=1600;
 extern double Lots=1;
 extern double TrailingStop=10000;
 
+
 extern double TrailingFiboLevel = 0.61;
 
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
 extern bool OpenOnHalfWaveUp_M15   = false;
-
 extern bool OpenOnHalfWaveDown_M1  = false;
 extern bool OpenOnHalfWaveDown_M5  = false;
 extern bool OpenOnHalfWaveDown_M15 = false;
+
 
 int iteration;
 double filterForMinusHalfWave= -0.0001000;
@@ -2252,12 +2253,32 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 }
 
-OpenOnHalfWaveUp_M1    = isOpenOnHalfWaveUp_M1 ();
-OpenOnHalfWaveUp_M5    = isOpenOnHalfWaveUp_M5 ();
-OpenOnHalfWaveUp_M15   = isOpenOnHalfWaveUp_M5 ();
-OpenOnHalfWaveDown_M1  = isOpenOnHalfWaveUp_M1 ();
-OpenOnHalfWaveDown_M5  = isOpenOnHalfWaveDown_M5();
-OpenOnHalfWaveDown_M15 = isOpenOnHalfWaveUp_M5 ();
+
+ if( OpenOnHalfWaveUp_M1) {
+    OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1  ();
+    print(" OpenOnHalfWaveUp_M1 now is Active");
+ }
+ if( OpenOnHalfWaveUp_M5) {
+    OpenOnHalfWaveOpenPermitUp_M5    = isOpenOnHalfWaveUp_M5  ();
+    print(" OpenOnHalfWaveUp_M5 now is Active");
+ }
+ if( OpenOnHalfWaveUp_M15) {
+    OpenOnHalfWaveOpenPermitUp_M15   = isOpenOnHalfWaveUp_M15  ();
+    print(" OpenOnHalfWaveUp_M15 now is Active");
+ }
+ if( OpenOnHalfWaveDown_M1) {
+    OpenOnHalfWaveOpenPermitDown_M1  = isOpenOnHalfWaveUp_M1  ();
+    print(" OpenOnHalfWaveDown_M1 now is Active");
+ }
+ if( OpenOnHalfWaveDown_M5) {
+    OpenOnHalfWaveOpenPermitDown_M5  = isOpenOnHalfWaveDown_M5();
+    print(" OpenOnHalfWaveDown_M5 now is Active");
+ }
+ if( OpenOnHalfWaveDown_M15) {
+    OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveUp_M15  ();
+    print(" OpenOnHalfWaveDown_M15 now is Active");
+ }
+
 
 
      print();
@@ -2409,7 +2430,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
         isMACDForelockUpFilter1 (PERIOD_M15) &&
         isOSMAForelockUpFilter1(PERIOD_M15) &&
         isDivergenceOrConvergence_D1() &&
-        (OpenOnHalfWave_M1 || OpenOnHalfWave_M5)
+        (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
       )
 
       {
@@ -2574,7 +2595,9 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-isMACDForelockDownFilter1(PERIOD_M15) && isOSMAForelockDownFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1()
+        isMACDForelockDownFilter1(PERIOD_M15) &&
+        isOSMAForelockDownFilter1(PERIOD_M15) &&
+        (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
       )
 
       {
