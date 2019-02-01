@@ -28,6 +28,7 @@ extern bool OpenOnHalfWaveDown_M15 = false;
 
 
 
+double Lots = externalLots;
 
 int iteration;
 double filterForMinusHalfWave= -0.0001000;
@@ -64,7 +65,7 @@ void OnTick(void)
   // Lot calculation
 
   string myCurrentPair = Symbol();
-  double Lots = externalLots;
+
   if(isAutoMoneyManagmentEnabled){
     if(myCurrentPair=="EURUSD" || myCurrentPair=="USDJPY" || myCurrentPair=="USDCAD")
       {
