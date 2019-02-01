@@ -2384,6 +2384,7 @@ is10PositionFigureDown_M15  = figure48PennantAfterFlagConfirmationDown_M15 || fi
 is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40RollbackChannelPennantConfirmationDown_M15;
 
 
+
       if
       (
 isMACDForelockUpFilter1 (PERIOD_M15) && isOSMAForelockUpFilter1(PERIOD_M15) && isM15FigureDown
@@ -4270,4 +4271,20 @@ bool nonSymmTick()
                   }
 
               return isOSMACrossed;
+            }
+
+            bool isDivergenceOrConvergence_D1(){
+                            double macd100 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+                            double macd101 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+
+                            double osma100 = iOsMA(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,0);
+                            double osma101 = iOsMA(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,1);
+
+
+
+
+            }
+
+            double compareTwoDouble(double first, double second){
+
             }
