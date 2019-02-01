@@ -2387,7 +2387,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
       if
       (
-isMACDForelockUpFilter1 (PERIOD_M15) && isOSMAForelockUpFilter1(PERIOD_M15) && isM15FigureDown
+isMACDForelockUpFilter1 (PERIOD_M15) && isOSMAForelockUpFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1
       )
 
       {
@@ -2552,7 +2552,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-isMACDForelockDownFilter1(PERIOD_M15) && isOSMAForelockDownFilter1(PERIOD_M15) && isM15FigureUp
+isMACDForelockDownFilter1(PERIOD_M15) && isOSMAForelockDownFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1
       )
 
       {
@@ -4274,17 +4274,17 @@ bool nonSymmTick()
             }
 
             bool isDivergenceOrConvergence_D1(){
-                            double macd100 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-                            double macd101 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+                bool result = false;
+                double macd100 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+                double macd101 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 
-                            double osma100 = iOsMA(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,0);
-                            double osma101 = iOsMA(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,1);
+                double osma100 = iOsMA(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,0);
+                double osma101 = iOsMA(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,1);
+                if((macd101 < macd100 && osma101 > osma100) || (macd101 > macd100 && osma101<osma101)) {
+                    result = true;
+                }
 
-
-
-
+                return result;
             }
 
-            double compareTwoDouble(double first, double second){
 
-            }
