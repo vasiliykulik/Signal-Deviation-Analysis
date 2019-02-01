@@ -4288,3 +4288,34 @@ bool nonSymmTick()
             }
 
 
+
+          bool isOSMAThreeH1Up(){
+            bool isThreeUp = false;
+            double osma0 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
+            double osma1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
+            double osma2 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,2);
+
+
+                if(  osma0>osma1 && osma1 > osma2) {
+                  isThreeUp = true;
+                }
+
+            return isThreeUp;
+          }
+
+            bool isOSMAThreeH1Down(){
+              bool isThreeDown = false;
+              double osma0 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
+              double osma1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
+              double osma2 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,2);
+
+        //      Print("timeFrameForOSMA = ",timeFrameForOSMA);
+        //      Print ("osma0 = ",osma0,"osma1 = ",osma1,"osma2 = ",osma2,"osma3 = ",osma3);
+                  if(  osma0<osma1 && osma1 < osma2 ) {
+                    isThreeDown = true;
+         //           Print("isOSMACrossed = ", isOSMACrossed);
+                  }
+
+              return isThreeDown;
+
+
