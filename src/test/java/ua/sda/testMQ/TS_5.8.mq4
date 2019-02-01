@@ -2253,30 +2253,36 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 }
 
+bool OpenOnHalfWaveOpenPermitUp_M1     = false;
+bool OpenOnHalfWaveOpenPermitUp_M5     = false;
+bool OpenOnHalfWaveOpenPermitUp_M15    = false;
+bool OpenOnHalfWaveOpenPermitDown_M1   = false;
+bool OpenOnHalfWaveOpenPermitDown_M5   = false;
+bool OpenOnHalfWaveOpenPermitDown_M15  = false;
 
  if( OpenOnHalfWaveUp_M1) {
     OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1  ();
-    print(" OpenOnHalfWaveUp_M1 now is Active");
+    print(" OpenOnHalfWaveUp_M1 now is Active", PERIOD_M1);
  }
  if( OpenOnHalfWaveUp_M5) {
     OpenOnHalfWaveOpenPermitUp_M5    = isOpenOnHalfWaveUp_M5  ();
-    print(" OpenOnHalfWaveUp_M5 now is Active");
+    print(" OpenOnHalfWaveUp_M5 now is Active", PERIOD_M5);
  }
  if( OpenOnHalfWaveUp_M15) {
     OpenOnHalfWaveOpenPermitUp_M15   = isOpenOnHalfWaveUp_M15  ();
-    print(" OpenOnHalfWaveUp_M15 now is Active");
+    print(" OpenOnHalfWaveUp_M15 now is Active", PERIOD_M15);
  }
  if( OpenOnHalfWaveDown_M1) {
     OpenOnHalfWaveOpenPermitDown_M1  = isOpenOnHalfWaveUp_M1  ();
-    print(" OpenOnHalfWaveDown_M1 now is Active");
+    print(" OpenOnHalfWaveDown_M1 now is Active", PERIOD_M1);
  }
  if( OpenOnHalfWaveDown_M5) {
     OpenOnHalfWaveOpenPermitDown_M5  = isOpenOnHalfWaveDown_M5();
-    print(" OpenOnHalfWaveDown_M5 now is Active");
+    print(" OpenOnHalfWaveDown_M5 now is Active", PERIOD_M5);
  }
  if( OpenOnHalfWaveDown_M15) {
     OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveUp_M15  ();
-    print(" OpenOnHalfWaveDown_M15 now is Active");
+    print(" OpenOnHalfWaveDown_M15 now is Active", PERIOD_M15);
  }
 
 
@@ -4366,10 +4372,10 @@ bool nonSymmTick()
 
     bool isOpenOnHalfWaveUp_M1 (){
         bool resultOpenOnHalfWave = false;
-            macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-            macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-            macd2 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            macd4 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            double macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            double macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            double macd2 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            double macd3 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
             if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
                 resultOpenOnHalfWave = true;
             }
@@ -4377,10 +4383,10 @@ bool nonSymmTick()
     }
     bool isOpenOnHalfWaveUp_M5 (){
         bool resultOpenOnHalfWave = false;
-            macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-            macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-            macd2 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            macd4 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            double macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            double macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            double macd2 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            double macd3 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,3);
             if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
                 resultOpenOnHalfWave = true;
             }
@@ -4388,10 +4394,10 @@ bool nonSymmTick()
     }
     bool isOpenOnHalfWaveUp_M15(){
         bool resultOpenOnHalfWave = false;
-            macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-            macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-            macd2 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            macd4 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            double macd2 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            double macd3 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,3);
             if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
                 resultOpenOnHalfWave = true;
             }
@@ -4400,10 +4406,10 @@ bool nonSymmTick()
 
     bool isOpenOnHalfWaveDown_M1 (){
         bool resultOpenOnHalfWave = false;
-            macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-            macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-            macd2 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            macd4 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            double macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            double macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            double macd2 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            double macd3 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
             if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 >0){
                 resultOpenOnHalfWave = true;
             }
@@ -4411,10 +4417,10 @@ bool nonSymmTick()
     }
     bool isOpenOnHalfWaveDown_M5 (){
         bool resultOpenOnHalfWave = false;
-            macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-            macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-            macd2 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            macd4 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            double macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            double macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            double macd2 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            double macd3 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,3);
             if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 >0){
                 resultOpenOnHalfWave = true;
             }
@@ -4422,10 +4428,10 @@ bool nonSymmTick()
     }
     bool isOpenOnHalfWaveDown_M15(){
         bool resultOpenOnHalfWave = false;
-            macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-            macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-            macd2 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            macd4 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            double macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            double macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            double macd2 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            double macd3 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,3);
             if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 >0){
                 resultOpenOnHalfWave = true;
             }
