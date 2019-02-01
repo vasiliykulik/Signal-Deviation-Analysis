@@ -12,6 +12,8 @@ extern double TakeProfit=2400;
 extern double StopLoss=1600;
 extern double externalLots=0.01;
 extern double TrailingStop=10000;
+
+extern bool isAutoMoneyManagmentEnabled = false;
 extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
 
@@ -63,16 +65,26 @@ void OnTick(void)
 
   string myCurrentPair = Symbol();
   double Lots = externalLots;
-
-  if(myCurrentPair=="EURUSD" || myCurrentPair=="USDJPY" || myCurrentPair=="USDCAD")
-    {
-     resultDifference=(resultHigh-resultLow)/0.00001;
-    }
-  if(myCurrentPair=="GBPJPY" || myCurrentPair=="GBPUSD")
-    {
-     resultDifference=(resultHigh-resultLow)/0.001;
-    }
-
+  if(isAutoMoneyManagmentEnabled){
+    if(myCurrentPair=="EURUSD" || myCurrentPair=="USDJPY" || myCurrentPair=="USDCAD")
+      {
+          if(moneyManagement4And8Or12And24_4_Or_12 == 12){
+              Lots = (AccountEquity()/12)*0.01;
+          }
+          if(moneyManagement4And8Or12And24_4_Or_12 == 4){
+              Lots = (AccountEquity()/4)*0.01;
+          }
+      }
+    if(myCurrentPair=="GBPJPY" || myCurrentPair=="GBPUSD")
+      {
+          if(moneyManagement4And8Or12And24_4_Or_12 == 12){
+              Lots = (AccountEquity()/24)*0.01;
+          }
+          if(moneyManagement4And8Or12And24_4_Or_12 == 4){
+              Lots = (AccountEquity()/8)*0.01;
+          }
+      }
+  }
 
    int cnt,ticket,total,buy,sell;
 
@@ -2279,27 +2291,21 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
 
  if( OpenOnHalfWaveUp_M1) {
     OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1  ();
-    print("OpenOnHalfWaveUp_M1 now is Active", PERIOD_M1);
  }
  if( OpenOnHalfWaveUp_M5) {
     OpenOnHalfWaveOpenPermitUp_M5    = isOpenOnHalfWaveUp_M5  ();
-    print("OpenOnHalfWaveUp_M5 now is Active", PERIOD_M5);
  }
  if( OpenOnHalfWaveUp_M15) {
     OpenOnHalfWaveOpenPermitUp_M15   = isOpenOnHalfWaveUp_M15  ();
-    print("OpenOnHalfWaveUp_M15 now is Active", PERIOD_M15);
  }
  if( OpenOnHalfWaveDown_M1) {
     OpenOnHalfWaveOpenPermitDown_M1  = isOpenOnHalfWaveUp_M1  ();
-    print("OpenOnHalfWaveDown_M1 now is Active", PERIOD_M1);
  }
  if( OpenOnHalfWaveDown_M5) {
     OpenOnHalfWaveOpenPermitDown_M5  = isOpenOnHalfWaveDown_M5();
-    print("OpenOnHalfWaveDown_M5 now is Active", PERIOD_M5);
  }
  if( OpenOnHalfWaveDown_M15) {
     OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveUp_M15  ();
-    print("OpenOnHalfWaveDown_M15 now is Active", PERIOD_M15);
  }
 
 
@@ -4101,10 +4107,46 @@ bool nonSymmTick()
 
   void print(){
     string start;
+    string strOpenOnHalfWaveUp_M1   ;
+    string strOpenOnHalfWaveUp_M5   ;
+    string strOpenOnHalfWaveUp_M15  ;
+    string strOpenOnHalfWaveDown_M1 ;
+    string strOpenOnHalfWaveDown_M5 ;
+    string strOpenOnHalfWaveDown_M15;
+    string strMoneyManagment;
     int total = OrdersTotal();
     if(total>0){
       start = "Open Order";
     } else { start = " "; };
+
+
+     if( OpenOnHalfWaveUp_M1) {
+        strOpenOnHalfWaveUp_M1    = "OpenOnHalfWaveUp_M1 now is Active";
+     } else {strOpenOnHalfWaveUp_M1    = " ";}
+     if( OpenOnHalfWaveUp_M5) {
+        strOpenOnHalfWaveUp_M5    = "OpenOnHalfWaveUp_M5 now is Active";
+     } else {strOpenOnHalfWaveUp_M5    = " ";}
+     if( OpenOnHalfWaveUp_M15) {
+        strOpenOnHalfWaveUp_M15   = "OpenOnHalfWaveUp_M15 now is Active";
+     } else {strOpenOnHalfWaveUp_M15   = " ";}
+     if( OpenOnHalfWaveDown_M1) {
+        strOpenOnHalfWaveDown_M1  = "OpenOnHalfWaveDown_M1 now is Active";
+     } else {strOpenOnHalfWaveDown_M1  = " ";}
+     if( OpenOnHalfWaveDown_M5) {
+        strOpenOnHalfWaveDown_M5  = "OpenOnHalfWaveDown_M5 now is Active";
+     } else {strOpenOnHalfWaveDown_M5  = " ";}
+     if( OpenOnHalfWaveDown_M15) {
+        strOpenOnHalfWaveDown_M15 =  "OpenOnHalfWaveDown_M15 now is Active";
+     } else {strOpenOnHalfWaveDown_M15 = " ";}
+
+     if(isAutoMoneyManagmentEnabled && moneyManagement4And8Or12And24_4_Or_12 == 4){
+        strMoneyManagment = "MoneyManagment 4/8 USD, confident movement. Lots = " + Lots;
+     }
+
+     if(isAutoMoneyManagmentEnabled && moneyManagement4And8Or12And24_4_Or_12 == 12){
+        strMoneyManagment = "MoneyManagment 12/24 USD, no explicit movement. Lots = " + Lots;
+     }
+
     Comment(
         "\n     ", start ,
         "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
@@ -4112,7 +4154,14 @@ bool nonSymmTick()
         "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
         "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
         "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
-        "\nPERIOD_D1     ", messageGlobalPERIOD_D1
+        "\nPERIOD_D1     ", messageGlobalPERIOD_D1 ,
+        "\n", strOpenOnHalfWaveUp_M1    ,
+        "\n", strOpenOnHalfWaveUp_M5    ,
+        "\n", strOpenOnHalfWaveUp_M15   ,
+        "\n", strOpenOnHalfWaveDown_M1  ,
+        "\n", strOpenOnHalfWaveDown_M5  ,
+        "\n", strOpenOnHalfWaveDown_M15 ,
+        "\n", strMoneyManagment
     );
   }
   //+------------------------------------------------------------------+
@@ -4499,6 +4548,7 @@ bool nonSymmTick()
             if (osma0 > 0 && osma1 > 0 && osma2 < 0 && osma3 < 0){
                 result = true;
             }
+            return result;
     }
 
     bool isOsMAorMACDCrossedDown(ENUM_TIMEFRAMES timeFrame){
@@ -4519,4 +4569,5 @@ bool nonSymmTick()
             if (osma0 < 0 && osma1 < 0 && osma2 > 0 && osma3 > 0){
                 result = true;
             }
+            return result;
     }
