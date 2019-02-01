@@ -4317,5 +4317,5 @@ bool nonSymmTick()
                   }
 
               return isThreeDown;
-
+            }
 
