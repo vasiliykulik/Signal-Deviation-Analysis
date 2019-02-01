@@ -10,7 +10,7 @@
 
 extern double TakeProfit=2400;
 extern double StopLoss=1600;
-extern double Lots=1;
+extern double Lots=0.01;
 extern double TrailingStop=10000;
 
 
