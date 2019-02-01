@@ -12,6 +12,17 @@ extern double TakeProfit=2400;
 extern double StopLoss=1600;
 extern double Lots=1;
 extern double TrailingStop=10000;
+
+extern double TrailingFiboLevel = 0.61;
+
+extern bool OpenOnHalfWaveUp_M1    = false;
+extern bool OpenOnHalfWaveUp_M5    = false;
+extern bool OpenOnHalfWaveUp_M15   = false;
+
+extern bool OpenOnHalfWaveDown_M1  = false;
+extern bool OpenOnHalfWaveDown_M5  = false;
+extern bool OpenOnHalfWaveDown_M15 = false;
+
 int iteration;
 double filterForMinusHalfWave= -0.0001000;
 double filterForPlusHalfWave = 0.0001000;
@@ -2241,6 +2252,14 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 }
 
+OpenOnHalfWaveUp_M1    = isOpenOnHalfWaveUp_M1 ();
+OpenOnHalfWaveUp_M5    = isOpenOnHalfWaveUp_M5 ();
+OpenOnHalfWaveUp_M15   = isOpenOnHalfWaveUp_M5 ();
+OpenOnHalfWaveDown_M1  = isOpenOnHalfWaveUp_M1 ();
+OpenOnHalfWaveDown_M5  = isOpenOnHalfWaveDown_M5();
+OpenOnHalfWaveDown_M15 = isOpenOnHalfWaveUp_M5 ();
+
+
      print();
 
    if(total<1)
@@ -2387,7 +2406,10 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
       if
       (
-isMACDForelockUpFilter1 (PERIOD_M15) && isOSMAForelockUpFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1()
+        isMACDForelockUpFilter1 (PERIOD_M15) &&
+        isOSMAForelockUpFilter1(PERIOD_M15) &&
+        isDivergenceOrConvergence_D1() &&
+        (OpenOnHalfWave_M1 || OpenOnHalfWave_M5)
       )
 
       {
@@ -2801,9 +2823,9 @@ sell=1;
 
                if(Bid>OrderOpenPrice()&& (Bid - OrderOpenPrice())> (Ask - Bid)*2)// если текущая цена БОЛЬШЕ цены открытия И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
                  {
-                  if(Bid-((Bid - OrderOpenPrice())*0.13)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
+                  if(Bid-((Bid - OrderOpenPrice())*TrailingFiboLevel)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*0.13),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*TrailingFiboLevel),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
                     }
                  }
 
@@ -2851,9 +2873,9 @@ sell=1;
               {
                if(OrderOpenPrice()>Ask && (OrderOpenPrice()-Ask>(Ask - Bid)*2))// если текущая цена + двойной спред МЕНЬШЕ цены открытия (Уберу двойной спред) И 50% от прибыли больше чем Spread (что бы не было ложных срабатываний)
                  {
-                  if(Ask+((OrderOpenPrice()-Ask)*0.13)<OrderStopLoss()|| (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
+                  if(Ask+((OrderOpenPrice()-Ask)*TrailingFiboLevel)<OrderStopLoss()|| (OrderStopLoss()==0))// если стоп-лосс МЕНЬШЕ  чем цена + 50% прибыли(Уберу двойной спред)
                     {
-                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*0.13),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
+                     OrderModify(OrderTicket(),OrderOpenPrice(),Ask+((OrderOpenPrice()-Ask)*TrailingFiboLevel),OrderTakeProfit(),0,Red);//(Уберу двойной спред)
                     }
                  }
               }
@@ -4319,3 +4341,70 @@ bool nonSymmTick()
               return isThreeDown;
             }
 
+    isOpenOnHalfWaveUp_M1 (){
+        bool resultOpenOnHalfWave = false;
+            macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            macd2 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            macd4 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
+                resultOpenOnHalfWave = true;
+            }
+        return resultOpenOnHalfWave;
+    }
+    isOpenOnHalfWaveUp_M5 (){
+        bool resultOpenOnHalfWave = false;
+            macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            macd2 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            macd4 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
+                resultOpenOnHalfWave = true;
+            }
+        return resultOpenOnHalfWave;
+    }
+    isOpenOnHalfWaveUp_M15(){
+        bool resultOpenOnHalfWave = false;
+            macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            macd2 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            macd4 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
+                resultOpenOnHalfWave = true;
+            }
+        return resultOpenOnHalfWave;
+    }
+
+    isOpenOnHalfWaveDown_M1 (){
+        bool resultOpenOnHalfWave = false;
+            macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            macd2 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            macd4 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 >0){
+                resultOpenOnHalfWave = true;
+            }
+        return resultOpenOnHalfWave;
+    }
+    isOpenOnHalfWaveDown_M5 (){
+        bool resultOpenOnHalfWave = false;
+            macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            macd2 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            macd4 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 >0){
+                resultOpenOnHalfWave = true;
+            }
+        return resultOpenOnHalfWave;
+    }
+    isOpenOnHalfWaveDown_M15(){
+        bool resultOpenOnHalfWave = false;
+            macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+            macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+            macd2 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+            macd4 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+            if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 >0){
+                resultOpenOnHalfWave = true;
+            }
+        return resultOpenOnHalfWave;
+    }
