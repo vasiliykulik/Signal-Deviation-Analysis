@@ -4364,7 +4364,7 @@ bool nonSymmTick()
               return isThreeDown;
             }
 
-    isOpenOnHalfWaveUp_M1 (){
+    bool isOpenOnHalfWaveUp_M1 (){
         bool resultOpenOnHalfWave = false;
             macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -4375,7 +4375,7 @@ bool nonSymmTick()
             }
         return resultOpenOnHalfWave;
     }
-    isOpenOnHalfWaveUp_M5 (){
+    bool isOpenOnHalfWaveUp_M5 (){
         bool resultOpenOnHalfWave = false;
             macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -4386,7 +4386,7 @@ bool nonSymmTick()
             }
         return resultOpenOnHalfWave;
     }
-    isOpenOnHalfWaveUp_M15(){
+    bool isOpenOnHalfWaveUp_M15(){
         bool resultOpenOnHalfWave = false;
             macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -4398,7 +4398,7 @@ bool nonSymmTick()
         return resultOpenOnHalfWave;
     }
 
-    isOpenOnHalfWaveDown_M1 (){
+    bool isOpenOnHalfWaveDown_M1 (){
         bool resultOpenOnHalfWave = false;
             macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -4409,7 +4409,7 @@ bool nonSymmTick()
             }
         return resultOpenOnHalfWave;
     }
-    isOpenOnHalfWaveDown_M5 (){
+    bool isOpenOnHalfWaveDown_M5 (){
         bool resultOpenOnHalfWave = false;
             macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -4420,7 +4420,7 @@ bool nonSymmTick()
             }
         return resultOpenOnHalfWave;
     }
-    isOpenOnHalfWaveDown_M15(){
+    bool isOpenOnHalfWaveDown_M15(){
         bool resultOpenOnHalfWave = false;
             macd0 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             macd1 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
