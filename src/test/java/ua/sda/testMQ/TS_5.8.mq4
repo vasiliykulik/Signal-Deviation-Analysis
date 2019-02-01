@@ -2387,7 +2387,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
       if
       (
-isMACDForelockUpFilter1 (PERIOD_M15) && isOSMAForelockUpFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1
+isMACDForelockUpFilter1 (PERIOD_M15) && isOSMAForelockUpFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1()
       )
 
       {
@@ -2552,7 +2552,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-isMACDForelockDownFilter1(PERIOD_M15) && isOSMAForelockDownFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1
+isMACDForelockDownFilter1(PERIOD_M15) && isOSMAForelockDownFilter1(PERIOD_M15) && isDivergenceOrConvergence_D1()
       )
 
       {
