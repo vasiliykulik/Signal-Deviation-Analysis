@@ -4407,11 +4407,11 @@ bool nonSymmTick()
 
 
 
-          bool isOSMAThreeH1Up(){
+          bool isOSMAThreeUp(ENUM_TIMEFRAMES timeframe){
             bool isThreeUp = false;
-            double osma0 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
-            double osma1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
-            double osma2 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,2);
+            double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
+            double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
+            double osma2 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,2);
 
 
                 if(  osma0>osma1 && osma1 > osma2) {
@@ -4421,11 +4421,11 @@ bool nonSymmTick()
             return isThreeUp;
           }
 
-            bool isOSMAThreeH1Down(){
+            bool isOSMAThreeDown(ENUM_TIMEFRAMES timeframe){
               bool isThreeDown = false;
-              double osma0 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
-              double osma1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
-              double osma2 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,2);
+              double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
+              double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
+              double osma2 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,2);
 
         //      Print("timeFrameForOSMA = ",timeFrameForOSMA);
         //      Print ("osma0 = ",osma0,"osma1 = ",osma1,"osma2 = ",osma2,"osma3 = ",osma3);
