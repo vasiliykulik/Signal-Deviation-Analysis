@@ -4531,44 +4531,61 @@ bool nonSymmTick()
         return result;
     }
 
-    bool isOsMAorMACDCrossedUp(ENUM_TIMEFRAMES timeFrame){
+    bool isOsMAorMACDCrossedUpOneTick(ENUM_TIMEFRAMES timeFrame){
         bool result = false;
             double macd0 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             double macd1 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,1);
             double macd2 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            double macd3 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,3);
 
             double osma0 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,0);
             double osma1 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,1);
-            double osma2 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,2);;
-            double osma3 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,3);;
+            double osma2 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,2);
 
-            if (macd0 > 0 && macd1 > 0 && macd2 < 0 && macd3 < 0){
+            if (macd0 > 0 && macd1 < 0 && macd2 < 0){
                 result = true;
             }
-            if (osma0 > 0 && osma1 > 0 && osma2 < 0 && osma3 < 0){
+            if (osma0 > 0 && osma1 < 0 && osma2 < 0){
                 result = true;
             }
             return result;
     }
 
-    bool isOsMAorMACDCrossedDown(ENUM_TIMEFRAMES timeFrame){
+    bool isOsMAorMACDCrossedDownOneTick(ENUM_TIMEFRAMES timeFrame){
         bool result = false;
             double macd0 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             double macd1 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,1);
             double macd2 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-            double macd3 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,3);
 
             double osma0 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,0);
             double osma1 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,1);
-            double osma2 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,2);;
-            double osma3 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,3);;
+            double osma2 = iOsMA(NULL,timeFrame,12,26,9,PRICE_OPEN,2);
 
-            if (macd0 < 0 && macd1 < 0 && macd2 > 0 && macd3 > 0){
+            if (macd0 < 0 && macd1 > 0 && macd2 > 0){
                 result = true;
             }
-            if (osma0 < 0 && osma1 < 0 && osma2 > 0 && osma3 > 0){
+            if (osma0 < 0 && osma1 > 0 && osma2 > 0){
                 result = true;
             }
             return result;
     }
+
+
+bool isCloseLowerThanMA83ForBuy(ENUM_TIMEFRAMES timeFrame){
+    bool result = false;
+    double close_0 = iClose(0,timeFrame,0);
+    double ma_0 = iMA(NULL,timeFrame,83,0,MODE_SMA,PRICE_OPEN,0);
+    if( close_0 < ma_0){
+        result = true;
+    }
+    return result;
+}
+
+bool isCloseHigherThanMA83ForSell(ENUM_TIMEFRAMES timeFrame){
+    bool result = false;
+    double close_0 = iClose(0,timeFrame,0);
+    double ma_0 = iMA(NULL,timeFrame,83,0,MODE_SMA,PRICE_OPEN,0);
+    if( close_0 > ma_0){
+        result = true;
+    }
+    return result;
+}
