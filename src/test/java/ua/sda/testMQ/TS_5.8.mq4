@@ -291,6 +291,14 @@ void OnTick(void)
       bool figure62TripleTopConfirmationDown_M1  = false,                           figure62TripleTopConfirmationDown_M5  = false,          figure62TripleTopConfirmationDown_M15 = false,  figure62TripleTopConfirmationDown_H1  = false,  figure62TripleTopConfirmationDown_H4  = false,  figure62TripleTopConfirmationDown_D1  = false;
       bool figure63TripleBottomConfirmationUp_M1  = false,                             figure63TripleBottomConfirmationUp_M5  = false,            figure63TripleBottomConfirmationUp_M15 = false,  figure63TripleBottomConfirmationUp_H1  = false,  figure63TripleBottomConfirmationUp_H4  = false,  figure63TripleBottomConfirmationUp_D1  = false;
       bool figure64TripleTopConfirmationDown_M1  = false,                           figure64TripleTopConfirmationDown_M5  = false,          figure64TripleTopConfirmationDown_M15 = false,  figure64TripleTopConfirmationDown_H1  = false,  figure64TripleTopConfirmationDown_H4  = false,  figure64TripleTopConfirmationDown_D1  = false;
+      bool figure65ChannelUp_M1  = false,                             figure65ChannelUp_M5  = false,            figure65ChannelUp_M15 = false,  figure65ChannelUp_H1  = false,  figure65ChannelUp_H4  = false,  figure65ChannelUp_D1  = false;
+      bool figure66ChannelDown_M1  = false,                           figure66ChannelDown_M5  = false,          figure66ChannelDown_M15 = false,  figure66ChannelDown_H1  = false,  figure66ChannelDown_H4  = false,  figure66ChannelDown_D1  = false;
+      bool figure67TripleBottomUp_M1  = false,                             figure67TripleBottomUp_M5  = false,            figure67TripleBottomUp_M15 = false,  figure67TripleBottomUp_H1  = false,  figure67TripleBottomUp_H4  = false,  figure67TripleBottomUp_D1  = false;
+      bool figure68TripleTopDown_M1  = false,                           figure68TripleTopDown_M5  = false,          figure68TripleTopDown_M15 = false,  figure68TripleTopDown_H1  = false,  figure68TripleTopDown_H4  = false,  figure68TripleTopDown_D1  = false;
+      bool figure69TripleBottomUp_M1  = false,                             figure69TripleBottomUp_M5  = false,            figure69TripleBottomUp_M15 = false,  figure69TripleBottomUp_H1  = false,  figure69TripleBottomUp_H4  = false,  figure69TripleBottomUp_D1  = false;
+      bool figure70TripleTopDown_M1  = false,                           figure70TripleTopDown_M5  = false,          figure70TripleTopDown_M15 = false,  figure70TripleTopDown_H1  = false,  figure70TripleTopDown_H4  = false,  figure70TripleTopDown_D1  = false;
+      bool figure71ChannelFlagUp_M1  = false,                             figure71ChannelFlagUp_M5  = false,            figure71ChannelFlagUp_M15 = false,  figure71ChannelFlagUp_H1  = false,  figure71ChannelFlagUp_H4  = false,  figure71ChannelFlagUp_D1  = false;
+      bool figure72ChannelFlagDown_M1  = false,                           figure72ChannelFlagDown_M5  = false,          figure72ChannelFlagDown_M15 = false,  figure72ChannelFlagDown_H1  = false,  figure72ChannelFlagDown_H4  = false,  figure72ChannelFlagDown_D1  = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2295,6 +2303,184 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_D1) {figure64TripleTopConfirmationDown_D1  = true;}
             print("Figure 64 TripleTopConfirmationDown ", timeFrames[i]);
     }
+
+   // Figure 65 "ChannelUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal > thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
+        // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure65ChannelUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure65ChannelUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure65ChannelUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure65ChannelUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure65ChannelUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure65ChannelUp_D1  = true;}
+            print("Figure 65 ChannelUp ", timeFrames[i]);
+    }
+
+    // Figure 66 "ChannelDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal < thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+
+        isC5Max
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure66ChannelDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure66ChannelDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure66ChannelDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure66ChannelDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure66ChannelDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure66ChannelDown_D1  = true;}
+            print("Figure 66 ChannelDown ", timeFrames[i]);
+    }
+
+
+
+   // Figure 67 "TripleBottomUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
+        // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure67TripleBottomUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure67TripleBottomUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure67TripleBottomUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure67TripleBottomUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure67TripleBottomUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure67TripleBottomUp_D1  = true;}
+            print("Figure 67 TripleBottomUp ", timeFrames[i]);
+    }
+
+    // Figure 68 "TripleTopDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal < secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+
+        isC5Max
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure68TripleTopDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure68TripleTopDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure68TripleTopDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure68TripleTopDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure68TripleTopDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure68TripleTopDown_D1  = true;}
+            print("Figure 68 TripleTopDown ", timeFrames[i]);
+    }
+
+
+
+
+   // Figure 69 "TripleBottomUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
+        // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure69TripleBottomUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure69TripleBottomUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure69TripleBottomUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure69TripleBottomUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure69TripleBottomUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure69TripleBottomUp_D1  = true;}
+            print("Figure 69 TripleBottomUp ", timeFrames[i]);
+    }
+
+    // Figure 70 "TripleTopDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+
+        isC5Max
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure70TripleTopDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure70TripleTopDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure70TripleTopDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure70TripleTopDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure70TripleTopDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure70TripleTopDown_D1  = true;}
+            print("Figure 70 TripleTopDown ", timeFrames[i]);
+    }
+
+
+    // Figure 71 "ChannelFlagUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal < fifthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal > fifthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&  secondMinGlobal > fourthMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal < fifthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fifthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal < fifthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fifthMinGlobal &&
+        fourthMinGlobal < fourthMaxGlobal && fourthMinGlobal < fifthMinGlobal &&
+        fourthMaxGlobal > fifthMinGlobal &&
+        isC5Min
+        // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure71ChannelFlagUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure71ChannelFlagUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure71ChannelFlagUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure71ChannelFlagUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure71ChannelFlagUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure71ChannelFlagUp_D1  = true;}
+            print("Figure 71 ChannelFlagUp", timeFrames[i]);
+    }
+
+    // Figure 72 "ChannelFlagDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal && firstMaxGlobal > fourthMinGlobal && firstMaxGlobal > fifthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal > thirdMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < fourthMaxGlobal && firstMinGlobal > fourthMinGlobal && firstMinGlobal < fifthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal && secondMaxGlobal > fourthMinGlobal && secondMaxGlobal > fifthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < fourthMaxGlobal && secondMinGlobal > fourthMinGlobal && secondMinGlobal < fifthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal && thirdMaxGlobal > fourthMinGlobal && thirdMaxGlobal > fifthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal && thirdMinGlobal > fourthMinGlobal && thirdMinGlobal < fifthMaxGlobal &&
+        fourthMaxGlobal > fourthMinGlobal && fourthMaxGlobal > fifthMaxGlobal &&
+        fourthMinGlobal < fifthMaxGlobal &&
+        isC5Max
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure72ChannelFlagDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure72ChannelFlagDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure72ChannelFlagDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure72ChannelFlagDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure72ChannelFlagDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure72ChannelFlagDown_D1  = true;}
+            print("Figure 72 ChannelFlagDown", timeFrames[i]);
+    }
+
+
+
 /*
 
 // Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
