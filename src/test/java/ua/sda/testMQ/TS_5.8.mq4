@@ -17,7 +17,7 @@ extern bool isAutoMoneyManagmentEnabled = false;
 extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
 
-extern double TrailingFiboLevel = 0.61;
+extern double TrailingFiboLevel = 0.618;
 
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
