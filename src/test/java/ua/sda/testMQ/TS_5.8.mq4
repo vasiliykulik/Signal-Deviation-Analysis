@@ -299,6 +299,10 @@ void OnTick(void)
       bool figure70TripleTopDown_M1  = false,                           figure70TripleTopDown_M5  = false,          figure70TripleTopDown_M15 = false,  figure70TripleTopDown_H1  = false,  figure70TripleTopDown_H4  = false,  figure70TripleTopDown_D1  = false;
       bool figure71ChannelFlagUp_M1  = false,                             figure71ChannelFlagUp_M5  = false,            figure71ChannelFlagUp_M15 = false,  figure71ChannelFlagUp_H1  = false,  figure71ChannelFlagUp_H4  = false,  figure71ChannelFlagUp_D1  = false;
       bool figure72ChannelFlagDown_M1  = false,                           figure72ChannelFlagDown_M5  = false,          figure72ChannelFlagDown_M15 = false,  figure72ChannelFlagDown_H1  = false,  figure72ChannelFlagDown_H4  = false,  figure72ChannelFlagDown_D1  = false;
+      bool figure73HeadAndShouldersUp_M1  = false,                             figure73HeadAndShouldersUp_M5  = false,            figure73HeadAndShouldersUp_M15 = false,  figure73HeadAndShouldersUp_H1  = false,  figure73HeadAndShouldersUp_H4  = false,  figure73HeadAndShouldersUp_D1  = false;
+      bool figure74HeadAndShouldersDown_M1  = false,                           figure74HeadAndShouldersDown_M5  = false,          figure74HeadAndShouldersDown_M15 = false,  figure74HeadAndShouldersDown_H1  = false,  figure74HeadAndShouldersDown_H4  = false,  figure74HeadAndShouldersDown_D1  = false;
+      bool figure75ChannelConfirmationUp_M1  = false,                             figure75ChannelConfirmationUp_M5  = false,            figure75ChannelConfirmationUp_M15 = false,  figure75ChannelConfirmationUp_H1  = false,  figure75ChannelConfirmationUp_H4  = false,  figure75ChannelConfirmationUp_D1  = false;
+      bool figure76ChannelConfirmationDown_M1  = false,                           figure76ChannelConfirmationDown_M5  = false,          figure76ChannelConfirmationDown_M15 = false,  figure76ChannelConfirmationDown_H1  = false,  figure76ChannelConfirmationDown_H4  = false,  figure76ChannelConfirmationDown_D1  = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2477,6 +2481,89 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H4) {figure72ChannelFlagDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure72ChannelFlagDown_D1  = true;}
             print("Figure 72 ChannelFlagDown", timeFrames[i]);
+    }
+
+
+   // Figure 73 "HeadAndShouldersUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
+        // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure73HeadAndShouldersUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure73HeadAndShouldersUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure73HeadAndShouldersUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure73HeadAndShouldersUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure73HeadAndShouldersUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure73HeadAndShouldersUp_D1  = true;}
+            print("Figure 73 HeadAndShouldersUp ", timeFrames[i]);
+    }
+
+    // Figure 74 "HeadAndShouldersDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal > thirdMaxGlobal && firstMaxGlobal > thirdMinGlobal  &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal > thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal > thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+
+        isC5Max
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure74HeadAndShouldersDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure74HeadAndShouldersDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure74HeadAndShouldersDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure74HeadAndShouldersDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure74HeadAndShouldersDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure74HeadAndShouldersDown_D1  = true;}
+            print("Figure 74 HeadAndShouldersDown ", timeFrames[i]);
+    }
+
+   // Figure 75 "ChannelConfirmationUp"
+
+    if(
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal &&
+        thirdMinGlobal < thirdMaxGlobal &&
+        isC5Min
+        // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure75ChannelConfirmationUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure75ChannelConfirmationUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure75ChannelConfirmationUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure75ChannelConfirmationUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure75ChannelConfirmationUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure75ChannelConfirmationUp_D1  = true;}
+            print("Figure 75 ChannelConfirmationUp ", timeFrames[i]);
+    }
+
+    // Figure 76 "ChannelConfirmationDown"
+
+    if(
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+        thirdMaxGlobal > thirdMinGlobal &&
+
+        isC5Max
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure76ChannelConfirmationDown_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure76ChannelConfirmationDown_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure76ChannelConfirmationDown_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure76ChannelConfirmationDown_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure76ChannelConfirmationDown_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure76ChannelConfirmationDown_D1  = true;}
+            print("Figure 76 ChannelConfirmationDown ", timeFrames[i]);
     }
 
 
