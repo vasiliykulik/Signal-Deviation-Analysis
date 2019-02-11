@@ -3,8 +3,13 @@
 //|                                                    Vasiliy Kulik |
 //|                                                       alpari.com |
 //+------------------------------------------------------------------+
-#property copyright "Vasiliy Kulik"
+#property copyright "2019, Vasiliy Kulik"
 #property link      "http://www.mql5.com"
+#property version     "1.00"
+#property description "This Indicator is help for Fibonacci Retracement."
+#property description "And Trend Lines"
+#property icon          "\\Images\\words-0040_60_x_60.ico";
+#property strict
 
 #property indicator_chart_window
 ENUM_TIMEFRAMES periodGlobal=PERIOD_CURRENT;
@@ -25,6 +30,7 @@ int localFirstPointTick = 0, localSecondPointTick = 0;
 bool lowAndHighUpdate=false;
 double globalHigh,globalLow;
 int thirdPointTick=0, fourthPointTick=0;
+color levelColor;
 
 
 string Copyright="Vasiliy Kulik";
@@ -81,7 +87,7 @@ ClearObjects(); //
       ObjectCreate(MPrefix+"FIBO_MOD",OBJ_FIBO,0,highTime,High[secondPointTick],lowTime,Low[firstPointTick]);
       ObjectCreate(MPrefix+"TREND_LINE",OBJ_TREND,0,fourthTime,High[fourthPointTick],highTime,High[secondPointTick]);
       ObjectCreate(MPrefix+"TREND_LINE1",OBJ_TREND,0,thirdTime,Low[thirdPointTick],lowTime,Low[firstPointTick]);
-      color levelColor=Green;
+      levelColor=Green;
 /*      if(){PERIOD_H4 {levelColor = MediumOrchid;}}
       if(){PERIOD_H1 {levelColor = Blue;}}
       if(){PERIOD_M15 {levelColor = ForestGreen;}}
