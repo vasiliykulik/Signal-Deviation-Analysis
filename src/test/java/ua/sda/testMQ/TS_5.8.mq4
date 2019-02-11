@@ -2824,6 +2824,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
       )
 
       {
+/*
 Print("figure1_1FlagUpContinueAfterDecliningUp_M1 =  ",figure1_1FlagUpContinueAfterDecliningUp_M1, "figure1FlagUpContinueUp_M1 = ", figure1FlagUpContinueUp_M1, "figure1FlagUpContinueUp_M1 = ", figure1FlagUpContinueUp_M1);
 Print("figure5_1PennantUpConfirmationUp_M1 =         ",figure5_1PennantUpConfirmationUp_M1, "figure5PennantUp_M1 = ",figure5PennantUp_M1, "figure5PennantUp_M1 = ",figure5PennantUp_M1);
 Print("figure7_1TurnUpDivergenceUp_M1 =              ",figure7_1TurnUpDivergenceUp_M1);
@@ -2979,6 +2980,7 @@ Print("figure27_5DoubleBottomConDivDivConfirmationUp_D1 = ", figure27_5DoubleBot
 Print("figure27_6DoubleBottomDivConDivConfirmationUp_D1 = ", figure27_6DoubleBottomDivConDivConfirmationUp_D1);
 Print("figure27_7DoubleBottom12PosUp_D1 = ", figure27_7DoubleBottom12PosUp_D1);
 Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
+*/
 
       buy=1;
       }
@@ -2993,7 +2995,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       {
 
-Print("figure2_1FlagDownContinueAfterDecreaseDown_M1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_M1);
+/*Print("figure2_1FlagDownContinueAfterDecreaseDown_M1 =  ", figure2_1FlagDownContinueAfterDecreaseDown_M1);
 Print("figure6_1PennantDownConfirmationDown_M1 =        ", figure6_1PennantDownConfirmationDown_M1);
 Print("figure8_1TurnDownDivergenceDown_M1 =             ", figure8_1TurnDownDivergenceDown_M1);
 Print("figure8_2TurnDivergenceConfirmationDown_M1 =     ", figure8_2TurnDivergenceConfirmationDown_M1);
@@ -3151,7 +3153,7 @@ Print("figure28_4WedgePennantConfirmationDown_D1 = ", figure28_4WedgePennantConf
 Print("figure28_5DoubleTopConDivDivConfirmationDown_D1 = ", figure28_5DoubleTopConDivDivConfirmationDown_D1);
 Print("figure28_6DoubleTopDivConDivConfirmationDown_D1 = ", figure28_6DoubleTopDivConDivConfirmationDown_D1);
 Print("figure28_7DoubleTop12PosDown_D1 = ", figure28_7DoubleTop12PosDown_D1);
-Print("figure60TripleTopWedgeDown_D1 = ",figure60TripleTopWedgeDown_D1);
+Print("figure60TripleTopWedgeDown_D1 = ",figure60TripleTopWedgeDown_D1);*/
 
 sell=1;
  }
