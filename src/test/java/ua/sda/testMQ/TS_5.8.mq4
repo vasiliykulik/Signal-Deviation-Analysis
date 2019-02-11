@@ -55,8 +55,8 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string messageGlobalPERIOD_D1 ;
  int countFigures;
 
-// ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
- ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15};
+ ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+// ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -2816,10 +2816,11 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
       if
       (
-        isMACDForelockUpFilter1 (PERIOD_M15) &&
+      (isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp)
+/*        isMACDForelockUpFilter1 (PERIOD_M15) &&
         isOSMAForelockUpFilter1(PERIOD_M15) &&
         isDivergenceOrConvergence_D1() &&
-        (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+        (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)*/
       )
 
       {
@@ -2984,9 +2985,10 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-        isMACDForelockDownFilter1(PERIOD_M15) &&
+      (isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown)
+/*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
-        (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+        (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)*/
       )
 
       {
@@ -3154,6 +3156,8 @@ Print("figure60TripleTopWedgeDown_D1 = ",figure60TripleTopWedgeDown_D1);
 sell=1;
  }
 
+buy = 0;
+sell = 0;
       if(AccountFreeMargin()<(1*Lots))
         {
          //Print("We have no money. Free Margin = ",AccountFreeMargin());
