@@ -2572,15 +2572,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
        // Candle 1 "ThreeToOneUp"
 
-        if(
-            firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal &&
-            firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
-            secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
-            secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal &&
-            thirdMinGlobal < thirdMaxGlobal &&
-            isC5Min
-            // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
-            ){
+        if(isCandle1ThreeToOneUp(timeFrames[i])){
                 if(timeFrames[i]==PERIOD_M1) {candle1ThreeToOneUp_M1  = true;}
                 if(timeFrames[i]==PERIOD_M5) {candle1ThreeToOneUp_M5  = true;}
                 if(timeFrames[i]==PERIOD_M15){candle1ThreeToOneUp_M15 = true;}
@@ -2592,16 +2584,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
         // Candle 2 "ThreeToOneDown"
 
-        if(
-            firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  &&
-            firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
-            secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
-            secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
-            thirdMaxGlobal > thirdMinGlobal &&
-
-            isC5Max
-            // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
-            ){
+        if(isCandle2ThreeToOneDown()){
                 if(timeFrames[i]==PERIOD_M1) {candle2ThreeToOneDown_M1  = true;}
                 if(timeFrames[i]==PERIOD_M5) {candle2ThreeToOneDown_M5  = true;}
                 if(timeFrames[i]==PERIOD_M15){candle2ThreeToOneDown_M15 = true;}
@@ -5000,4 +4983,50 @@ bool isCloseHigherThanMA83ForSell(ENUM_TIMEFRAMES timeFrame){
         result = true;
     }
     return result;
+}
+
+
+isCandle1ThreeToOneUp(ENUM_TIMEFRAMES timeframe){
+    result = false;
+
+    double macd0 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            ilose(NULL,timeframe,4)  > iOpen(NULL,timeframe,4) &&
+            macd3 > macd4 && macd4 > macd5
+        )
+        {result = true;}
+
+        return result;
+}
+
+
+isCandle2ThreeToOneDown(){
+    result = false;
+
+    double macd0 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeFrame,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            ilose(NULL,timeframe,4)  < iOpen(NULL,timeframe,4) &&
+            macd3 < macd4 && macd4 < macd5
+        )
+        {result = true;}
+
+        return result;
 }
