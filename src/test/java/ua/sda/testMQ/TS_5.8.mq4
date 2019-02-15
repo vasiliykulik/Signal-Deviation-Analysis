@@ -2875,7 +2875,9 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
     isNewSignal = true;
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
-
+Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
+Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
+Print ("compareResult = ", compareResult);
       if
       (
       isNewSignal &&
