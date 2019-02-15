@@ -3280,9 +3280,8 @@ sell=1;
             isNewSignal = false;
            }
          else Print("Error opening SELL order : ",GetLastError());
+         return;
         }
-      return;
-     }
 // it is important to enter the market correctly,
 // but it is more important to exit it correctly...
 
@@ -3400,6 +3399,8 @@ sell=1;
            }
         }
      }
+     }
+
 
      Sleep(3333);
   }
