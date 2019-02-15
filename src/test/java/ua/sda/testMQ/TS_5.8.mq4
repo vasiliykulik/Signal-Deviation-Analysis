@@ -2875,9 +2875,10 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
     isNewSignal = true;
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
-Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
-Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
-Print ("compareResult = ", compareResult);
+// Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
+// Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
+// Print ("compareResult = ", compareResult);
+// Print ("isNewSignal = ", isNewSignal);
       if
       (
       isNewSignal &&
@@ -3228,8 +3229,8 @@ Print("figure60TripleTopWedgeDown_D1 = ",figure60TripleTopWedgeDown_D1);*/
 sell=1;
  }
 
-buy = 0;
-sell = 0;
+//buy = 0;
+//sell = 0;
       if(AccountFreeMargin()<(1*Lots))
         {
          //Print("We have no money. Free Margin = ",AccountFreeMargin());
