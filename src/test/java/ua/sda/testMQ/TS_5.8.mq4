@@ -2882,7 +2882,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
       if
       (
       isNewSignal &&
-     ( isM15CandleUp || isH1CandleUp)
+     (( isM15CandleUp && isNextTimeframeMACDSignalUp(PERIOD_H1)) || (isH1CandleUp && isNextTimeframeMACDSignalUp(PERIOD_H4)))
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3057,7 +3057,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           ( isM15CandleDown || isH1CandleDown)
+           ( (isM15CandleDown && isNextTimeframeMACDSignalDown(PERIOD_H1)) || (isH1CandleDown && isNextTimeframeMACDSignalDown(PERIOD_H4)))
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
@@ -5073,4 +5073,29 @@ bool isCandle2ThreeToOneDown(ENUM_TIMEFRAMES timeframe){
         {result = true;}
 
         return result;
+}
+
+bool isNextTimeframeMACDSignalUp(ENUM_TIMEFRAMES timeframe){
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_SIGNAL,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_SIGNAL,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_SIGNAL,2);
+    bool result = false;
+        if(
+        macd0 > macd1 && macd1 > macd2
+        ){
+            result = true;
+        }
+    return result;
+}
+bool isNextTimeframeMACDSignalDown(ENUM_TIMEFRAMES timeframe){
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_SIGNAL,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_SIGNAL,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_SIGNAL,2);
+    bool result = false;
+        if(
+        macd0 < macd1 && macd1 < macd2
+        ){
+            result = true;
+        }
+    return result;
 }
