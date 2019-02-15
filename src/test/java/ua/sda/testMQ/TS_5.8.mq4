@@ -2714,7 +2714,7 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
  }
 
 
-   if(total<1)
+   if(total<maxOrders)
      {
 // Second layer analyzing Block
 bool isFiboModuleGreenState = false;
