@@ -18,7 +18,7 @@ extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
 extern double TrailingFiboLevel = 0.618;
 
-extern double maxOrders;
+extern double maxOrders = 30;
 extern double riskOnOneOrder;
 
 extern bool OpenOnHalfWaveUp_M1    = false;
