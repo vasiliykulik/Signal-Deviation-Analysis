@@ -16,8 +16,10 @@ extern double TrailingStop=10000;
 extern bool isAutoMoneyManagmentEnabled = false;
 extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
-
 extern double TrailingFiboLevel = 0.618;
+
+extern double maxOrders;
+extern double riskOnOneOrder;
 
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
@@ -303,6 +305,8 @@ void OnTick(void)
       bool figure74HeadAndShouldersDown_M1  = false,                           figure74HeadAndShouldersDown_M5  = false,          figure74HeadAndShouldersDown_M15 = false,  figure74HeadAndShouldersDown_H1  = false,  figure74HeadAndShouldersDown_H4  = false,  figure74HeadAndShouldersDown_D1  = false;
       bool figure75ChannelConfirmationUp_M1  = false,                             figure75ChannelConfirmationUp_M5  = false,            figure75ChannelConfirmationUp_M15 = false,  figure75ChannelConfirmationUp_H1  = false,  figure75ChannelConfirmationUp_H4  = false,  figure75ChannelConfirmationUp_D1  = false;
       bool figure76ChannelConfirmationDown_M1  = false,                           figure76ChannelConfirmationDown_M5  = false,          figure76ChannelConfirmationDown_M15 = false,  figure76ChannelConfirmationDown_H1  = false,  figure76ChannelConfirmationDown_H4  = false,  figure76ChannelConfirmationDown_D1  = false;
+      bool candle1ThreeToOneUp_M1  = false,                             candle1ThreeToOneUp_M5  = false,            candle1ThreeToOneUp_M15 = false,  candle1ThreeToOneUp_H1  = false,  candle1ThreeToOneUp_H4  = false,  candle1ThreeToOneUp_D1  = false;
+      bool candle2ThreeToOneDown_M1  = false,                           candle2ThreeToOneDown_M5  = false,          candle2ThreeToOneDown_M15 = false,  candle2ThreeToOneDown_H1  = false,  candle2ThreeToOneDown_H4  = false,  candle2ThreeToOneDown_D1  = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2566,6 +2570,47 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             print("Figure 76 ChannelConfirmationDown ", timeFrames[i]);
     }
 
+       // Candle 1 "ThreeToOneUp"
+
+        if(
+            firstMinGlobal < firstMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal > thirdMaxGlobal &&
+            firstMaxGlobal > secondMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal > thirdMaxGlobal &&
+            secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+            secondMaxGlobal > thirdMinGlobal && secondMaxGlobal > thirdMaxGlobal &&
+            thirdMinGlobal < thirdMaxGlobal &&
+            isC5Min
+            // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
+            ){
+                if(timeFrames[i]==PERIOD_M1) {candle1ThreeToOneUp_M1  = true;}
+                if(timeFrames[i]==PERIOD_M5) {candle1ThreeToOneUp_M5  = true;}
+                if(timeFrames[i]==PERIOD_M15){candle1ThreeToOneUp_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1) {candle1ThreeToOneUp_H1  = true;}
+                if(timeFrames[i]==PERIOD_H4) {candle1ThreeToOneUp_H4  = true;}
+                if(timeFrames[i]==PERIOD_D1) {candle1ThreeToOneUp_D1  = true;}
+                print("Candle 1 ThreeToOneUp ", timeFrames[i]);
+        }
+
+        // Candle 2 "ThreeToOneDown"
+
+        if(
+            firstMaxGlobal > firstMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > secondMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal < thirdMinGlobal  &&
+            firstMinGlobal < secondMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal< thirdMaxGlobal && firstMinGlobal < thirdMinGlobal &&
+            secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal &&
+            secondMinGlobal < thirdMaxGlobal && secondMinGlobal < thirdMinGlobal &&
+            thirdMaxGlobal > thirdMinGlobal &&
+
+            isC5Max
+            // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+            ){
+                if(timeFrames[i]==PERIOD_M1) {candle2ThreeToOneDown_M1  = true;}
+                if(timeFrames[i]==PERIOD_M5) {candle2ThreeToOneDown_M5  = true;}
+                if(timeFrames[i]==PERIOD_M15){candle2ThreeToOneDown_M15 = true;}
+                if(timeFrames[i]==PERIOD_H1) {candle2ThreeToOneDown_H1  = true;}
+                if(timeFrames[i]==PERIOD_H4) {candle2ThreeToOneDown_H4  = true;}
+                if(timeFrames[i]==PERIOD_D1) {candle2ThreeToOneDown_D1  = true;}
+                print("Candle 2 ThreeToOneDown ", timeFrames[i]);
+        }
+
 
 
 /*
@@ -2649,28 +2694,30 @@ bool OpenOnHalfWaveOpenPermitDown_M1   = false;
 bool OpenOnHalfWaveOpenPermitDown_M5   = false;
 bool OpenOnHalfWaveOpenPermitDown_M15  = false;
 
+// Method returns true if two ticks from one side and two from another.
+// So flag(s) are criterions
  if( OpenOnHalfWaveUp_M1) {
-    OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1  ();
+    OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1();
  }
  if( OpenOnHalfWaveUp_M5) {
-    OpenOnHalfWaveOpenPermitUp_M5    = isOpenOnHalfWaveUp_M5  ();
+    OpenOnHalfWaveOpenPermitUp_M5    = isOpenOnHalfWaveUp_M5();
  }
  if( OpenOnHalfWaveUp_M15) {
-    OpenOnHalfWaveOpenPermitUp_M15   = isOpenOnHalfWaveUp_M15  ();
+    OpenOnHalfWaveOpenPermitUp_M15   = isOpenOnHalfWaveUp_M15();
  }
  if( OpenOnHalfWaveDown_M1) {
-    OpenOnHalfWaveOpenPermitDown_M1  = isOpenOnHalfWaveUp_M1  ();
+    OpenOnHalfWaveOpenPermitDown_M1  = isOpenOnHalfWaveDown_M1();
  }
  if( OpenOnHalfWaveDown_M5) {
     OpenOnHalfWaveOpenPermitDown_M5  = isOpenOnHalfWaveDown_M5();
  }
  if( OpenOnHalfWaveDown_M15) {
-    OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveUp_M15  ();
+    OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveDown_M15();
  }
 
 
 
-     print();
+  print();
 
    if(total<1)
      {
