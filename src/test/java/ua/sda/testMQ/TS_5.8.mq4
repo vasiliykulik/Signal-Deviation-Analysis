@@ -5044,8 +5044,8 @@ bool isCandle1ThreeToOneUp(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
             iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
             iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
- //           macd3 > macd4 && macd4 > macd5
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4)
+ //         &&  macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
 
@@ -5067,8 +5067,8 @@ bool isCandle2ThreeToOneDown(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
             iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
             iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
-//            macd3 < macd4 && macd4 < macd5
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4)
+//          &&  macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
 
@@ -5098,7 +5098,4 @@ bool isNextTimeframeMACDSignalDown(ENUM_TIMEFRAMES timeframe){
             result = true;
         }
     return result;
-}
-
-
 }
