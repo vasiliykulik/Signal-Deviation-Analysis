@@ -2882,7 +2882,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
       if
       (
       isNewSignal &&
-     (((isM5CandleUp || isM15CandleUp) && isNextTimeframeMACDSignalUp(PERIOD_H1)) || (isH1CandleUp  && isNextTimeframeMACDSignalUp(PERIOD_H4)))
+     (( isM15CandleUp) && isNextTimeframeMACDSignalUp(PERIOD_H1) || (isH1CandleUp  && isNextTimeframeMACDSignalUp(PERIOD_H4)))
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3057,7 +3057,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           (((isM5CandleDown || isM15CandleDown)  && isNextTimeframeMACDSignalDown(PERIOD_H1)) || (isH1CandleDown  && isNextTimeframeMACDSignalDown(PERIOD_H4)))
+           (( isM15CandleDown  && isNextTimeframeMACDSignalDown(PERIOD_H1)) || (isH1CandleDown  && isNextTimeframeMACDSignalDown(PERIOD_H4)))
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
@@ -5045,7 +5045,7 @@ bool isCandle1ThreeToOneUp(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
             iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
-            macd3 > macd4 && macd4 > macd5
+ //           macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
 
@@ -5068,7 +5068,7 @@ bool isCandle2ThreeToOneDown(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
             iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
-            macd3 < macd4 && macd4 < macd5
+//            macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
 
@@ -5098,4 +5098,7 @@ bool isNextTimeframeMACDSignalDown(ENUM_TIMEFRAMES timeframe){
             result = true;
         }
     return result;
+}
+
+
 }
