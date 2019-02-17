@@ -328,6 +328,7 @@ void OnTick(void)
       bool isM1CandleDown =  false; bool isM5CandleDown =  false; bool isM15CandleDown = false; bool isH1CandleDown = false; bool isH4CandleDown = false; bool isD1CandleDown = false;
 
       bool isFigureUp = false; bool isFigureDown = false;
+      bool isCandleDown = false; bool isCandleUp = false;
 
 
       bool blockingFigure9BlockingFlagUpShiftUp_M1 = false;         bool blockingFigure9BlockingFlagUpShiftUp_M5 = false;       bool blockingFigure9BlockingFlagUpShiftUp_M15 = false;       bool blockingFigure9BlockingFlagUpShiftUp_H1 = false;       bool blockingFigure9BlockingFlagUpShiftUp_H4 = false;       bool blockingFigure9BlockingFlagUpShiftUp_D1 = false;
@@ -2854,8 +2855,13 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 */
 
 
-     isFigureUp     = isD1FigureUp || isH4FigureUp || isH1FigureUp || isM15FigureUp|| isM5FigureUp ;
-     isFigureDown   = isD1FigureDown || isH4FigureDown || isH1FigureDown || isM15FigureDown || isM5FigureDown ;
+ //    isFigureUp     = isD1FigureUp   || isH4FigureUp   || isH1FigureUp   || isM15FigureUp   || isM5FigureUp ;
+ //    isFigureDown   = isD1FigureDown || isH4FigureDown || isH1FigureDown || isM15FigureDown || isM5FigureDown ;
+     isFigureUp     =  isH4FigureUp   || isH1FigureUp   || isM15FigureUp   ;
+     isFigureDown   =  isH4FigureDown || isH1FigureDown || isM15FigureDown ;
+
+     isCandleDown = isH4CandleDown || isH1CandleDown || isM15CandleDown;
+     isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
 
 is11PositionFigureUp_M15    = figure29DoubleBottomConfirmationUp_M15 ||figure45PennantAfterWedgeConfirmationUp_M15;
@@ -2882,7 +2888,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
       if
       (
       isNewSignal &&
-     (( isM15CandleUp) && isNextTimeframeMACDSignalUp(PERIOD_H1) || (isH1CandleUp  && isNextTimeframeMACDSignalUp(PERIOD_H4)))
+     isCandleUp && isFigureUp
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3057,7 +3063,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           (( isM15CandleDown  && isNextTimeframeMACDSignalDown(PERIOD_H1)) || (isH1CandleDown  && isNextTimeframeMACDSignalDown(PERIOD_H4)))
+           isCandleDown && isFigureDown
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
@@ -5045,7 +5051,7 @@ bool isCandle1ThreeToOneUp(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
             iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4)
- //         &&  macd3 > macd4 && macd4 > macd5
+          &&  macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
 
@@ -5068,7 +5074,7 @@ bool isCandle2ThreeToOneDown(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
             iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4)
-//          &&  macd3 < macd4 && macd4 < macd5
+          &&  macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
 
