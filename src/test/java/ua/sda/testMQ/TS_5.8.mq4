@@ -60,7 +60,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  int countFigures;
 
 // ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
- ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1};
+ ENUM_TIMEFRAMES timeFrames[]={PERIOD_H4, PERIOD_M15, PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -2875,7 +2875,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
 
   print();
 //  is determined by the conditions M5,M15,H1
-  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M5,messageGlobalPERIOD_M15,messageGlobalPERIOD_H1);
+  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M15,messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
@@ -2888,7 +2888,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
       if
       (
       isNewSignal &&
-     isCandleUp && isFigureUp
+     isM15CandleUp && (isH1CandleUp || isH4CandleUp)
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3063,7 +3063,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isCandleDown && isFigureDown
+           isM15CandleDown && (isH1CandleDown || isH4CandleDown)
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
