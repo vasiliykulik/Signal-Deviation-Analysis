@@ -2951,14 +2951,14 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
     isNewSignal = true;
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
-// Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
-// Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
-// Print ("compareResult = ", compareResult);
-// Print ("isNewSignal = ", isNewSignal);
+ Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
+ Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
+ Print ("compareResult = ", compareResult);
+ Print ("isNewSignal = ", isNewSignal);
       if
       (
       isNewSignal &&
-     isM15CandleUp || isH1CandleUp || isH4CandleUp
+     (isM15CandleUp || isH1CandleUp || isH4CandleUp)
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3133,7 +3133,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isM15CandleDown || isH1CandleDown || isH4CandleDown
+           (isM15CandleDown || isH1CandleDown || isH4CandleDown)
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
