@@ -3329,7 +3329,7 @@ sell=1;
          //Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
-            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," with buyWeight = ",buyWeight,"periodGlobal = ",periodGlobal);
+            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             isNewSignal = false;
            }
          else Print("Error opening BUY order : ",GetLastError());
@@ -3352,7 +3352,7 @@ sell=1;
          //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
-            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice(),"with sellWeight = ",sellWeight);
+            if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             isNewSignal = false;
            }
          else Print("Error opening SELL order : ",GetLastError());
