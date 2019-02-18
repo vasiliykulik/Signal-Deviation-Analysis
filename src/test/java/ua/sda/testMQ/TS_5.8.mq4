@@ -325,6 +325,17 @@ void OnTick(void)
       bool candle6_M1  = false, candle6_M5  = false, candle6_M15 = false,  candle6_H1  = false,  candle6_H4  = false,  candle6_D1  = false;
       bool candle7_M1  = false, candle7_M5  = false, candle7_M15 = false,  candle7_H1  = false,  candle7_H4  = false,  candle7_D1  = false;
       bool candle8_M1  = false, candle8_M5  = false, candle8_M15 = false,  candle8_H1  = false,  candle8_H4  = false,  candle8_D1  = false;
+      bool candle9_M1  = false, candle9_M5  = false, candle9_M15 = false,  candle9_H1  = false,  candle9_H4  = false,  candle9_D1  = false;
+      bool candle10_M1  = false, candle10_M5  = false, candle10_M15 = false,  candle10_H1  = false,  candle10_H4  = false,  candle10_D1  = false;
+      bool candle11_M1  = false, candle11_M5  = false, candle11_M15 = false,  candle11_H1  = false,  candle11_H4  = false,  candle11_D1  = false;
+      bool candle12_M1  = false, candle12_M5  = false, candle12_M15 = false,  candle12_H1  = false,  candle12_H4  = false,  candle12_D1  = false;
+      bool candle13_M1  = false, candle13_M5  = false, candle13_M15 = false,  candle13_H1  = false,  candle13_H4  = false,  candle13_D1  = false;
+      bool candle14_M1  = false, candle14_M5  = false, candle14_M15 = false,  candle14_H1  = false,  candle14_H4  = false,  candle14_D1  = false;
+      bool candle19_M1  = false, candle19_M5  = false, candle19_M15 = false,  candle19_H1  = false,  candle19_H4  = false,  candle19_D1  = false;
+      bool candle20_M1  = false, candle20_M5  = false, candle20_M15 = false,  candle20_H1  = false,  candle20_H4  = false,  candle20_D1  = false;
+      bool candle21_M1  = false, candle21_M5  = false, candle21_M15 = false,  candle21_H1  = false,  candle21_H4  = false,  candle21_D1  = false;
+      bool candle22_M1  = false, candle22_M5  = false, candle22_M15 = false,  candle22_H1  = false,  candle22_H4  = false,  candle22_D1  = false;
+
 
 
 
@@ -2656,6 +2667,111 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_D1) {candle8_D1  = true;}
                     print("Candle 8  ", timeFrames[i]);
             }
+            // Candle 9 ""
+            else if(isCandle9(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle9_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle9_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle9_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle9_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle9_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle9_D1  = true;}
+                    print("Candle 9  ", timeFrames[i]);
+            }
+
+            // Candle 10 ""
+            else if(isCandle10(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle10_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle10_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle10_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle10_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle10_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle10_D1  = true;}
+                    print("Candle 10  ", timeFrames[i]);
+            }
+            // Candle 11 ""
+            else if(isCandle11(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle11_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle11_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle11_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle11_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle11_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle11_D1  = true;}
+                    print("Candle 11  ", timeFrames[i]);
+            }
+
+            // Candle 12 ""
+            else if(isCandle12(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle12_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle12_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle12_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle12_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle12_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle12_D1  = true;}
+                    print("Candle 12  ", timeFrames[i]);
+            }
+            // Candle 13 ""
+            else if(isCandle13(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle13_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle13_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle13_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle13_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle13_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle13_D1  = true;}
+                    print("Candle 13  ", timeFrames[i]);
+            }
+
+            // Candle 14 ""
+            else if(isCandle14(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle14_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle14_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle14_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle14_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle14_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle14_D1  = true;}
+                    print("Candle 14  ", timeFrames[i]);
+            }
+            // Candle 19 ""
+            else if(isCandle19(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle19_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle19_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle19_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle19_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle19_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle19_D1  = true;}
+                    print("Candle 19  ", timeFrames[i]);
+            }
+
+            // Candle 20 ""
+            else if(isCandle20(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle20_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle20_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle20_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle20_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle20_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle20_D1  = true;}
+                    print("Candle 20  ", timeFrames[i]);
+            }
+            // Candle 21 ""
+            else if(isCandle21(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle21_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle21_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle21_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle21_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle21_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle21_D1  = true;}
+                    print("Candle 21  ", timeFrames[i]);
+            }
+
+            // Candle 22 ""
+            else if(isCandle22(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {candle22_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {candle22_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){candle22_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {candle22_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {candle22_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {candle22_D1  = true;}
+                    print("Candle 22  ", timeFrames[i]);
+            }
 
                     else{
                        // Candle 1 "ThreeToOneUp"
@@ -2867,12 +2983,12 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isM5FigureUp  =  figure1FlagUpContinueUp_M5 || figure1_1FlagUpContinueAfterDecliningUp_M5 || figure3TripleUp_M5    || figure5PennantUp_M5  || figure5_1PennantUpConfirmationUp_M5  || figure7FlagUpDivergenceUp_M5  || figure7_1TurnUpDivergenceUp_M5  || figure7_2TurnDivergenceConfirmationUp_M5 || figure9FlagUpShiftUp_M5   || figure11DoubleBottomUp_M5  || figure13DivergentChannelUp_M5  || figure13_1DivergenceFlagConfirmationUp_M5  || figure15BalancedTriangleUp_M5 || figure17FlagConfirmationUp_M5 || figure19HeadAndShouldersConfirmationUp_M5 || figure21WedgeUp_M5 || figure23DiamondUp_M5 || figure25TriangleConfirmationUp_M5                                                      || figure27ModerateDivergentFlagConfirmationUp_M5   || figure27_1DoubleBottomFlagUp_M5  || figure27_2TriangleAsConfirmationUp_M5 || figure27_3DoubleBottomChannelUp_M5 || figure27_4WedgePennantConfirmationUp_M5 || figure27_5DoubleBottomConDivDivConfirmationUp_M5 || figure27_6DoubleBottomDivConDivConfirmationUp_M5 || figure27_7DoubleBottom12PosUp_M5 ||  figure29DoubleBottomConfirmationUp_M5 || figure31DivergentFlagConfirmationUp_M5 || figure33FlagWedgeForelockConfirmationUp_M5 || figure35TripleBottomConfirmationUp_M5 || figure37PennantWedgeUp_M5 || figure39RollbackChannelPennantConfirmationUp_M5 || figure41MoreDivergentFlagConfirmationUp_M5 || figure43ChannelFlagUp_M5 || figure45PennantAfterWedgeConfirmationUp_M5 || figure47PennantAfterFlagConfirmationUp_M5 || figure49DoublePennantAfterConfirmationUp_M5                    || figure51WedgeConfirmationUp_M5  || figure59TripleBottomWedgeUp_M5  || figure61TripleBottomConfirmationUp_M5  || figure63TripleBottomConfirmationUp_M5  || figure65ChannelUp_M5  || figure67TripleBottomUp_M5  || figure69TripleBottomUp_M5  || figure71ChannelFlagUp_M5  || figure73HeadAndShouldersUp_M5  || figure75ChannelConfirmationUp_M5  ;
      isM1FigureUp  =  figure1FlagUpContinueUp_M1 || figure1_1FlagUpContinueAfterDecliningUp_M1 || figure3TripleUp_M1    || figure5PennantUp_M1  || figure5_1PennantUpConfirmationUp_M1  || figure7FlagUpDivergenceUp_M1  || figure7_1TurnUpDivergenceUp_M1  || figure7_2TurnDivergenceConfirmationUp_M1 || figure9FlagUpShiftUp_M1   || figure11DoubleBottomUp_M1  || figure13DivergentChannelUp_M1  || figure13_1DivergenceFlagConfirmationUp_M1  || figure15BalancedTriangleUp_M1 || figure17FlagConfirmationUp_M1 || figure19HeadAndShouldersConfirmationUp_M1 || figure21WedgeUp_M1 || figure23DiamondUp_M1 || figure25TriangleConfirmationUp_M1                                                      || figure27ModerateDivergentFlagConfirmationUp_M1   || figure27_1DoubleBottomFlagUp_M1  || figure27_2TriangleAsConfirmationUp_M1 || figure27_3DoubleBottomChannelUp_M1 || figure27_4WedgePennantConfirmationUp_M1 || figure27_5DoubleBottomConDivDivConfirmationUp_M1 || figure27_6DoubleBottomDivConDivConfirmationUp_M1 || figure27_7DoubleBottom12PosUp_M1 ||  figure29DoubleBottomConfirmationUp_M1 || figure31DivergentFlagConfirmationUp_M1 || figure33FlagWedgeForelockConfirmationUp_M1 || figure35TripleBottomConfirmationUp_M1 || figure37PennantWedgeUp_M1 || figure39RollbackChannelPennantConfirmationUp_M1 || figure41MoreDivergentFlagConfirmationUp_M1 || figure43ChannelFlagUp_M1 || figure45PennantAfterWedgeConfirmationUp_M1 || figure47PennantAfterFlagConfirmationUp_M1 || figure49DoublePennantAfterConfirmationUp_M1                    || figure51WedgeConfirmationUp_M1  || figure59TripleBottomWedgeUp_M1  || figure61TripleBottomConfirmationUp_M1  || figure63TripleBottomConfirmationUp_M1  || figure65ChannelUp_M1  || figure67TripleBottomUp_M1  || figure69TripleBottomUp_M1  || figure71ChannelFlagUp_M1  || figure73HeadAndShouldersUp_M1  || figure75ChannelConfirmationUp_M1  ;
 
-     isD1CandleUp  =  candle1ThreeToOneUp_D1  ||  candle3_D1 ||  candle5_D1 ||  candle7_D1    ;
-     isH4CandleUp  =  candle1ThreeToOneUp_H4  ||  candle3_H4 ||  candle5_H4 ||  candle7_H4    ;
-     isH1CandleUp  =  candle1ThreeToOneUp_H1  ||  candle3_H1 ||  candle5_H1 ||  candle7_H1    ;
-     isM15CandleUp =  candle1ThreeToOneUp_M15 || candle3_M15 || candle5_M15 || candle7_M15    ;
-     isM5CandleUp  =  candle1ThreeToOneUp_M5  ||  candle3_M5 ||  candle5_M5 ||  candle7_M5    ;
-     isM1CandleUp  =  candle1ThreeToOneUp_M1  ||  candle3_M1 ||  candle5_M1 ||  candle7_M1    ;
+     isD1CandleUp  =  candle1ThreeToOneUp_D1  ||  candle3_D1 ||  candle5_D1 ||  candle7_D1 ||  candle9_D1  ||  candle11_D1  ||  candle13_D1  ||  candle19_D1  ||  candle21_D1    ;
+     isH4CandleUp  =  candle1ThreeToOneUp_H4  ||  candle3_H4 ||  candle5_H4 ||  candle7_H4 ||  candle9_H4  ||  candle11_H4  ||  candle13_H4  ||  candle19_H4  ||  candle21_H4    ;
+     isH1CandleUp  =  candle1ThreeToOneUp_H1  ||  candle3_H1 ||  candle5_H1 ||  candle7_H1 ||  candle9_H1  ||  candle11_H1  ||  candle13_H1  ||  candle19_H1  ||  candle21_H1    ;
+     isM15CandleUp =  candle1ThreeToOneUp_M15 || candle3_M15 || candle5_M15 || candle7_M15 ||  candle9_M15 ||  candle11_M15 ||  candle13_M15 ||  candle19_M15 ||  candle21_M15    ;
+     isM5CandleUp  =  candle1ThreeToOneUp_M5  ||  candle3_M5 ||  candle5_M5 ||  candle7_M5 ||  candle9_M5  ||  candle11_M5  ||  candle13_M5  ||  candle19_M5  ||  candle21_M5    ;
+     isM1CandleUp  =  candle1ThreeToOneUp_M1  ||  candle3_M1 ||  candle5_M1 ||  candle7_M1 ||  candle9_M1  ||  candle11_M1  ||  candle13_M1  ||  candle19_M1  ||  candle21_M1    ;
 
      isD1FigureDown  =  figure2FlagDownContinueDown_D1 || figure2_1FlagDownContinueAfterDecreaseDown_D1 ||figure4TripleDown_D1     || figure6PennantDown_D1  || figure6_1PennantDownConfirmationDown_D1  || figure8FlagDownDivergenceDown_D1  || figure8_1TurnDownDivergenceDown_D1  || figure8_2TurnDivergenceConfirmationDown_D1  || figure10FlagDownShiftDown_D1  || figure12DoubleTopDown_D1  || figure14DivergentChannelDown_D1  || figure14_1DivergenceFlagConfirmationDown_D1 || figure16BalancedTriangleDown_D1 || figure18FlagConfirmationDown_D1 || figure20HeadAndShouldersConfirmationDown_D1 || figure22WedgeDown_D1 || figure24DiamondDown_D1       || figure26TriangleConfirmationDown_D1   || figure28ModerateDivergentFlagConfirmationDown_D1  || figure28_1DoubleTopFlagDown_D1     || figure28_2TriangleAsConfirmationDown_D1 || figure28_3DoubleTopChannelDown_D1 || figure28_4WedgePennantConfirmationDown_D1 || figure28_5DoubleTopConDivDivConfirmationDown_D1 || figure28_6DoubleTopDivConDivConfirmationDown_D1 || figure28_7DoubleTop12PosDown_D1 || figure30DoubleTopConfirmationDown_D1 || figure32DivergentFlagConfirmationDown_D1 || figure34FlagWedgeForelockConfirmationDown_D1 || figure36TripleTopConfirmationDown_D1 || figure38PennantWedgeDown_D1 || figure40RollbackChannelPennantConfirmationDown_D1 || figure42MoreDivergentFlagConfirmationDown_D1 || figure44ChannelFlagDown_D1 || figure46PennantAfterWedgeConfirmationDown_D1 || figure48PennantAfterFlagConfirmationDown_D1 || figure50DoublePennantAfterConfirmationDown_D1                      || figure52WedgeConfirmationDown_D1  || figure60TripleTopWedgeDown_D1  || figure62TripleTopConfirmationDown_D1  || figure64TripleTopConfirmationDown_D1  || figure66ChannelDown_D1  || figure68TripleTopDown_D1  || figure70TripleTopDown_D1  || figure72ChannelFlagDown_D1  || figure74HeadAndShouldersDown_D1  || figure76ChannelConfirmationDown_D1  ;
      isH4FigureDown  =  figure2FlagDownContinueDown_H4 || figure2_1FlagDownContinueAfterDecreaseDown_H4 ||figure4TripleDown_H4     || figure6PennantDown_H4  || figure6_1PennantDownConfirmationDown_H4  || figure8FlagDownDivergenceDown_H4  || figure8_1TurnDownDivergenceDown_H4  || figure8_2TurnDivergenceConfirmationDown_H4  || figure10FlagDownShiftDown_H4  || figure12DoubleTopDown_H4  || figure14DivergentChannelDown_H4  || figure14_1DivergenceFlagConfirmationDown_H4 || figure16BalancedTriangleDown_H4 || figure18FlagConfirmationDown_H4 || figure20HeadAndShouldersConfirmationDown_H4 || figure22WedgeDown_H4 || figure24DiamondDown_H4 || figure26TriangleConfirmationDown_H4         || figure28ModerateDivergentFlagConfirmationDown_H4  || figure28_1DoubleTopFlagDown_H4     || figure28_2TriangleAsConfirmationDown_H4 || figure28_3DoubleTopChannelDown_H4 || figure28_4WedgePennantConfirmationDown_H4 || figure28_5DoubleTopConDivDivConfirmationDown_H4 || figure28_6DoubleTopDivConDivConfirmationDown_H4 || figure28_7DoubleTop12PosDown_H4 || figure30DoubleTopConfirmationDown_H4 || figure32DivergentFlagConfirmationDown_H4 || figure34FlagWedgeForelockConfirmationDown_H4 || figure36TripleTopConfirmationDown_H4 || figure38PennantWedgeDown_H4 || figure40RollbackChannelPennantConfirmationDown_H4 || figure42MoreDivergentFlagConfirmationDown_H4 || figure44ChannelFlagDown_H4 || figure46PennantAfterWedgeConfirmationDown_H4 || figure48PennantAfterFlagConfirmationDown_H4 || figure50DoublePennantAfterConfirmationDown_H4                      || figure52WedgeConfirmationDown_H4  || figure60TripleTopWedgeDown_H4  || figure62TripleTopConfirmationDown_H4  || figure64TripleTopConfirmationDown_H4  || figure66ChannelDown_H4  || figure68TripleTopDown_H4  || figure70TripleTopDown_H4  || figure72ChannelFlagDown_H4  || figure74HeadAndShouldersDown_H4  || figure76ChannelConfirmationDown_H4  ;
@@ -2881,12 +2997,12 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isM5FigureDown  =  figure2FlagDownContinueDown_M5 || figure2_1FlagDownContinueAfterDecreaseDown_M5 ||figure4TripleDown_M5     || figure6PennantDown_M5  || figure6_1PennantDownConfirmationDown_M5  || figure8FlagDownDivergenceDown_M5  || figure8_1TurnDownDivergenceDown_M5  || figure8_2TurnDivergenceConfirmationDown_M5  || figure10FlagDownShiftDown_M5  || figure12DoubleTopDown_M5  || figure14DivergentChannelDown_M5  || figure14_1DivergenceFlagConfirmationDown_M5 || figure16BalancedTriangleDown_M5 || figure18FlagConfirmationDown_M5 || figure20HeadAndShouldersConfirmationDown_M5 || figure22WedgeDown_M5 || figure24DiamondDown_M5 || figure26TriangleConfirmationDown_M5         || figure28ModerateDivergentFlagConfirmationDown_M5  || figure28_1DoubleTopFlagDown_M5     || figure28_2TriangleAsConfirmationDown_M5 || figure28_3DoubleTopChannelDown_M5 || figure28_4WedgePennantConfirmationDown_M5 || figure28_5DoubleTopConDivDivConfirmationDown_M5 || figure28_6DoubleTopDivConDivConfirmationDown_M5 || figure28_7DoubleTop12PosDown_M5 || figure30DoubleTopConfirmationDown_M5 || figure32DivergentFlagConfirmationDown_M5 || figure34FlagWedgeForelockConfirmationDown_M5 || figure36TripleTopConfirmationDown_M5 || figure38PennantWedgeDown_M5 || figure40RollbackChannelPennantConfirmationDown_M5 || figure42MoreDivergentFlagConfirmationDown_M5 || figure44ChannelFlagDown_M5 || figure46PennantAfterWedgeConfirmationDown_M5 || figure48PennantAfterFlagConfirmationDown_M5 || figure50DoublePennantAfterConfirmationDown_M5                      || figure52WedgeConfirmationDown_M5  || figure60TripleTopWedgeDown_M5  || figure62TripleTopConfirmationDown_M5  || figure64TripleTopConfirmationDown_M5  || figure66ChannelDown_M5  || figure68TripleTopDown_M5  || figure70TripleTopDown_M5  || figure72ChannelFlagDown_M5  || figure74HeadAndShouldersDown_M5  || figure76ChannelConfirmationDown_M5  ;
      isM1FigureDown  =  figure2FlagDownContinueDown_M1 || figure2_1FlagDownContinueAfterDecreaseDown_M1 ||figure4TripleDown_M1     || figure6PennantDown_M1  || figure6_1PennantDownConfirmationDown_M1  || figure8FlagDownDivergenceDown_M1  || figure8_1TurnDownDivergenceDown_M1  || figure8_2TurnDivergenceConfirmationDown_M1  || figure10FlagDownShiftDown_M1  || figure12DoubleTopDown_M1  || figure14DivergentChannelDown_M1  || figure14_1DivergenceFlagConfirmationDown_M1 || figure16BalancedTriangleDown_M1 || figure18FlagConfirmationDown_M1 || figure20HeadAndShouldersConfirmationDown_M1 || figure22WedgeDown_M1 || figure24DiamondDown_M1 || figure26TriangleConfirmationDown_M1         || figure28ModerateDivergentFlagConfirmationDown_M1  || figure28_1DoubleTopFlagDown_M1     || figure28_2TriangleAsConfirmationDown_M1 || figure28_3DoubleTopChannelDown_M1 || figure28_4WedgePennantConfirmationDown_M1 || figure28_5DoubleTopConDivDivConfirmationDown_M1 || figure28_6DoubleTopDivConDivConfirmationDown_M1 || figure28_7DoubleTop12PosDown_M1 || figure30DoubleTopConfirmationDown_M1 || figure32DivergentFlagConfirmationDown_M1 || figure34FlagWedgeForelockConfirmationDown_M1 || figure36TripleTopConfirmationDown_M1 || figure38PennantWedgeDown_M1 || figure40RollbackChannelPennantConfirmationDown_M1 || figure42MoreDivergentFlagConfirmationDown_M1 || figure44ChannelFlagDown_M1 || figure46PennantAfterWedgeConfirmationDown_M1 || figure48PennantAfterFlagConfirmationDown_M1 || figure50DoublePennantAfterConfirmationDown_M1                      || figure52WedgeConfirmationDown_M1  || figure60TripleTopWedgeDown_M1  || figure62TripleTopConfirmationDown_M1  || figure64TripleTopConfirmationDown_M1  || figure66ChannelDown_M1  || figure68TripleTopDown_M1  || figure70TripleTopDown_M1  || figure72ChannelFlagDown_M1  || figure74HeadAndShouldersDown_M1  || figure76ChannelConfirmationDown_M1  ;
 
-     isD1CandleDown  =  candle2ThreeToOneDown_D1 ||  candle4_D1 ||  candle6_D1 ||  candle8_D1 ;
-     isH4CandleDown  =  candle2ThreeToOneDown_H4 ||  candle4_H4 ||  candle6_H4 ||  candle8_H4 ;
-     isH1CandleDown  =  candle2ThreeToOneDown_H1 ||  candle4_H1 ||  candle6_H1 ||  candle8_H1 ;
-     isM15CandleDown =  candle2ThreeToOneDown_M15 || candle4_M15 || candle6_M15 || candle8_M15 ;
-     isM5CandleDown  =  candle2ThreeToOneDown_M5 ||  candle4_M5 ||  candle6_M5 ||  candle8_M5 ;
-     isM1CandleDown  =  candle2ThreeToOneDown_M1 ||  candle4_M1 ||  candle6_M1 ||  candle8_M1 ;
+     isD1CandleDown  =  candle2ThreeToOneDown_D1 ||  candle4_D1 ||  candle6_D1  ||  candle8_D1  ||  candle10_D1  ||  candle12_D1  ||  candle14_D1  ||  candle20_D1  ||  candle22_D1  ;
+     isH4CandleDown  =  candle2ThreeToOneDown_H4 ||  candle4_H4 ||  candle6_H4  ||  candle8_H4  ||  candle10_H4  ||  candle12_H4  ||  candle14_H4  ||  candle20_H4  ||  candle22_H4  ;
+     isH1CandleDown  =  candle2ThreeToOneDown_H1 ||  candle4_H1 ||  candle6_H1  ||  candle8_H1  ||  candle10_H1  ||  candle12_H1  ||  candle14_H1  ||  candle20_H1  ||  candle22_H1  ;
+     isM15CandleDown =  candle2ThreeToOneDown_M15 || candle4_M15 || candle6_M15 ||  candle8_M15 ||  candle10_M15 ||  candle12_M15 ||  candle14_M15 ||  candle20_M15 ||  candle22_M15 ;
+     isM5CandleDown  =  candle2ThreeToOneDown_M5 ||  candle4_M5 ||  candle6_M5  ||  candle8_M5  ||  candle10_M5  ||  candle12_M5  ||  candle14_M5  ||  candle20_M5  ||  candle22_M5  ;
+     isM1CandleDown  =  candle2ThreeToOneDown_M1 ||  candle4_M1 ||  candle6_M1  ||  candle8_M1  ||  candle10_M1  ||  candle12_M1  ||  candle14_M1  ||  candle20_M1  ||  candle22_M1  ;
 
 /*  // After third round of removed figures
      isD1FigureUp  =  figure1_1FlagUpContinueAfterDecliningUp_D1      || figure7_1TurnUpDivergenceUp_D1  || figure7_2TurnDivergenceConfirmationUp_D1    || figure19HeadAndShouldersConfirmationUp_D1           || figure27_1DoubleBottomFlagUp_D1  || figure27_2TriangleAsConfirmationUp_D1 || figure27_3DoubleBottomChannelUp_D1 || figure27_4WedgePennantConfirmationUp_D1 || figure27_5DoubleBottomConDivDivConfirmationUp_D1 || figure27_6DoubleBottomDivConDivConfirmationUp_D1 || figure27_7DoubleBottom12PosUp_D1 ||  figure29DoubleBottomConfirmationUp_D1  || figure33FlagWedgeForelockConfirmationUp_D1 || figure35TripleBottomConfirmationUp_D1       || figure39RollbackChannelPennantConfirmationUp_D1  || figure45PennantAfterWedgeConfirmationUp_D1 || figure47PennantAfterFlagConfirmationUp_D1 || figure49DoublePennantAfterConfirmationUp_D1 || figure51WedgeConfirmationUp_D1;
@@ -5243,6 +5359,9 @@ bool isCandle5(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
             iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
             iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+
+            iOpen(NULL,timeframe,6)  > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,6) < iClose(NULL,timeframe,4) &&
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
@@ -5268,6 +5387,9 @@ bool isCandle6(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
             iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
             iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+
+            iOpen(NULL,timeframe,6)  < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,6) > iClose(NULL,timeframe,4) &&
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
@@ -5277,7 +5399,6 @@ bool isCandle6(ENUM_TIMEFRAMES timeframe){
 
 bool isCandle7(ENUM_TIMEFRAMES timeframe){
     bool result = false;
-
     double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
     double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
     double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
@@ -5295,14 +5416,10 @@ bool isCandle7(ENUM_TIMEFRAMES timeframe){
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
-
         return result;
 }
-
-
 bool isCandle8(ENUM_TIMEFRAMES timeframe){
     bool result = false;
-
     double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
     double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
     double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
@@ -5320,6 +5437,220 @@ bool isCandle8(ENUM_TIMEFRAMES timeframe){
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
+        return result;
+}
 
+bool isCandle9(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            macd3 > macd4 && macd4 > macd5
+        )
+        {result = true;}
+        return result;
+}
+bool isCandle10(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            macd3 < macd4 && macd4 < macd5
+        )
+        {result = true;}
+        return result;
+}
+
+bool isCandle11(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            macd3 > macd4 && macd4 > macd5
+        )
+        {result = true;}
+        return result;
+}
+bool isCandle12(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            macd3 < macd4 && macd4 < macd5
+        )
+        {result = true;}
+        return result;
+}
+
+bool isCandle13(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            macd3 > macd4 && macd4 > macd5
+        )
+        {result = true;}
+        return result;
+}
+bool isCandle14(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            macd3 < macd4 && macd4 < macd5
+        )
+        {result = true;}
+        return result;
+}
+
+bool isCandle19(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            macd3 > macd4 && macd4 > macd5
+        )
+        {result = true;}
+        return result;
+}
+bool isCandle20(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            macd3 < macd4 && macd4 < macd5
+        )
+        {result = true;}
+        return result;
+}
+
+bool isCandle21(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            macd3 > macd4 && macd4 > macd5
+        )
+        {result = true;}
+        return result;
+}
+bool isCandle22(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    double macd3 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,3);
+    double macd4 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,4);
+    double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
+        if(
+            macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            macd3 < macd4 && macd4 < macd5
+        )
+        {result = true;}
         return result;
 }
