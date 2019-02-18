@@ -5450,12 +5450,13 @@ bool isCandle9(ENUM_TIMEFRAMES timeframe){
     double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
         if(
             macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
-            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
-            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
-            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
             iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iOpen(NULL,timeframe,6)  > iOpen(NULL,timeframe,4) &&
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
@@ -5471,12 +5472,13 @@ bool isCandle10(ENUM_TIMEFRAMES timeframe){
     double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
         if(
             macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
-            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
-            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
-            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
+            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
             iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iOpen(NULL,timeframe,6)  < iClose(NULL,timeframe,4) &&
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
@@ -5493,12 +5495,13 @@ bool isCandle11(ENUM_TIMEFRAMES timeframe){
     double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
         if(
             macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
-            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
-            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
             iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iOpen(NULL,timeframe,6)  > iClose(NULL,timeframe,5) &&
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
@@ -5514,12 +5517,13 @@ bool isCandle12(ENUM_TIMEFRAMES timeframe){
     double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
         if(
             macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
-            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
-            iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
             iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iOpen(NULL,timeframe,6)  < iClose(NULL,timeframe,5) &&
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
@@ -5541,7 +5545,8 @@ bool isCandle13(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
             iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,4) > iClose(NULL,timeframe,6) &&
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
@@ -5562,7 +5567,8 @@ bool isCandle14(ENUM_TIMEFRAMES timeframe){
             iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
             iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
             iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,6) > iClose(NULL,timeframe,4) &&
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
@@ -5581,10 +5587,11 @@ bool isCandle19(ENUM_TIMEFRAMES timeframe){
             macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
             iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
             iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
-            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iHigh(NULL,timeframe,2)  > iHigh(NULL,timeframe,1) &&
+            iHigh(NULL,timeframe,2)  > iHigh(NULL,timeframe,3) &&
+            iLow(NULL,timeframe,2)   > iLow(NULL,timeframe,1) &&
+            iLow(NULL,timeframe,2)   > iLow(NULL,timeframe,3) &&
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
@@ -5602,10 +5609,11 @@ bool isCandle20(ENUM_TIMEFRAMES timeframe){
             macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
             iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
             iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
-            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iHigh(NULL,timeframe,2)  < iHigh(NULL,timeframe,1) &&
+            iHigh(NULL,timeframe,2)  < iHigh(NULL,timeframe,3) &&
+            iLow(NULL,timeframe,2)   < iLow(NULL,timeframe,1) &&
+            iLow(NULL,timeframe,2)   < iLow(NULL,timeframe,3) &&
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
@@ -5622,12 +5630,13 @@ bool isCandle21(ENUM_TIMEFRAMES timeframe){
     double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
         if(
             macd0 < 0 && macd1 < 0 && macd2 < 0 && macd3 < 0 && macd4 < 0 &&
-            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
             iClose(NULL,timeframe,2) > iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) < iOpen(NULL,timeframe,4) &&
-            iClose(NULL,timeframe,5) > iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) > iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
+            iHigh(NULL,timeframe,2)  < iHigh(NULL,timeframe,1) &&
+            iHigh(NULL,timeframe,2)  < iHigh(NULL,timeframe,3) &&
+            iLow(NULL,timeframe,2)   < iLow(NULL,timeframe,1) &&
+            iLow(NULL,timeframe,2)   < iLow(NULL,timeframe,3) &&
             macd3 > macd4 && macd4 > macd5
         )
         {result = true;}
@@ -5643,12 +5652,13 @@ bool isCandle22(ENUM_TIMEFRAMES timeframe){
     double macd5 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,5);
         if(
             macd0 > 0 && macd1 > 0 && macd2 > 0 && macd3 > 0 && macd4 > 0 &&
-            iClose(NULL,timeframe,1) < iOpen(NULL,timeframe,1) &&
+            iClose(NULL,timeframe,1) > iOpen(NULL,timeframe,1) &&
             iClose(NULL,timeframe,2) < iOpen(NULL,timeframe,2) &&
-            iClose(NULL,timeframe,3) < iOpen(NULL,timeframe,3) &&
-            iClose(NULL,timeframe,4) > iOpen(NULL,timeframe,4) &&
-            iClose(NULL,timeframe,5) < iOpen(NULL,timeframe,5) &&
-            iClose(NULL,timeframe,6) < iOpen(NULL,timeframe,6) &&
+            iClose(NULL,timeframe,3) > iOpen(NULL,timeframe,3) &&
+            iHigh(NULL,timeframe,2)  > iHigh(NULL,timeframe,1) &&
+            iHigh(NULL,timeframe,2)  > iHigh(NULL,timeframe,3) &&
+            iLow(NULL,timeframe,2)   > iLow(NULL,timeframe,1) &&
+            iLow(NULL,timeframe,2)   > iLow(NULL,timeframe,3) &&
             macd3 < macd4 && macd4 < macd5
         )
         {result = true;}
