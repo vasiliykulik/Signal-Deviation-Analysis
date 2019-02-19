@@ -1046,7 +1046,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         secondMaxGlobal>secondMinGlobal && secondMaxGlobal>thirdMaxGlobal &&
         secondMinGlobal < thirdMaxGlobal &&
         thirdMinGlobal > firstMinGlobal &&
-        isC5Max &&
+        isC5Max
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
