@@ -60,7 +60,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  int countFigures;
 
 // ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
- ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
+ ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15,PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -2862,13 +2862,14 @@ isDivergenceMACDForPriceConv          = isDivergenceMACDForPriceConv_M15;
 isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
 
 // MACD Filter Block
+double macd0_M15  = 0.0; double macd1_M15  = 0.0; double macd2_M15  = 0.0;
 double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
 double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
 double macd0_MN1 = 0.0; double macd1_MN1 = 0.0; double macd2_MN1 = 0.0;
 
-macd0_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-macd1_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-macd2_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+macd0_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
 
 macd0_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -2990,14 +2991,23 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
   }
 
 // 19.02.2019 TS_7.0 14.1)
-    if (isM15FigureDown && isTrendBull_M15){
+ /*  if (isH1FigureDown && isTrendBull_M15){
         isM15FigureDown = false;
         isM15FigureUp = true;
     }
-    if (isM15FigureUp && isTrendBear_M15){
+    if (isH1FigureUp && isTrendBear_M15){
         isM15FigureUp = false;
         isM15FigureDown = true;
     }
+*/
+// 19.02.2019 TS_7.0 14.5)
+if (isH1FigureUp && macd0_M15>0){
+    isNewSignal = false;
+}
+if (isH1FigureDown && macd0_M15<0){
+    isNewSignal = false;
+}
+
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
 // Print ("compareResult = ", compareResult);
@@ -3005,7 +3015,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
       if
       (
       isNewSignal &&
-     isM15FigureDown
+     isH1FigureUp
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3180,7 +3190,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isM15FigureUp
+           isH1FigureDown
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
