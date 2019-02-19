@@ -2798,79 +2798,6 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                         }
                     }
 
-
-/*
-
-// Section for Blocking Figures, using C6Max for FigureUP and C6Min fro FigureDown
-
-    // Blocking Figure 9  "BlockingFlagUpShiftUp"
-     if(
-            thirdMinGlobal<firstMinGlobal && thirdMinGlobal<secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<firstMaxGlobal &&
-            firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
-            firstMaxGlobal>secondMinGlobal && firstMaxGlobal>secondMaxGlobal &&
-            secondMinGlobal<secondMaxGlobal && isC5Min &&
-            thirdMaxGlobal < firstMaxGlobal && isC6Max
-            ){
-                if(timeFrames[i]==PERIOD_M1) {blockingFigure9BlockingFlagUpShiftUp_M1  = true;}
-                if(timeFrames[i]==PERIOD_M5) {blockingFigure9BlockingFlagUpShiftUp_M5  = true;}
-                if(timeFrames[i]==PERIOD_M15){blockingFigure9BlockingFlagUpShiftUp_M15 = true;}
-                if(timeFrames[i]==PERIOD_H1) {blockingFigure9BlockingFlagUpShiftUp_H1  = true;}
-                if(timeFrames[i]==PERIOD_H4) {blockingFigure9BlockingFlagUpShiftUp_H4  = true;}
-                if(timeFrames[i]==PERIOD_D1) {blockingFigure9BlockingFlagUpShiftUp_D1  = true;}
-                print("Blocking Figure 9 BlockingFlagUpShiftUp ", timeFrames[i]);
-    //            Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "thirdMaxGlobal = ",thirdMaxGlobal  );
-        }
-    // Blocking Figure 10 "BlockingFlagUpShiftDown"
-     if(
-            thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal>firstMaxGlobal && thirdMaxGlobal>secondMaxGlobal &&
-            firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
-            secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-            firstMinGlobal<secondMinGlobal && isC5Max &&
-            thirdMinGlobal > firstMinGlobal && isC6Min
-            ){
-                if(timeFrames[i]==PERIOD_M1) {blockingFigure10BlockingFlagUpShiftDown_M1  = true;}
-                if(timeFrames[i]==PERIOD_M5) {blockingFigure10BlockingFlagUpShiftDown_M5  = true;}
-                if(timeFrames[i]==PERIOD_M15){blockingFigure10BlockingFlagUpShiftDown_M15 = true;}
-                if(timeFrames[i]==PERIOD_H1) {blockingFigure10BlockingFlagUpShiftDown_H1  = true;}
-                if(timeFrames[i]==PERIOD_H4) {blockingFigure10BlockingFlagUpShiftDown_H4  = true;}
-                if(timeFrames[i]==PERIOD_D1) {blockingFigure10BlockingFlagUpShiftDown_D1  = true;}
-                print("Blocking Figure 10 BlockingFlagUpShiftDown ", timeFrames[i]);
-     //           Print("firstMaxGlobal = ", firstMaxGlobal, "firstMinGlobal = ",firstMinGlobal, "secondMaxGlobal = ", secondMaxGlobal, "secondMinGlobal = ",secondMinGlobal, "thirdMaxGlobal = ",thirdMaxGlobal  );
-        }
-    // Blocking Figure 15 "BlockingBalancedTriangleUp"
-    if(
-            thirdMinGlobal>firstMinGlobal && thirdMinGlobal>secondMinGlobal && thirdMinGlobal<firstMaxGlobal && thirdMinGlobal<secondMaxGlobal &&
-            firstMinGlobal<firstMaxGlobal && firstMinGlobal>secondMinGlobal && firstMinGlobal<secondMaxGlobal &&
-            firstMaxGlobal>secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
-            secondMinGlobal<secondMaxGlobal && isC5Min &&
-            thirdMaxGlobal > firstMaxGlobal && isC6Max
-            ){
-                if(timeFrames[i]==PERIOD_M1) {blockingFigure15BlockingBalancedTriangleUp_M1  = true;}
-                if(timeFrames[i]==PERIOD_M5) {blockingFigure15BlockingBalancedTriangleUp_M5  = true;}
-                if(timeFrames[i]==PERIOD_M15){blockingFigure15BlockingBalancedTriangleUp_M15 = true;}
-                if(timeFrames[i]==PERIOD_H1) {blockingFigure15BlockingBalancedTriangleUp_H1  = true;}
-                if(timeFrames[i]==PERIOD_H4) {blockingFigure15BlockingBalancedTriangleUp_H4  = true;}
-                if(timeFrames[i]==PERIOD_D1) {blockingFigure15BlockingBalancedTriangleUp_D1  = true;}
-                print("Blocking Figure 15 BlockingBalancedTriangleUp ", timeFrames[i]);
-        }
-    // Blocking Figure 16 "BlockingBalancedTriangleUp"
-    if(
-            thirdMaxGlobal>firstMinGlobal && thirdMaxGlobal>secondMinGlobal && thirdMaxGlobal<firstMaxGlobal && thirdMaxGlobal<secondMaxGlobal &&
-            firstMaxGlobal<secondMaxGlobal && firstMaxGlobal>firstMinGlobal && firstMaxGlobal>secondMinGlobal &&
-            secondMaxGlobal>firstMinGlobal && secondMaxGlobal>secondMinGlobal &&
-            firstMinGlobal>secondMinGlobal && isC5Max &&
-            thirdMinGlobal < firstMinGlobal && isC6Min
-            ){
-                if(timeFrames[i]==PERIOD_M1) {blockingFigure16BlockingBalancedTriangleUp_M1  = true;}
-                if(timeFrames[i]==PERIOD_M5) {blockingFigure16BlockingBalancedTriangleUp_M5  = true;}
-                if(timeFrames[i]==PERIOD_M15){blockingFigure16BlockingBalancedTriangleUp_M15 = true;}
-                if(timeFrames[i]==PERIOD_H1) {blockingFigure16BlockingBalancedTriangleUp_H1  = true;}
-                if(timeFrames[i]==PERIOD_H4) {blockingFigure16BlockingBalancedTriangleUp_H4  = true;}
-                if(timeFrames[i]==PERIOD_D1) {blockingFigure16BlockingBalancedTriangleUp_D1  = true;}
-                print("Blocking Figure 16 BlockingBalancedTriangleUp ", timeFrames[i]);
-        }
-*/
-
 }
 
 bool OpenOnHalfWaveOpenPermitUp_M1     = false;
@@ -3051,23 +2978,26 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
 
-is11PositionFigureUp_M15    = figure29DoubleBottomConfirmationUp_M15 ||figure45PennantAfterWedgeConfirmationUp_M15;
-is10PositionFigureUp_M15    = figure47PennantAfterFlagConfirmationUp_M15 || figure49DoublePennantAfterConfirmationUp_M15;
-is9PositionFigureUp_M15     = figure25TriangleConfirmationUp_M15 || figure39RollbackChannelPennantConfirmationUp_M15;
-
-is11PositionFigureDown_M15  = figure30DoubleTopConfirmationDown_M15 || figure46PennantAfterWedgeConfirmationDown_M15;
-is10PositionFigureDown_M15  = figure48PennantAfterFlagConfirmationDown_M15 || figure50DoublePennantAfterConfirmationDown_M15;
-is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40RollbackChannelPennantConfirmationDown_M15;
-
 
   print();
 //  is determined by the conditions M5,M15,H1
+
   string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M15,messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
+
+// 19.02.2019 TS_7.0 14.1)
+    if (isM15FigureDown && isTrendBull_M15){
+        isM15FigureDown = false;
+        isM15FigureUp = true;
+    }
+    if (isM15FigureUp && isTrendBear_M15){
+        isM15FigureUp = false;
+        isM15FigureDown = true;
+    }
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
 // Print ("compareResult = ", compareResult);
@@ -3075,7 +3005,7 @@ is9PositionFigureDown_M15  = figure26TriangleConfirmationDown_M15 || figure40Rol
       if
       (
       isNewSignal &&
-     isM15FigureDown && isM15CandleUp
+     isM15FigureDown
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3250,7 +3180,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isM15FigureUp && isM15CandleDown
+           isM15FigureUp
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
