@@ -1050,7 +1050,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         /*&& isTrendNoErrorForSellReverseFilter5(firstMaxGlobal, secondMaxGlobal, thirdMaxGlobal)
         && isTrendNoErrorForSellFilter4(firstMinGlobal, secondMinGlobal, thirdMinGlobal)
         && isH1ConsistentForSellFilter3()
-        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i]
+        && isSecondHalfWaveCommitedToTrendDownFilter2(secondMaxGlobal, timeFrames[i]*/
         // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure16BalancedTriangleDown_M1  = true;}
@@ -1157,7 +1157,33 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             print("Figure 20 HeadAndShouldersConfirmationDown ", timeFrames[i]);
     }
 
-    // Figure 21 "WedgeUp" v11 fully inverted
+    // Figure 21 "WedgeUp"
+
+    if(
+            firstMinGlobal < firstMaxGlobal &&
+            secondMinGlobal > channelLimiterForLowerEdgeMaxMinMin(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than. *min > max -fmm(Buy) *max < min+fmm (Sell). For outer border of channel description
+            firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
+            firstMaxGlobal > secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
+            // firstMaxGlobal and thirdMinGlobal // just do not to descript, relation will be clarify by simple comparisons between another points
+            firstMaxGlobal < thirdMaxGlobal &&
+            secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
+            secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
+            thirdMinGlobal < thirdMaxGlobal &&
+            isC5Min
+
+        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
+
+        ){
+            if(timeFrames[i]==PERIOD_M1) {figure21WedgeUp_M1  = true;}
+            if(timeFrames[i]==PERIOD_M5) {figure21WedgeUp_M5  = true;}
+            if(timeFrames[i]==PERIOD_M15){figure21WedgeUp_M15 = true;}
+            if(timeFrames[i]==PERIOD_H1) {figure21WedgeUp_H1  = true;}
+            if(timeFrames[i]==PERIOD_H4) {figure21WedgeUp_H4  = true;}
+            if(timeFrames[i]==PERIOD_D1) {figure21WedgeUp_D1  = true;}
+            print("Figure 21 WedgeUp", timeFrames[i]);
+    }
+
+    // Figure 22 "WedgeDown"
 
     if(
         firstMaxGlobal > firstMinGlobal &&
@@ -1168,31 +1194,6 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
         secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal &&
         thirdMaxGlobal > thirdMinGlobal &&
         isC5Max
-        // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
-
-        ){
-            if(timeFrames[i]==PERIOD_M1) {figure21WedgeUp_M1  = true;}
-            if(timeFrames[i]==PERIOD_M5) {figure21WedgeUp_M5  = true;}
-            if(timeFrames[i]==PERIOD_M15){figure21WedgeUp_M15 = true;}
-            if(timeFrames[i]==PERIOD_H1) {figure21WedgeUp_H1  = true;}
-            if(timeFrames[i]==PERIOD_H4) {figure21WedgeUp_H4  = true;}
-            if(timeFrames[i]==PERIOD_D1) {figure21WedgeUp_D1  = true;}
-            print("Figure 21 WedgeUp Fully Inverted", timeFrames[i]);
-    }
-
-    // Figure 22 "WedgeDown" v11 fully inverted
-
-    if(
-        firstMinGlobal < firstMaxGlobal &&
-        secondMinGlobal > channelLimiterForLowerEdgeMaxMinMin(firstMaxGlobal,firstMinGlobal,secondMinGlobal) && // firstMinGlobal and secondMinGlobal Here w need to limit the channel, as secondMinGlobal or firstMinGlobal or equals will be the lowest point, but no more than. *min > max -fmm(Buy) *max < min+fmm (Sell). For outer border of channel description
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal < thirdMinGlobal && firstMinGlobal < thirdMaxGlobal &&
-        firstMaxGlobal > secondMinGlobal && firstMaxGlobal<secondMaxGlobal &&
-        // firstMaxGlobal and thirdMinGlobal // just do not to descript, relation will be clarify by simple comparisons between another points
-        firstMaxGlobal < thirdMaxGlobal &&
-        secondMinGlobal < secondMaxGlobal && secondMinGlobal < thirdMinGlobal && secondMinGlobal < thirdMaxGlobal &&
-        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal &&
-        thirdMinGlobal < thirdMaxGlobal &&
-        isC5Min
         // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure22WedgeDown_M1  = true;}
@@ -1201,7 +1202,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure22WedgeDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure22WedgeDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure22WedgeDown_D1  = true;}
-            print("Figure 22 WedgeDown Fully Inverted", timeFrames[i]);
+            print("Figure 22 WedgeDown", timeFrames[i]);
     }
 
     // Figure 23 "DiamondUp"
