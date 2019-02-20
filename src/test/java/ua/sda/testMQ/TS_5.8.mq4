@@ -31,6 +31,8 @@ extern bool OpenOnHalfWaveDown_M15 = false;
 
 string signalAnalyzeConcatenated;
 bool isNewSignal = false;
+string figureH1Signal;
+bool isFigureH1InnerM15HalfwaveIsDone = false;
 
 double Lots = externalLots;
 
@@ -3012,7 +3014,8 @@ if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
 }
 
-if (isH1FigureUp && macd0_H1<macd1_H1){
+// 1) таким образом я просто инвертирую все сделки, а не только во второй половине
+/*if (isH1FigureUp && macd0_H1<macd1_H1){
     isH1FigureUp = false;
     isH1FigureDown = true;
 }
@@ -3020,7 +3023,19 @@ if (isH1FigureUp && macd0_H1<macd1_H1){
 if (isH1FigureDown && macd0_H1>macd1_H1){
     isH1FigureDown = false;
     isH1FigureUp = true;
-}
+}*/
+/*
+    Введем флаг в данном случае на H1, isFigureH1InnerM15HalfwaveIsDone, который будем использовать что бы отметить что сигнал Н1, отработал
+свою ПВ М15,(isNewSignal, которые формируется StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false)).
+    Что бы использовать его как маркер состояния окончания первой ПВ
+ */
+  string currentFigureH1Signal = StringConcatenate(messageGlobalPERIOD_H1);
+  int compareResult = StringCompare(figureH1Signal,currentFigureH1Signal,false);
+  if (compareResult != 0){
+    isFigureH1InnerM15HalfwaveIsDone = true;
+    figureH1Signal = currentFigureH1Signal;
+  }
+
 
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
