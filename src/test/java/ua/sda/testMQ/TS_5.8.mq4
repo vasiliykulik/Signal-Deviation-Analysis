@@ -3008,12 +3008,12 @@ if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
 }
 
-if (isH1FigureUp && macd0_H1<macd1_H1 &&  macd0_H1<0 && macd1_H1<0){
+if (isH1FigureUp && macd0_H1<macd1_H1){
     isH1FigureUp = false;
     isH1FigureDown = true;
 }
 
-if (isH1FigureDown && macd0_H1>macd1_H1 &&  macd0_H1>0 && macd1_H1>0){
+if (isH1FigureDown && macd0_H1>macd1_H1){
     isH1FigureDown = false;
     isH1FigureUp = true;
 }
