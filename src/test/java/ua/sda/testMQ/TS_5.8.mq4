@@ -3039,7 +3039,7 @@ if(isH1FigureDown && isFigureH1InnerM15HalfwaveIsDone && !isInvertedM15){
     isH1FigureDown = false;
 }
 
-// Фильтруем инвертированную волну на М15
+// Фильтруем инвертированную волну на М15 14.9)
 
 //  если условие isH1FigureUp && macd0_M15>0   - сработало значит прошли активную фазу, в таком случае ставим флаг  isFigureH1InnerM15HalfwaveIsDone в true
 if (isH1FigureUp && macd0_M15>0){
