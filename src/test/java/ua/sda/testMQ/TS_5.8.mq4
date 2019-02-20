@@ -3039,6 +3039,18 @@ if(isH1FigureDown && isFigureH1InnerM15HalfwaveIsDone && !isInvertedM15){
     isH1FigureDown = false;
 }
 
+// Фильтруем инвертированную волну на М15
+
+//  если условие isH1FigureUp && macd0_M15>0   - сработало значит прошли активную фазу, в таком случае ставим флаг  isFigureH1InnerM15HalfwaveIsDone в true
+if (isH1FigureUp && macd0_M15>0){
+    isNewSignal = false;
+}
+
+// если условие isH1FigureDown && macd0_M15<0 - сработало значит прошли активную фазу, в таком случае ставим флаг  в true
+if (isH1FigureDown && macd0_M15<0){
+    isNewSignal = false;
+}
+
 // 1) таким образом я просто инвертирую все сделки, а не только во второй половине
 /*if (isH1FigureUp && macd0_H1<macd1_H1){
     isH1FigureUp = false;
