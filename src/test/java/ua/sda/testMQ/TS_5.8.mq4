@@ -3007,17 +3007,21 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
     }
 */
 // 19.02.2019 TS_7.0 14.5)
-if (isH1FigureUp && macd0_M15>0){
-    isNewSignal = false;
-      string currentFigureH1Signal = StringConcatenate(messageGlobalPERIOD_H1);
+
+      string currentFigureH1Signal = messageGlobalPERIOD_H1;
       int compareResult = StringCompare(figureH1Signal,currentFigureH1Signal,false);
       if (compareResult != 0){
-        isFigureH1InnerM15HalfwaveIsDone = true;
+        isFigureH1InnerM15HalfwaveIsDone = false;
         figureH1Signal = currentFigureH1Signal;
       }
+
+if (isH1FigureUp && macd0_M15>0){
+    isNewSignal = false;
+    isFigureH1InnerM15HalfwaveIsDone = true;
 }
 if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
+    isFigureH1InnerM15HalfwaveIsDone = true;
 }
 
 // 1) таким образом я просто инвертирую все сделки, а не только во второй половине
@@ -3034,11 +3038,16 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     Введем флаг в данном случае на H1, isFigureH1InnerM15HalfwaveIsDone, который будем использовать что бы отметить что сигнал Н1, отработал
 свою ПВ М15,(isNewSignal, которые формируется StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false)).
     Что бы использовать его как маркер состояния окончания первой ПВ
-    И проставлять isFigureH1InnerM15HalfwaveIsDone будем в
+    И проставлять isFigureH1InnerM15HalfwaveIsDone будем в  следующем блоке
     if (isH1FigureUp && macd0_M15>0){
         isNewSignal = false;
     }
-    и будем держать его в таком состоянии пока не прийдет новый сигнал figureH1Signal
+    и будем держать его в таком состоянии пока не прийдет новый сигнал figureH1Signal.
+    Инициализация:
+    если условие isH1FigureUp && macd0_M15>0   - сработало значит прошли активную фазу, в таком случае ставим флаг  в true
+    если условие isH1FigureDown && macd0_M15<0 - сработало значит прошли активную фазу, в таком случае ставим флаг  в true
+
+    флаг находится в таком состоянии пока не придет новый сигнал на H1, а проверку на новый сигнал выносим вперед.
  */
 
 
@@ -3050,7 +3059,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
       isNewSignal &&
-     isH1FigureUp
+     isH1FigureUp && !isFigureH1InnerM15HalfwaveIsDone
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3225,7 +3234,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isH1FigureDown
+           isH1FigureDown && !isFigureH1InnerM15HalfwaveIsDone
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
