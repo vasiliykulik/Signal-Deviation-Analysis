@@ -3011,8 +3011,8 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 
 // Если сигнал на H1 отличается
       string currentFigureH1Signal = messageGlobalPERIOD_H1;
-      int compareResult = StringCompare(figureH1Signal,currentFigureH1Signal,false);
-      if (compareResult != 0){
+      int compareResultForInvert = StringCompare(figureH1Signal,currentFigureH1Signal,false);
+      if (compareResultForInvert != 0){
         isFigureH1InnerM15HalfwaveIsDone = false;
         figureH1Signal = currentFigureH1Signal;
       }
