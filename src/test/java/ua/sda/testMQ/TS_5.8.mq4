@@ -3009,6 +3009,12 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 // 19.02.2019 TS_7.0 14.5)
 if (isH1FigureUp && macd0_M15>0){
     isNewSignal = false;
+      string currentFigureH1Signal = StringConcatenate(messageGlobalPERIOD_H1);
+      int compareResult = StringCompare(figureH1Signal,currentFigureH1Signal,false);
+      if (compareResult != 0){
+        isFigureH1InnerM15HalfwaveIsDone = true;
+        figureH1Signal = currentFigureH1Signal;
+      }
 }
 if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
@@ -3028,13 +3034,13 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     Введем флаг в данном случае на H1, isFigureH1InnerM15HalfwaveIsDone, который будем использовать что бы отметить что сигнал Н1, отработал
 свою ПВ М15,(isNewSignal, которые формируется StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false)).
     Что бы использовать его как маркер состояния окончания первой ПВ
+    И проставлять isFigureH1InnerM15HalfwaveIsDone будем в
+    if (isH1FigureUp && macd0_M15>0){
+        isNewSignal = false;
+    }
+    и будем держать его в таком состоянии пока не прийдет новый сигнал figureH1Signal
  */
-  string currentFigureH1Signal = StringConcatenate(messageGlobalPERIOD_H1);
-  int compareResult = StringCompare(figureH1Signal,currentFigureH1Signal,false);
-  if (compareResult != 0){
-    isFigureH1InnerM15HalfwaveIsDone = true;
-    figureH1Signal = currentFigureH1Signal;
-  }
+
 
 
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
