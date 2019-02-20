@@ -33,6 +33,7 @@ string signalAnalyzeConcatenated;
 bool isNewSignal = false;
 string figureH1Signal;
 bool isFigureH1InnerM15HalfwaveIsDone = false;
+bool isInvertedM15 = false;
 
 double Lots = externalLots;
 
@@ -3008,6 +3009,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 */
 // 19.02.2019 TS_7.0 14.5)
 
+// Если сигнал на H1 отличается
       string currentFigureH1Signal = messageGlobalPERIOD_H1;
       int compareResult = StringCompare(figureH1Signal,currentFigureH1Signal,false);
       if (compareResult != 0){
@@ -3015,13 +3017,26 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
         figureH1Signal = currentFigureH1Signal;
       }
 
+//  если условие isH1FigureUp && macd0_M15>0   - сработало значит прошли активную фазу, в таком случае ставим флаг  isFigureH1InnerM15HalfwaveIsDone в true
 if (isH1FigureUp && macd0_M15>0){
     isNewSignal = false;
     isFigureH1InnerM15HalfwaveIsDone = true;
 }
+
+// если условие isH1FigureDown && macd0_M15<0 - сработало значит прошли активную фазу, в таком случае ставим флаг  в true
 if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
     isFigureH1InnerM15HalfwaveIsDone = true;
+}
+// Что бы бесконечно не инвертировать, что надо сделать ? Введем флаг isInverted?
+if(isH1FigureUp && isFigureH1InnerM15HalfwaveIsDone && !isInvertedM15){
+    isH1FigureUp = false;
+    isH1FigureDown = true;
+}
+
+if(isH1FigureDown && isFigureH1InnerM15HalfwaveIsDone && !isInvertedM15){
+    isH1FigureUp = true;
+    isH1FigureDown = false;
 }
 
 // 1) таким образом я просто инвертирую все сделки, а не только во второй половине
@@ -3044,8 +3059,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     }
     и будем держать его в таком состоянии пока не прийдет новый сигнал figureH1Signal.
     Инициализация:
-    если условие isH1FigureUp && macd0_M15>0   - сработало значит прошли активную фазу, в таком случае ставим флаг  в true
-    если условие isH1FigureDown && macd0_M15<0 - сработало значит прошли активную фазу, в таком случае ставим флаг  в true
+
+
 
     флаг находится в таком состоянии пока не придет новый сигнал на H1, а проверку на новый сигнал выносим вперед.
  */
