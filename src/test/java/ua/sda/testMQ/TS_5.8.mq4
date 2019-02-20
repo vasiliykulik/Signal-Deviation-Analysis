@@ -3074,7 +3074,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
       isNewSignal &&
-     isH1FigureUp && !isFigureH1InnerM15HalfwaveIsDone
+     isH1FigureUp
+      // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
 /*        isMACDForelockUpFilter1 (PERIOD_M15) &&
@@ -3249,7 +3250,8 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isH1FigureDown && !isFigureH1InnerM15HalfwaveIsDone
+           isH1FigureDown
+           // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
         isOSMAForelockDownFilter1(PERIOD_M15) &&
