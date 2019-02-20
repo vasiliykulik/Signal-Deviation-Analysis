@@ -3008,6 +3008,16 @@ if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
 }
 
+if (isH1FigureUp && macd0_H1<macd1_H1 &&  macd0<0 && macd1<0){
+    isH1FigureUp = false;
+    isH1FigureDown = true;
+}
+
+if (isH1FigureDown && macd0_H1>macd1_H1 &&  macd0>0 && macd1>0){
+    isH1FigureDown = false;
+    isH1FigureUp = true;
+}
+
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
 // Print ("compareResult = ", compareResult);
@@ -3423,7 +3433,8 @@ sell=1;
 // Block 4 Ведение позиций
 /*Вызывая метод nonSymm
    для periodGlobal мы будем update-ить цену*/
-
+   // Trying to fix one orderStop
+total=OrdersTotal();
    for(cnt=0;cnt<total;cnt++)
      {
       OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
