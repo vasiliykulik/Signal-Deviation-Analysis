@@ -3540,6 +3540,7 @@ total=OrdersTotal();
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
+            OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //21.02.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
             double stopShift=stopLossForBuyMin-OrderStopLoss();
 
