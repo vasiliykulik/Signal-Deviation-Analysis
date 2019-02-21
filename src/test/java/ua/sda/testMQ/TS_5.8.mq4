@@ -2805,6 +2805,63 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 }
 
+// MACD Filter Block
+double macd0_M5  = 0.0; double macd1_M5  = 0.0; double macd2_M5  = 0.0;
+double macd0_M15  = 0.0; double macd1_M15  = 0.0; double macd2_M15  = 0.0;
+double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
+double osma0_H1  = 0.0; double osma1_H1  = 0.0; double osma2_H1  = 0.0;
+double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
+double macd0_MN1 = 0.0; double macd1_MN1 = 0.0; double macd2_MN1 = 0.0;
+
+macd0_M5 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_M5 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_M5 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+macd0_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+macd0_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+osma0_H1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
+osma1_H1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
+osma2_H1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,2);
+
+macd0_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+
+macd0_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+macd0_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+if(
+    macd0_H4 > 0 &&
+    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
+    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&
+    macd0_M5 > 0 && macd1_M5 < 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalUp = true;
+}
+
+if(
+    macd0_H4 < 0 &&
+    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
+    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&
+    macd0_M5 < 0 && macd1_M5 > 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalDown = true;
+}
+
 bool OpenOnHalfWaveOpenPermitUp_M1     = false;
 bool OpenOnHalfWaveOpenPermitUp_M5     = false;
 bool OpenOnHalfWaveOpenPermitUp_M15    = false;
@@ -2997,25 +3054,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isCandleDown = isH4CandleDown || isH1CandleDown || isM15CandleDown;
      isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
-if(
-    macd0_H4 > 0 &&
-    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
-    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&
-    macd0_M5 > 0 && macd1_M5 < 0
-){
-    print("4TF signal UP ", PERIOD_M5);
-    fourTimeFramesSignalUp = true;
-}
 
-if(
-    macd0_H4 < 0 &&
-    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
-    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&
-    macd0_M5 < 0 && macd1_M5 > 0
-){
-    print("4TF signal UP ", PERIOD_M5);
-    fourTimeFramesSignalDown = true;
-}
 
   print();
 //  is determined by the conditions M5,M15,H1
