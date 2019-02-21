@@ -2833,39 +2833,6 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
     OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveDown_M15();
  }
 
-
-   if(total<maxOrders)
-     {
-// Second layer analyzing Block
-bool isFiboModuleGreenState = false;
-bool isFiboModuleGreenLevel_100_IsPassed = false;
-bool isTrendBull = false;
-bool isDivergenceMACDUp = false;
-bool isFiboModuleRedState = false;
-bool isFiboModuleRedLevel_100_IsPassed = false;
-bool isTrendBear = false;
-bool isDivergenceMACDDown = false;
-bool isPriceConvergence = false;
-bool isPriceDivergence = false;
-bool isDivergenceMACDForPriceConv = false;
-bool isDivergenceMACDForPriceDiv = false;
-
-isFiboModuleGreenState                = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
-isFiboModuleGreenLevel_100_IsPassed   = isFiboModuleGreenLevel_100_IsPassed_D1 || isFiboModuleGreenLevel_100_IsPassed_H4  || isFiboModuleGreenLevel_100_IsPassed_H1 || isFiboModuleGreenLevel_100_IsPassed_M15 || isFiboModuleGreenLevel_100_IsPassed_M5;
-isTrendBull                           = isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1 && isTrendBull_M5;
-isDivergenceMACDUp                    = isDivergenceMACDUp_M5 || isDivergenceMACDUp_M15 || isDivergenceMACDUp_H1 || isDivergenceMACDUp_H4 || isDivergenceMACDUp_D1;
-
-isFiboModuleRedState                  = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
-isFiboModuleRedLevel_100_IsPassed     = isFiboModuleRedLevel_100_IsPassed_D1 || isFiboModuleRedLevel_100_IsPassed_H4   || isFiboModuleRedLevel_100_IsPassed_H1 || isFiboModuleRedLevel_100_IsPassed_M15 || isFiboModuleRedLevel_100_IsPassed_M5;
-isTrendBear                           = isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1 && isTrendBear_M5;
-isDivergenceMACDDown                  = isDivergenceMACDDown_M5 || isDivergenceMACDDown_M15 || isDivergenceMACDDown_H1 || isDivergenceMACDDown_H4 || isDivergenceMACDDown_D1;
-
-isPriceConvergence                    = isPriceConvergence_M15;
-isPriceDivergence                     = isPriceDivergence_M15;
-
-isDivergenceMACDForPriceConv          = isDivergenceMACDForPriceConv_M15;
-isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
-
 // MACD Filter Block
 double macd0_M5  = 0.0; double macd1_M5  = 0.0; double macd2_M5  = 0.0;
 double macd0_M15  = 0.0; double macd1_M15  = 0.0; double macd2_M15  = 0.0;
@@ -2902,6 +2869,60 @@ macd2_D1 = iMACD(NULL,PERIOD_D1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
 macd0_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 macd2_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+
+if(
+/*    macd0_H4 > 0 &&
+    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
+    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&*/
+    macd0_M5 > 0 && macd1_M5 < 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalUp = true;
+}
+
+if(
+/*    macd0_H4 < 0 &&
+    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
+    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&*/
+    macd0_M5 < 0 && macd1_M5 > 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalDown = true;
+}
+
+   if(total<maxOrders)
+     {
+// Second layer analyzing Block
+bool isFiboModuleGreenState = false;
+bool isFiboModuleGreenLevel_100_IsPassed = false;
+bool isTrendBull = false;
+bool isDivergenceMACDUp = false;
+bool isFiboModuleRedState = false;
+bool isFiboModuleRedLevel_100_IsPassed = false;
+bool isTrendBear = false;
+bool isDivergenceMACDDown = false;
+bool isPriceConvergence = false;
+bool isPriceDivergence = false;
+bool isDivergenceMACDForPriceConv = false;
+bool isDivergenceMACDForPriceDiv = false;
+
+isFiboModuleGreenState                = isFiboModuleGreenState_M5 && isFiboModuleGreenState_M15 && isFiboModuleGreenState_H1 && isFiboModuleGreenState_H4 && isFiboModuleGreenState_D1;
+isFiboModuleGreenLevel_100_IsPassed   = isFiboModuleGreenLevel_100_IsPassed_D1 || isFiboModuleGreenLevel_100_IsPassed_H4  || isFiboModuleGreenLevel_100_IsPassed_H1 || isFiboModuleGreenLevel_100_IsPassed_M15 || isFiboModuleGreenLevel_100_IsPassed_M5;
+isTrendBull                           = isTrendBull_M15 && isTrendBull_H1 && isTrendBull_H4 && isTrendBull_D1 && isTrendBull_M5;
+isDivergenceMACDUp                    = isDivergenceMACDUp_M5 || isDivergenceMACDUp_M15 || isDivergenceMACDUp_H1 || isDivergenceMACDUp_H4 || isDivergenceMACDUp_D1;
+
+isFiboModuleRedState                  = isFiboModuleRedState_M5 && isFiboModuleRedState_M15 && isFiboModuleRedState_H1 && isFiboModuleRedState_H4 && isFiboModuleRedState_D1;
+isFiboModuleRedLevel_100_IsPassed     = isFiboModuleRedLevel_100_IsPassed_D1 || isFiboModuleRedLevel_100_IsPassed_H4   || isFiboModuleRedLevel_100_IsPassed_H1 || isFiboModuleRedLevel_100_IsPassed_M15 || isFiboModuleRedLevel_100_IsPassed_M5;
+isTrendBear                           = isTrendBear_M15 && isTrendBear_H1 && isTrendBear_H4 && isTrendBear_D1 && isTrendBear_M5;
+isDivergenceMACDDown                  = isDivergenceMACDDown_M5 || isDivergenceMACDDown_M15 || isDivergenceMACDDown_H1 || isDivergenceMACDDown_H4 || isDivergenceMACDDown_D1;
+
+isPriceConvergence                    = isPriceConvergence_M15;
+isPriceDivergence                     = isPriceDivergence_M15;
+
+isDivergenceMACDForPriceConv          = isDivergenceMACDForPriceConv_M15;
+isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
+
 
 bool macdUp_H1  = false; bool macdDown_H1  = false;
 bool macdUp_H4  = false; bool macdUp_D1  = false; bool macdUp_MN1 = false;
@@ -2997,43 +3018,8 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isCandleDown = isH4CandleDown || isH1CandleDown || isM15CandleDown;
      isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
-if(
-/*    macd0_H4 > 0 &&
-    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
-    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&*/
-    macd0_M5 > 0 && macd1_M5 < 0
-){
-    print("4TF signal UP ", PERIOD_M5);
-    fourTimeFramesSignalUp = true;
-}
-if(
-    macd0_H4 > 0 &&
-    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
-    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&
-    macd0_M5 > 0 && macd1_M5 < 0
-){
-    print("4TF signal UP ", PERIOD_M5);
-    fourTimeFramesSignalUp = true;
-}
 
-if(
-/*    macd0_H4 < 0 &&
-    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
-    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&*/
-    macd0_M5 < 0 && macd1_M5 > 0
-){
-    print("4TF signal UP ", PERIOD_M5);
-    fourTimeFramesSignalDown = true;
-}
-if(
-    macd0_H4 < 0 &&
-    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
-    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&
-    macd0_M5 < 0 && macd1_M5 > 0
-){
-    print("4TF signal UP ", PERIOD_M5);
-    fourTimeFramesSignalDown = true;
-}
+
 
   print();
 //  is determined by the conditions M5,M15,H1
