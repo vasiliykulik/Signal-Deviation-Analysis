@@ -339,6 +339,8 @@ void OnTick(void)
       bool candle21_M1  = false, candle21_M5  = false, candle21_M15 = false,  candle21_H1  = false,  candle21_H4  = false,  candle21_D1  = false;
       bool candle22_M1  = false, candle22_M5  = false, candle22_M15 = false,  candle22_H1  = false,  candle22_H4  = false,  candle22_D1  = false;
 
+      bool fourTimeFramesSignalUp = false;
+      bool fourTimeFramesSignalDown = false;
 
 
 
@@ -3002,6 +3004,7 @@ if(
     macd0_M5 > 0 && macd1_M5 < 0
 ){
     print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalUp = true;
 }
 
 if(
@@ -3011,6 +3014,7 @@ if(
     macd0_M5 < 0 && macd1_M5 > 0
 ){
     print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalDown = true;
 }
 
   print();
@@ -3114,7 +3118,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
       isNewSignal &&
-     isH1FigureUp
+     fourTimeFramesSignalUp
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
@@ -3290,7 +3294,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
       isNewSignal &&
-           isH1FigureDown
+           fourTimeFramesSignalDown
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
