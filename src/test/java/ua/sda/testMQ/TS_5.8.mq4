@@ -3024,7 +3024,8 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
   print();
 //  is determined by the conditions M5,M15,H1
 
-  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M15,messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
+//  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M15,messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
+  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M5);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
