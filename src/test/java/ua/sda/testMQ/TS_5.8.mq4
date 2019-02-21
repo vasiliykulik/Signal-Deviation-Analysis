@@ -3054,7 +3054,25 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isCandleDown = isH4CandleDown || isH1CandleDown || isM15CandleDown;
      isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
+if(
+/*    macd0_H4 > 0 &&
+    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
+    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&*/
+    macd0_M5 > 0 && macd1_M5 < 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalUp = true;
+}
 
+if(
+/*    macd0_H4 < 0 &&
+    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
+    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&*/
+    macd0_M5 < 0 && macd1_M5 > 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+    fourTimeFramesSignalDown = true;
+}
 
   print();
 //  is determined by the conditions M5,M15,H1
