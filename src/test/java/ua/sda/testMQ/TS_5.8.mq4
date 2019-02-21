@@ -2865,6 +2865,7 @@ isDivergenceMACDForPriceConv          = isDivergenceMACDForPriceConv_M15;
 isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
 
 // MACD Filter Block
+double macd0_M5  = 0.0; double macd1_M5  = 0.0; double macd2_M5  = 0.0;
 double macd0_M15  = 0.0; double macd1_M15  = 0.0; double macd2_M15  = 0.0;
 double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
 double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
