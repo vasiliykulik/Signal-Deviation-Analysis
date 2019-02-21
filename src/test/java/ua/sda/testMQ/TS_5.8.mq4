@@ -63,7 +63,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  int countFigures;
 
 // ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
- ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15,PERIOD_H1};
+ ENUM_TIMEFRAMES timeFrames[]={};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -2870,6 +2870,10 @@ double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
 double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
 double macd0_MN1 = 0.0; double macd1_MN1 = 0.0; double macd2_MN1 = 0.0;
 
+macd0_M5 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+macd1_M5 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+macd2_M5 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
 macd0_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 macd2_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
@@ -2877,6 +2881,10 @@ macd2_M15 = iMACD(NULL,PERIOD_M15,12,26,9,PRICE_OPEN,MODE_MAIN,2);
 macd0_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 macd2_H1 = iMACD(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+
+osma0_H1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,0);
+osma1_H1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,1);
+osma2_H1 = iOsMA(NULL,PERIOD_H1,12,26,9,PRICE_OPEN,2);
 
 macd0_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_H4 = iMACD(NULL,PERIOD_H4,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -2985,7 +2993,23 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isCandleDown = isH4CandleDown || isH1CandleDown || isM15CandleDown;
      isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
+if(
+    macd0_H4 > 0 &&
+    macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
+    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&
+    macd0_M5 > 0 && macd1_M5 < 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+}
 
+if(
+    macd0_H4 < 0 &&
+    macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
+    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&
+    macd0_M5 < 0 && macd1_M5 > 0
+){
+    print("4TF signal UP ", PERIOD_M5);
+}
 
   print();
 //  is determined by the conditions M5,M15,H1
@@ -3010,6 +3034,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 // 19.02.2019 TS_7.0 14.5)
 
 // Если сигнал на H1 отличается
+/*
       string currentFigureH1Signal = messageGlobalPERIOD_H1;
       int compareResultForInvert = StringCompare(figureH1Signal,currentFigureH1Signal,false);
       if (compareResultForInvert != 0){
@@ -3050,6 +3075,7 @@ if (isH1FigureUp && macd0_M15>0){
 if (isH1FigureDown && macd0_M15<0){
     isNewSignal = false;
 }
+*/
 
 // 1) таким образом я просто инвертирую все сделки, а не только во второй половине
 /*if (isH1FigureUp && macd0_H1<macd1_H1){
