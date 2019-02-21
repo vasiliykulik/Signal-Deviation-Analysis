@@ -2868,6 +2868,7 @@ isDivergenceMACDForPriceDiv           = isDivergenceMACDForPriceDiv_M15;
 double macd0_M5  = 0.0; double macd1_M5  = 0.0; double macd2_M5  = 0.0;
 double macd0_M15  = 0.0; double macd1_M15  = 0.0; double macd2_M15  = 0.0;
 double macd0_H1  = 0.0; double macd1_H1  = 0.0; double macd2_H1  = 0.0;
+double osma0_H1  = 0.0; double osma1_H1  = 0.0; double osma2_H1  = 0.0;
 double macd0_H4  = 0.0; double macd1_H4  = 0.0; double macd2_H4  = 0.0; double macd0_D1  = 0.0; double macd1_D1  = 0.0; double macd2_D1  = 0.0;
 double macd0_MN1 = 0.0; double macd1_MN1 = 0.0; double macd2_MN1 = 0.0;
 
