@@ -2872,9 +2872,9 @@ macd2_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
 
 
 if(
-/*    macd0_H4 > 0 &&
+    macd0_H4 > 0 &&
     macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
-    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&*/
+    macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&
     macd0_M5 > 0 && macd1_M5 < 0
 ){
     print("4TF signal UP ", PERIOD_M5);
@@ -2882,9 +2882,9 @@ if(
 }
 
 if(
-/*    macd0_H4 < 0 &&
+    macd0_H4 < 0 &&
     macd0_H1 < macd1_H1 && macd1_H1 < macd2_H1 && osma0_H1 < osma1_H1 && osma1_H1 < osma2_H1  &&
-    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&*/
+    macd0_M15 >0 && macd0_M15 < macd1_M15 && macd1_M15 < macd2_M15 &&
     macd0_M5 < 0 && macd1_M5 > 0
 ){
     print("4TF signal UP ", PERIOD_M5);
@@ -3122,8 +3122,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("isNewSignal = ", isNewSignal);
       if
       (
-      isNewSignal &&
-     fourTimeFramesSignalUp
+      isNewSignal && fourTimeFramesSignalUp
+
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
@@ -3298,8 +3298,9 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-      isNewSignal &&
-           fourTimeFramesSignalDown
+      isNewSignal && fourTimeFramesSignalDown
+
+
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
 /*        isMACDForelockDownFilter1(PERIOD_M15) &&
