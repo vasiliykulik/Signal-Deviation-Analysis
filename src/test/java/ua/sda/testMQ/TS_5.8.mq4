@@ -63,7 +63,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  int countFigures;
 
 // ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
- ENUM_TIMEFRAMES timeFrames[]={};
+ ENUM_TIMEFRAMES timeFrames[]={PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -3049,7 +3049,7 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 //  is determined by the conditions M5,M15,H1
 
 //  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M15,messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
-  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M5);
+  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_H1);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
