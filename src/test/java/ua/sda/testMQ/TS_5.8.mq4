@@ -2806,7 +2806,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     }
 
             // Figure_MA_62_Up
-            else if(isFigure_MA_62_Up(timeFrames[i])){
+            if(isFigure_MA_62_Up(timeFrames[i])){
                     if(timeFrames[i]==PERIOD_M1) {figure_MA_62_Up_M1  = true;}
                     if(timeFrames[i]==PERIOD_M5) {figure_MA_62_Up_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){figure_MA_62_Up_M15 = true;}
@@ -2817,7 +2817,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }
 
             // Figure_MA_62_Down ""
-            else if(isFigure_MA_62_Down(timeFrames[i])){
+            if(isFigure_MA_62_Down(timeFrames[i])){
                     if(timeFrames[i]==PERIOD_M1) {figure_MA_62_Down_M1  = true;}
                     if(timeFrames[i]==PERIOD_M5) {figure_MA_62_Down_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){figure_MA_62_Down_M15 = true;}
@@ -5749,8 +5749,8 @@ bool isFigure_MA_62_Up(ENUM_TIMEFRAMES timeframe){
     bool result = false;
     double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
     double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-    double ma_0 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_1 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_0 = iMA(NULL,timeframe,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_1 = iMA(NULL,timeframe,62,0,MODE_SMA,PRICE_OPEN,0);
     double open_0 = iOpen(NULL,timeframe,0);
     double open_1 = iOpen(NULL,timeframe,1);
     if(
@@ -5766,8 +5766,8 @@ bool isFigure_MA_62_Down(ENUM_TIMEFRAMES timeframe){
     bool result = false;
     double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
     double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-    double ma_0 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_1 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_0 = iMA(NULL,timeframe,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_1 = iMA(NULL,timeframe,62,0,MODE_SMA,PRICE_OPEN,0);
     double open_0 = iOpen(NULL,timeframe,0);
     double open_1 = iOpen(NULL,timeframe,1);
     if(
