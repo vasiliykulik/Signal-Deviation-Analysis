@@ -2803,6 +2803,28 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                         }
                     }
 
+            // Figure_MA_62_Up
+            else if(isFigure_MA_62_Up(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {figure_MA_62_Up_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {figure_MA_62_Up_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){figure_MA_62_Up_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {figure_MA_62_Up_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {figure_MA_62_Up_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {figure_MA_62_Up_D1  = true;}
+                    print("Figure_MA_62_Up  ", timeFrames[i]);
+            }
+
+            // Figure_MA_62_Down ""
+            else if(isFigure_MA_62_Down(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {figure_MA_62_Down_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {figure_MA_62_Down_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){figure_MA_62_Down_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {figure_MA_62_Down_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {figure_MA_62_Down_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {figure_MA_62_Down_D1  = true;}
+                    print("Figure_MA_62_Down  ", timeFrames[i]);
+            }
+
 }
 
 bool OpenOnHalfWaveOpenPermitUp_M1     = false;
@@ -2870,8 +2892,8 @@ macd0_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
 macd1_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
 macd2_MN1 = iMACD(NULL,PERIOD_MN1,12,26,9,PRICE_OPEN,MODE_MAIN,2);
 
-
-if(
+// Block 4 TF
+/*if(
     macd0_H4 > 0 &&
     macd0_H1 > macd1_H1 && macd1_H1 > macd2_H1 && osma0_H1 > osma1_H1 && osma1_H1 > osma2_H1  &&
     macd0_M15 <0 && macd0_M15 > macd1_M15 && macd1_M15 > macd2_M15 &&
@@ -2889,7 +2911,7 @@ if(
 ){
     print("4TF signal UP ", PERIOD_M5);
     fourTimeFramesSignalDown = true;
-}
+}*/
 
    if(total<maxOrders)
      {
