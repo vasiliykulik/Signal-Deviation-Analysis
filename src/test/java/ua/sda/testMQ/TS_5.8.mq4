@@ -338,6 +338,8 @@ void OnTick(void)
       bool candle20_M1  = false, candle20_M5  = false, candle20_M15 = false,  candle20_H1  = false,  candle20_H4  = false,  candle20_D1  = false;
       bool candle21_M1  = false, candle21_M5  = false, candle21_M15 = false,  candle21_H1  = false,  candle21_H4  = false,  candle21_D1  = false;
       bool candle22_M1  = false, candle22_M5  = false, candle22_M15 = false,  candle22_H1  = false,  candle22_H4  = false,  candle22_D1  = false;
+      bool figure_MA_62_Up_M1  = false, figure_MA_62_Up_M5  = false, figure_MA_62_Up_M15 = false,  figure_MA_62_Up_H1  = false,  figure_MA_62_Up_H4  = false,  figure_MA_62_Up_D1  = false;
+      bool figure_MA_62_Down_M1  = false, figure_MA_62_Down_M5  = false, figure_MA_62_Down_M15 = false,  figure_MA_62_Down_H1  = false,  figure_MA_62_Down_H4  = false,  figure_MA_62_Down_D1  = false;
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
@@ -3144,7 +3146,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("isNewSignal = ", isNewSignal);
       if
       (
-      isNewSignal && fourTimeFramesSignalUp
+      isNewSignal && figure_MA_62_Up_H1
 
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
@@ -3320,7 +3322,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-      isNewSignal && fourTimeFramesSignalDown
+      isNewSignal && figure_MA_62_Down_H1
 
 
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
@@ -5742,4 +5744,37 @@ bool isCandle22(ENUM_TIMEFRAMES timeframe){
         )
         {result = true;}
         return result;
+}
+bool isFigure_MA_62_Up(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double ma_0 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_1 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
+    double open_0 = iOpen(NULL,timeframe,0);
+    double open_1 = iOpen(NULL,timeframe,1);
+    if(
+        macd1 < 0 && macd0 > 0 && open_1 < ma_0 && open_0 > ma_0
+    ){
+        result = true;
+    }
+
+    return result;
+}
+
+bool isFigure_MA_62_Down(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double ma_0 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_1 = iMA(NULL,timeFrame,62,0,MODE_SMA,PRICE_OPEN,0);
+    double open_0 = iOpen(NULL,timeframe,0);
+    double open_1 = iOpen(NULL,timeframe,1);
+    if(
+        macd1 > 0 && macd0 < 0 && open_1 > ma_0 && open_0 < ma_0
+    ){
+        result = true;
+    }
+
+    return result;
 }
