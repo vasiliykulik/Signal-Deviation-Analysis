@@ -16,7 +16,7 @@ extern double TrailingStop=10000;
 extern bool isAutoMoneyManagmentEnabled = false;
 extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
-extern double TrailingFiboLevel = 0.618;
+extern double TrailingFiboLevel = 0.382;
 
 extern double maxOrders = 30;
 extern double riskOnOneOrderPercent = 2;
