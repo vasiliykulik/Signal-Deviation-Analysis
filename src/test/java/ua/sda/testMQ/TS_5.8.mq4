@@ -364,7 +364,7 @@ void OnTick(void)
       bool isM1FigureDownBlocked = false; bool isM5FigureDownBlocked = false; bool isM15FigureDownBlocked = false; bool isH1FigureDownBlocked = false; bool isH4FigureDownBlocked = false; bool isD1FigureDownBlocked = false;
 
 bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9PositionFigureUp_M15 = false, is11PositionFigureDown_M15 = false, is10PositionFigureDown_M15 = false, is9PositionFigureDown_M15 = false;
-
+// Block 2.1 Определение Тренда
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymm()
@@ -3502,9 +3502,9 @@ sell=1;
          //Print("We have no money. Free Margin = ",AccountFreeMargin());
          return;
         }
-
+// Block 3 Открытие позиций
       // check for long position (BUY) possibility
-      // Block 3 Открытие позиций
+
       // Print("isDoubleSymmetricH4BuyReady || isDoubleSymmetricH1BuyReady || isDoubleSymmetricM15BuyReady || isDoubleSymmetricM5BuyReady) ", isDoubleSymmetricH4BuyReady, isDoubleSymmetricH1BuyReady, isDoubleSymmetricM15BuyReady, isDoubleSymmetricM5BuyReady);
       if(buy==1)
         {
@@ -3550,8 +3550,6 @@ sell=1;
         }
 // it is important to enter the market correctly,
 // but it is more important to exit it correctly...
-
-
 
 // Block 4 Ведение позиций
 /*Вызывая метод nonSymm
@@ -3673,7 +3671,7 @@ total=OrdersTotal();
      Sleep(3333);
   }
 
-
+// Block 5 nonSymm() - проставляем цены в  global переменных для ПолуВолн, используется в блоке 4
 // проставляем цены для ведения позиции
 bool nonSymm()
   {
