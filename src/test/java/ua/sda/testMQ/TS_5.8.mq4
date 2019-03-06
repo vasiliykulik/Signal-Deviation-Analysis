@@ -3598,12 +3598,13 @@ total=OrdersTotal();
             //               if(Bid>Low[1] && Low[1]>OrderOpenPrice()) // посвечный обвес
             //                 { // посвечный обвес
             //                  if(Low[1]>OrderStopLoss()) // посвечный обвес
-            OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //21.02.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double spread=Ask-Bid;
+            OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //21.02.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
             double stopShift=stopLossForBuyMin-OrderStopLoss();
 
             if(stopLossForBuyMin>OrderOpenPrice() && stopShift > spread && Bid>stopLossForBuyMin && stopLossForBuyMin>OrderStopLoss())
               {
+              OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //07.03.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
@@ -3656,6 +3657,7 @@ total=OrdersTotal();
 
             if(stopLossForSellMax<OrderOpenPrice() && (stopShift > spread || stopShift <= 0) && Ask<stopLossForSellMax && (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0))
               {
+              OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //07.03.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                return;
