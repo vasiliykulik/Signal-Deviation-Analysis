@@ -339,8 +339,8 @@ void OnTick(void)
       bool candle22_M1  = false, candle22_M5  = false, candle22_M15 = false,  candle22_H1  = false,  candle22_H4  = false,  candle22_D1  = false;
       bool figure_MA_62_Up_M1  = false, figure_MA_62_Up_M5  = false, figure_MA_62_Up_M15 = false,  figure_MA_62_Up_H1  = false,  figure_MA_62_Up_H4  = false,  figure_MA_62_Up_D1  = false;
       bool figure_MA_62_Down_M1  = false, figure_MA_62_Down_M5  = false, figure_MA_62_Down_M15 = false,  figure_MA_62_Down_H1  = false,  figure_MA_62_Down_H4  = false,  figure_MA_62_Down_D1  = false;
-      bool twoMinAllTFtoH4Higher_M1  = false, twoMinAllTFtoH4Higher_M5  = false, twoMinAllTFtoH4Higher_M15 = false,  twoMinAllTFtoH4Higher_H1  = false,  twoMinAllTFtoH4Higher_H4  = false;
-      bool twoMaxAllTFtoH4Lower_M1  = false, twoMaxAllTFtoH4Lower_M5  = false, twoMaxAllTFtoH4Lower_M15 = false,  twoMaxAllTFtoH4Lower_H1  = false,  twoMaxAllTFtoH4Lower_H4  = false;
+      bool twoMinAllTFtoH4Higher_Up_M1  = false, twoMinAllTFtoH4Higher_Up_M5  = false, twoMinAllTFtoH4Higher_Up_M15 = false,  twoMinAllTFtoH4Higher_Up_H1  = false,  twoMinAllTFtoH4Higher_Up_H4  = false;
+      bool twoMaxAllTFtoH4Lower_Down_M1  = false, twoMaxAllTFtoH4Lower_Down_M5  = false, twoMaxAllTFtoH4Lower_Down_M15 = false,  twoMaxAllTFtoH4Lower_Down_H1  = false,  twoMaxAllTFtoH4Lower_Down_H4  = false;
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
@@ -5849,8 +5849,8 @@ bool isTwoMaxAllTFtoH4Lower_Down(ENUM_TIMEFRAMES timeframe){
 
 bool isMACDM1CrossedUp(){
     bool result = false;
-    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
     if(macd0<0 && macd1>0){
         result = true;
     }
@@ -5875,7 +5875,7 @@ bool isBuyOrdersProfitableOrNone(){
         return result;
    }
    if(!result){
-    for(cnt=0;cnt<total;cnt++)
+    for(int cnt=0;cnt<total;cnt++)
       {
          OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
          if(OrderType()<=OP_BUY && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
@@ -5902,7 +5902,7 @@ bool isSellOrdersProfitableOrNone(){
         return result;
    }
    if(!result){
-    for(cnt=0;cnt<total;cnt++)
+    for(int cnt=0;cnt<total;cnt++)
       {
          OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
          if(OrderType()<=OP_SELL && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
@@ -5920,8 +5920,9 @@ bool isSellOrdersProfitableOrNone(){
    return result;
 }
 
-bool updateSLandTPForBuyOrders(double stopLoss, double takeProfit){
-    for(cnt=0;cnt<total;cnt++)
+void updateSLandTPForBuyOrders(double stopLoss, double takeProfit){
+    int total=OrdersTotal();
+    for(int cnt=0;cnt<total;cnt++)
       {
          OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
          if(OrderType()<=OP_BUY && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
@@ -5930,8 +5931,9 @@ bool updateSLandTPForBuyOrders(double stopLoss, double takeProfit){
          }
       }
 }
-bool updateSLandTPForSellOrders(double stopLoss, double takeProfit){
-    for(cnt=0;cnt<total;cnt++)
+void updateSLandTPForSellOrders(double stopLoss, double takeProfit){
+    int total=OrdersTotal();
+    for(int cnt=0;cnt<total;cnt++)
       {
          OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
          if(OrderType()<=OP_SELL && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
