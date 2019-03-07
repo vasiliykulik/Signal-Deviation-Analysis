@@ -3603,7 +3603,7 @@ total=OrdersTotal();
             double stopShift=stopLossForBuyMin-OrderStopLoss();
 
             if(
-            stopLossForBuyMin>OrderOpenPrice() &&
+            stopLossForBuyMin>OrderOpenPrice() && // условие БезУбытка
              stopShift > spread &&
               Bid>stopLossForBuyMin &&
                stopLossForBuyMin>OrderStopLoss()
@@ -3661,7 +3661,7 @@ total=OrdersTotal();
             double stopShift=OrderStopLoss()-stopLossForSellMax;
 
             if(
-            stopLossForSellMax<OrderOpenPrice() &&
+            stopLossForSellMax<OrderOpenPrice() && // условие БезУбытка
             (stopShift > spread || stopShift <= 0) &&
              Ask<stopLossForSellMax &&
              (stopLossForSellMax<OrderStopLoss() || OrderStopLoss()==0)
