@@ -2828,7 +2828,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     print("Figure_MA_62_Down  ", timeFrames[i]);
             }
             // twoMinAllTFtoH4Higher
-            if(isFigure_MA_62_Up(timeFrames[i])){
+            if(isTwoMinAllTFtoH4Higher_Up(timeFrames[i])){
                     if(timeFrames[i]==PERIOD_M1) {twoMinAllTFtoH4Higher_Up_M1  = true;}
                     if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
@@ -2838,7 +2838,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }
 
             // twoMaxAllTFtoH4Lower
-            if(isFigure_MA_62_Down(timeFrames[i])){
+            if(isTwoMaxAllTFtoH4Lower_Down(timeFrames[i])){
                     if(timeFrames[i]==PERIOD_M1) {twoMaxAllTFtoH4Lower_Down_M1  = true;}
                     if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
@@ -3171,7 +3171,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("isNewSignal = ", isNewSignal);
       if
       (
-      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+//      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+        isNewSignal && isTwoMinAllTFtoH4Higher && isMACDM1CrossedUp()
 
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
  //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
@@ -3347,8 +3348,8 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
-
+//      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
 
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
@@ -3542,12 +3543,17 @@ sell=1;
          // не допустим супер стопа
          if(stopLossForBuyMin<currentStopLoss) {stopLossForBuyMin=currentStopLoss;}
 
-         ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+         if(isBuyOrdersProfitableOrNone())
+         {
+            ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+         }
+
          //Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             isNewSignal = false;
+            updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
          else Print("Error opening BUY order : ",GetLastError());
          return;
@@ -3565,12 +3571,17 @@ sell=1;
          // не допустим супер стопа
          if(stopLossForSellMax>currentStopLoss) {stopLossForSellMax=currentStopLoss;}
 
-         ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
+         if(isSellOrdersProfitableOrNone())
+         {
+            ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
+         }
+
          //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             isNewSignal = false;
+            updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
          else Print("Error opening SELL order : ",GetLastError());
          return;
@@ -5812,4 +5823,120 @@ bool isFigure_MA_62_Down(ENUM_TIMEFRAMES timeframe){
     }
 
     return result;
+}
+
+bool isTwoMinAllTFtoH4Higher_Up(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    if(
+        firstMinGlobal < Bid &&
+        secondMinGlobal < Bid
+    ){
+        result = true;
+    }
+    return result;
+}
+bool isTwoMaxAllTFtoH4Lower_Down(ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    if(
+        firstMaxGlobal > Ask &&
+        secondMaxGlobal > Ask
+    ){
+        result = true;
+    }
+    return result;
+}
+
+
+bool isMACDM1CrossedUp(){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    if(macd0<0 && macd1>0){
+        result = true;
+    }
+    return result;
+}
+bool isMACDM1CrossedDown(){
+    bool result = false;
+    double macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    if(macd0>0 && macd1<0){
+        result = true;
+    }
+    return result;
+}
+
+bool isBuyOrdersProfitableOrNone(){
+   bool result = false;
+
+   int total=OrdersTotal();
+   if(total<1){
+        result = true;
+        return result;
+   }
+   if(!result){
+    for(cnt=0;cnt<total;cnt++)
+      {
+         OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
+         if(OrderType()<=OP_BUY && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
+         {
+            if(Bid>OrderOpenPrice()){
+                result = true;
+            }
+            else{
+                result = false;
+                return result;
+            }
+         }
+      }
+   }
+   return result;
+}
+
+bool isSellOrdersProfitableOrNone(){
+   bool result = false;
+
+   int total=OrdersTotal();
+   if(total<1){
+        result = true;
+        return result;
+   }
+   if(!result){
+    for(cnt=0;cnt<total;cnt++)
+      {
+         OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
+         if(OrderType()<=OP_SELL && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
+         {
+            if(Ask<OrderOpenPrice()){
+                result = true;
+            }
+            else{
+                result = false;
+                return result;
+            }
+         }
+      }
+   }
+   return result;
+}
+
+bool updateSLandTPForBuyOrders(double stopLoss, double takeProfit){
+    for(cnt=0;cnt<total;cnt++)
+      {
+         OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
+         if(OrderType()<=OP_BUY && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
+         {
+            OrderModify(OrderTicket(),OrderOpenPrice(),stopLoss,takeProfit,0,Green);
+         }
+      }
+}
+bool updateSLandTPForSellOrders(double stopLoss, double takeProfit){
+    for(cnt=0;cnt<total;cnt++)
+      {
+         OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
+         if(OrderType()<=OP_SELL && OrderSymbol()==Symbol())   // check for opened position, // check for symbol
+         {
+            OrderModify(OrderTicket(),OrderOpenPrice(),stopLoss,takeProfit,0,Green);
+         }
+      }
 }
