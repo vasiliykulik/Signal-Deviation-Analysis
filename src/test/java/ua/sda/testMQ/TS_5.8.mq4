@@ -8,8 +8,8 @@
 #property version   "5.8"
 #property strict
 
-extern double TakeProfit=2400;
-extern double StopLoss=1600;
+extern double TakeProfit=500;
+extern double StopLoss=500;
 extern double externalLots=0.01;
 extern double TrailingStop=10000;
 
@@ -339,6 +339,8 @@ void OnTick(void)
       bool candle22_M1  = false, candle22_M5  = false, candle22_M15 = false,  candle22_H1  = false,  candle22_H4  = false,  candle22_D1  = false;
       bool figure_MA_62_Up_M1  = false, figure_MA_62_Up_M5  = false, figure_MA_62_Up_M15 = false,  figure_MA_62_Up_H1  = false,  figure_MA_62_Up_H4  = false,  figure_MA_62_Up_D1  = false;
       bool figure_MA_62_Down_M1  = false, figure_MA_62_Down_M5  = false, figure_MA_62_Down_M15 = false,  figure_MA_62_Down_H1  = false,  figure_MA_62_Down_H4  = false,  figure_MA_62_Down_D1  = false;
+      bool twoMinAllTFtoH4Higher_M1  = false, twoMinAllTFtoH4Higher_M5  = false, twoMinAllTFtoH4Higher_M15 = false,  twoMinAllTFtoH4Higher_H1  = false,  twoMinAllTFtoH4Higher_H4  = false;
+      bool twoMaxAllTFtoH4Lower_M1  = false, twoMaxAllTFtoH4Lower_M5  = false, twoMaxAllTFtoH4Lower_M15 = false,  twoMaxAllTFtoH4Lower_H1  = false,  twoMaxAllTFtoH4Lower_H4  = false;
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
@@ -2825,6 +2827,25 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_D1) {figure_MA_62_Down_D1  = true;}
                     print("Figure_MA_62_Down  ", timeFrames[i]);
             }
+            // twoMinAllTFtoH4Higher
+            if(isFigure_MA_62_Up(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {twoMinAllTFtoH4Higher_Up_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {twoMinAllTFtoH4Higher_Up_H4  = true;}
+                    print("twoMinAllTFtoH4Higher  ", timeFrames[i]);
+            }
+
+            // twoMaxAllTFtoH4Lower
+            if(isFigure_MA_62_Down(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {twoMaxAllTFtoH4Lower_Down_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {twoMaxAllTFtoH4Lower_Down_H4  = true;}
+                    print("twoMaxAllTFtoH4Lower  ", timeFrames[i]);
+            }
 
 }
 
@@ -3041,13 +3062,19 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
      isCandleDown = isH4CandleDown || isH1CandleDown || isM15CandleDown;
      isCandleUp =   isH4CandleUp || isH1CandleUp || isM15CandleUp;
 
-
-
+bool isTwoMinAllTFtoH4Higher = false;
+bool isTwoMaxAllTFtoH4Lower = false;
+isTwoMinAllTFtoH4Higher = twoMinAllTFtoH4Higher_Up_M1 && twoMinAllTFtoH4Higher_Up_M5 && twoMinAllTFtoH4Higher_Up_M15 && twoMinAllTFtoH4Higher_Up_H1 && twoMinAllTFtoH4Higher_Up_H4;
+isTwoMaxAllTFtoH4Lower = twoMaxAllTFtoH4Lower_Down_M1 && twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_Down_M15 && twoMaxAllTFtoH4Lower_Down_H1 && twoMaxAllTFtoH4Lower_Down_H4;
+if(isTwoMinAllTFtoH4Higher && isTwoMaxAllTFtoH4Lower) {
+    isTwoMinAllTFtoH4Higher = false;
+    isTwoMaxAllTFtoH4Lower = false;
+}
 
   print();
 //  is determined by the conditions M5,M15,H1
 
-  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M5, messageGlobalPERIOD_M15,messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
+  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M1, messageGlobalPERIOD_M5, messageGlobalPERIOD_M15, messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
