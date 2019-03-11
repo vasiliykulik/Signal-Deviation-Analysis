@@ -2844,7 +2844,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
                     print("twoMaxAllTFtoH4Lower  ", timeFrames[i]);
             }
-
+// for isNew flag - make new signal for HalfWave
             // newHalfWave_Up
             if(isMACDCrossedZeroUp (timeFrames[i])){
                     if(timeFrames[i]==PERIOD_M1) {newHalfWave_Up_M1  = true;}
@@ -2863,25 +2863,36 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     print("newHalfWave_Down  ", timeFrames[i]);
             }
 
+}
+
+
             // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
-            if(isTwoMinAllTFtoH4Higher_Up(timeFrames[i])){
-                    if(timeFrames[i]==PERIOD_M1) {newHalfWave_Up_M1  = true;}
-                    if(timeFrames[i]==PERIOD_M5) {newHalfWave_Up_M5  = true;}
-                    if(timeFrames[i]==PERIOD_M15){newHalfWave_Up_M15 = true;}
-                    if(timeFrames[i]==PERIOD_H1) {newHalfWave_Up_H1  = true;}
+            if(isOSMACrossedZeroUp(PERIOD_H1)){
+                periodGlobal = PERIOD_M5;
+                bool result = nonSymm();
+                double fmin_M5 = firstMinGlobal;
+                double smin_M5 = secondMinGlobal;
+                periodGlobal = PERIOD_M15;
+                bool result = nonSymm();
+                double fmin_M15 = firstMinGlobal;
+                if ()
+                    if(timeFrames[i]==PERIOD_M1) {figure_101_H1_Osma_M5ANDM15fminEquals_Up_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){figure_101_H1_Osma_M5ANDM15fminEquals_Up_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {figure_101_H1_Osma_M5ANDM15fminEquals_Up_H1  = true;}
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", timeFrames[i]);
             }
 
             // Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down
-            if(isTwoMaxAllTFtoH4Lower_Down(timeFrames[i])){
-                    if(timeFrames[i]==PERIOD_M1) {newHalfWave_Down_M1  = true;}
-                    if(timeFrames[i]==PERIOD_M5) {newHalfWave_Down_M5  = true;}
-                    if(timeFrames[i]==PERIOD_M15){newHalfWave_Down_M15 = true;}
-                    if(timeFrames[i]==PERIOD_H1) {newHalfWave_Down_H1  = true;}
+            if(isOSMACrossedZeroDown(PERIOD_H1)){
+                    if(timeFrames[i]==PERIOD_M1) {figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_H1  = true;}
                     print("Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down  ", timeFrames[i]);
             }
 
-}
+
 
 bool OpenOnHalfWaveOpenPermitUp_M1     = false;
 bool OpenOnHalfWaveOpenPermitUp_M5     = false;
@@ -5998,6 +6009,25 @@ bool isMACDCrossedZeroDown (ENUM_TIMEFRAMES timeframe){
     bool result = false;
     double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
     double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    if(macd0>0 && macd1<0){
+        result = true;
+    }
+    return result;
+}
+
+bool isMACDCrossedZeroUp (ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+       double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
+       double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
+    if(macd0>0 && macd1<0){
+        result = true;
+    }
+    return result;
+}
+bool isMACDCrossedZeroDown (ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+       double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
+       double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
     if(macd0>0 && macd1<0){
         result = true;
     }
