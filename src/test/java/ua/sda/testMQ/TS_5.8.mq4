@@ -2875,21 +2875,33 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 periodGlobal = PERIOD_M15;
                 bool result = nonSymm();
                 double fmin_M15 = firstMinGlobal;
-                if ()
-                    if(timeFrames[i]==PERIOD_M1) {figure_101_H1_Osma_M5ANDM15fminEquals_Up_M1  = true;}
-                    if(timeFrames[i]==PERIOD_M5) {figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5  = true;}
-                    if(timeFrames[i]==PERIOD_M15){figure_101_H1_Osma_M5ANDM15fminEquals_Up_M15 = true;}
-                    if(timeFrames[i]==PERIOD_H1) {figure_101_H1_Osma_M5ANDM15fminEquals_Up_H1  = true;}
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", timeFrames[i]);
+                double smin_M15 = fsecondMinGlobal;
+                // Операцию сравнения проверить, если что округлить
+                if (fmin_M5 == fmin_M15 && fmin_M5<smin_M5 && smin_M15 < smin_M15){
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M5);
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M15);
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_H1);
+                    figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true
+                }
             }
 
             // Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down
             if(isOSMACrossedZeroDown(PERIOD_H1)){
-                    if(timeFrames[i]==PERIOD_M1) {figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_M1  = true;}
-                    if(timeFrames[i]==PERIOD_M5) {figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_M5  = true;}
-                    if(timeFrames[i]==PERIOD_M15){figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_M15 = true;}
-                    if(timeFrames[i]==PERIOD_H1) {figure_102_H1_Osma_M5ANDM15fmaxEquals_Down_H1  = true;}
-                    print("Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down  ", timeFrames[i]);
+                periodGlobal = PERIOD_M5;
+                bool result = nonSymm();
+                double fmax_M5 = firstMaxGlobal;
+                double smax_M5 = secondMaxGlobal;
+                periodGlobal = PERIOD_M15;
+                bool result = nonSymm();
+                double fmax_M15 = firstMaxGlobal;
+                double smax_M15 = fsecondMaxGlobal;
+                // Операцию сравнения проверить, если что округлить
+                if (fmin_M5 == fmin_M15 && fmin_M5<smin_M5 && smin_M15 < smin_M15){
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M5);
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M15);
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_H1);
+                    figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true
+                }
             }
 
 
