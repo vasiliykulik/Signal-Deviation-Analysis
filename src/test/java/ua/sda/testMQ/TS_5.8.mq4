@@ -341,6 +341,8 @@ void OnTick(void)
       bool figure_MA_62_Down_M1  = false, figure_MA_62_Down_M5  = false, figure_MA_62_Down_M15 = false,  figure_MA_62_Down_H1  = false,  figure_MA_62_Down_H4  = false,  figure_MA_62_Down_D1  = false;
       bool twoMinAllTFtoH4Higher_Up_M1  = false, twoMinAllTFtoH4Higher_Up_M5  = false, twoMinAllTFtoH4Higher_Up_M15 = false,  twoMinAllTFtoH4Higher_Up_H1  = false,  twoMinAllTFtoH4Higher_Up_H4  = false;
       bool twoMaxAllTFtoH4Lower_Down_M1  = false, twoMaxAllTFtoH4Lower_Down_M5  = false, twoMaxAllTFtoH4Lower_Down_M15 = false,  twoMaxAllTFtoH4Lower_Down_H1  = false,  twoMaxAllTFtoH4Lower_Down_H4  = false;
+      bool newHalfWave_Up_M1  = false, newHalfWave_Up_M5  = false, newHalfWave_Up_M15 = false,  newHalfWave_Up_H1  = false,  newHalfWave_Up_H4  = false;
+      bool newHalfWave_Down_M1  = false, newHalfWave_Down_M5  = false, newHalfWave_Down_M15 = false,  newHalfWave_Down_H1  = false,  newHalfWave_Down_H4  = false;
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
@@ -2843,6 +2845,42 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     print("twoMaxAllTFtoH4Lower  ", timeFrames[i]);
             }
 
+            // newHalfWave_Up
+            if(isMACDCrossedZeroUp (timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {newHalfWave_Up_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {newHalfWave_Up_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){newHalfWave_Up_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {newHalfWave_Up_H1  = true;}
+                    print("newHalfWave_Up  ", timeFrames[i]);
+            }
+
+            // newHalfWave_Down
+            if(isMACDCrossedZeroDown(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {newHalfWave_Down_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {newHalfWave_Down_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){newHalfWave_Down_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {newHalfWave_Down_H1  = true;}
+                    print("newHalfWave_Down  ", timeFrames[i]);
+            }
+
+            // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
+            if(isTwoMinAllTFtoH4Higher_Up(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {newHalfWave_Up_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {newHalfWave_Up_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){newHalfWave_Up_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {newHalfWave_Up_H1  = true;}
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", timeFrames[i]);
+            }
+
+            // Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down
+            if(isTwoMaxAllTFtoH4Lower_Down(timeFrames[i])){
+                    if(timeFrames[i]==PERIOD_M1) {newHalfWave_Down_M1  = true;}
+                    if(timeFrames[i]==PERIOD_M5) {newHalfWave_Down_M5  = true;}
+                    if(timeFrames[i]==PERIOD_M15){newHalfWave_Down_M15 = true;}
+                    if(timeFrames[i]==PERIOD_H1) {newHalfWave_Down_H1  = true;}
+                    print("Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down  ", timeFrames[i]);
+            }
+
 }
 
 bool OpenOnHalfWaveOpenPermitUp_M1     = false;
@@ -3062,10 +3100,7 @@ bool isTwoMinAllTFtoH4Higher = false;
 bool isTwoMaxAllTFtoH4Lower = false;
 isTwoMinAllTFtoH4Higher = twoMinAllTFtoH4Higher_Up_M5 && twoMinAllTFtoH4Higher_Up_M15 && twoMinAllTFtoH4Higher_Up_H1;
 isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_Down_M15 && twoMaxAllTFtoH4Lower_Down_H1;
-if(isTwoMinAllTFtoH4Higher && isTwoMaxAllTFtoH4Lower) {
-    isTwoMinAllTFtoH4Higher = false;
-    isTwoMaxAllTFtoH4Lower = false;
-}
+
 
   print();
 //  is determined by the conditions M5,M15,H1
@@ -3653,7 +3688,6 @@ total=OrdersTotal();
               OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //07.03.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
-               return;
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
 
@@ -3712,7 +3746,6 @@ total=OrdersTotal();
               OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //07.03.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
-               return;
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
@@ -5950,4 +5983,23 @@ void updateSLandTPForSellOrders(double stopLoss, double takeProfit){
             OrderModify(OrderTicket(),OrderOpenPrice(),stopLoss,takeProfit,0,Green);
          }
       }
+}
+
+bool isMACDCrossedZeroUp (ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    if(macd0>0 && macd1<0){
+        result = true;
+    }
+    return result;
+}
+bool isMACDCrossedZeroDown (ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    if(macd0>0 && macd1<0){
+        result = true;
+    }
+    return result;
 }
