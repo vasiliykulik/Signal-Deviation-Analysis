@@ -347,7 +347,7 @@ void OnTick(void)
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
-      bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
+      bool figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2868,40 +2868,44 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 
             // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
-            if(isOSMACrossedZeroUp(PERIOD_H1)){
+            if(isOsMACrossedZeroUp(PERIOD_H1)){
                 periodGlobal = PERIOD_M5;
-                bool result = nonSymm();
+                bool result = false;
+                 result = nonSymm();
                 double fmin_M5 = firstMinGlobal;
                 double smin_M5 = secondMinGlobal;
                 periodGlobal = PERIOD_M15;
-                bool result = nonSymm();
+                result = false;
+                 result = nonSymm();
                 double fmin_M15 = firstMinGlobal;
-                double smin_M15 = fsecondMinGlobal;
+                double smin_M15 = secondMinGlobal;
                 // Операцию сравнения проверить, если что округлить
                 if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M5);
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M15);
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_H1);
-                    figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true
+                    figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true;
                 }
             }
 
             // Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down
-            if(isOSMACrossedZeroDown(PERIOD_H1)){
+            if(isOsMACrossedZeroDown(PERIOD_H1)){
                 periodGlobal = PERIOD_M5;
-                bool result = nonSymm();
+                bool result = false;
+                result = nonSymm();
                 double fmax_M5 = firstMaxGlobal;
                 double smax_M5 = secondMaxGlobal;
                 periodGlobal = PERIOD_M15;
-                bool result = nonSymm();
+                result = false;
+                result = nonSymm();
                 double fmax_M15 = firstMaxGlobal;
-                double smax_M15 = fsecondMaxGlobal;
+                double smax_M15 = secondMaxGlobal;
                 // Операцию сравнения проверить, если что округлить
                 if (fmax_M5 == fmax_M15 && fmax_M5 > smax_M5 && fmax_M15 > smax_M15){
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_M5);
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_M15);
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_H1);
-                    figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true
+                    figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true;
                 }
             }
 
@@ -6028,20 +6032,20 @@ bool isMACDCrossedZeroDown (ENUM_TIMEFRAMES timeframe){
     return result;
 }
 
-bool isMACDCrossedZeroUp (ENUM_TIMEFRAMES timeframe){
+bool isOsMACrossedZeroUp (ENUM_TIMEFRAMES timeframe){
     bool result = false;
        double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
        double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
-    if(macd0>0 && macd1<0){
+    if(osma0>0 && osma1<0){
         result = true;
     }
     return result;
 }
-bool isMACDCrossedZeroDown (ENUM_TIMEFRAMES timeframe){
+bool isOsMACrossedZeroDown (ENUM_TIMEFRAMES timeframe){
     bool result = false;
        double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
        double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
-    if(macd0>0 && macd1<0){
+    if(osma0>0 && osma1<0){
         result = true;
     }
     return result;
