@@ -346,7 +346,8 @@ void OnTick(void)
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
-
+      bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
+      bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2877,7 +2878,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 double fmin_M15 = firstMinGlobal;
                 double smin_M15 = fsecondMinGlobal;
                 // Операцию сравнения проверить, если что округлить
-                if (fmin_M5 == fmin_M15 && fmin_M5<smin_M5 && smin_M15 < smin_M15){
+                if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M5);
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M15);
                     print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_H1);
@@ -2896,11 +2897,11 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 double fmax_M15 = firstMaxGlobal;
                 double smax_M15 = fsecondMaxGlobal;
                 // Операцию сравнения проверить, если что округлить
-                if (fmin_M5 == fmin_M15 && fmin_M5<smin_M5 && smin_M15 < smin_M15){
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M5);
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M15);
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_H1);
-                    figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true
+                if (fmax_M5 == fmax_M15 && fmax_M5 > smax_M5 && fmax_M15 > smax_M15){
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_M5);
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_M15);
+                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_H1);
+                    figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true
                 }
             }
 
