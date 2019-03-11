@@ -62,7 +62,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string messageGlobalPERIOD_D1 ;
  int countFigures;
 
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1,PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5,PERIOD_M15,PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -2829,21 +2829,17 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }
             // twoMinAllTFtoH4Higher
             if(isTwoMinAllTFtoH4Higher_Up(timeFrames[i])){
-                    if(timeFrames[i]==PERIOD_M1) {twoMinAllTFtoH4Higher_Up_M1  = true;}
                     if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
-                    if(timeFrames[i]==PERIOD_H4) {twoMinAllTFtoH4Higher_Up_H4  = true;}
                     print("twoMinAllTFtoH4Higher  ", timeFrames[i]);
             }
 
             // twoMaxAllTFtoH4Lower
             if(isTwoMaxAllTFtoH4Lower_Down(timeFrames[i])){
-                    if(timeFrames[i]==PERIOD_M1) {twoMaxAllTFtoH4Lower_Down_M1  = true;}
                     if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
-                    if(timeFrames[i]==PERIOD_H4) {twoMaxAllTFtoH4Lower_Down_H4  = true;}
                     print("twoMaxAllTFtoH4Lower  ", timeFrames[i]);
             }
 
@@ -3064,8 +3060,8 @@ MACDForelockFilterForSellPosition = macdDown_H1&& macdDown_H4 && macdDown_D1 && 
 
 bool isTwoMinAllTFtoH4Higher = false;
 bool isTwoMaxAllTFtoH4Lower = false;
-isTwoMinAllTFtoH4Higher = twoMinAllTFtoH4Higher_Up_M1 && twoMinAllTFtoH4Higher_Up_M5 && twoMinAllTFtoH4Higher_Up_M15 && twoMinAllTFtoH4Higher_Up_H1 && twoMinAllTFtoH4Higher_Up_H4;
-isTwoMaxAllTFtoH4Lower = twoMaxAllTFtoH4Lower_Down_M1 && twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_Down_M15 && twoMaxAllTFtoH4Lower_Down_H1 && twoMaxAllTFtoH4Lower_Down_H4;
+isTwoMinAllTFtoH4Higher = twoMinAllTFtoH4Higher_Up_M5 && twoMinAllTFtoH4Higher_Up_M15 && twoMinAllTFtoH4Higher_Up_H1;
+isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_Down_M15 && twoMaxAllTFtoH4Lower_Down_H1;
 if(isTwoMinAllTFtoH4Higher && isTwoMaxAllTFtoH4Lower) {
     isTwoMinAllTFtoH4Higher = false;
     isTwoMaxAllTFtoH4Lower = false;
@@ -3074,7 +3070,7 @@ if(isTwoMinAllTFtoH4Higher && isTwoMaxAllTFtoH4Lower) {
   print();
 //  is determined by the conditions M5,M15,H1
 
-  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M1, messageGlobalPERIOD_M5, messageGlobalPERIOD_M15, messageGlobalPERIOD_H1, messageGlobalPERIOD_H4);
+  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M5, messageGlobalPERIOD_M15, messageGlobalPERIOD_H1);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
@@ -3172,7 +3168,10 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
 //      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
-        isNewSignal && isTwoMinAllTFtoH4Higher && isMACDM1CrossedUp()
+//        isNewSignal && isTwoMinAllTFtoH4Higher && isMACDM1CrossedUp()
+
+isTwoMinAllTFtoH4Higher
+        && isNewSignal
 
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
  //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
@@ -3349,7 +3348,11 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
       if
       (
 //      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
-        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
+//        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
+
+isTwoMaxAllTFtoH4Lower
+            &&
+             isNewSignal
 
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
@@ -3651,6 +3654,7 @@ total=OrdersTotal();
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
                return;
+              // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
 
             //                 } // посвечный обвес
@@ -3709,6 +3713,7 @@ total=OrdersTotal();
                //Print("Sell Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
                OrderModify(OrderTicket(),OrderOpenPrice(),(stopLossForSellMax+(Ask-Bid)*2),OrderTakeProfit(),0,Red);
                return;
+              // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
 
@@ -5828,8 +5833,10 @@ bool isFigure_MA_62_Down(ENUM_TIMEFRAMES timeframe){
 bool isTwoMinAllTFtoH4Higher_Up(ENUM_TIMEFRAMES timeframe){
     bool result = false;
     if(
-        firstMinGlobal < Bid &&
-        secondMinGlobal < Bid
+       firstMinGlobal < Bid &&
+       secondMinGlobal < Bid &&
+       firstMaxGlobal > Bid &&
+       secondMaxGlobal > Bid
     ){
         result = true;
     }
@@ -5838,8 +5845,10 @@ bool isTwoMinAllTFtoH4Higher_Up(ENUM_TIMEFRAMES timeframe){
 bool isTwoMaxAllTFtoH4Lower_Down(ENUM_TIMEFRAMES timeframe){
     bool result = false;
     if(
-        firstMaxGlobal > Ask &&
-        secondMaxGlobal > Ask
+       firstMinGlobal < Ask &&
+       secondMinGlobal < Ask &&
+       firstMaxGlobal > Ask &&
+       secondMaxGlobal > Ask
     ){
         result = true;
     }
