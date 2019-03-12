@@ -16,7 +16,7 @@ extern double TrailingStop=10000;
 extern bool isAutoMoneyManagmentEnabled = false;
 extern int moneyManagement4And8Or12And24_4_Or_12 = 12;
 
-extern double TrailingFiboLevel = 0.382;
+extern double TrailingFiboLevel = 0.236;
 
 extern double maxOrders = 30;
 extern double riskOnOneOrderPercent = 2;
@@ -2867,7 +2867,9 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 }
 
             // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
-            if(isOsMACrossedZeroUp(PERIOD_H1)){
+            if(true
+           // isOsMACrossedZeroUp(PERIOD_H1)
+            ){
                 periodGlobal = PERIOD_M5;
                 bool result = false;
                  result = nonSymm();
@@ -2888,7 +2890,9 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }
 
             // Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down
-            if(isOsMACrossedZeroDown(PERIOD_H1)){
+            if(true
+         //   isOsMACrossedZeroDown(PERIOD_H1)
+            ){
                 periodGlobal = PERIOD_M5;
                 bool result = false;
                 result = nonSymm();
