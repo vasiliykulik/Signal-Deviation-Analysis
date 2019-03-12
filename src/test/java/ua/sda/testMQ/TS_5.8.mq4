@@ -2866,7 +2866,6 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 }
 
-
             // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
             if(isOsMACrossedZeroUp(PERIOD_H1)){
                 periodGlobal = PERIOD_M5;
@@ -3233,7 +3232,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 //      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
 //        isNewSignal && isTwoMinAllTFtoH4Higher && isMACDM1CrossedUp()
 
-isTwoMinAllTFtoH4Higher
+figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1
         && isNewSignal
 
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
@@ -3413,7 +3412,7 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 //      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
 //        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
 
-isTwoMaxAllTFtoH4Lower
+figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1
             &&
              isNewSignal
 
