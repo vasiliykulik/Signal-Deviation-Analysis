@@ -347,7 +347,7 @@ void OnTick(void)
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
-      bool figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
+      bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2835,7 +2835,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
-                    print("twoMinAllTFtoH4Higher  ", timeFrames[i]);
+                    print("twoMinAllTFfromM5toH1Higher  ", timeFrames[i]);
             }
 
             // twoMaxAllTFtoH4Lower
@@ -2843,7 +2843,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
-                    print("twoMaxAllTFtoH4Lower  ", timeFrames[i]);
+                    print("twoMaxAllTFfromM5toH1Lower  ", timeFrames[i]);
             }
 // for isNew flag - make new signal for HalfWave
             // newHalfWave_Up
@@ -2882,9 +2882,9 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 double smin_M15 = secondMinGlobal;
                 // Операцию сравнения проверить, если что округлить
                 if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M5);
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_M15);
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Up  ", PERIOD_H1);
+                    print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_M5);
+                    print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_M15);
+                    //print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_H1);
                     figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true;
                 }
             }
@@ -2905,10 +2905,10 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 double smax_M15 = secondMaxGlobal;
                 // Операцию сравнения проверить, если что округлить
                 if (fmax_M5 == fmax_M15 && fmax_M5 > smax_M5 && fmax_M15 > smax_M15){
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_M5);
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_M15);
-                    print("Figure 101 H1_Osma_M5ANDM15fminEquals_Down  ", PERIOD_H1);
-                    figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true;
+                    print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M5);
+                    print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M15);
+                    // print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_H1);
+                    figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true;
                 }
             }
 
@@ -3241,8 +3241,6 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       )
 //        isNewSignal && isTwoMinAllTFtoH4Higher && isMACDM1CrossedUp()
 
-
-
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
  //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
 
@@ -3425,7 +3423,9 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
         )
 //        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
 
-
+figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1
+            &&
+             isNewSignal
 
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
