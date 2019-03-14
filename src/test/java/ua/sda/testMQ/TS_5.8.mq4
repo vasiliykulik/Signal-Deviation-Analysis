@@ -6033,7 +6033,7 @@ bool isMACDCrossedZeroDown (ENUM_TIMEFRAMES timeframe){
     bool result = false;
     double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
     double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-    if(macd0>0 && macd1<0){
+    if(macd0<0 && macd1>0){
         result = true;
     }
     return result;
