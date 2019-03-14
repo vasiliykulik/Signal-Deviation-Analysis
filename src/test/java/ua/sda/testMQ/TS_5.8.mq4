@@ -3233,11 +3233,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("isNewSignal = ", isNewSignal);
       if
       (
-//      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+      isNewSignal &&
+      (
+      (OpenOnHalfWaveOpenPermitUp_M1  || newHalfWave_Up_M1  ) &&
+      (OpenOnHalfWaveOpenPermitUp_M5  || newHalfWave_Up_M5  ) &&
+      (OpenOnHalfWaveOpenPermitUp_M15 || newHalfWave_Up_M15 )
+      )
 //        isNewSignal && isTwoMinAllTFtoH4Higher && isMACDM1CrossedUp()
 
-figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1
-        && isNewSignal
+
 
       // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
  //  ((isM5FigureUp && isM15FigureUp)||(isM5FigureUp && isH1FigureUp)||(isM15FigureUp && isH1FigureUp))
@@ -3413,12 +3417,15 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
 
       if
       (
-//      isNewSignal && (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15)
+      isNewSignal &&
+       (
+        (OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1 ) ||
+        (OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5 ) ||
+        (OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15)
+        )
 //        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
 
-figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1
-            &&
-             isNewSignal
+
 
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
