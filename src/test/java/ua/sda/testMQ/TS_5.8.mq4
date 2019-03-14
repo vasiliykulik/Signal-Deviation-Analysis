@@ -3423,9 +3423,6 @@ Print("figure59TripleBottomWedgeUp_D1 = ", figure59TripleBottomWedgeUp_D1);
         )
 //        isNewSignal && isTwoMaxAllTFtoH4Lower && isMACDM1CrossedDown()
 
-figure_101_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1
-            &&
-             isNewSignal
 
            // для блокировки сигнала M15 && !isFigureH1InnerM15HalfwaveIsDone по умолчанию происходит инввертирование
     //  ((isM5FigureDown && isM15FigureDown)||(isM5FigureDown && isH1FigureDown)||(isM15FigureDown && isH1FigureDown))
