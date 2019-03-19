@@ -1869,13 +1869,14 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
     // Figure 37 "PennantWedgeUp"
 
     if(
-        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal &&  firstMaxGlobal < channelLimiterForUpperEdgeMinMaxMax(secondMaxGlobal,firstMaxGlobal,thirdMaxGlobal)/*thirdMaxGlobal*/ && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
-        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
-        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
-        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
-        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
-        thirdMinGlobal < fourthMaxGlobal &&
-        isC5Max
+
+        firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > channelLimiterForLowerEdgeMaxMinMin(secondMinGlobal, firstMinGlobal,thirdMinGlobal) /*thirdMinGlobal*/ && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
+        firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
+        secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
+        secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
+        thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
+        thirdMaxGlobal > fourthMinGlobal &&
+        isC5Min
         // && isMACDNewlyCrossedDownFilter1(timeFrames[i])
         ){
             if(timeFrames[i]==PERIOD_M1) {figure37PennantWedgeUp_M1  = true;}
@@ -1884,19 +1885,19 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure37PennantWedgeUp_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure37PennantWedgeUp_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure37PennantWedgeUp_D1  = true;}
-            print("Figure 37 PennantWedgeUp ChangedPlaced ", timeFrames[i]);
+            print("Figure 37 PennantWedgeUp maybe there and back on H1", timeFrames[i]);
     }
 
     // Figure 38 "PennantWedgeDown"
 
     if(
-            firstMinGlobal < firstMaxGlobal && firstMinGlobal < secondMinGlobal && firstMinGlobal < secondMaxGlobal && firstMinGlobal > channelLimiterForLowerEdgeMaxMinMin(secondMinGlobal, firstMinGlobal,thirdMinGlobal) /*thirdMinGlobal*/ && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > fourthMinGlobal &&
-            firstMaxGlobal > secondMinGlobal && firstMaxGlobal < secondMaxGlobal && firstMaxGlobal > thirdMinGlobal && firstMaxGlobal < thirdMaxGlobal && firstMaxGlobal > fourthMinGlobal &&
-            secondMinGlobal < secondMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < thirdMaxGlobal && secondMinGlobal > fourthMinGlobal &&
-            secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > fourthMinGlobal &&
-            thirdMinGlobal < thirdMaxGlobal && thirdMinGlobal > fourthMinGlobal &&
-            thirdMaxGlobal > fourthMinGlobal &&
-            isC5Min
+        firstMaxGlobal > firstMinGlobal && firstMaxGlobal > secondMaxGlobal && firstMaxGlobal > secondMinGlobal &&  firstMaxGlobal < channelLimiterForUpperEdgeMinMaxMax(secondMaxGlobal,firstMaxGlobal,thirdMaxGlobal)/*thirdMaxGlobal*/ && firstMaxGlobal > thirdMinGlobal  && firstMaxGlobal < fourthMaxGlobal &&
+        firstMinGlobal < secondMaxGlobal && firstMinGlobal > secondMinGlobal && firstMinGlobal < thirdMaxGlobal && firstMinGlobal > thirdMinGlobal && firstMinGlobal < fourthMaxGlobal &&
+        secondMaxGlobal > secondMinGlobal && secondMaxGlobal < thirdMaxGlobal && secondMaxGlobal > thirdMinGlobal && secondMaxGlobal < fourthMaxGlobal &&
+        secondMinGlobal < thirdMaxGlobal && secondMinGlobal > thirdMinGlobal && secondMinGlobal < fourthMaxGlobal &&
+        thirdMaxGlobal > thirdMinGlobal && thirdMaxGlobal < fourthMaxGlobal &&
+        thirdMinGlobal < fourthMaxGlobal &&
+        isC5Max
             // && isMACDNewlyCrossedUpFilter1(timeFrames[i])
 
         ){
@@ -1906,7 +1907,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(timeFrames[i]==PERIOD_H1) {figure38PennantWedgeDown_H1  = true;}
             if(timeFrames[i]==PERIOD_H4) {figure38PennantWedgeDown_H4  = true;}
             if(timeFrames[i]==PERIOD_D1) {figure38PennantWedgeDown_D1  = true;}
-            print("Figure 38 PennantWedgeDown ChangedPlaced ", timeFrames[i]);
+            print("Figure 38 PennantWedgeDown maybe there and back on H1", timeFrames[i]);
     }
 
     // Figure 39 "RollbackChannelPennantConfirmationUp"
@@ -2835,7 +2836,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
-                    print("twoMinAllTFfromM5toH1Higher  ", timeFrames[i]);
+                    print("Higher_Than_Two_Min  ", timeFrames[i]);
             }
 
             // twoMaxAllTFtoH4Lower
@@ -2843,7 +2844,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
-                    print("twoMaxAllTFfromM5toH1Lower  ", timeFrames[i]);
+                    print("Lower_Than_Two_Max  ", timeFrames[i]);
             }
 // for isNew flag - make new signal for HalfWave
             // newHalfWave_Up
@@ -2882,8 +2883,8 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 double smin_M15 = secondMinGlobal;
                 // Операцию сравнения проверить, если что округлить
                 if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
-                    print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_M5);
-                    print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_M15);
+                    print("Figure 101 M5fminEqualsM15fmin_Up  ", PERIOD_M5);
+                    print("Figure 101 M15fminEqualsM5fmin_Up  ", PERIOD_M15);
                     //print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_H1);
                     figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true;
                 }
