@@ -2831,21 +2831,33 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_D1) {figure_MA_62_Down_D1  = true;}
                     print("Figure_MA_62_Down  ", timeFrames[i]);
             }
-            // twoMinAllTFtoH4Higher
-            if(isTwoMinAllTFtoH4Higher_Up(timeFrames[i])){
-                    if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
-                    if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
-                    if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
-                    print("Higher_Than_Two_Min  ", timeFrames[i]);
+
+
+            // BewareNastySideTrend
+
+            bool isHigher_Than_Two_Min = false;
+            bool isLower_Than_Two_Max = false;
+            isHigher_Than_Two_Min = isTwoMinAllTFtoH4Higher_Up(timeFrames[i]);
+            isLower_Than_Two_Max = isTwoMaxAllTFtoH4Lower_Down(timeFrames[i]);
+            if(isHigher_Than_Two_Min && isLower_Than_Two_Max){
+                print("BewareNastySideTrend  ", timeFrames[i]);
+            }else{
+                // Higher_Than_Two_Min
+                if(isHigher_Than_Two_Min){
+                        if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
+                        if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
+                        print("Higher_Than_Two_Min  ", timeFrames[i]);
+                }
+                // Lower_Than_Two_Max
+                if(isLower_Than_Two_Max){
+                        if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
+                        if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
+                        print("Lower_Than_Two_Max  ", timeFrames[i]);
+                }
             }
 
-            // twoMaxAllTFtoH4Lower
-            if(isTwoMaxAllTFtoH4Lower_Down(timeFrames[i])){
-                    if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
-                    if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
-                    if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
-                    print("Lower_Than_Two_Max  ", timeFrames[i]);
-            }
 // for isNew flag - make new signal for HalfWave
             // newHalfWave_Up
             if(isMACDCrossedZeroUp (timeFrames[i])){
@@ -5904,8 +5916,8 @@ bool isTwoMinAllTFtoH4Higher_Up(ENUM_TIMEFRAMES timeframe){
     if(
        firstMinGlobal < Bid &&
        secondMinGlobal < Bid &&
-       firstMaxGlobal > Bid &&
-       secondMaxGlobal > Bid
+     //  firstMaxGlobal > Bid &&
+     //  secondMaxGlobal > Bid
     ){
         result = true;
     }
@@ -5914,8 +5926,8 @@ bool isTwoMinAllTFtoH4Higher_Up(ENUM_TIMEFRAMES timeframe){
 bool isTwoMaxAllTFtoH4Lower_Down(ENUM_TIMEFRAMES timeframe){
     bool result = false;
     if(
-       firstMinGlobal < Ask &&
-       secondMinGlobal < Ask &&
+     //  firstMinGlobal < Ask &&
+     //  secondMinGlobal < Ask &&
        firstMaxGlobal > Ask &&
        secondMaxGlobal > Ask
     ){
