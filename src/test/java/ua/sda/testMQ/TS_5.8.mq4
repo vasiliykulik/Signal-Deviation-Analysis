@@ -5915,7 +5915,7 @@ bool isTwoMinAllTFtoH4Higher_Up(ENUM_TIMEFRAMES timeframe){
     bool result = false;
     if(
        firstMinGlobal < Bid &&
-       secondMinGlobal < Bid &&
+       secondMinGlobal < Bid
      //  firstMaxGlobal > Bid &&
      //  secondMaxGlobal > Bid
     ){
