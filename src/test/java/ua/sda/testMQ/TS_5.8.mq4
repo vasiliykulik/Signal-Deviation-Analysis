@@ -62,7 +62,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string messageGlobalPERIOD_D1 ;
  int countFigures;
 
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5,PERIOD_M15,PERIOD_H1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -339,10 +339,10 @@ void OnTick(void)
       bool candle22_M1  = false, candle22_M5  = false, candle22_M15 = false,  candle22_H1  = false,  candle22_H4  = false,  candle22_D1  = false;
       bool figure_MA_62_Up_M1  = false, figure_MA_62_Up_M5  = false, figure_MA_62_Up_M15 = false,  figure_MA_62_Up_H1  = false,  figure_MA_62_Up_H4  = false,  figure_MA_62_Up_D1  = false;
       bool figure_MA_62_Down_M1  = false, figure_MA_62_Down_M5  = false, figure_MA_62_Down_M15 = false,  figure_MA_62_Down_H1  = false,  figure_MA_62_Down_H4  = false,  figure_MA_62_Down_D1  = false;
-      bool twoMinAllTFtoH4Higher_Up_M1  = false, twoMinAllTFtoH4Higher_Up_M5  = false, twoMinAllTFtoH4Higher_Up_M15 = false,  twoMinAllTFtoH4Higher_Up_H1  = false,  twoMinAllTFtoH4Higher_Up_H4  = false;
-      bool twoMaxAllTFtoH4Lower_Down_M1  = false, twoMaxAllTFtoH4Lower_Down_M5  = false, twoMaxAllTFtoH4Lower_Down_M15 = false,  twoMaxAllTFtoH4Lower_Down_H1  = false,  twoMaxAllTFtoH4Lower_Down_H4  = false;
-      bool newHalfWave_Up_M1  = false, newHalfWave_Up_M5  = false, newHalfWave_Up_M15 = false,  newHalfWave_Up_H1  = false,  newHalfWave_Up_H4  = false;
-      bool newHalfWave_Down_M1  = false, newHalfWave_Down_M5  = false, newHalfWave_Down_M15 = false,  newHalfWave_Down_H1  = false,  newHalfWave_Down_H4  = false;
+      bool twoMinAllTFtoH4Higher_Up_M1  = false, twoMinAllTFtoH4Higher_Up_M5  = false, twoMinAllTFtoH4Higher_Up_M15 = false,  twoMinAllTFtoH4Higher_Up_H1  = false,      twoMinAllTFtoH4Higher_Up_H4  = false ,twoMinAllTFtoH4Higher_Up_D1  = false ;
+      bool twoMaxAllTFtoH4Lower_Down_M1  = false, twoMaxAllTFtoH4Lower_Down_M5  = false, twoMaxAllTFtoH4Lower_Down_M15 = false,  twoMaxAllTFtoH4Lower_Down_H1  = false,  twoMaxAllTFtoH4Lower_Down_H4  = false,twoMaxAllTFtoH4Lower_Down_D1  = false;
+      bool newHalfWave_Up_M1  = false, newHalfWave_Up_M5  = false, newHalfWave_Up_M15 = false,  newHalfWave_Up_H1  = false,          newHalfWave_Up_H4  = false, newHalfWave_Up_D1  = false;
+      bool newHalfWave_Down_M1  = false, newHalfWave_Down_M5  = false, newHalfWave_Down_M15 = false,  newHalfWave_Down_H1  = false,  newHalfWave_Down_H4  = false, newHalfWave_Down_D1  = false;
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
@@ -2844,16 +2844,22 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }else{
                 // Higher_Than_Two_Min
                 if(isHigher_Than_Two_Min){
+                        if(timeFrames[i]==PERIOD_M1) {twoMinAllTFtoH4Higher_Up_M1  = true;}
                         if(timeFrames[i]==PERIOD_M5) {twoMinAllTFtoH4Higher_Up_M5  = true;}
                         if(timeFrames[i]==PERIOD_M15){twoMinAllTFtoH4Higher_Up_M15 = true;}
                         if(timeFrames[i]==PERIOD_H1) {twoMinAllTFtoH4Higher_Up_H1  = true;}
+                        if(timeFrames[i]==PERIOD_H4) {twoMinAllTFtoH4Higher_Up_H4  = true;}
+                        if(timeFrames[i]==PERIOD_D1) {twoMinAllTFtoH4Higher_Up_D1  = true;}
                         print("Higher_Than_Two_Min  ", timeFrames[i]);
                 }
                 // Lower_Than_Two_Max
                 if(isLower_Than_Two_Max){
+                        if(timeFrames[i]==PERIOD_M1) {twoMaxAllTFtoH4Lower_Down_M1  = true;}
                         if(timeFrames[i]==PERIOD_M5) {twoMaxAllTFtoH4Lower_Down_M5  = true;}
                         if(timeFrames[i]==PERIOD_M15){twoMaxAllTFtoH4Lower_Down_M15 = true;}
                         if(timeFrames[i]==PERIOD_H1) {twoMaxAllTFtoH4Lower_Down_H1  = true;}
+                        if(timeFrames[i]==PERIOD_H4) {twoMaxAllTFtoH4Lower_Down_H4  = true;}
+                        if(timeFrames[i]==PERIOD_D1) {twoMaxAllTFtoH4Lower_Down_D1  = true;}
                         print("Lower_Than_Two_Max  ", timeFrames[i]);
                 }
             }
@@ -2865,6 +2871,8 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_M5) {newHalfWave_Up_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){newHalfWave_Up_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {newHalfWave_Up_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {newHalfWave_Up_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {newHalfWave_Up_D1  = true;}
                     print("newHalfWave_Up  ", timeFrames[i]);
             }
 
@@ -2874,6 +2882,8 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     if(timeFrames[i]==PERIOD_M5) {newHalfWave_Down_M5  = true;}
                     if(timeFrames[i]==PERIOD_M15){newHalfWave_Down_M15 = true;}
                     if(timeFrames[i]==PERIOD_H1) {newHalfWave_Down_H1  = true;}
+                    if(timeFrames[i]==PERIOD_H4) {newHalfWave_Down_H4  = true;}
+                    if(timeFrames[i]==PERIOD_D1) {newHalfWave_Down_D1  = true;}
                     print("newHalfWave_Down  ", timeFrames[i]);
             }
 
@@ -3149,7 +3159,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   print();
 //  is determined by the conditions M5,M15,H1
 
-  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M5, messageGlobalPERIOD_M15, messageGlobalPERIOD_H1);
+  string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M1, messageGlobalPERIOD_M5, messageGlobalPERIOD_M15, messageGlobalPERIOD_H1, messageGlobalPERIOD_H4, messageGlobalPERIOD_D1);
   int compareResult = StringCompare(signalAnalyzeConcatenated,currentSignalAnalyzeConcatenated,false);
   if (compareResult != 0){
     isNewSignal = true;
