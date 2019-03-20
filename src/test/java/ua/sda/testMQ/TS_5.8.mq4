@@ -2959,27 +2959,52 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     datetime dt1_2 = ObjectGet("VKTREND_LINE", OBJPROP_TIME2);
     datetime dt2_1 = ObjectGet("VKTREND_LINE1", OBJPROP_TIME1);
     datetime dt2_2 = ObjectGet("VKTREND_LINE1", OBJPROP_TIME2);
+    //Print("dt1_1 = ", dt1_1);
+    //Print("dt1_2 = ", dt1_2);
+    //Print("dt2_1 = ", dt2_1);
+    //Print("dt2_2 = ", dt2_2);
     int shift_dt1_1 =iBarShift(NULL,PERIOD_M15,dt1_1);
     int shift_dt1_2 =iBarShift(NULL,PERIOD_M15,dt1_2);
     int shift_dt2_1 =iBarShift(NULL,PERIOD_M15,dt2_1);
     int shift_dt2_2 =iBarShift(NULL,PERIOD_M15,dt2_2);
+        //Print("shift_dt1_1 = ", shift_dt1_1);
+        //Print("shift_dt1_2 = ", shift_dt1_2);
+        //Print("shift_dt2_1 = ", shift_dt2_1);
+        //Print("shift_dt2_2 = ", shift_dt2_2);
 // page 3 of (TL - M15 doc) dt 2.2 - always last in that case:
 /*
     if(shift_dt2_2 < shift_dt1_2){
     }*/
     int resultShiftFirst  = shift_dt2_2;
     int resultShiftSecond = shift_dt2_1;
-    ObjectGetValueByShift("VKTREND_LINE", 0)
-    fmin_Local =
-    smin_Local =
-    fmax_Local =
-    smax_Local =
+    double first_Local_One  = ObjectGetValueByShift("VKTREND_LINE", resultShiftFirst);
+    double first_Local_Two  = ObjectGetValueByShift("VKTREND_LINE1", resultShiftFirst);
+    double second_Local_One = ObjectGetValueByShift("VKTREND_LINE", resultShiftSecond);
+    double second_Local_Two = ObjectGetValueByShift("VKTREND_LINE1", resultShiftSecond);
 
-    double deltaFirst = fmax_M15_Global - fmin_M15_Global;
-    double deltaSecond = smax_M15_Global - smin_M15_Global;
+//    double deltaFirst = fmax_M15_Global - fmin_M15_Global;
+//    double deltaSecond = smax_M15_Global - smin_M15_Global;
+    double deltaFirst ;
+    double deltaSecond ;
+    if
+        (first_Local_Two < first_Local_One && second_Local_Two < second_Local_One)
+    {
+            deltaFirst = first_Local_One - first_Local_Two;
+            deltaSecond = second_Local_One - second_Local_Two;
+    }else if
+        (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One)
+    {
+            deltaFirst = first_Local_Two - first_Local_One;
+            deltaSecond = second_Local_Two - second_Local_One;
+    }
 
-    double amplitude = fmax_M15_Global / deltaFirst;
-
+    double amplitude;
+    if(first_Local_Two!=0 && deltaFirst!=0){
+        amplitude = first_Local_Two / deltaFirst;
+    }
+    //Print("amplitude = ", amplitude);
+    //Print("deltaFirst = ", deltaFirst);
+    //Print("deltaSecond = ", deltaSecond);
     if(deltaFirst > deltaSecond && amplitude > relativeAmplitudePointsGlobal){
         OpenOn_M15_TL_Rebound_OpenPermit = true;
     }
@@ -3311,7 +3336,6 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
         OpenOn_M15_TL_Rebound_OpenPermit &&
-        fmin_M15_Global < smin_M15_Global &&
         newHalfWave_Up_M15
 /*        isNewSignal &&
         (
@@ -3322,15 +3346,12 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       )
 
       {
-
             buy=1;
-
       }
 
       if
       (
         OpenOn_M15_TL_Rebound_OpenPermit &&
-        fmax_M15_Global > smax_M15_Global &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
         (
