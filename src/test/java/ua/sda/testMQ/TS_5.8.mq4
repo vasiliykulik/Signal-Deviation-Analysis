@@ -2954,9 +2954,32 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 // TL - M15 Block
 bool OpenOn_M15_TL_Rebound_OpenPermit     = false;
 if(m15_TL_Rebound_MarketPlay_Enabled){
-    double deltaFirst = fmax_M15_Global-fmin_M15_Global;
+
+    datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
+    datetime dt1_2 = ObjectGet("VKTREND_LINE", OBJPROP_TIME2);
+    datetime dt2_1 = ObjectGet("VKTREND_LINE1", OBJPROP_TIME1);
+    datetime dt2_2 = ObjectGet("VKTREND_LINE1", OBJPROP_TIME2);
+    int shift_dt1_1 =iBarShift(NULL,PERIOD_M15,dt1_1);
+    int shift_dt1_2 =iBarShift(NULL,PERIOD_M15,dt1_2);
+    int shift_dt2_1 =iBarShift(NULL,PERIOD_M15,dt2_1);
+    int shift_dt2_2 =iBarShift(NULL,PERIOD_M15,dt2_2);
+// page 3 of (TL - M15 doc) dt 2.2 - always last in that case:
+/*
+    if(shift_dt2_2 < shift_dt1_2){
+    }*/
+    int resultShiftFirst  = shift_dt2_2;
+    int resultShiftSecond = shift_dt2_1;
+    ObjectGetValueByShift("VKTREND_LINE", 0)
+    fmin_Local =
+    smin_Local =
+    fmax_Local =
+    smax_Local =
+
+    double deltaFirst = fmax_M15_Global - fmin_M15_Global;
     double deltaSecond = smax_M15_Global - smin_M15_Global;
+
     double amplitude = fmax_M15_Global / deltaFirst;
+
     if(deltaFirst > deltaSecond && amplitude > relativeAmplitudePointsGlobal){
         OpenOn_M15_TL_Rebound_OpenPermit = true;
     }
