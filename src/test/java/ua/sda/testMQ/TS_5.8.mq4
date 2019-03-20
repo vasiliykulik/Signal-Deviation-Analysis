@@ -3308,7 +3308,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       (
         OpenOn_M15_TL_Rebound_OpenPermit &&
         fmax_M15_Global > smax_M15_Global &&
-        newHalfWave_Up_M15
+        newHalfWave_Down_M15
 /*        isNewSignal &&
         (
             (OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1 ) ||
