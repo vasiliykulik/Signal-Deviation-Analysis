@@ -2966,6 +2966,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 // TL - M15 Block
 bool OpenOn_M15_TL_Rebound_OpenPermit     = false;
+bool OpenOn_M15_TL_Artefact_OpenPermit     = false;
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
@@ -3004,6 +3005,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     {
             deltaFirst = first_Local_One - first_Local_Two;
             deltaSecond = second_Local_One - second_Local_Two;
+
     }else if
         (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One)
     {
@@ -3015,6 +3017,21 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if(first_Local_Two!=0 && deltaFirst!=0){
         amplitude = first_Local_Two / deltaFirst;
     }
+
+//Artefact Description, the amplitude is not taken into account
+// red - buy
+    if
+        (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
+    {
+        OpenOn_M15_TL_Artefact_OpenPermit = true;
+// green - sell
+    }else if
+        (first_Local_Two < first_Local_One && second_Local_Two > second_Local_One)
+    {
+        OpenOn_M15_TL_Artefact_OpenPermit = true;
+    }
+
+
     //Print("amplitude = ", amplitude);
     //Print("deltaFirst = ", deltaFirst);
     //Print("deltaSecond = ", deltaSecond);
@@ -3351,7 +3368,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("isNewSignal = ", isNewSignal);
       if
       (
-        OpenOn_M15_TL_Rebound_OpenPermit &&
+        //OpenOn_M15_TL_Rebound_OpenPermit &&
+        OpenOn_M15_TL_Artefact_OpenPermit &&
         newHalfWave_Up_M15
 /*        isNewSignal &&
         (
@@ -3367,7 +3385,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        OpenOn_M15_TL_Rebound_OpenPermit &&
+        //OpenOn_M15_TL_Rebound_OpenPermit &&
+        OpenOn_M15_TL_Artefact_OpenPermit &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
         (
