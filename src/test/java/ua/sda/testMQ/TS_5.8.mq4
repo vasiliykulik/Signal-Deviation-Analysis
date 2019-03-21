@@ -31,6 +31,8 @@ extern bool OpenOnHalfWaveDown_M15 = false;
 extern bool m15_TL_Rebound_MarketPlay_Enabled = false;
 extern int relativeAmplitudePointsGlobal = 333;
 
+
+
 int accountLeverage = AccountLeverage();
 
 double fmin_M15_Global = 0.00000000;
