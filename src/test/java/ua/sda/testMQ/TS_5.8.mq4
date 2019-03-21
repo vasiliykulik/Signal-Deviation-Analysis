@@ -29,7 +29,9 @@ extern bool OpenOnHalfWaveDown_M5  = false;
 extern bool OpenOnHalfWaveDown_M15 = false;
 
 extern bool m15_TL_Rebound_MarketPlay_Enabled = false;
-extern int relativeAmplitudePointsGlobal = 100;
+extern int relativeAmplitudePointsGlobal = 333;
+
+int accountLeverage = AccountLeverage();
 
 double fmin_M15_Global = 0.00000000;
 double smin_M15_Global = 0.00000000;
@@ -80,7 +82,6 @@ void OnTick(void)
   string myCurrentPair = Symbol();
 
   if(isAutoMoneyManagmentEnabled){
-    int accountLeverage = AccountLeverage();
     if(myCurrentPair=="EURUSD" || myCurrentPair=="USDJPY" || myCurrentPair=="USDCAD")
       {
           if(moneyManagement4And8Or12And24_4_Or_12 == 12){
@@ -107,8 +108,18 @@ void OnTick(void)
               Lots = (AccountEquity()/8)*0.01;
           }
         }
-
     Lots = NormalizeDouble(Lots,2);
+    if(accountLeverage==500){
+        if(myCurrentPair=="EURUSD" || myCurrentPair=="USDJPY" || myCurrentPair=="USDCAD")
+          {
+                  Lots = (AccountEquity()/11000);
+          }
+        else if(myCurrentPair=="GBPJPY" || myCurrentPair=="GBPUSD")
+          {
+                  Lots = (AccountEquity()/15000);
+          }
+        Lots = NormalizeDouble(Lots,1);
+    }
   }
 
    int cnt,ticket,total,buy,sell;
@@ -3005,9 +3016,12 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     //Print("amplitude = ", amplitude);
     //Print("deltaFirst = ", deltaFirst);
     //Print("deltaSecond = ", deltaSecond);
-    if(deltaFirst > deltaSecond && amplitude > relativeAmplitudePointsGlobal){
+    if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
         OpenOn_M15_TL_Rebound_OpenPermit = true;
     }
+    //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal);
+    //Print("OpenOn_M15_TL_Rebound_OpenPermit = ", OpenOn_M15_TL_Rebound_OpenPermit);
+
 }
 
 
