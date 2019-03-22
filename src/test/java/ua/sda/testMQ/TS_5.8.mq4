@@ -72,6 +72,8 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string messageGlobalPERIOD_H4 ;
  string messageGlobalPERIOD_D1 ;
  int countFigures;
+ string strStats;
+ string strStats1;
 
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
@@ -147,6 +149,8 @@ void OnTick(void)
    messageGlobalPERIOD_H4 ="nothing";
    messageGlobalPERIOD_D1 ="nothing" ;
    countFigures = 0;
+   strStats = "nothing";
+   strStats1 = "nothing";
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -3268,7 +3272,7 @@ isTwoMinAllTFtoH4Higher = twoMinAllTFtoH4Higher_Up_M5 && twoMinAllTFtoH4Higher_U
 isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_Down_M15 && twoMaxAllTFtoH4Lower_Down_H1;
 
 
-  print();
+
 //  is determined by the conditions M5,M15,H1
 
   string currentSignalAnalyzeConcatenated = StringConcatenate(messageGlobalPERIOD_M1, messageGlobalPERIOD_M5, messageGlobalPERIOD_M15, messageGlobalPERIOD_H1, messageGlobalPERIOD_H4, messageGlobalPERIOD_D1);
@@ -3277,6 +3281,27 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
     isNewSignal = true;
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
+
+  int lower = 0, higher = 0, beware = 0, down = 0, up = 0;
+
+                                                       string countString = currentSignalAnalyzeConcatenated;
+  lower  = StringReplace(countString,"Lower","z_z");
+                                                        countString = currentSignalAnalyzeConcatenated;
+  higher = StringReplace(countString,"Higher","z_z");
+                                                        countString = currentSignalAnalyzeConcatenated;
+  beware = StringReplace(countString,"Beware","z_z");
+                                                        countString = currentSignalAnalyzeConcatenated;
+  down   = StringReplace(countString,"Down","z_z");
+                                                        countString = currentSignalAnalyzeConcatenated;
+  up     = StringReplace(countString,"Up","z_z");
+
+  int k = 2;
+  strStats = StringConcatenate("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
+  strStats1 = StringConcatenate("k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
+  //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
+
+    print();
+
 
 // 19.02.2019 TS_7.0 14.1)
  /*  if (isH1FigureDown && isTrendBull_M15){
@@ -3366,6 +3391,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
 // Print ("compareResult = ", compareResult);
 // Print ("isNewSignal = ", isNewSignal);
+
       if
       (
         //OpenOn_M15_TL_Rebound_OpenPermit &&
@@ -3429,6 +3455,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
+            Print("OpenOn_M15_TL_Artefact_OpenPermit = ",OpenOn_M15_TL_Artefact_OpenPermit);
+            Print("lower = ",lower, "higher = ", higher, "beware = ", beware, "down = ", down, "up = ", up);
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
@@ -3457,6 +3485,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
+            Print("OpenOn_M15_TL_Artefact_OpenPermit = ",OpenOn_M15_TL_Artefact_OpenPermit);
+            Print("lower = ",lower, "higher = ", higher, "beware = ", beware, "down = ", down, "up = ", up);
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
@@ -4794,7 +4824,9 @@ bool nonSymmTick()
         "\n", strOpenOnHalfWaveDown_M1  ,
         "\n", strOpenOnHalfWaveDown_M5  ,
         "\n", strOpenOnHalfWaveDown_M15 ,
-        "\n", strMoneyManagment
+        "\n", strMoneyManagment,
+        "\nStats         ", strStats,
+        "\nStats clause  ", strStats1
     );
   }
   //+------------------------------------------------------------------+
