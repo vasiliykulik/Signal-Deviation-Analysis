@@ -55,21 +55,16 @@ ObjectDelete("MARKETRisk");
 int start()
   {
 
-RiskDepo=AccountFreeMargin()*Risk/100;
-double LOTNew = WorkingLot(Risk,Lot); // LOT и будет тот вожделенный торговый лот.
-// для полного счастья, ЛОТ можно нормализовать. Даже желательно:
-LOTNew = NormalizeDouble(LOTNew,2);
+   RiskDepo=AccountFreeMargin()*Risk/100;
+   double LOTNew = WorkingLot(Risk,Lot); // LOT и будет тот вожделенный торговый лот.
+   // для полного счастья, ЛОТ можно нормализовать. Даже желательно:
+   LOTNew = NormalizeDouble(LOTNew,2);
 
+   ObjectGet("STOP", OBJPROP_PRICE1);
+   ObjectGet("START", OBJPROP_PRICE1);
 
-
-
-ObjectGet("STOP", OBJPROP_PRICE1);
-ObjectGet("START", OBJPROP_PRICE1);
-
-ObjectSetText( "MARKETlot","Лот по рынку: "+DoubleToStr(LOTNew,p) , 10, "Times New Roman", text);
-ObjectSetText( "MARKETRisk","Риск: "+DoubleToStr(Risk,1)+"% / "+ DoubleToStr(RiskDepo,0), 10, "Times New Roman", text);
-
-
+   ObjectSetText( "MARKETlot","Лот по рынку: "+DoubleToStr(LOTNew,p) , 10, "Times New Roman", text);
+   ObjectSetText( "MARKETRisk","Риск: "+DoubleToStr(Risk,1)+"% / "+ DoubleToStr(RiskDepo,0), 10, "Times New Roman", text);
 
    return(0);
   }
