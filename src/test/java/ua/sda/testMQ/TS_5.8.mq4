@@ -3456,7 +3456,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             Print("OpenOn_M15_TL_Artefact_OpenPermit = ",OpenOn_M15_TL_Artefact_OpenPermit);
-            Print("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
+            Print(strStats);
+            Print(strStats1);
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
@@ -3486,7 +3487,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             Print("OpenOn_M15_TL_Artefact_OpenPermit = ",OpenOn_M15_TL_Artefact_OpenPermit);
-            Print("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
+            Print(strStats);
+            Print(strStats1);
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
