@@ -85,7 +85,7 @@ double WorkingLot(double risk,double lots)
 
    if(risk>0)
      {
-      Lots=MathFloor(Free*risk/100/One_Lot/Stepx)*Stepx;
+      Lots=MathFloor(Free*risk/99/One_Lot/Stepx)*Stepx;
       if(Lots<Min_Lot) Lots=Min_Lot;
       if(Lots>Max_Lot) Lots=Max_Lot;
     //  return (Lots);
