@@ -2969,8 +2969,8 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }
 
 // TL - M15 Block
-bool OpenOn_M15_TL_Rebound_OpenPermit     = false;
-bool OpenOn_M15_TL_Artifact_OpenPermit     = false;
+bool OpenOn_M15_TL_Rebound_OpenPermit = false;
+bool OpenOn_M15_TL_Artifact_OpenPermit = false;
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
