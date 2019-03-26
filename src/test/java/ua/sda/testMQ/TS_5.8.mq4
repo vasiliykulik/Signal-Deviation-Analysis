@@ -74,6 +74,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  int countFigures;
  string strStats;
  string strStats1;
+ string strStats2;
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
@@ -3063,7 +3064,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
             print("OpenOn_M15_TL_Rebound_Sell_OpenPermit  ", PERIOD_M15);
         }
     }
-    //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal);
+    //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond , amplitude < relativeAmplitudePointsGlobal);
     //Print("OpenOn_M15_TL_Rebound_OpenPermit = ", OpenOn_M15_TL_Rebound_OpenPermit);
 
 }
@@ -3317,14 +3318,14 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   up     = StringReplace(countString,"Up","z_z");
 
   int k = 2;
-  strStats = StringConcatenate("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
-  strStats1 = StringConcatenate("k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
+  strStats = StringConcatenate(" higher = ", higher, " lower = ", lower, " beware = ", beware, " up = ", up, " down = ", down, " Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Artifact_Buy = ", OpenOn_M15_TL_Artifact_Buy_OpenPermit," Artifact_Sell = ", OpenOn_M15_TL_Artifact_Sell_OpenPermit);
+  strStats1 = StringConcatenate(" k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
     bool StatsBuy =  false;
     bool StatsSell = false;
-    bool StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
-    bool StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
-    strStats2 = StringConcatenate("Buy ",StatsBuy,"   Sell ",StatsSell);
+    StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
+    StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
+    strStats2 = StringConcatenate(" Buy (Stats1 && Rebound w Amplitude) ",StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit,"   Sell (Stats1 && Rebound) ",StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit);
     print();
 
 
@@ -4853,7 +4854,7 @@ bool nonSymmTick()
         "\n", strOpenOnHalfWaveDown_M15 ,
         "\n", strMoneyManagment,
         "\nStats         ", strStats,
-        "\nStats1 clause ", strStats1
+        "\nStats1 clause ", strStats1,
         "\nStats2 clause ", strStats2
     );
   }
