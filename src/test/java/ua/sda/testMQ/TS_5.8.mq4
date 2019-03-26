@@ -3310,7 +3310,8 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   strStats = StringConcatenate("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
   strStats1 = StringConcatenate("k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
-
+    bool StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
+    bool StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
     print();
 
 
@@ -3405,7 +3406,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        //OpenOn_M15_TL_Rebound_OpenPermit &&
+        //OpenOn_M15_TL_Rebound_OpenPermit && StatsBuy
         OpenOn_M15_TL_Artifact_Up_OpenPermit &&
         newHalfWave_Up_M15
 /*        isNewSignal &&
@@ -3422,7 +3423,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        //OpenOn_M15_TL_Rebound_OpenPermit &&
+        //OpenOn_M15_TL_Rebound_OpenPermit && StatsSell
         OpenOn_M15_TL_Artifact_Down_OpenPermit &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
