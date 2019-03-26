@@ -2970,9 +2970,12 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             }
 
 // TL - M15 Block
-bool OpenOn_M15_TL_Rebound_OpenPermit = false;
-bool OpenOn_M15_TL_Artifact_Up_OpenPermit = false;
-bool OpenOn_M15_TL_Artifact_Down_OpenPermit = false;
+bool OpenOn_M15_TL_Rebound_Buy_OpenPermit = false;
+bool OpenOn_M15_TL_Rebound_Sell_OpenPermit = false;
+bool reboundBuy = false;
+bool reboundSell = false;
+bool OpenOn_M15_TL_Artifact_Buy_OpenPermit = false;
+bool OpenOn_M15_TL_Artifact_Sell_OpenPermit = false;
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
@@ -3010,8 +3013,10 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     double deltaFirst ;
     double deltaSecond ;
     // buy
+    reboundBuy = (first_Local_Two < first_Local_One) && (second_Local_Two < second_Local_One);
+    reboundSell = (first_Local_Two > first_Local_One) && (second_Local_Two > second_Local_One);
     if
-        (first_Local_Two < first_Local_One && second_Local_Two < second_Local_One)
+        (reboundBuy)
     {
             deltaFirst = first_Local_One - first_Local_Two;
             deltaSecond = second_Local_One - second_Local_Two;
@@ -3019,7 +3024,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     }
     // sell
     else if
-        (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One)
+        (reboundSell)
     {
             deltaFirst = first_Local_Two - first_Local_One;
             deltaSecond = second_Local_Two - second_Local_One;
@@ -3035,23 +3040,27 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
     {
-        OpenOn_M15_TL_Artifact_Up_OpenPermit = true;
-        print("OpenOn_M15_TL_Artifact_Up_OpenPermit  ", PERIOD_M15);
+        OpenOn_M15_TL_Artifact_Buy_OpenPermit = true;
+        print("OpenOn_M15_TL_Artifact_Buy_OpenPermit  ", PERIOD_M15);
 // green - sell
     }else if
         (first_Local_Two < first_Local_One && second_Local_Two > second_Local_One)
     {
-        OpenOn_M15_TL_Artifact_Down_OpenPermit = true;
-        print("OpenOn_M15_TL_Artifact_Down_OpenPermit  ", PERIOD_M15);
+        OpenOn_M15_TL_Artifact_Sell_OpenPermit = true;
+        print("OpenOn_M15_TL_Artifact_Sell_OpenPermit  ", PERIOD_M15);
     }
-
-
     //Print("amplitude = ", amplitude);
     //Print("deltaFirst = ", deltaFirst);
     //Print("deltaSecond = ", deltaSecond);
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
-        OpenOn_M15_TL_Rebound_OpenPermit = true;
-        print("OpenOn_M15_TL_Rebound_OpenPermit  ", PERIOD_M15);
+        if(reboundBuy){
+            OpenOn_M15_TL_Rebound_Buy_OpenPermit = true;
+            print("OpenOn_M15_TL_Rebound_Buy_OpenPermit  ", PERIOD_M15);
+        }
+        else if (reboundSell){
+            OpenOn_M15_TL_Rebound_Sell_OpenPermit = true;
+            print("OpenOn_M15_TL_Rebound_Sell_OpenPermit  ", PERIOD_M15);
+        }
     }
     //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal);
     //Print("OpenOn_M15_TL_Rebound_OpenPermit = ", OpenOn_M15_TL_Rebound_OpenPermit);
@@ -3310,6 +3319,8 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   strStats = StringConcatenate("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
   strStats1 = StringConcatenate("k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
+  bool StatsBuy =  false;
+  bool StatsSell = false;
     bool StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
     bool StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
     print();
@@ -3406,8 +3417,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        //OpenOn_M15_TL_Rebound_OpenPermit && StatsBuy
-        OpenOn_M15_TL_Artifact_Up_OpenPermit &&
+        //OpenOn_M15_TL_Rebound_Buy_OpenPermit && StatsBuy
+        OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
         newHalfWave_Up_M15
 /*        isNewSignal &&
         (
@@ -3423,8 +3434,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        //OpenOn_M15_TL_Rebound_OpenPermit && StatsSell
-        OpenOn_M15_TL_Artifact_Down_OpenPermit &&
+        //OpenOn_M15_TL_Rebound_Sell_OpenPermit && StatsSell
+        OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
         (
