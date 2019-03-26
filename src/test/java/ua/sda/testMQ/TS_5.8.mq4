@@ -2970,25 +2970,26 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 
 // TL - M15 Block
 bool OpenOn_M15_TL_Rebound_OpenPermit = false;
-bool OpenOn_M15_TL_Artifact_OpenPermit = false;
+bool OpenOn_M15_TL_Artifact_Up_OpenPermit = false;
+bool OpenOn_M15_TL_Artifact_Down_OpenPermit = false;
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
     datetime dt1_2 = ObjectGet("VKTREND_LINE", OBJPROP_TIME2);
     datetime dt2_1 = ObjectGet("VKTREND_LINE1", OBJPROP_TIME1);
     datetime dt2_2 = ObjectGet("VKTREND_LINE1", OBJPROP_TIME2);
-    Print("dt1_1 = ", dt1_1);
-    Print("dt1_2 = ", dt1_2);
-    Print("dt2_1 = ", dt2_1);
-    Print("dt2_2 = ", dt2_2);
+    //Print("dt1_1 = ", dt1_1);
+    //Print("dt1_2 = ", dt1_2);
+    //Print("dt2_1 = ", dt2_1);
+    //Print("dt2_2 = ", dt2_2);
     int shift_dt1_1 =iBarShift(NULL,PERIOD_M15,dt1_1);
     int shift_dt1_2 =iBarShift(NULL,PERIOD_M15,dt1_2);
     int shift_dt2_1 =iBarShift(NULL,PERIOD_M15,dt2_1);
     int shift_dt2_2 =iBarShift(NULL,PERIOD_M15,dt2_2);
-        Print("shift_dt1_1 = ", shift_dt1_1);
-        Print("shift_dt1_2 = ", shift_dt1_2);
-        Print("shift_dt2_1 = ", shift_dt2_1);
-        Print("shift_dt2_2 = ", shift_dt2_2);
+     //   Print("shift_dt1_1 = ", shift_dt1_1);
+     //   Print("shift_dt1_2 = ", shift_dt1_2);
+     //   Print("shift_dt2_1 = ", shift_dt2_1);
+     //   Print("shift_dt2_2 = ", shift_dt2_2);
 // page 3 of (TL - M15 doc) dt 2.2 - always last in that case:
 /*
     if(shift_dt2_2 < shift_dt1_2){
@@ -2999,10 +3000,10 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     double first_Local_Two  = ObjectGetValueByShift("VKTREND_LINE1", resultShiftFirst);
     double second_Local_One = ObjectGetValueByShift("VKTREND_LINE", resultShiftSecond);
     double second_Local_Two = ObjectGetValueByShift("VKTREND_LINE1", resultShiftSecond);
-        Print("first_Local_One = ", first_Local_One);
-        Print("first_Local_Two = ", first_Local_Two);
-        Print("second_Local_One = ", second_Local_One);
-        Print("second_Local_Two = ", second_Local_Two);
+       // Print("first_Local_One = ", first_Local_One);
+       // Print("first_Local_Two = ", first_Local_Two);
+       // Print("second_Local_One = ", second_Local_One);
+       // Print("second_Local_Two = ", second_Local_Two);
 //    double deltaFirst = fmax_M15_Global - fmin_M15_Global;
 //    double deltaSecond = smax_M15_Global - smin_M15_Global;
     double deltaFirst ;
@@ -3030,12 +3031,14 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
     {
-        OpenOn_M15_TL_Artifact_OpenPermit = true;
+        OpenOn_M15_TL_Artifact_Up_OpenPermit = true;
+        print("OpenOn_M15_TL_Artifact_Up_OpenPermit  ", PERIOD_M15);
 // green - sell
     }else if
         (first_Local_Two < first_Local_One && second_Local_Two > second_Local_One)
     {
-        OpenOn_M15_TL_Artifact_OpenPermit = true;
+        OpenOn_M15_TL_Artifact_Down_OpenPermit = true;
+        print("OpenOn_M15_TL_Artifact_Down_OpenPermit  ", PERIOD_M15);
     }
 
 
@@ -3398,7 +3401,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
         //OpenOn_M15_TL_Rebound_OpenPermit &&
-        OpenOn_M15_TL_Artifact_OpenPermit &&
+        OpenOn_M15_TL_Artifact_Up_OpenPermit &&
         newHalfWave_Up_M15
 /*        isNewSignal &&
         (
@@ -3415,7 +3418,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if
       (
         //OpenOn_M15_TL_Rebound_OpenPermit &&
-        OpenOn_M15_TL_Artifact_OpenPermit &&
+        OpenOn_M15_TL_Artifact_Down_OpenPermit &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
         (
@@ -3458,7 +3461,6 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
-            Print("OpenOn_M15_TL_Artifact_OpenPermit = ",OpenOn_M15_TL_Artifact_OpenPermit);
             Print(strStats);
             Print(strStats1);
             isNewSignal = false;
@@ -3489,7 +3491,6 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
-            Print("OpenOn_M15_TL_Artifact_OpenPermit = ",OpenOn_M15_TL_Artifact_OpenPermit);
             Print(strStats);
             Print(strStats1);
             isNewSignal = false;
