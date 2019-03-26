@@ -152,6 +152,7 @@ void OnTick(void)
    countFigures = 0;
    strStats = "nothing";
    strStats1 = "nothing";
+   strStats2 = "nothing";
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -3319,10 +3320,11 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   strStats = StringConcatenate("lower = ",lower, " higher = ", higher, " beware = ", beware, " down = ", down, " up = ", up);
   strStats1 = StringConcatenate("k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
-  bool StatsBuy =  false;
-  bool StatsSell = false;
+    bool StatsBuy =  false;
+    bool StatsSell = false;
     bool StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
     bool StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
+    strStats2 = StringConcatenate("Buy ",StatsBuy,"   Sell ",StatsSell);
     print();
 
 
@@ -3480,6 +3482,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             Print(strStats);
             Print(strStats1);
+            Print(strStats2);
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
@@ -3510,6 +3513,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             Print(strStats);
             Print(strStats1);
+            Print(strStats2);
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
@@ -4849,7 +4853,8 @@ bool nonSymmTick()
         "\n", strOpenOnHalfWaveDown_M15 ,
         "\n", strMoneyManagment,
         "\nStats         ", strStats,
-        "\nStats clause  ", strStats1
+        "\nStats1 clause ", strStats1
+        "\nStats2 clause ", strStats2
     );
   }
   //+------------------------------------------------------------------+
