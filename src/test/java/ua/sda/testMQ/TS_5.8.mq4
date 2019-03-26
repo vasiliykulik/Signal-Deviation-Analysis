@@ -3009,13 +3009,16 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
 //    double deltaSecond = smax_M15_Global - smin_M15_Global;
     double deltaFirst ;
     double deltaSecond ;
+    // buy
     if
         (first_Local_Two < first_Local_One && second_Local_Two < second_Local_One)
     {
             deltaFirst = first_Local_One - first_Local_Two;
             deltaSecond = second_Local_One - second_Local_Two;
 
-    }else if
+    }
+    // sell
+    else if
         (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One)
     {
             deltaFirst = first_Local_Two - first_Local_One;
@@ -3048,6 +3051,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     //Print("deltaSecond = ", deltaSecond);
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
         OpenOn_M15_TL_Rebound_OpenPermit = true;
+        print("OpenOn_M15_TL_Rebound_OpenPermit  ", PERIOD_M15);
     }
     //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal);
     //Print("OpenOn_M15_TL_Rebound_OpenPermit = ", OpenOn_M15_TL_Rebound_OpenPermit);
