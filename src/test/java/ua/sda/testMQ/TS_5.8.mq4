@@ -8,8 +8,8 @@
 #property version   "5.8"
 #property strict
 
-extern double TakeProfit=500;
-extern double StopLoss=500;
+extern double TakeProfit=600;
+extern double StopLoss=600;
 extern double externalLots=0.01;
 extern double TrailingStop=10000;
 
