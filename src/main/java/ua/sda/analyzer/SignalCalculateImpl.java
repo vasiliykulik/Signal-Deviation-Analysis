@@ -87,7 +87,14 @@ public class SignalCalculateImpl implements SignalCalculate {
   public int findMinUSSNR(Modem modem) {
     List<Integer> indexMeasurement = new ArrayList<>();
     // retrieve sorted List Measurements by USSNR in Ascending order
-    modem.getMeasurements().sort(new ComparatorFindMinSNR());
+    // DONE catch NullPointerException when measurements exist but current state response "modem not found on none of CMTS"
+    try {
+      modem.getMeasurements().sort(new ComparatorFindMinSNR());
+    }catch (NullPointerException e){
+      e.printStackTrace();
+      System.out.println("NullPointerException when measurements exist but current state response \"modem not found on none of CMTS\"");
+      System.out.println(modem.getLinkToMAC());
+    }
     // sort and return index of first element
     return 0;
   }
@@ -96,7 +103,13 @@ public class SignalCalculateImpl implements SignalCalculate {
   @Override
   public int findMaxUSSNR(Modem modem) {
     List<Integer> indexMeasurement = new ArrayList<>();
-    modem.getMeasurements().sort(new ComparatorFindMaxSNR());
+    try {
+      modem.getMeasurements().sort(new ComparatorFindMaxSNR());
+    }catch (NullPointerException e){
+      e.printStackTrace();
+      System.out.println("NullPointerException when measurements exist but current state response \"modem not found on none of CMTS\"");
+      System.out.println(modem.getLinkToMAC());
+    }
     // sort and return index of first element
     return 0;
   }
