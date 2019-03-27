@@ -3338,33 +3338,33 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
     int compareResultForSendingNotification = StringCompare(signalForSendingNotification,currentSignalForSendingNotification,false);
     string symbol = Symbol();
     int minutes = TimeMinute(TimeCurrent())%15;
-    bool minutes = minutes == 0;
+    bool minutesFlag = minutes == 0;
       if (compareResult != 0){
         isNewSignalForSendingNotification = true;
         signalForSendingNotification = currentSignalForSendingNotification;
       }
     // isNewSignalForSendingNotification
-        if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification && minutes){
+        if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification && minutesFlag){
             SendNotification(StringConcatenate(" Buy (Stats1 && Rebound w Amplitude)  ", symbol));
             isNewSignalForSendingNotification = false;
         }
-        else if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification && minutes){
+        else if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification && minutesFlag){
             SendNotification(StringConcatenate(" Sell (Stats1 && Rebound w Amplitude)  ", symbol));
             isNewSignalForSendingNotification = false;
         }
-        else if(OpenOn_M15_TL_Artifact_Buy_OpenPermit && isNewSignalForSendingNotification && minutes){
+        else if(OpenOn_M15_TL_Artifact_Buy_OpenPermit && isNewSignalForSendingNotification && minutesFlag){
             SendNotification(StringConcatenate(" OpenOn_M15_TL_Artifact_Buy_OpenPermit  ", symbol));
             isNewSignalForSendingNotification = false;
         }
-        else if(OpenOn_M15_TL_Artifact_Sell_OpenPermit && isNewSignalForSendingNotification && minutes){
+        else if(OpenOn_M15_TL_Artifact_Sell_OpenPermit && isNewSignalForSendingNotification && minutesFlag){
             SendNotification(StringConcatenate(" OpenOn_M15_TL_Artifact_Sell_OpenPermit  ", symbol));
             isNewSignalForSendingNotification = false;
         }
-        else if(OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification && minutes){
+        else if(OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification && minutesFlag){
             SendNotification(StringConcatenate(" OpenOn_M15_TL_Rebound_Buy_OpenPermit  ", symbol));
             isNewSignalForSendingNotification = false;
         }
-        else if(OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification && minutes){
+        else if(OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification && minutesFlag){
             SendNotification(StringConcatenate(" OpenOn_M15_TL_Rebound_Sell_OpenPermit  ", symbol));
             isNewSignalForSendingNotification = false;
         }
