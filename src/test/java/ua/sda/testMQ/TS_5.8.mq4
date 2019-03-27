@@ -3453,8 +3453,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        //OpenOn_M15_TL_Rebound_Buy_OpenPermit && StatsBuy
-        OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
+        OpenOn_M15_TL_Rebound_Buy_OpenPermit && StatsBuy &&
+        //OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
         newHalfWave_Up_M15
 /*        isNewSignal &&
         (
@@ -3470,8 +3470,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        //OpenOn_M15_TL_Rebound_Sell_OpenPermit && StatsSell
-        OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
+        OpenOn_M15_TL_Rebound_Sell_OpenPermit && StatsSell
+        //OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
         (
