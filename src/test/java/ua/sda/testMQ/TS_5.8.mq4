@@ -74,6 +74,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string messageGlobalPERIOD_D1 ;
  int countFigures;
  string strStats;
+ string strStats0;
  string strStats1;
  string strStats2;
 
@@ -153,6 +154,7 @@ void OnTick(void)
    messageGlobalPERIOD_D1 ="nothing" ;
    countFigures = 0;
    strStats = "nothing";
+   strStats0 = "nothing";
    strStats1 = "nothing";
    strStats2 = "nothing";
 
@@ -3320,6 +3322,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
 
   int k = 2;
   strStats = StringConcatenate(" higher = ", higher, " lower = ", lower, " beware = ", beware, " up = ", up, " down = ", down, " Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Artifact_Buy = ", OpenOn_M15_TL_Artifact_Buy_OpenPermit," Artifact_Sell = ", OpenOn_M15_TL_Artifact_Sell_OpenPermit);
+  strStats0 = StringConcatenate(" Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Artifact_Buy = ", OpenOn_M15_TL_Artifact_Buy_OpenPermit," Artifact_Sell = ", OpenOn_M15_TL_Artifact_Sell_OpenPermit);
   strStats1 = StringConcatenate(" k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
     bool StatsBuy =  false;
@@ -3512,6 +3515,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             Print(strStats);
+            Print(strStats0);
             Print(strStats1);
             Print(strStats2);
             isNewSignal = false;
@@ -3543,6 +3547,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             Print(strStats);
+            Print(strStats0);
             Print(strStats1);
             Print(strStats2);
             isNewSignal = false;
@@ -4884,6 +4889,7 @@ bool nonSymmTick()
         "\n", strOpenOnHalfWaveDown_M15 ,
         "\n", strMoneyManagment,
         "\nStats         ", strStats,
+        "\nStats0        ", strStats0,
         "\nStats1 clause ", strStats1,
         "\nStats2 clause ", strStats2
     );
