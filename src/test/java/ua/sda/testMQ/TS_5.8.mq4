@@ -3470,7 +3470,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        OpenOn_M15_TL_Rebound_Sell_OpenPermit && StatsSell
+        OpenOn_M15_TL_Rebound_Sell_OpenPermit && StatsSell &&
         //OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
         newHalfWave_Down_M15
 /*        isNewSignal &&
