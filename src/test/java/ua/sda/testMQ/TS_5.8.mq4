@@ -3321,7 +3321,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   up     = StringReplace(countString,"Up","z_z");
 
   int k = 2;
-  strStats = StringConcatenate(" higher = ", higher, " lower = ", lower, " beware = ", beware, " up = ", up, " down = ", down, " Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Artifact_Buy = ", OpenOn_M15_TL_Artifact_Buy_OpenPermit," Artifact_Sell = ", OpenOn_M15_TL_Artifact_Sell_OpenPermit);
+  strStats = StringConcatenate(" higher = ", higher, " lower = ", lower, " beware = ", beware, " up = ", up, " down = ", down);
   strStats0 = StringConcatenate(" Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Artifact_Buy = ", OpenOn_M15_TL_Artifact_Buy_OpenPermit," Artifact_Sell = ", OpenOn_M15_TL_Artifact_Sell_OpenPermit);
   strStats1 = StringConcatenate(" k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
