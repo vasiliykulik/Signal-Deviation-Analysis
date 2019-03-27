@@ -41,6 +41,7 @@ double fmax_M15_Global = 0.00000000;
 double smax_M15_Global = 0.00000000;
 
 string signalAnalyzeConcatenated;
+string signalForSendingNotification;
 bool isNewSignal = false;
 string figureH1Signal;
 bool isFigureH1InnerM15HalfwaveIsDone = false;
@@ -3330,12 +3331,12 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
 
 
     bool isNewSignalForSendingNotification = false;
-    string signalForSendingNotification;
+
     string currentSignalForSendingNotification = StringConcatenate(strStats2, OpenOn_M15_TL_Artifact_Buy_OpenPermit, OpenOn_M15_TL_Artifact_Sell_OpenPermit);
     int compareResultForSendingNotification = StringCompare(signalForSendingNotification,currentSignalForSendingNotification,false);
       if (compareResult != 0){
         isNewSignalForSendingNotification = true;
-        signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
+        signalForSendingNotification = currentSignalForSendingNotification;
       }
     // isNewSignalForSendingNotification
         if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
