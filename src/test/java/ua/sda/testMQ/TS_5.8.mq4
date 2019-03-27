@@ -3358,6 +3358,14 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
             SendNotification(" OpenOn_M15_TL_Artifact_Sell_OpenPermit ");
             isNewSignalForSendingNotification = false;
         }
+        else if(OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(" OpenOn_M15_TL_Rebound_Buy_OpenPermit ");
+            isNewSignalForSendingNotification = false;
+        }
+        else if(OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(" OpenOn_M15_TL_Rebound_Sell_OpenPermit ");
+            isNewSignalForSendingNotification = false;
+        }
 
     print();
 
