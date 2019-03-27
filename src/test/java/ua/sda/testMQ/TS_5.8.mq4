@@ -28,7 +28,7 @@ extern bool OpenOnHalfWaveDown_M1  = false;
 extern bool OpenOnHalfWaveDown_M5  = false;
 extern bool OpenOnHalfWaveDown_M15 = false;
 
-extern bool m15_TL_Rebound_MarketPlay_Enabled = false;
+extern bool m15_TL_Rebound_MarketPlay_Enabled = true;
 extern int relativeAmplitudePointsGlobal = 333;
 
 
@@ -3323,9 +3323,38 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
     bool StatsBuy =  false;
     bool StatsSell = false;
+    string newSignalForSendingNotification = "nothing";
     StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
     StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
     strStats2 = StringConcatenate(" Buy (Stats1 && Rebound w Amplitude) ",StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit,"   Sell (Stats1 && Rebound) ",StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit);
+
+
+    bool isNewSignalForSendingNotification = false;
+    string signalForSendingNotification;
+    string currentSignalForSendingNotification = StringConcatenate(strStats2, OpenOn_M15_TL_Artifact_Buy_OpenPermit, OpenOn_M15_TL_Artifact_Sell_OpenPermit);
+    int compareResultForSendingNotification = StringCompare(signalForSendingNotification,currentSignalForSendingNotification,false);
+      if (compareResult != 0){
+        isNewSignalForSendingNotification = true;
+        signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
+      }
+    // isNewSignalForSendingNotification
+        if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(" Buy (Stats1 && Rebound w Amplitude) ");
+            isNewSignalForSendingNotification = false;
+        }
+        else if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(" Sell (Stats1 && Rebound w Amplitude) ");
+            isNewSignalForSendingNotification = false;
+        }
+        else if(OpenOn_M15_TL_Artifact_Buy_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(" OpenOn_M15_TL_Artifact_Buy_OpenPermit ");
+            isNewSignalForSendingNotification = false;
+        }
+        else if(OpenOn_M15_TL_Artifact_Sell_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(" OpenOn_M15_TL_Artifact_Sell_OpenPermit ");
+            isNewSignalForSendingNotification = false;
+        }
+
     print();
 
 
