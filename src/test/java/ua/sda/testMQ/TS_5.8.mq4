@@ -3342,27 +3342,27 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
       }
     // isNewSignalForSendingNotification
         if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
-            SendNotification(" Buy (Stats1 && Rebound w Amplitude) ");
+            SendNotification(" Buy (Stats1 && Rebound w Amplitude)  ", Symbol());
             isNewSignalForSendingNotification = false;
         }
         else if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification){
-            SendNotification(" Sell (Stats1 && Rebound w Amplitude) ");
+            SendNotification(" Sell (Stats1 && Rebound w Amplitude)  ", Symbol());
             isNewSignalForSendingNotification = false;
         }
         else if(OpenOn_M15_TL_Artifact_Buy_OpenPermit && isNewSignalForSendingNotification){
-            SendNotification(" OpenOn_M15_TL_Artifact_Buy_OpenPermit ");
+            SendNotification(" OpenOn_M15_TL_Artifact_Buy_OpenPermit  ", Symbol());
             isNewSignalForSendingNotification = false;
         }
         else if(OpenOn_M15_TL_Artifact_Sell_OpenPermit && isNewSignalForSendingNotification){
-            SendNotification(" OpenOn_M15_TL_Artifact_Sell_OpenPermit ");
+            SendNotification(" OpenOn_M15_TL_Artifact_Sell_OpenPermit  ", Symbol());
             isNewSignalForSendingNotification = false;
         }
         else if(OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
-            SendNotification(" OpenOn_M15_TL_Rebound_Buy_OpenPermit ");
+            SendNotification(" OpenOn_M15_TL_Rebound_Buy_OpenPermit  ", Symbol());
             isNewSignalForSendingNotification = false;
         }
         else if(OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification){
-            SendNotification(" OpenOn_M15_TL_Rebound_Sell_OpenPermit ");
+            SendNotification(" OpenOn_M15_TL_Rebound_Sell_OpenPermit  ", Symbol());
             isNewSignalForSendingNotification = false;
         }
 
