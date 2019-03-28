@@ -41,13 +41,26 @@ public class MultiThreadRetrieveDataController {
         try {
             modems = opticalNodeSingleInterfaceReader.getModemsUrls(urlString, userName, password);
             getMeasurements(modems);
+            // Handling bare measurements, because measurements with zero value not placed in measurements
+            for(Modem modem : modems){
+                try{
+                    modem.getMeasurements().get(0);
+                }catch (IndexOutOfBoundsException e){
+                    removeModem(modem);
+                }
+            }
             getCurrentStates(modems);
             getLocations(modems);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         System.out.println("Read links to measurements from Traffiс Light");
         return modems;
+    }
+
+    private void removeModem(Modem modem) {
+        modems.remove(modem);
     }
 
     /**
@@ -123,9 +136,16 @@ public class MultiThreadRetrieveDataController {
         ExecutorService exec = Executors.newFixedThreadPool(200); // 25 threads for stable connect for vpn and old wifi's
         ArrayList<Future<MultiThreadedCurrentState>> futureResults = new ArrayList<>();
         for (Modem modem : modemsCurrentStates) {
-            futureResults.add(exec.submit(new MTModemCurrentStateReader(userName, password, modem.getLinkToMAC(),
-                    modem.getMeasurements().get(0).getLinkToCurrentState(),
-                    modem.getMeasurements().get(0).getLinkToInfoPage())));
+            // isNotNullMeasurement
+                try {
+                    futureResults.add(exec.submit(new MTModemCurrentStateReader(userName, password, modem.getLinkToMAC(),
+                            modem.getMeasurements().get(0).getLinkToCurrentState(),
+                            modem.getMeasurements().get(0).getLinkToInfoPage())));
+                } catch (Exception e) { // US SNR 0 in measurements
+                    e.printStackTrace();
+                    System.out.println("modem.getLinkToMAC() = " + modem.getLinkToMAC());
+                }
+
         }
         exec.shutdown();
         for (Future<MultiThreadedCurrentState> currentState : futureResults) {

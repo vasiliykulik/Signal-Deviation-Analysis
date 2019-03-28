@@ -96,4 +96,28 @@ public class Modem extends BaseEntity {
 	public void setModemLocation(ModemLocation modemLocation) {
 		this.modemLocation = modemLocation;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Modem modem = (Modem) o;
+
+		if (street != null ? !street.equals(modem.street) : modem.street != null) return false;
+		if (houseNumber != null ? !houseNumber.equals(modem.houseNumber) : modem.houseNumber != null) return false;
+		if (linkToMAC != null ? !linkToMAC.equals(modem.linkToMAC) : modem.linkToMAC != null) return false;
+		if (measurements != null ? !measurements.equals(modem.measurements) : modem.measurements != null) return false;
+		return modemLocation != null ? modemLocation.equals(modem.modemLocation) : modem.modemLocation == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = street != null ? street.hashCode() : 0;
+		result = 31 * result + (houseNumber != null ? houseNumber.hashCode() : 0);
+		result = 31 * result + (linkToMAC != null ? linkToMAC.hashCode() : 0);
+		result = 31 * result + (measurements != null ? measurements.hashCode() : 0);
+		result = 31 * result + (modemLocation != null ? modemLocation.hashCode() : 0);
+		return result;
+	}
 }
