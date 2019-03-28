@@ -41,14 +41,14 @@ public class MultiThreadRetrieveDataController {
         try {
             modems = opticalNodeSingleInterfaceReader.getModemsUrls(urlString, userName, password);
             getMeasurements(modems);
-            // Handling bare measurements, because measurements with zero value not placed in measurements
-            for(Modem modem : modems){
+            // Handling bare measurements, because measurements with zero value were not  placed in measurements
+/*            for(Modem modem : modems){
                 try{
                     modem.getMeasurements().get(0);
                 }catch (IndexOutOfBoundsException e){
                     removeModem(modem);
                 }
-            }
+            }*/
             getCurrentStates(modems);
             getLocations(modems);
         } catch (Exception e) {
@@ -59,9 +59,9 @@ public class MultiThreadRetrieveDataController {
         return modems;
     }
 
-    private void removeModem(Modem modem) {
+/*    private void removeModem(Modem modem) {
         modems.remove(modem);
-    }
+    }*/
 
     /**
      * Using ExecutorService, read measurements for modems
