@@ -3039,7 +3039,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
         amplitude = first_Local_Two / deltaFirst;
     }
 
-//Artifact Description, the amplitude is not taken into account
+// two TL do intersect before the last point ie dt2.2, the amplitude is not taken into account
 // red - buy
     if
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
@@ -3056,6 +3056,8 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     //Print("amplitude = ", amplitude);
     //Print("deltaFirst = ", deltaFirst);
     //Print("deltaSecond = ", deltaSecond);
+
+    // two TL not intersect before the last point ie dt2.2
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
         if(reboundBuy){
             OpenOn_M15_TL_Rebound_Buy_OpenPermit = true;
