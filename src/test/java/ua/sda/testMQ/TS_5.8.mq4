@@ -3341,7 +3341,6 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
         signalForSendingNotification = currentSignalForSendingNotification;
       }
 
-    bool minutesFlag = minutes == 0;
     string symbol = Symbol();
     // isNewSignalForSendingNotification
         if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
