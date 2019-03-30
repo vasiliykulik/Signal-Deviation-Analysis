@@ -3051,12 +3051,12 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     double priceLowAtDT2_2 =iLow(NULL,PERIOD_M15,shift_dt2_2);
     double priceLowAtDT2_1 =iLow(NULL,PERIOD_M15,shift_dt2_1);
 
-    if(currentColor == Red && first_Local_Two == priceHighAtDT2_2 && second_Local_Two == priceHighAtDT2_1){
+    if(currentColor == Green && first_Local_Two == priceHighAtDT2_2 && second_Local_Two == priceHighAtDT2_1){
         OpenOn_M15_TL_Artifact_Buy_OpenPermit  = true;
     }
 
 // Artifact VK_TL1 green and on Lows - SELLL
-    if(currentColor == Green &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
+    if(currentColor == Red &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
         OpenOn_M15_TL_Artifact_Sell_OpenPermit = true;
     }
 
