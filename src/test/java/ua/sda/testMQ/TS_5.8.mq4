@@ -3348,6 +3348,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   int k = 2;
   strStats = StringConcatenate(" higher = ", higher, " lower = ", lower, " beware = ", beware, " up = ", up, " down = ", down);
   strStats0 = StringConcatenate(" Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Sharply_Convergent_Buy = ", OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit," Sharply_Convergent_Sell = ", OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit);
+  print(,)
   strStats1 = StringConcatenate(" k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
     bool StatsBuy =  false;
@@ -3359,8 +3360,8 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
 
 
     bool isNewSignalForSendingNotification = false;
-
-    string currentSignalForSendingNotification = StringConcatenate(strStats2, OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit, OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit);
+// only Artifact
+    string currentSignalForSendingNotification = StringConcatenate(strStats2, OpenOn_M15_TL_Artifact_Buy_OpenPermit, OpenOn_M15_TL_Artifact_Sell_OpenPermit);
     int compareResultForSendingNotification = StringCompare(signalForSendingNotification,currentSignalForSendingNotification,false);
       if (compareResultForSendingNotification != 0){
         isNewSignalForSendingNotification = true;
@@ -3391,6 +3392,14 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
         }
         else if(OpenOn_M15_TL_Rebound_Sell_OpenPermit && isNewSignalForSendingNotification){
             SendNotification(StringConcatenate(" OpenOn_M15_TL_Rebound_Sell_OpenPermit  ", symbol));
+            isNewSignalForSendingNotification = false;
+        }
+        else if(OpenOn_M15_TL_Artifact_Buy_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(StringConcatenate(" OpenOn_M15_TL_Artifact_Buy_OpenPermit  ", symbol));
+            isNewSignalForSendingNotification = false;
+        }
+        else if(OpenOn_M15_TL_Artifact_Sell_OpenPermit && isNewSignalForSendingNotification){
+            SendNotification(StringConcatenate(" OpenOn_M15_TL_Artifact_Sell_OpenPermit  ", symbol));
             isNewSignalForSendingNotification = false;
         }
 
@@ -4865,6 +4874,30 @@ bool nonSymmTick()
         }
     }
   }
+
+  void print(string message, string stringStatsName){
+        if(stringStatsName == "strStats"){
+            if(strStats == "nothing"){
+                strStats = message;
+            } else {
+                strStats = StringConcatenate(strStats, " + ", message);
+            }
+        }
+        if(stringStatsName == "strStats1"){
+            if(strStats1 == "nothing"){
+                strStats1 = message;
+            } else {
+                strStats1 = StringConcatenate(strStats1, " + ", message);
+            }
+        }
+        if(stringStatsName == "strStats2"){
+            if(strStats2 == "nothing"){
+                strStats2 = message;
+            } else {
+                strStats2 = StringConcatenate(strStats2, " + ", message);
+            }
+        }
+      }
 
   void print(){
     string start;
