@@ -3070,7 +3070,6 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     }
     //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond , amplitude < relativeAmplitudePointsGlobal);
     //Print("OpenOn_M15_TL_Rebound_OpenPermit = ", OpenOn_M15_TL_Rebound_OpenPermit);
-
 }
 
 
