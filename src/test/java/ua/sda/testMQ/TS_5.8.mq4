@@ -3051,15 +3051,13 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     double priceLowAtDT2_2 =iLow(NULL,PERIOD_M15,shift_dt2_2);
     double priceLowAtDT2_1 =iLow(NULL,PERIOD_M15,shift_dt2_1);
 
-    if(currentColor == red && first_Local_Two == priceHighAtDT2_2 && second_Local_Two == priceHighAtDT2_1){
+    if(currentColor == Red && first_Local_Two == priceHighAtDT2_2 && second_Local_Two == priceHighAtDT2_1){
         OpenOn_M15_TL_Artifact_Buy_OpenPermit  = true;
-        print("OpenOn_M15_TL_Artifact_Buy_OpenPermit  ", PERIOD_M15);
     }
 
 // Artifact VK_TL1 green and on Lows - SELLL
-    if(currentColor == green &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
+    if(currentColor == Green &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
         OpenOn_M15_TL_Artifact_Sell_OpenPermit = true;
-        print("OpenOn_M15_TL_Artifact_Sell_OpenPermit  ", PERIOD_M15);
     }
 
 
@@ -3070,13 +3068,11 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
     {
         OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit = true;
-        print("OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit  ", PERIOD_M15);
 // green - sell
     }else if
         (first_Local_Two < first_Local_One && second_Local_Two > second_Local_One)
     {
         OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = true;
-        print("OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit  ", PERIOD_M15);
     }
     //Print("amplitude = ", amplitude);
     //Print("deltaFirst = ", deltaFirst);
@@ -3086,11 +3082,9 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
         if(reboundBuy){
             OpenOn_M15_TL_Rebound_Buy_OpenPermit = true;
-            print("OpenOn_M15_TL_Rebound_Buy_OpenPermit  ", PERIOD_M15);
         }
         else if (reboundSell){
             OpenOn_M15_TL_Rebound_Sell_OpenPermit = true;
-            print("OpenOn_M15_TL_Rebound_Sell_OpenPermit  ", PERIOD_M15);
         }
     }
     //Print("deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal = ", deltaFirst > deltaSecond , amplitude < relativeAmplitudePointsGlobal);
@@ -3347,16 +3341,25 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
 
   int k = 2;
   strStats = StringConcatenate(" higher = ", higher, " lower = ", lower, " beware = ", beware, " up = ", up, " down = ", down);
-  strStats0 = StringConcatenate(" Rebound_Buy_with_Amplitude = ", OpenOn_M15_TL_Rebound_Buy_OpenPermit,  " Rebound_Sell_with_Amplitude = ", OpenOn_M15_TL_Rebound_Sell_OpenPermit, " Sharply_Convergent_Buy = ", OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit," Sharply_Convergent_Sell = ", OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit);
-  print(,)
-  strStats1 = StringConcatenate(" k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
+      bool StatsBuy =  false;
+      bool StatsSell = false;
+      string newSignalForSendingNotification = "nothing";
+          StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
+          StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
+  // Stats 0
+  if(OpenOn_M15_TL_Artifact_Buy_OpenPermit){print(" OpenOn_M15_TL_Artifact_Buy_OpenPermit ","strStats0");}
+  if(OpenOn_M15_TL_Artifact_Sell_OpenPermit){print(" OpenOn_M15_TL_Artifact_Sell_OpenPermit ","strStats0");}
+  if(OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit){print(" OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit ","strStats0");}
+  if(OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit){print(" OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit ","strStats0");}
+  if(OpenOn_M15_TL_Rebound_Buy_OpenPermit){print(" OpenOn_M15_TL_Rebound_Buy_OpenPermit ","strStats0");}
+  if(OpenOn_M15_TL_Rebound_Sell_OpenPermit){print(" OpenOn_M15_TL_Rebound_Sell_OpenPermit ","strStats0");}
+
   //strStats = StringConcatenate("currentSignalAnalyzeConcatenated = ",currentSignalAnalyzeConcatenated);
-    bool StatsBuy =  false;
-    bool StatsSell = false;
-    string newSignalForSendingNotification = "nothing";
-    StatsBuy = (higher > (lower + k)) && (beware < (1+k)) && (up > (down + k));
-    StatsSell = (lower > (higher + k)) && (beware < (1+k)) && (down > (up + k));
-    strStats2 = StringConcatenate(" Buy (Stats1 && Rebound w Amplitude) ",StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit,"   Sell (Stats1 && Rebound) ",StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit);
+  // Stats1
+    strStats1 = StringConcatenate(" k = 2 ", " Buy = Higher > Lower + k && Beware < (1 + k) && Up > Down + k"," ",higher > (lower + k)," ", beware < (1+k)," ", up > (down + k)," Sell = Lower > Higher + k && Beware < (1 + k) && Down > Up + k"," ",lower > (higher + k)," ", beware < (1+k)," ", down > (up + k));
+  // Stats2
+  if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit){print(" Buy Stats1 && Rebound w Amplitude ","strStats2");}
+  if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit){print(" Sell Stats1 && Rebound w Amplitude ","strStats2");}
 
 
     bool isNewSignalForSendingNotification = false;
@@ -4881,6 +4884,13 @@ bool nonSymmTick()
                 strStats = message;
             } else {
                 strStats = StringConcatenate(strStats, " + ", message);
+            }
+        }
+        if(stringStatsName == "strStats0"){
+            if(strStats0 == "nothing"){
+                strStats0 = message;
+            } else {
+                strStats0 = StringConcatenate(strStats0, " + ", message);
             }
         }
         if(stringStatsName == "strStats1"){
