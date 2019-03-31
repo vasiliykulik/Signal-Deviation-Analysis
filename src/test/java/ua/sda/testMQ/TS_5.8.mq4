@@ -11,6 +11,7 @@
 extern double TakeProfit=600;
 extern double StopLoss=600;
 extern double externalLots=0.01;
+//
 extern double TrailingStop=10000;
 
 extern bool isAutoMoneyManagmentEnabled = false;
@@ -3500,15 +3501,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
+       // OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
         //OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit &&
-        newHalfWave_Up_M15
-/*        isNewSignal &&
+       // newHalfWave_Up_M15
+        isNewSignal &&
         (
             (OpenOnHalfWaveOpenPermitUp_M1  || newHalfWave_Up_M1  ) &&
             (OpenOnHalfWaveOpenPermitUp_M5  || newHalfWave_Up_M5  ) &&
             (OpenOnHalfWaveOpenPermitUp_M15 || newHalfWave_Up_M15 )
-        )*/
+        )
       )
 
       {
@@ -3517,15 +3518,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
       if
       (
-        OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
+       // OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
         //OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit &&
-        newHalfWave_Down_M15
-/*        isNewSignal &&
+       // newHalfWave_Down_M15
+        isNewSignal &&
         (
             (OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1 ) ||
             (OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5 ) ||
             (OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15)
-        )*/
+        )
       )
 
       {
