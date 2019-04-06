@@ -3373,6 +3373,8 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
 
     string symbol = Symbol();
     // isNewSignalForSendingNotification
+
+    // In fact, the message is sent when the movement has already occurred. So had been comment off
 /*
 
         if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
