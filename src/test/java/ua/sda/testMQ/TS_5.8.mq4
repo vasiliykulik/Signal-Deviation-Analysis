@@ -3373,6 +3373,8 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
 
     string symbol = Symbol();
     // isNewSignalForSendingNotification
+/*
+
         if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit && isNewSignalForSendingNotification){
             SendNotification(StringConcatenate(" Buy (Stats1 && Rebound w Amplitude)  ", symbol));
             isNewSignalForSendingNotification = false;
@@ -3406,6 +3408,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
             isNewSignalForSendingNotification = false;
         }
 
+*/
     print();
 
 
