@@ -2984,6 +2984,7 @@ bool OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit = false;
 bool OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = false;
 bool OpenOn_M15_TL_Artifact_Buy_OpenPermit  = false;
 bool OpenOn_M15_TL_Artifact_Sell_OpenPermit = false;
+
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
