@@ -79,7 +79,8 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats1;
  string strStats2;
 
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -3055,7 +3056,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
         OpenOn_M15_TL_Artifact_Buy_OpenPermit  = true;
     }
 
-// Artifact VK_TL1 green and on Lows - SELLL
+// Artifact VK_TL1 green and on Lows - SELL
     if(currentColor == Red &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
         OpenOn_M15_TL_Artifact_Sell_OpenPermit = true;
     }
@@ -3503,39 +3504,42 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // Print ("compareResult = ", compareResult);
 // Print ("isNewSignal = ", isNewSignal);
 
-      if
-      (
-       // OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
-        //OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit &&
-       // newHalfWave_Up_M15
-        isNewSignal &&
-        (
-            (OpenOnHalfWaveOpenPermitUp_M1  || newHalfWave_Up_M1  ) &&
-            (OpenOnHalfWaveOpenPermitUp_M5  || newHalfWave_Up_M5  ) &&
-            (OpenOnHalfWaveOpenPermitUp_M15 || newHalfWave_Up_M15 )
-        )
-      )
+    double ma333_M15 = iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0);
+    double ma133_M15 = iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0);
+    double ma62_M15 =  iMA(NULL,PERIOD_M15,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma38_M15 =  iMA(NULL,PERIOD_M15,38,0,MODE_SMA,PRICE_OPEN,0);
 
-      {
-            buy=1;
-      }
+      if(
+            OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+            ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15
+            )
+            {sell=1;}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma133_M15 > ma38_M15 && ma133_M15 > ma62_M15 &&
+                ma333_M15 < ma38_M15 && ma333_M15 < ma62_M15
+                )
+                {sell=1;}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15
+                )
+                {buy=1;}
 
-      if
-      (
-       // OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
-        //OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit &&
-       // newHalfWave_Down_M15
-        isNewSignal &&
-        (
-            (OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1 ) ||
-            (OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5 ) ||
-            (OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15)
-        )
-      )
-
-      {
-            sell=1;
-      }
+      if(
+            OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+            ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15
+            )
+            {buy=1;}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma133_M15 < ma38_M15 && ma133_M15 < ma62_M15 &&
+                ma333_M15 > ma38_M15 && ma333_M15 > ma62_M15
+            )
+            {buy=1;}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15
+            )
+            {sell=1;}
 
 //buy = 0;
 //sell = 0;
