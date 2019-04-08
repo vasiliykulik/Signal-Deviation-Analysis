@@ -22,6 +22,10 @@ extern double TrailingFiboLevel = 0.236;
 extern double maxOrders = 30;
 extern double riskOnOneOrderPercent = 2;
 
+
+// По открытии ордера эта группа переменных переинициализируется в false,
+ //что бы уйти от многократного открытия позиции
+ extern bool limitSinglePsitionOnOpenOnHalfWaves = false;
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
 extern bool OpenOnHalfWaveUp_M15   = false;
@@ -3571,6 +3575,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
+            unCheckOpenOnHalfWavesFlag();
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
@@ -3603,6 +3608,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
+            unCheckOpenOnHalfWavesFlag();
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
@@ -6045,4 +6051,13 @@ bool isOsMACrossedZeroDown (ENUM_TIMEFRAMES timeframe){
         result = true;
     }
     return result;
+}
+
+void unCheckOpenOnHalfWavesFlag(){
+    OpenOnHalfWaveUp_M1    = false;
+    OpenOnHalfWaveUp_M5    = false;
+    OpenOnHalfWaveUp_M15   = false;
+    OpenOnHalfWaveDown_M1  = false;
+    OpenOnHalfWaveDown_M5  = false;
+    OpenOnHalfWaveDown_M15 = false;
 }
