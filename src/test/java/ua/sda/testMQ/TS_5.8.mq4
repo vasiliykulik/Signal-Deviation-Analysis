@@ -2989,6 +2989,11 @@ bool OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = false;
 bool OpenOn_M15_TL_Artifact_Buy_OpenPermit  = false;
 bool OpenOn_M15_TL_Artifact_Sell_OpenPermit = false;
 
+bool OpenOn_M15_TL_Convergent_Before_NewHalfWave_Buy_OpenPermit = false;
+bool OpenOn_M15_TL_Convergent_Before_NewHalfWave_Sell_OpenPermit = false;
+bool OpenOn_M15_TL_Convergent_After_NewHalfWave_Buy_OpenPermit = false;
+bool OpenOn_M15_TL_Convergent_After_NewHalfWave_Sell_OpenPermit = false;
+
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
@@ -3047,6 +3052,9 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if(first_Local_Two!=0 && deltaFirst!=0){
         amplitude = first_Local_Two / deltaFirst;
     }
+    //Print("amplitude = ", amplitude);
+    //Print("deltaFirst = ", deltaFirst);
+    //Print("deltaSecond = ", deltaSecond);
 
 // Artifact VK_TL1 red and on Highs - BUY
     color currentColor=ObjectGet("VKTREND_LINE1", OBJPROP_COLOR);
@@ -3068,7 +3076,7 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
 
 
 
-// two TL do intersect before the last point ie dt2.2, the amplitude is not taken into account
+// two TL Do Intersect before the last point ie dt2.2, the amplitude is not taken into account
 // red - buy
     if
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
@@ -3080,9 +3088,42 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     {
         OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = true;
     }
-    //Print("amplitude = ", amplitude);
-    //Print("deltaFirst = ", deltaFirst);
-    //Print("deltaSecond = ", deltaSecond);
+
+//09.04.2019
+    double first_Local_One_Zero_Shift  = ObjectGetValueByShift("VKTREND_LINE", 0);
+    double first_Local_Two_Zero_Shift  = ObjectGetValueByShift("VKTREND_LINE1", 0);
+// two TL do intersect Before New HalfWave, the amplitude is not taken into account
+// green - buy
+    if
+        (first_Local_Two_Zero_Shift > first_Local_One_Zero_Shift && first_Local_Two < first_Local_One)
+    {
+        OpenOn_M15_TL_Convergent_Before_NewHalfWave_Buy_OpenPermit = true;
+// red - sell
+    }else if
+        (first_Local_Two_Zero_Shift < first_Local_One_Zero_Shift && first_Local_Two > first_Local_One)
+    {
+        OpenOn_M15_TL_Convergent_Before_NewHalfWave_Sell_OpenPermit = true;
+    }
+
+
+
+// two TL do intersect After New HalfWave, the amplitude is not taken into account
+// green - buy
+    if
+        (first_Local_Two < first_Local_One && second_Local_Two < second_Local_One &&
+        isTLConvergent(first_Local_One,first_Local_Two,second_Local_One,second_Local_Two))
+    {
+        OpenOn_M15_TL_Convergent_After_NewHalfWave_Buy_OpenPermit = true;
+// red - sell
+    }else if
+        (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One &&
+         isTLConvergent(first_Local_Two,first_Local_One,second_Local_Two,second_Local_One))
+    {
+        OpenOn_M15_TL_Convergent_After_NewHalfWave_Sell_OpenPermit = true;
+    }
+
+
+
 
     // two TL not intersect before the last point ie dt2.2
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
@@ -3534,7 +3575,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 {sell=1;Print("Case 2, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
-                ma133_M15 > ma333_M15 && ma333_M15 > ma62_M15 && ma62_M15 < ma38_M15
+                ma62_M15 > ma38_M15 && ma38_M15 > ma333_M15 && ma333_M15 > ma133_M15
                 )
                 {sell=1;Print("Case 3, Buy Clause");}
       else if(
@@ -3577,7 +3618,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             {buy=1;Print("Case 2, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
-                ma38_M15 < ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15
+                ma62_M15 < ma38_M15 && ma38_M15 < ma333_M15 && ma333_M15 < ma133_M15
             )
             {buy=1;Print("Case 3, Sell Clause");}
       else if(
@@ -6138,6 +6179,14 @@ bool isMA_M15_Divergent(int p1, int p2, int shift){
         double r1 = ma_p1_0 + ma_p2_0;
         double r2 = ma_p1_shift + ma_p2_shift;
     if(r2<r1){
+        result = true;
+    }
+    return result;
+}
+
+bool isTLConvergent(double fLO, double fLT, double sLO, double sLT){
+    bool result = false;
+    if((fLO-fLT)<(sLO-sLT)){
         result = true;
     }
     return result;
