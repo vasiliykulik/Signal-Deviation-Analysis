@@ -3558,14 +3558,14 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if(
             OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
             ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
-            isMA_M15_Divergent(133,333,10)
+            isMA_M15_Divergent(333,133,10)
             )
             {sell=1;Print("Case 1, Buy Clause");}
 
       else if(
             OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
             ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
-            isMA_M15_Convergent(133,333,10)
+            isMA_M15_Convergent(333,133,10)
       )
             {buy=1;Print("Case 1.1, Buy Clause");}
       else if(
@@ -3585,14 +3585,31 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 {sell=1;Print("Case 5, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
-                ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15
+                ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15 &&
+                isMA_Down(333)
                 )
-                {sell=1;Print("Case 6, Buy Clause");}
+                {sell=1;Print("Case 6 + MA333, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
                 ma133_M15 > ma38_M15 && ma38_M15 > ma333_M15 && ma333_M15 > ma62_M15
                 )
                 {sell=1;Print("Case 7, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15 &&
+                isMA_Up(333)
+                )
+                {buy=1;Print("Case 8 + MA333, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma333_M15 > ma38_M15 && ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15
+                )
+                {sell=1;Print("Case 9, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma333_M15 > ma62_M15 && ma62_M15 > ma38_M15 && ma38_M15 > ma133_M15
+                )
+                {sell=1;Print("Case 10, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15
                 )
@@ -3628,14 +3645,31 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             {buy=1;Print("Case 5, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
-                ma38_M15 < ma62_M15 && ma62_M15 < ma333_M15 && ma333_M15 < ma133_M15
+                ma38_M15 < ma62_M15 && ma62_M15 < ma333_M15 && ma333_M15 < ma133_M15 &&
+                isMA_Up(333)
             )
-            {buy=1;Print("Case 6, Sell Clause");}
+            {buy=1;Print("Case 6 + MA333, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
                 ma133_M15 < ma38_M15 && ma38_M15 < ma333_M15 && ma333_M15 < ma62_M15
             )
             {buy=1;Print("Case 7, Sell Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma38_M15 < ma62_M15 && ma62_M15 < ma333_M15 && ma333_M15 < ma133_M15 &&
+                isMA_Down(333)
+            )
+            {sell=1;Print("Case 8 + MA333, Sell Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 && ma38_M15 > ma333_M15
+            )
+            {buy=1;Print("Case 9, Sell Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma133_M15 > ma38_M15 && ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15
+            )
+            {buy=1;Print("Case 10, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15
             )
@@ -6157,6 +6191,8 @@ void unCheckOpenOnHalfWavesFlag(){
     OpenOnHalfWaveDown_M15 = false;
 }
 
+// ie I need not absolute values but relative
+// first parameter must have bigger value
 bool isMA_M15_Convergent(int p1, int p2, int shift){
     bool result = false;
     double ma_p1_0      = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,0);
@@ -6165,6 +6201,7 @@ bool isMA_M15_Convergent(int p1, int p2, int shift){
     double ma_p2_shift  = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,shift);
     double r1 = ma_p1_0 + ma_p2_0;
     double r2 = ma_p1_shift + ma_p2_shift;
+    Print(" isMA_M15_Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2>r1){
         result = true;
     }
@@ -6178,6 +6215,7 @@ bool isMA_M15_Divergent(int p1, int p2, int shift){
     double ma_p2_shift  = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,shift);
         double r1 = ma_p1_0 + ma_p2_0;
         double r2 = ma_p1_shift + ma_p2_shift;
+Print(" isMA_M15_Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2<r1){
         result = true;
     }
@@ -6187,6 +6225,28 @@ bool isMA_M15_Divergent(int p1, int p2, int shift){
 bool isTLConvergent(double fLO, double fLT, double sLO, double sLT){
     bool result = false;
     if((fLO-fLT)<(sLO-sLT)){
+        result = true;
+    }
+    return result;
+}
+
+bool isMA_Up(int ma){
+        bool result = false;
+        double ma_0  = iMA(NULL,PERIOD_M15,ma,0,MODE_SMA,PRICE_OPEN,0);
+        double ma_1  = iMA(NULL,PERIOD_M15,ma,0,MODE_SMA,PRICE_OPEN,1);
+        double ma_2  = iMA(NULL,PERIOD_M15,ma,0,MODE_SMA,PRICE_OPEN,2);
+    if(ma_0>ma_1 && ma_1>ma_2){
+        result = true;
+    }
+    return result;
+}
+
+bool isMA_Down(int ma){
+        bool result = false;
+        double ma_0  = iMA(NULL,PERIOD_M15,ma,0,MODE_SMA,PRICE_OPEN,0);
+        double ma_1  = iMA(NULL,PERIOD_M15,ma,0,MODE_SMA,PRICE_OPEN,1);
+        double ma_2  = iMA(NULL,PERIOD_M15,ma,0,MODE_SMA,PRICE_OPEN,2);
+    if(ma_0<ma_1 && ma_1<ma_2){
         result = true;
     }
     return result;
