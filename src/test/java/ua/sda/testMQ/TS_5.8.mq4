@@ -6195,12 +6195,28 @@ void unCheckOpenOnHalfWavesFlag(){
 // first parameter must have bigger value
 bool isMA_M15_Convergent(int p1, int p2, int shift){
     bool result = false;
-    double ma_p1_0      = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_p1_shift  = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,shift);
-    double ma_p2_0      = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_p2_shift  = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,shift);
-    double r1 = ma_p1_0 + ma_p2_0;
-    double r2 = ma_p1_shift + ma_p2_shift;
+
+    double p1_value = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,0);
+    double p2_value = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,0);
+    int upper = 0;
+    int lower = 0;
+
+    if(p1_value > p2_value){
+        upper = p1;
+        lower = p2;
+    }
+    else if (p1_value < p2_value){
+        upper = p2;
+        lower = p1;
+    }
+    double ma_upper_0      = iMA(NULL,PERIOD_M15,upper,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_upper_shift  = iMA(NULL,PERIOD_M15,upper,0,MODE_SMA,PRICE_OPEN,shift);
+    double ma_lower_0      = iMA(NULL,PERIOD_M15,lower,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_lower_shift  = iMA(NULL,PERIOD_M15,lower,0,MODE_SMA,PRICE_OPEN,shift);
+
+    double r1 = ma_upper_0     - ma_lower_0;
+    double r2 = ma_upper_shift - ma_lower_shift;
+
     Print(" isMA_M15_Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2>r1){
         result = true;
@@ -6209,13 +6225,29 @@ bool isMA_M15_Convergent(int p1, int p2, int shift){
 }
 bool isMA_M15_Divergent(int p1, int p2, int shift){
     bool result = false;
-    double ma_p1_0      = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_p1_shift  = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,shift);
-    double ma_p2_0      = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_p2_shift  = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,shift);
-        double r1 = ma_p1_0 + ma_p2_0;
-        double r2 = ma_p1_shift + ma_p2_shift;
-Print(" isMA_M15_Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+
+    double p1_value = iMA(NULL,PERIOD_M15,p1,0,MODE_SMA,PRICE_OPEN,0);
+    double p2_value = iMA(NULL,PERIOD_M15,p2,0,MODE_SMA,PRICE_OPEN,0);
+    int upper = 0;
+    int lower = 0;
+
+    if(p1_value > p2_value){
+        upper = p1;
+        lower = p2;
+    }
+    else if (p1_value < p2_value){
+        upper = p2;
+        lower = p1;
+    }
+    double ma_upper_0      = iMA(NULL,PERIOD_M15,upper,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_upper_shift  = iMA(NULL,PERIOD_M15,upper,0,MODE_SMA,PRICE_OPEN,shift);
+    double ma_lower_0      = iMA(NULL,PERIOD_M15,lower,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_lower_shift  = iMA(NULL,PERIOD_M15,lower,0,MODE_SMA,PRICE_OPEN,shift);
+
+    double r1 = ma_upper_0     - ma_lower_0;
+    double r2 = ma_upper_shift - ma_lower_shift;
+
+    Print(" isMA_M15_Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2<r1){
         result = true;
     }
