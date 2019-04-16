@@ -3603,13 +3603,25 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             isMA_M15_Divergent(333,133,10,PERIOD_M15)
             )
             {sell=1;Print("Case 1 Divergent, Buy Clause");}
-
+      else if(
+            OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+            ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
+            isMA_M15_Convergent(333,133,10,PERIOD_M15) &&
+            ma133_H1 > ma62_H1 && ma62_H1 > ma333_H1 && ma333_H1 > ma38_H1
+      )
+            {sell=1;Print("Case 1.1.a Convergent, Buy Clause");}
       else if(
             OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
             ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
             isMA_M15_Convergent(333,133,10,PERIOD_M15)
       )
             {buy=1;Print("Case 1.1 Convergent, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma133_M15 > ma333_M15 && ma333_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
+                ma333_H1 > ma133_H1 && ma133_H1 > ma38_H1 && ma38_H1 > ma62_H1
+                )
+                {buy=1;Print("Case 2.a, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
                 ma133_M15 > ma333_M15 && ma333_M15 > ma62_M15 && ma62_M15 > ma38_M15
@@ -3625,6 +3637,13 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 ma333_M15 > ma38_M15 && ma38_M15 > ma133_M15 && ma133_M15 > ma62_M15
                 )
                 {sell=1;Print("Case 5, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15 &&
+                isMA_Down(333, PERIOD_M15) &&
+                ma333_H1 > ma38_H1 && ma38_H1 > ma133_H1 && ma133_H1 > ma62_H1
+                )
+                {buy=1;Print("Case 6 + MA333.a, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
                 ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15 &&
@@ -3647,6 +3666,13 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 ma333_M15 > ma38_M15 && ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15
                 )
                 {sell=1;Print("Case 9, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma333_M15 > ma62_M15 && ma62_M15 > ma38_M15 && ma38_M15 > ma133_M15 &&
+                isMA_M15_Convergent(62,38,10,PERIOD_H1) &&
+                ma333_H1 > ma133_H1 && ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1
+                )
+                {buy=1;Print("Case 10.a, Buy Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
                 ma333_M15 > ma62_M15 && ma62_M15 > ma38_M15 && ma38_M15 > ma133_M15
@@ -3723,9 +3749,22 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       else if(
             OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
             ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
+            isMA_M15_Convergent(133,333,10,PERIOD_M15) &&
+            ma38_H1 > ma333_H1 && ma333_H1 > ma62_H1 && ma62_H1 > ma133_H1
+            )
+            {buy=1;Print("Case 1.1.a Convergent, Sell Clause");}
+      else if(
+            OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+            ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
             isMA_M15_Convergent(133,333,10,PERIOD_M15)
             )
             {sell=1;Print("Case 1.1 Convergent, Sell Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15 &&
+                ma62_H1 > ma38_H1 && ma38_H1 > ma133_H1 && ma133_H1 > ma333_H1
+            )
+            {sell=1;Print("Case 2.a, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
                 ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 && ma333_M15 > ma133_M15
@@ -3741,6 +3780,13 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 ma62_M15 > ma133_M15 && ma133_M15 > ma38_M15 && ma38_M15 > ma333_M15
             )
             {buy=1;Print("Case 5, Sell Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma38_M15 < ma62_M15 && ma62_M15 < ma333_M15 && ma333_M15 < ma133_M15 &&
+                isMA_Up(333, PERIOD_M15) &&
+                ma62_H1 > ma133_H1 && ma133_H1 > ma38_H1 && ma38_H1 > ma333_H1
+            )
+            {sell=1;Print("Case 6 + MA333.a, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
                 ma38_M15 < ma62_M15 && ma62_M15 < ma333_M15 && ma333_M15 < ma133_M15 &&
@@ -3763,6 +3809,13 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 && ma38_M15 > ma333_M15
             )
             {buy=1;Print("Case 9, Sell Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma133_M15 > ma38_M15 && ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15 &&
+                isMA_M15_Convergent(62,38,10,PERIOD_H1) &&
+                ma38_H1 > ma62_H1 && ma62_H1 > ma133_H1 && ma133_H1 > ma333_H1
+            )
+            {sell=1;Print("Case 10.a, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
                 ma133_M15 > ma38_M15 && ma38_M15 > ma62_M15 && ma62_M15 > ma333_M15
