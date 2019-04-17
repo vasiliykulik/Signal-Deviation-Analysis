@@ -3789,7 +3789,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
       //Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
-      if(sell==1)
+      if(sell==1) // если есть сигнал на продажу
         {
          double stopLossForSellMax;
          if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
@@ -3798,13 +3798,13 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          // не допустим супер стопа
          if(stopLossForSellMax>currentStopLoss) {stopLossForSellMax=currentStopLoss;}
 
-         if(isSellOrdersProfitableOrNone())
+         if(isSellOrdersProfitableOrNone()) // вышли ли открытые ордера в БУ
          {
             ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
          }
 
          //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
-         if(ticket>0)
+         if(ticket>0)// если есть открытые ордера
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
             unCheckOpenOnHalfWavesFlag();
@@ -3815,7 +3815,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
-         else Print("Error opening SELL order : ",GetLastError());
+         else Print("Error opening SELL order : ",GetLastError()); // если открытых ордеров нет, 0 - нет ошибки, No error returned
          return;
         }
 // it is important to enter the market correctly,
