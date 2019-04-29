@@ -3587,6 +3587,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
             isMA_Divergent(333,133,10,PERIOD_M15) &&
             ma333_H1 > ma133_H1 && ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1 &&
+            isMA_Approaching_To_Trend_Continuating(133,62,38,PERIOD_H1) &&
+            isMA_Convergent(333,133,10,PERIOD_H1)
+            )
+            {buy=1;Print("Case 1.d.a.a, Buy Clause");}
+    else if(
+            OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+            ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
+            isMA_Divergent(333,133,10,PERIOD_M15) &&
+            ma333_H1 > ma133_H1 && ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1 &&
             isMA_Approaching_To_Trend_Continuating(133,62,38,PERIOD_H1)
             )
             {sell=1;Print("Case 1.d.a, Buy Clause");}
@@ -3826,6 +3835,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             ma333_H1 > ma133_H1 && ma133_H1 > ma38_H1 && ma38_H1 > ma62_H1
             )
             {sell=1;Print("Case 1.c, Sell Clause");}
+      else if(
+            OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+            ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
+            isMA_Divergent(133,333,10,PERIOD_M15) &&
+            ma38_H1 > ma62_H1 && ma62_H1 > ma133_H1 && ma133_H1 > ma333_H1 &&
+            isMA_Approaching_To_Trend_Continuating(133,62,38,PERIOD_H1) &&
+            isMA_Convergent(333,133,10,PERIOD_H1)
+            )
+            {sell=1;Print("Case 1.d.a.a, Sell Clause");}
       else if(
             OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
             ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
