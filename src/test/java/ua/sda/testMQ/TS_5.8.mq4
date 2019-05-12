@@ -3781,6 +3781,17 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 isMA_Convergent(133,38,10,PERIOD_M15) &&
                 ma333_H1 > ma133_H1 && ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1 &&
                 isMA_Approaching_To_Down_Trend_Continuating(133,62,38,PERIOD_M15) &&
+                isMA_Approaching_To_Down_Trend_Continuating(133,62,38,PERIOD_H1) &&
+                isMA_ConvergentAbs(62,38,10,PERIOD_M15)
+                )
+                {buy=1;Print("Case 12.b.a.b.a.a, To_Down_Trend, Buy Clause");}
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
+                ma333_M15 > ma133_M15 && ma133_M15 > ma38_M15 && ma38_M15 > ma62_M15 &&
+                isMA_Divergent(333,133,10,PERIOD_M15) &&
+                isMA_Convergent(133,38,10,PERIOD_M15) &&
+                ma333_H1 > ma133_H1 && ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1 &&
+                isMA_Approaching_To_Down_Trend_Continuating(133,62,38,PERIOD_M15) &&
                 isMA_Approaching_To_Down_Trend_Continuating(133,62,38,PERIOD_H1)
                 )
                 {sell=1;Print("Case 12.b.a.b.a, To_Down_Trend, Buy Clause");}
@@ -4245,6 +4256,18 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
                 ma333_H1 > ma38_H1 && ma38_H1 > ma133_H1 && ma133_H1 > ma62_H1
             )
             {sell=1;Print("Case 12.c, Sell Clause");}
+
+      else if(
+                OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
+                ma62_M15 > ma38_M15 && ma38_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
+                isMA_Divergent(333,133,10,PERIOD_M15) &&
+                isMA_Convergent(133,38,10,PERIOD_M15) &&
+                ma38_H1 > ma62_H1 && ma62_H1 > ma133_H1 && ma133_H1 > ma333_H1 &&
+                isMA_Approaching_To_Up_Trend_Continuating(133,62,38,PERIOD_M15) &&
+                isMA_Approaching_To_Up_Trend_Continuating(133,62,38,PERIOD_H1) &&
+                isMA_ConvergentAbs(62,38,10,PERIOD_M15)
+            )
+            {sell=1;Print("Case 12.b.a.b.a.a, To_Up_Trend, Sell Clause");}
       else if(
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
                 ma62_M15 > ma38_M15 && ma38_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
@@ -7014,6 +7037,7 @@ void unCheckOpenOnHalfWavesFlag(){
 
 // ie I need not absolute values but relative
 // first parameter must have bigger value
+// here  i just find which MA p1 and p2 higher or lower each other
 bool isMA_Convergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     bool result = false;
 
@@ -7155,4 +7179,39 @@ bool isMA_Approaching_To_Up_Trend_Continuating (int p1, int p2, int p3, ENUM_TIM
             }
         }
         return result;
+}
+
+
+bool isMA_ConvergentAbs(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
+    bool result = false;
+
+    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
+    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
+    int upper = 0;
+    int lower = 0;
+
+    if(p1_value > p2_value){
+        upper = p1;
+        lower = p2;
+    }
+    else if (p1_value < p2_value){
+        upper = p2;
+        lower = p1;
+    }
+    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
+    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
+
+    double r1 = ma_upper_0     - ma_lower_0;
+    double r2 = ma_upper_shift - ma_lower_shift;
+
+    r1 = MathAbs(r1);
+    r2 = MathAbs(r2);
+
+    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+    if(r2>r1){
+        result = true;
+    }
+    return result;
 }
