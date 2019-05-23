@@ -6276,7 +6276,7 @@ bool nonSymmTick()
               return isThreeDown;
             }
 
-    bool isOpenOnHalfWaveUp_M1 (){
+    bool isOpenOnHalfWaveUp_M1(){
         bool resultOpenOnHalfWave = false;
             double macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             double macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -6287,7 +6287,7 @@ bool nonSymmTick()
             }
         return resultOpenOnHalfWave;
     }
-    bool isOpenOnHalfWaveUp_M5 (){
+    bool isOpenOnHalfWaveUp_M5(){
         bool resultOpenOnHalfWave = false;
             double macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             double macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -6310,7 +6310,7 @@ bool nonSymmTick()
         return resultOpenOnHalfWave;
     }
 
-    bool isOpenOnHalfWaveDown_M1 (){
+    bool isOpenOnHalfWaveDown_M1(){
         bool resultOpenOnHalfWave = false;
             double macd0 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             double macd1 = iMACD(NULL,PERIOD_M1,12,26,9,PRICE_OPEN,MODE_MAIN,1);
@@ -6321,7 +6321,7 @@ bool nonSymmTick()
             }
         return resultOpenOnHalfWave;
     }
-    bool isOpenOnHalfWaveDown_M5 (){
+    bool isOpenOnHalfWaveDown_M5(){
         bool resultOpenOnHalfWave = false;
             double macd0 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,0);
             double macd1 = iMACD(NULL,PERIOD_M5,12,26,9,PRICE_OPEN,MODE_MAIN,1);
