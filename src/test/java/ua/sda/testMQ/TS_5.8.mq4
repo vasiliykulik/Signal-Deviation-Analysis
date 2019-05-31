@@ -4414,7 +4414,6 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             )
             {sell=1;Print("Case 13.a, Sell Clause");}
       else if(
-
                 OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
                 ma333_M15 > ma62_M15 && ma62_M15 > ma38_M15 && ma38_M15 > ma133_M15
             )
