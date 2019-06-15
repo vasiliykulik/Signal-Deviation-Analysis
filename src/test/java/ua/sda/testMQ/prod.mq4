@@ -22,10 +22,6 @@ extern double TrailingFiboLevel = 0.236;
 extern double maxOrders = 30;
 extern double riskOnOneOrderPercent = 2;
 
-
-// По открытии ордера эта группа переменных переинициализируется в false,
- //что бы уйти от многократного открытия позиции
- extern bool limitSinglePsitionOnOpenOnHalfWaves = false;
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
 extern bool OpenOnHalfWaveUp_M15   = false;
@@ -83,8 +79,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats1;
  string strStats2;
 
-//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -2988,12 +2983,6 @@ bool OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit = false;
 bool OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = false;
 bool OpenOn_M15_TL_Artifact_Buy_OpenPermit  = false;
 bool OpenOn_M15_TL_Artifact_Sell_OpenPermit = false;
-
-bool OpenOn_M15_TL_Convergent_Before_NewHalfWave_Buy_OpenPermit = false;
-bool OpenOn_M15_TL_Convergent_Before_NewHalfWave_Sell_OpenPermit = false;
-bool OpenOn_M15_TL_Convergent_After_NewHalfWave_Buy_OpenPermit = false;
-bool OpenOn_M15_TL_Convergent_After_NewHalfWave_Sell_OpenPermit = false;
-
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
@@ -3052,9 +3041,6 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if(first_Local_Two!=0 && deltaFirst!=0){
         amplitude = first_Local_Two / deltaFirst;
     }
-    //Print("amplitude = ", amplitude);
-    //Print("deltaFirst = ", deltaFirst);
-    //Print("deltaSecond = ", deltaSecond);
 
 // Artifact VK_TL1 red and on Highs - BUY
     color currentColor=ObjectGet("VKTREND_LINE1", OBJPROP_COLOR);
@@ -3069,14 +3055,14 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
         OpenOn_M15_TL_Artifact_Buy_OpenPermit  = true;
     }
 
-// Artifact VK_TL1 green and on Lows - SELL
+// Artifact VK_TL1 green and on Lows - SELLL
     if(currentColor == Red &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
         OpenOn_M15_TL_Artifact_Sell_OpenPermit = true;
     }
 
 
 
-// two TL Do Intersect before the last point ie dt2.2, the amplitude is not taken into account
+// two TL do intersect before the last point ie dt2.2, the amplitude is not taken into account
 // red - buy
     if
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
@@ -3088,42 +3074,9 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     {
         OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = true;
     }
-
-//09.04.2019
-    double first_Local_One_Zero_Shift  = ObjectGetValueByShift("VKTREND_LINE", 0);
-    double first_Local_Two_Zero_Shift  = ObjectGetValueByShift("VKTREND_LINE1", 0);
-// two TL do intersect Before New HalfWave, the amplitude is not taken into account
-// green - buy
-    if
-        (first_Local_Two_Zero_Shift > first_Local_One_Zero_Shift && first_Local_Two < first_Local_One)
-    {
-        OpenOn_M15_TL_Convergent_Before_NewHalfWave_Buy_OpenPermit = true;
-// red - sell
-    }else if
-        (first_Local_Two_Zero_Shift < first_Local_One_Zero_Shift && first_Local_Two > first_Local_One)
-    {
-        OpenOn_M15_TL_Convergent_Before_NewHalfWave_Sell_OpenPermit = true;
-    }
-
-
-
-// two TL do intersect After New HalfWave, the amplitude is not taken into account
-// green - buy
-    if
-        (first_Local_Two < first_Local_One && second_Local_Two < second_Local_One &&
-        isTLConvergent(first_Local_One,first_Local_Two,second_Local_One,second_Local_Two))
-    {
-        OpenOn_M15_TL_Convergent_After_NewHalfWave_Buy_OpenPermit = true;
-// red - sell
-    }else if
-        (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One &&
-         isTLConvergent(first_Local_Two,first_Local_One,second_Local_Two,second_Local_One))
-    {
-        OpenOn_M15_TL_Convergent_After_NewHalfWave_Sell_OpenPermit = true;
-    }
-
-
-
+    //Print("amplitude = ", amplitude);
+    //Print("deltaFirst = ", deltaFirst);
+    //Print("deltaSecond = ", deltaSecond);
 
     // two TL not intersect before the last point ie dt2.2
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
@@ -3542,42 +3495,47 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
     флаг находится в таком состоянии пока не придет новый сигнал на H1, а проверку на новый сигнал выносим вперед.
  */
-
-
+//Print("OpenOnHalfWaveOpenPermitUp_M1  && newHalfWave_Up_M1",OpenOnHalfWaveOpenPermitUp_M1, newHalfWave_Up_M1, OpenOnHalfWaveOpenPermitUp_M1  && newHalfWave_Up_M1);
+ //Print("OpenOnHalfWaveOpenPermitUp_M5  && newHalfWave_Up_M5",OpenOnHalfWaveOpenPermitUp_M5, newHalfWave_Up_M5, OpenOnHalfWaveOpenPermitUp_M5  && newHalfWave_Up_M5);
+ //Print("OpenOnHalfWaveOpenPermitUp_M15 && newHalfWave_Up_M15",OpenOnHalfWaveOpenPermitUp_M15, newHalfWave_Up_M15, OpenOnHalfWaveOpenPermitUp_M15 && newHalfWave_Up_M15);
+ //Print("OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1",OpenOnHalfWaveOpenPermitDown_M1, newHalfWave_Down_M1, OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1);
+ //Print("OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5",OpenOnHalfWaveOpenPermitDown_M5, newHalfWave_Down_M5, OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5);
+ //Print("OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15",OpenOnHalfWaveOpenPermitDown_M15, newHalfWave_Down_M15, OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15);
 
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
 // Print ("compareResult = ", compareResult);
 // Print ("isNewSignal = ", isNewSignal);
 
-    double ma333_M15 = iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0);
-    double ma133_M15 = iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0);
-    double ma62_M15  = iMA(NULL,PERIOD_M15,62,0,MODE_SMA,PRICE_OPEN,0);
-    double ma38_M15  = iMA(NULL,PERIOD_M15,38,0,MODE_SMA,PRICE_OPEN,0);
+      if
+      (
+       // OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
+        //OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit &&
+       // newHalfWave_Up_M15
+        isNewSignal &&
+        (
+            OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
+        )
+      )
 
-    double ma333_H1 = iMA(NULL,PERIOD_H1,333,0,MODE_SMA,PRICE_OPEN,0);
-    double ma133_H1 = iMA(NULL,PERIOD_H1,133,0,MODE_SMA,PRICE_OPEN,0);
-    double ma62_H1  = iMA(NULL,PERIOD_H1,62,0,MODE_SMA,PRICE_OPEN,0);
-    double ma38_H1  = iMA(NULL,PERIOD_H1,38,0,MODE_SMA,PRICE_OPEN,0);
+      {
+            buy=1;
+      }
 
+      if
+      (
+       // OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
+        //OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit &&
+       // newHalfWave_Down_M15
+        isNewSignal &&
+        (
+            OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
+        )
+      )
 
-    if(
-            OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
-            ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
-            isMA_Divergent(333,133,10,PERIOD_M15) &&
-            ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1 && ma38_H1 > ma333_H1
-            )
-            {sell=1;Print("Case 1.a, Buy Clause, as Super Sure");}
-
-
-      if(
-            OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
-            ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
-            isMA_Divergent(133,333,10,PERIOD_M15) &&
-            ma333_H1 > ma38_H1 && ma38_H1 > ma62_H1 && ma62_H1 > ma133_H1
-            )
-            {buy=1;Print("Case 1.a, Sell Clause, as Super Sure");}
-
+      {
+            sell=1;
+      }
 
 //buy = 0;
 //sell = 0;
@@ -3608,7 +3566,6 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
-            unCheckOpenOnHalfWavesFlag();
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
@@ -3623,7 +3580,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
       //Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
-      if(sell==1) // если есть сигнал на продажу
+      if(sell==1)
         {
          double stopLossForSellMax;
          if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
@@ -3632,16 +3589,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          // не допустим супер стопа
          if(stopLossForSellMax>currentStopLoss) {stopLossForSellMax=currentStopLoss;}
 
-         if(isSellOrdersProfitableOrNone()) // вышли ли открытые ордера в БУ
+         if(isSellOrdersProfitableOrNone())
          {
             ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
          }
 
          //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
-         if(ticket>0)// если есть открытые ордера
+         if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
-            unCheckOpenOnHalfWavesFlag();
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
@@ -3649,7 +3605,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
-         else Print("Error opening SELL order : ",GetLastError()); // если открытых ордеров нет, 0 - нет ошибки, No error returned
+         else Print("Error opening SELL order : ",GetLastError());
          return;
         }
 // it is important to enter the market correctly,
@@ -6081,217 +6037,6 @@ bool isOsMACrossedZeroDown (ENUM_TIMEFRAMES timeframe){
        double osma0 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,0);
        double osma1 = iOsMA(NULL,timeframe,12,26,9,PRICE_OPEN,1);
     if(osma0>0 && osma1<0){
-        result = true;
-    }
-    return result;
-}
-
-void unCheckOpenOnHalfWavesFlag(){
-    OpenOnHalfWaveUp_M1    = false;
-    OpenOnHalfWaveUp_M5    = false;
-    OpenOnHalfWaveUp_M15   = false;
-    OpenOnHalfWaveDown_M1  = false;
-    OpenOnHalfWaveDown_M5  = false;
-    OpenOnHalfWaveDown_M15 = false;
-}
-
-// ie I need not absolute values but relative
-// first parameter must have bigger value
-// here  i just find which MA p1 and p2 higher or lower each other
-bool isMA_Convergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
-    bool result = false;
-
-    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
-    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
-    int upper = 0;
-    int lower = 0;
-
-    if(p1_value > p2_value){
-        upper = p1;
-        lower = p2;
-    }
-    else if (p1_value < p2_value){
-        upper = p2;
-        lower = p1;
-    }
-    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
-    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
-
-    double r1 = ma_upper_0     - ma_lower_0;
-    double r2 = ma_upper_shift - ma_lower_shift;
-
-    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
-    if(r2>r1){
-        result = true;
-    }
-    return result;
-}
-bool isMA_Divergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
-    bool result = false;
-
-    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
-    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
-    int upper = 0;
-    int lower = 0;
-
-    if(p1_value > p2_value){
-        upper = p1;
-        lower = p2;
-    }
-    else if (p1_value < p2_value){
-        upper = p2;
-        lower = p1;
-    }
-    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
-    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
-
-    double r1 = ma_upper_0     - ma_lower_0;
-    double r2 = ma_upper_shift - ma_lower_shift;
-
-    Print(" isMA_ ",timeFrame," _Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
-    if(r2<r1){
-        result = true;
-    }
-    return result;
-}
-
-bool isTLConvergent(double fLO, double fLT, double sLO, double sLT){
-    bool result = false;
-    if((fLO-fLT)<(sLO-sLT)){
-        result = true;
-    }
-    return result;
-}
-
-bool isMA_Up(int ma, ENUM_TIMEFRAMES timeFrame){
-        bool result = false;
-        double ma_0  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,0);
-        double ma_1  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,1);
-        double ma_2  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,2);
-    if(ma_0>ma_1 && ma_1>ma_2){
-        result = true;
-    }
-    return result;
-}
-
-bool isMA_Down(int ma, ENUM_TIMEFRAMES timeFrame){
-        bool result = false;
-        double ma_0  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,0);
-        double ma_1  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,1);
-        double ma_2  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,2);
-    if(ma_0<ma_1 && ma_1<ma_2){
-        result = true;
-    }
-    return result;
-}
-
-bool isMA_Approaching_To_Down_Trend_Continuating (int p1, int p2, int p3, ENUM_TIMEFRAMES timeframe){
-//Приходит 3 Мащки, убеждаемся что они больше одна одной и их значения соответственно. Если средняя ближе к меньшей, чем большей то result true.
-// In case p2 and p3 intersect
-// p1 133, p2 62, p3 38
-
-        double p1_value = iMA(NULL,timeframe,p1,0,MODE_SMA,PRICE_OPEN,0);
-        double p2_value = iMA(NULL,timeframe,p2,0,MODE_SMA,PRICE_OPEN,0);
-        double p3_value = iMA(NULL,timeframe,p3,0,MODE_SMA,PRICE_OPEN,0);
-        bool result = false;
-        if(p1>p2 && p2>p3){ // Проверим периоды МАшек
-            if(p1_value > p2_value && p2_value > p3_value){ // проверим вниз ли
-                if((p1_value - p2_value) > (p2_value-p3_value)){ // проверим 62 ближе ли к 38 чем к 133
-                    result = true;
-                }
-            }
-        // Проверить что value p3>p2, это будет пересечением и отнимать p3 от p2. Это будет критерий трендовости,
-        // небольшое пересечение, считать будем разницу в другую сторону.
-            if(p1_value > p2_value && p3_value > p2_value){ // проверим вниз ли
-                if((p1_value - p3_value) > (p3_value-p2_value)){ // проверим 62 ближе ли к 38 чем к 133
-                    result = true;
-                }
-            }
-        }
-        return result;
-}
-
-
-bool isMA_Approaching_To_Up_Trend_Continuating (int p1, int p2, int p3, ENUM_TIMEFRAMES timeframe){
-//Приходит 3 Мащки, убеждаемся что они больше одна одной и их значения соответственно. Если средняя ближе к меньшей, чем большей то result true.
-// p1 133, p2 62, p3 38
-
-        double p1_value = iMA(NULL,timeframe,p1,0,MODE_SMA,PRICE_OPEN,0);
-        double p2_value = iMA(NULL,timeframe,p2,0,MODE_SMA,PRICE_OPEN,0);
-        double p3_value = iMA(NULL,timeframe,p3,0,MODE_SMA,PRICE_OPEN,0);
-        bool result = false;
-        if(p1>p2 && p2>p3){ // Проверим периоды МАшек
-            if(p1_value < p2_value && p2_value < p3_value){ // проверим вверх ли
-                if((p3_value - p2_value) < (p2_value-p1_value)){ // проверим 62 ближе ли к 38 чем к 133
-                    result = true;
-                }
-            }
-        // Проверить что value p3>p2, это будет пересечением и отнимать p3 от p2. Это будет критерий трендовости,
-        // небольшое пересечение, считать будем разницу в другую сторону.
-            if(p1_value < p2_value && p3_value < p2_value){ // проверим вверх ли
-                if((p2_value - p3_value) < (p3_value-p1_value)){ // проверим 62 ближе ли к 38 чем к 133
-                    result = true;
-                }
-            }
-        }
-        return result;
-}
-
-
-bool isMA_ConvergentAbs(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
-    bool result = false;
-
-    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
-    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
-    int upper = 0;
-    int lower = 0;
-
-    if(p1_value > p2_value){
-        upper = p1;
-        lower = p2;
-    }
-    else if (p1_value < p2_value){
-        upper = p2;
-        lower = p1;
-    }
-    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
-    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
-    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
-
-    double r1 = ma_upper_0     - ma_lower_0;
-    double r2 = ma_upper_shift - ma_lower_shift;
-
-    r1 = MathAbs(r1);
-    r2 = MathAbs(r2);
-
-    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
-    if(r2>r1){
-        result = true;
-    }
-    return result;
-}
-
-bool isMACDUpTicksCount (ENUM_TIMEFRAMES timeframe){
-    bool result = false;
-    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-    if(macd0>macd1 && macd1>macd2){
-        result = true;
-    }
-    return result;
-}
-bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
-    bool result = false;
-    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
-    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
-    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
-    if(macd0<macd1 && macd1<macd2){
         result = true;
     }
     return result;
