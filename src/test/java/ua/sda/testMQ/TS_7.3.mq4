@@ -8,8 +8,8 @@
 #property version   "5.8"
 #property strict
 
-extern double TakeProfit=600;
-extern double StopLoss=600;
+extern double TakeProfit=500;
+extern double StopLoss=500;
 extern double externalLots=0.01;
 //
 extern double TrailingStop=10000;
@@ -67,6 +67,9 @@ double fourthMinGlobal = 0.00000000, fourthMaxGlobal = 0.00000000;
 double fifthMinGlobal  = 0.00000000, fifthMaxGlobal  = 0.00000000;
 double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 
+double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
+string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init";
+
 
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
@@ -82,6 +85,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats0;
  string strStats1;
  string strStats2;
+ string strStats3;
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
@@ -162,6 +166,7 @@ void OnTick(void)
    strStats0 = "nothing";
    strStats1 = "nothing";
    strStats2 = "nothing";
+   strStats3 = "nothing";
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -384,6 +389,8 @@ void OnTick(void)
       bool fourTimeFramesSignalDown = false;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
+
+      string ts73_M1  = "init", ts73_M5  = "init", ts73_M15 = "init",  ts73_H1  = "init",  ts73_H4  = "init",  ts73_D1  = "init";
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2931,6 +2938,55 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 smax_M15_Global = secondMaxGlobal;
             }
 
+// минимум и максимум как могут двигаться в одну сторону так как их двое - могут двигаться в две стороны
+            // Figure_TS_73_Up
+            if(isFigure_TS_73_Up()){
+                    if(timeFrames[i]==PERIOD_M1) {ts73_M1  = "plus";}
+                    if(timeFrames[i]==PERIOD_M5) {ts73_M5  = "plus";}
+                    if(timeFrames[i]==PERIOD_M15){ts73_M15 = "plus";}
+                    if(timeFrames[i]==PERIOD_H1) {ts73_H1  = "plus";}
+                    if(timeFrames[i]==PERIOD_H4) {ts73_H4  = "plus";}
+                    if(timeFrames[i]==PERIOD_D1) {ts73_D1  = "plus";}
+                    print("Figure_MA_62_Up  ", timeFrames[i]);
+            }
+
+            // Figure_TS_73_Down
+            if(isFigure_TS_73_Down()){
+                    if(timeFrames[i]==PERIOD_M1) {
+                        if(ts73_M1 == "plus"){
+                            ts73_M1  = StringConcatenate(ts73_M1  + "Aminus")
+                        }else{ts73_M1  = "minus";}
+                    }
+                    if(timeFrames[i]==PERIOD_M5) {
+                        if(ts73_M5 == "plus"){
+                            ts73_M5  = StringConcatenate(ts73_M5  + "Aminus")
+                        }else{ts73_M5  = "minus";}
+                    }
+                    if(timeFrames[i]==PERIOD_M15){
+                        if(ts73_M15== "plus"){
+                            ts73_M15 = StringConcatenate(ts73_M15 + "Aminus")
+                        }else{ts73_M15 = "minus";}
+                    }
+                    if(timeFrames[i]==PERIOD_H1) {
+                        if(ts73_H1 == "plus"){
+                            ts73_H1  = StringConcatenate(ts73_H1  + "Aminus")
+                        }else{ts73_H1  = "minus";}
+                    }
+                    if(timeFrames[i]==PERIOD_H4) {
+                        if(ts73_H4 == "plus"){
+                            ts73_H4  = StringConcatenate(ts73_H4  + "Aminus")
+                        }else{ts73_H4  = "minus";}
+                    }
+                    if(timeFrames[i]==PERIOD_D1) {
+                        if(ts73_D1 == "plus"){
+                            ts73_D1  = StringConcatenate(ts73_D1  + "Aminus")
+                        }else{ts73_D1  = "minus";}
+                    }
+                    print("Figure_MA_62_Down  ", timeFrames[i]);
+            }
+
+
+
 }
 
             // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
@@ -3818,6 +3874,8 @@ bool nonSymm()
    double fifthMaxLocalNonSymmetric = 0.00000000;
    double sixthMaxLocalNonSymmetric = 0.00000000;
 
+   double ts7_3_min0_local = 0.00000000, ts7_3_max0_local = 0.00000000, ts7_3_min1_local = 0.00000000, ts7_3_min2_local = 0.00000000, ts7_3_max1_local = 0.00000000, ts7_3_max2_local = 0.00000000;
+
    int halfWave_7H4[], halfWave_8H4[], halfWave_9H4[], halfWave_10H4[], halfWave_11H4[], halfWave_12H4[];
    int q7 ,w7,q8,w8,q9,w9,q10,w10,q11,w11,q12,w12;
    int resize7H4, resize8H4, resize9H4, resize10H4, resize11H4, resize12H4;
@@ -3847,6 +3905,11 @@ bool nonSymm()
    isC6Min = false;
    isC6Max = false;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min00 = Low(NULL,periodGlobal,0);
+      ts7_3_max00 = iHigh(NULL,periodGlobal,0);
+
+// Двигаемся назад пока не обнаружим пересесчение
    for(begin=0;isMACDReady; begin++)
      {
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
@@ -3855,6 +3918,16 @@ bool nonSymm()
 
       Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
+
+            double currentLow  = iLow(NULL,periodGlobal,begin);
+            double currentHigh = iHigh(NULL,periodGlobal,begin);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min00>currentLow) {ts7_3_min00=currentLow;}
+            if(ts7_3_max00<currentHigh){ts7_3_max00=currentHigh;}
+            if(Macd_1H4>0){ts7_3_HalfWave_00 = "plus"}
+            else if (Macd_1H4<0){ts7_3_HalfWave_00 = "minus"}
+            else {ts7_3_HalfWave_00 = "zero"}
+
 
       if(Macd_2H4<0 && Macd_1H4>0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
@@ -3892,8 +3965,21 @@ bool nonSymm()
                             // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
+
+                 // Инициализируем текущим значением цены
+                 ts7_3_min0 = Low(NULL,periodGlobal,j);
+                 ts7_3_max0 = iHigh(NULL,periodGlobal,j);
+
          for(j; j<i+2; j++)
            {
+
+            currentLow  = iLow(NULL,periodGlobal,j);
+            currentHigh = iHigh(NULL,periodGlobal,j);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min0>currentLow) {ts7_3_min0=currentLow;}
+            if(ts7_3_max0<currentHigh){ts7_3_max0=currentHigh;}
+            ts7_3_HalfWave_0 = "plus";
+
             halfWave0H4[zz]=j;
             zz++;
            }
@@ -3908,8 +3994,21 @@ bool nonSymm()
          resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
+
+                 // Инициализируем текущим значением цены
+                 ts7_3_min0 = Low(NULL,periodGlobal,j);
+                 ts7_3_max0 = iHigh(NULL,periodGlobal,j);
+
          for(j; j<i+2; j++)
            {
+
+            currentLow  = iLow(NULL,periodGlobal,j);
+            currentHigh = iHigh(NULL,periodGlobal,j);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min0>currentLow) {ts7_3_min0=currentLow;}
+            if(ts7_3_max0<currentHigh){ts7_3_max0=currentHigh;}
+            ts7_3_HalfWave_0 = "minus";
+
             halfWave0H4[zz]=j;
             zz++;
            }
@@ -3931,8 +4030,21 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
          firstMinLocalNonSymmetricMACD=macdForMinMax;
 
+                 // Инициализируем текущим значением цены
+                 ts7_3_min1 = Low(NULL,periodGlobal,k);
+                 ts7_3_max1 = iHigh(NULL,periodGlobal,k);
+
+
          for(k; k<i+2; k++)
            {
+
+            currentLow  = iLow(NULL,periodGlobal,k);
+            currentHigh = iHigh(NULL,periodGlobal,k);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min1>currentLow) {ts7_3_min1=currentLow;}
+            if(ts7_3_max1<currentHigh){ts7_3_max1=currentHigh;}
+            ts7_3_HalfWave_1 = "minus";
+
             halfWave_1H4[z]=k;
             priceForMinMax=iOpen(NULL,periodGlobal,k);
             if(priceForMinMax<firstMinLocalNonSymmetric)
@@ -3967,8 +4079,21 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
          firstMaxLocalNonSymmetricMACD=macdForMinMax;
 
+                 // Инициализируем текущим значением цены
+                 ts7_3_min1 = Low(NULL,periodGlobal,k);
+                 ts7_3_max1 = iHigh(NULL,periodGlobal,k);
+
+
          for(k; k<i+2; k++)
            {
+
+           currentLow  = iLow(NULL,periodGlobal,k);
+            currentHigh = iHigh(NULL,periodGlobal,k);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min1>currentLow) {ts7_3_min1=currentLow;}
+            if(ts7_3_max1<currentHigh){ts7_3_max1=currentHigh;}
+            ts7_3_HalfWave_1 = "plus";
+
             halfWave_1H4[z]=k;
             priceForMinMax=iOpen(NULL,periodGlobal,k);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
@@ -4589,6 +4714,12 @@ max для sell
    sixthMinGlobal   =   sixthMinLocalNonSymmetric;
    sixthMaxGlobal   =   sixthMaxLocalNonSymmetric;
 
+   ts7_3_min0 = ts7_3_min0_local;
+   ts7_3_max0 = ts7_3_max0_local;
+   ts7_3_min1 = ts7_3_min1_local;
+   ts7_3_min2 = ts7_3_min2_local;
+   ts7_3_max1 = ts7_3_max1_local;
+   ts7_3_max2 = ts7_3_max2_local;
 
    pricesUpdate=true;
    return pricesUpdate;
@@ -6294,5 +6425,22 @@ bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
     if(macd0<macd1 && macd1<macd2){
         result = true;
     }
+    return result;
+}
+
+
+double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
+string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init";
+
+// Here we check, min1 and min2 for each TimeFrame
+//How we gonna handle different HalfWaves
+bool isFigure_TS_73_Up(){
+    bool result = false;
+    if()
+    return result;
+}
+
+bool isFigure_TS_73_Down(){
+    bool result = false;
     return result;
 }
