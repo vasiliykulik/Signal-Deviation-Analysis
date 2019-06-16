@@ -2941,48 +2941,24 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
 // минимум и максимум как могут двигаться в одну сторону так как их двое - могут двигаться в две стороны
             // Figure_TS_73_Up
             if(isFigure_TS_73_Up()){
-                    if(timeFrames[i]==PERIOD_M1) {ts73_M1  = "plus";}
-                    if(timeFrames[i]==PERIOD_M5) {ts73_M5  = "plus";}
-                    if(timeFrames[i]==PERIOD_M15){ts73_M15 = "plus";}
-                    if(timeFrames[i]==PERIOD_H1) {ts73_H1  = "plus";}
-                    if(timeFrames[i]==PERIOD_H4) {ts73_H4  = "plus";}
-                    if(timeFrames[i]==PERIOD_D1) {ts73_D1  = "plus";}
-                    print("Figure_MA_62_Up  ", timeFrames[i]);
+                    if(timeFrames[i]==PERIOD_M1) {ts73_M1  = "Up";}
+                    if(timeFrames[i]==PERIOD_M5) {ts73_M5  = "Up";}
+                    if(timeFrames[i]==PERIOD_M15){ts73_M15 = "Up";}
+                    if(timeFrames[i]==PERIOD_H1) {ts73_H1  = "Up";}
+                    if(timeFrames[i]==PERIOD_H4) {ts73_H4  = "Up";}
+                    if(timeFrames[i]==PERIOD_D1) {ts73_D1  = "Up";}
+                    print("Figure_TS_73_Up  ", timeFrames[i]);
             }
 
             // Figure_TS_73_Down
             if(isFigure_TS_73_Down()){
-                    if(timeFrames[i]==PERIOD_M1) {
-                        if(ts73_M1 == "plus"){
-                            ts73_M1  = StringConcatenate(ts73_M1  + "Aminus")
-                        }else{ts73_M1  = "minus";}
-                    }
-                    if(timeFrames[i]==PERIOD_M5) {
-                        if(ts73_M5 == "plus"){
-                            ts73_M5  = StringConcatenate(ts73_M5  + "Aminus")
-                        }else{ts73_M5  = "minus";}
-                    }
-                    if(timeFrames[i]==PERIOD_M15){
-                        if(ts73_M15== "plus"){
-                            ts73_M15 = StringConcatenate(ts73_M15 + "Aminus")
-                        }else{ts73_M15 = "minus";}
-                    }
-                    if(timeFrames[i]==PERIOD_H1) {
-                        if(ts73_H1 == "plus"){
-                            ts73_H1  = StringConcatenate(ts73_H1  + "Aminus")
-                        }else{ts73_H1  = "minus";}
-                    }
-                    if(timeFrames[i]==PERIOD_H4) {
-                        if(ts73_H4 == "plus"){
-                            ts73_H4  = StringConcatenate(ts73_H4  + "Aminus")
-                        }else{ts73_H4  = "minus";}
-                    }
-                    if(timeFrames[i]==PERIOD_D1) {
-                        if(ts73_D1 == "plus"){
-                            ts73_D1  = StringConcatenate(ts73_D1  + "Aminus")
-                        }else{ts73_D1  = "minus";}
-                    }
-                    print("Figure_MA_62_Down  ", timeFrames[i]);
+                    if(timeFrames[i]==PERIOD_M1) {ts73_M1  = "Down";}
+                    if(timeFrames[i]==PERIOD_M5) {ts73_M5  = "Down";}
+                    if(timeFrames[i]==PERIOD_M15){ts73_M15 = "Down";}
+                    if(timeFrames[i]==PERIOD_H1) {ts73_H1  = "Down";}
+                    if(timeFrames[i]==PERIOD_H4) {ts73_H4  = "Down";}
+                    if(timeFrames[i]==PERIOD_D1) {ts73_D1  = "Down";}
+                    print("Figure_TS_73_Down  ", timeFrames[i]);
             }
 
 
@@ -6429,18 +6405,20 @@ bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
 }
 
 
-double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
-string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init";
-
 // Here we check, min1 and min2 for each TimeFrame
-//How we gonna handle different HalfWaves
+// How we gonna handle different HalfWaves
 bool isFigure_TS_73_Up(){
     bool result = false;
-    if()
+    if(ts7_3_HalfWave_0 = "minus" && ts7_3_HalfWave_1 = "plus" && ts7_3_min1 < ts7_3_min0){
+        result = true;
+    }
     return result;
 }
 
 bool isFigure_TS_73_Down(){
     bool result = false;
+    if(ts7_3_HalfWave_0 = "plus" && ts7_3_HalfWave_1 = "minus" && ts7_3_max1 > ts7_3_max0){
+        result = true;
+    }
     return result;
 }
