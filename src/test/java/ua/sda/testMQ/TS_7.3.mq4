@@ -3439,6 +3439,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   // Stats2
   if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit){print(" Buy Stats1 && Rebound w Amplitude ","strStats2");}
   if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit){print(" Sell Stats1 && Rebound w Amplitude ","strStats2");}
+  strStats3 = StringConcatenate(ts73_M1," ",ts73_M5," ",ts73_M15," ",ts73_H1," ",ts73_H4," ",ts73_D1);
 
 
     bool isNewSignalForSendingNotification = false;
@@ -3645,6 +3646,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             Print(strStats0);
             Print(strStats1);
             Print(strStats2);
+            Print(strStats3);
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
@@ -3678,6 +3680,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             Print(strStats0);
             Print(strStats1);
             Print(strStats2);
+            Print(strStats3);
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
@@ -3882,7 +3885,7 @@ bool nonSymm()
    isC6Max = false;
 
       // Инициализируем текущим значением цены
-      ts7_3_min00 = Low(NULL,periodGlobal,0);
+      ts7_3_min00 = iLow(NULL,periodGlobal,0);
       ts7_3_max00 = iHigh(NULL,periodGlobal,0);
 
 // Двигаемся назад пока не обнаружим пересесчение
@@ -3900,9 +3903,9 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min00>currentLow) {ts7_3_min00=currentLow;}
             if(ts7_3_max00<currentHigh){ts7_3_max00=currentHigh;}
-            if(Macd_1H4>0){ts7_3_HalfWave_00 = "plus"}
-            else if (Macd_1H4<0){ts7_3_HalfWave_00 = "minus"}
-            else {ts7_3_HalfWave_00 = "zero"}
+            if(Macd_1H4>0){ts7_3_HalfWave_00 = "plus";}
+            else if (Macd_1H4<0){ts7_3_HalfWave_00 = "minus";}
+            else {ts7_3_HalfWave_00 = "zero";}
 
 
       if(Macd_2H4<0 && Macd_1H4>0)
@@ -3943,14 +3946,14 @@ bool nonSymm()
          zz=0;
 
                  // Инициализируем текущим значением цены
-                 ts7_3_min0 = Low(NULL,periodGlobal,j);
+                 ts7_3_min0 = iLow(NULL,periodGlobal,j);
                  ts7_3_max0 = iHigh(NULL,periodGlobal,j);
 
          for(j; j<i+2; j++)
            {
 
-            currentLow  = iLow(NULL,periodGlobal,j);
-            currentHigh = iHigh(NULL,periodGlobal,j);
+            double currentLow  = iLow(NULL,periodGlobal,j);
+            double currentHigh = iHigh(NULL,periodGlobal,j);
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min0>currentLow) {ts7_3_min0=currentLow;}
             if(ts7_3_max0<currentHigh){ts7_3_max0=currentHigh;}
@@ -3972,14 +3975,14 @@ bool nonSymm()
          zz=0;
 
                  // Инициализируем текущим значением цены
-                 ts7_3_min0 = Low(NULL,periodGlobal,j);
+                 ts7_3_min0 = iLow(NULL,periodGlobal,j);
                  ts7_3_max0 = iHigh(NULL,periodGlobal,j);
 
          for(j; j<i+2; j++)
            {
 
-            currentLow  = iLow(NULL,periodGlobal,j);
-            currentHigh = iHigh(NULL,periodGlobal,j);
+            double currentLow  = iLow(NULL,periodGlobal,j);
+            double currentHigh = iHigh(NULL,periodGlobal,j);
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min0>currentLow) {ts7_3_min0=currentLow;}
             if(ts7_3_max0<currentHigh){ts7_3_max0=currentHigh;}
@@ -4007,15 +4010,15 @@ bool nonSymm()
          firstMinLocalNonSymmetricMACD=macdForMinMax;
 
                  // Инициализируем текущим значением цены
-                 ts7_3_min1 = Low(NULL,periodGlobal,k);
+                 ts7_3_min1 = iLow(NULL,periodGlobal,k);
                  ts7_3_max1 = iHigh(NULL,periodGlobal,k);
 
 
          for(k; k<i+2; k++)
            {
 
-            currentLow  = iLow(NULL,periodGlobal,k);
-            currentHigh = iHigh(NULL,periodGlobal,k);
+            double currentLow  = iLow(NULL,periodGlobal,k);
+            double currentHigh = iHigh(NULL,periodGlobal,k);
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min1>currentLow) {ts7_3_min1=currentLow;}
             if(ts7_3_max1<currentHigh){ts7_3_max1=currentHigh;}
@@ -4056,15 +4059,15 @@ bool nonSymm()
          firstMaxLocalNonSymmetricMACD=macdForMinMax;
 
                  // Инициализируем текущим значением цены
-                 ts7_3_min1 = Low(NULL,periodGlobal,k);
+                 ts7_3_min1 = iLow(NULL,periodGlobal,k);
                  ts7_3_max1 = iHigh(NULL,periodGlobal,k);
 
 
          for(k; k<i+2; k++)
            {
 
-           currentLow  = iLow(NULL,periodGlobal,k);
-            currentHigh = iHigh(NULL,periodGlobal,k);
+           double currentLow  = iLow(NULL,periodGlobal,k);
+            double currentHigh = iHigh(NULL,periodGlobal,k);
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min1>currentLow) {ts7_3_min1=currentLow;}
             if(ts7_3_max1<currentHigh){ts7_3_max1=currentHigh;}
@@ -4690,12 +4693,12 @@ max для sell
    sixthMinGlobal   =   sixthMinLocalNonSymmetric;
    sixthMaxGlobal   =   sixthMaxLocalNonSymmetric;
 
-   ts7_3_min0 = ts7_3_min0_local;
-   ts7_3_max0 = ts7_3_max0_local;
-   ts7_3_min1 = ts7_3_min1_local;
-   ts7_3_min2 = ts7_3_min2_local;
-   ts7_3_max1 = ts7_3_max1_local;
-   ts7_3_max2 = ts7_3_max2_local;
+   ts7_3_min00 = ts7_3_min0_local;
+   ts7_3_max00 = ts7_3_max0_local;
+   ts7_3_min0 = ts7_3_min1_local;
+   ts7_3_min1 = ts7_3_min2_local;
+   ts7_3_max0 = ts7_3_max1_local;
+   ts7_3_max1 = ts7_3_max2_local;
 
    pricesUpdate=true;
    return pricesUpdate;
@@ -5125,7 +5128,8 @@ bool nonSymmTick()
         "\nStats         ", strStats,
         "\nStats0        ", strStats0,
         "\nStats1 clause ", strStats1,
-        "\nStats2 clause ", strStats2
+        "\nStats2 clause ", strStats2,
+        "\nStats3 clause ", strStats3
     );
   }
   //+------------------------------------------------------------------+
@@ -6409,7 +6413,7 @@ bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
 // How we gonna handle different HalfWaves
 bool isFigure_TS_73_Up(){
     bool result = false;
-    if(ts7_3_HalfWave_0 = "minus" && ts7_3_HalfWave_1 = "plus" && ts7_3_min1 < ts7_3_min0){
+    if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" && ts7_3_min1 < ts7_3_min0){
         result = true;
     }
     return result;
@@ -6417,7 +6421,7 @@ bool isFigure_TS_73_Up(){
 
 bool isFigure_TS_73_Down(){
     bool result = false;
-    if(ts7_3_HalfWave_0 = "plus" && ts7_3_HalfWave_1 = "minus" && ts7_3_max1 > ts7_3_max0){
+    if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" && ts7_3_max1 > ts7_3_max0){
         result = true;
     }
     return result;
