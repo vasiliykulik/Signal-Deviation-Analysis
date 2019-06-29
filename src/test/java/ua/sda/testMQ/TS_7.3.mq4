@@ -88,8 +88,8 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats2;
  string strStats3;
 
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
+//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -3596,21 +3596,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
 
     if(
-            OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit && newHalfWave_Up_M15 &&
-            ma333_M15 > ma133_M15 && ma133_M15 > ma62_M15 && ma62_M15 > ma38_M15 &&
-            isMA_Divergent(333,133,10,PERIOD_M15) &&
-            ma133_H1 > ma62_H1 && ma62_H1 > ma38_H1 && ma38_H1 > ma333_H1
+ts73_M15 == "Down"
             )
-            {sell=1;Print("Case 1.a, Buy Clause, as Super Sure");}
+            {sell=1;Print("ts73_M15 == Down");}
 
 
       if(
-            OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit && newHalfWave_Down_M15 &&
-            ma38_M15 > ma62_M15 && ma62_M15 > ma133_M15 && ma133_M15 > ma333_M15 &&
-            isMA_Divergent(133,333,10,PERIOD_M15) &&
-            ma333_H1 > ma38_H1 && ma38_H1 > ma62_H1 && ma62_H1 > ma133_H1
+ts73_M15 == "Up"
             )
-            {buy=1;Print("Case 1.a, Sell Clause, as Super Sure");}
+            {buy=1;Print("ts73_M15 == Up");}
 
 
 //buy = 0;
@@ -6476,7 +6470,7 @@ bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
 // Here we check, min1 and min2 for each TimeFrame
 // How we gonna handle different HalfWaves
 bool isFigure_TS_73_Up(){
-test();
+//test();
     bool result = false;
     if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" && ts7_3_min1 < ts7_3_min0){
         result = true;
@@ -6485,7 +6479,7 @@ test();
 }
 
 bool isFigure_TS_73_Down(){
-test();
+//test();
     bool result = false;
     if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" && ts7_3_max1 > ts7_3_max0){
         result = true;
