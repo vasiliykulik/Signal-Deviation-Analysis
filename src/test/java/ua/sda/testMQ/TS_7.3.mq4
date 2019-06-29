@@ -68,6 +68,7 @@ double fifthMinGlobal  = 0.00000000, fifthMaxGlobal  = 0.00000000;
 double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 
 double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
+double ts7_3_min2 = 0.00000000, ts7_3_min3 = 0.00000000, ts7_3_max2 = 0.00000000, ts7_3_max3 = 0.00000000;
 string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init";
 
 
@@ -3854,6 +3855,8 @@ bool nonSymm()
    double sixthMaxLocalNonSymmetric = 0.00000000;
 
    double ts7_3_min00_local = 0.00000000, ts7_3_max00_local = 0.00000000, ts7_3_min0_local = 0.00000000, ts7_3_min1_local = 0.00000000, ts7_3_max0_local = 0.00000000, ts7_3_max1_local = 0.00000000;
+   double ts7_3_max2_local = 0.00000000, ts7_3_max3_local = 0.00000000;
+   double ts7_3_min2_local = 0.00000000, ts7_3_min3_local = 0.00000000;
 
    int halfWave_7H4[], halfWave_8H4[], halfWave_9H4[], halfWave_10H4[], halfWave_11H4[], halfWave_12H4[];
    int q7 ,w7,q8,w8,q9,w9,q10,w10,q11,w11,q12,w12;
@@ -3884,11 +3887,12 @@ bool nonSymm()
    isC6Min = false;
    isC6Max = false;
 
-      // Инициализируем текущим значением цены
-      ts7_3_min00_local = iLow(NULL,periodGlobal,0);
-      ts7_3_max00_local = iHigh(NULL,periodGlobal,0);
+
 
 // Двигаемся назад пока не обнаружим пересесчение
+/*7.3 for работает пока true ; Перед условием, isMACDReady проинициализирован true,
+путем установки isEqualToZero в ручном режиме/ Если находим пересечение, начиная со
+сравнения 0 и 1 тика проставляем false в isMACDReady*/
    for(begin=0;isMACDReady; begin++)
      {
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
@@ -3898,18 +3902,10 @@ bool nonSymm()
       Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
-           double currentLow  = iLow(NULL,periodGlobal,begin);
-            double currentHigh = iHigh(NULL,periodGlobal,begin);
-// Ьерем текущее "наперед" не заглядываем
-            if(ts7_3_min00_local>currentLow) {ts7_3_min00_local=currentLow;}
-            if(ts7_3_max00_local<currentHigh){ts7_3_max00_local=currentHigh;}
-      /*      if(Macd_1H4>0){ts7_3_HalfWave_00 = "plus";}
-            else if (Macd_1H4<0){ts7_3_HalfWave_00 = "minus";}
-            else {ts7_3_HalfWave_00 = "zero";}*/
-
-
+/*те текущая ПВ положительная, текущая законченая ПВ отрицательная*/
       if(Macd_2H4<0 && Macd_1H4>0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
+/*те текущая ПВ отрицательная, текущая законченая ПВ положительная*/
       else if(Macd_2H4>0 && Macd_1H4<0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
@@ -3925,7 +3921,8 @@ bool nonSymm()
             isMACDReady=isSmaller || isBigger || isEqualToZero;
             // Двигаемся назад пока не обнаружим пересечение в два тиика
      }
-//
+/*f здесь мы начинаем с первого тика незавершенной ПВ, но в MACD 3,4 мы берем вда последних тика
+завершенной ПВ*/
    for(i=begin;countHalfWaves<=12;i++)
      {
       MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет два первых тика росле перехода нулевой линии
@@ -3935,6 +3932,7 @@ bool nonSymm()
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
       // И Полуволны складываем в массивы
       // First Wave
+      /*7.3 Текущая завершенная ПВ отрицательная, а мы складываем в массив тики незавершенной положительной ПВ*/
       if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что первый и второй тик ниже 0, основной фильтр на шум
         {
          //Print("C0W0");
@@ -3946,9 +3944,9 @@ bool nonSymm()
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
 
-                 // Инициализируем текущим значением цены
-                 ts7_3_min0_local = iLow(NULL,periodGlobal,j);
-                 ts7_3_max0_local = iHigh(NULL,periodGlobal,j);
+      // Инициализируем текущим значением цены
+      ts7_3_min00_local = iLow(NULL,periodGlobal,j);
+      ts7_3_max00_local = iHigh(NULL,periodGlobal,j);
 
          for(j; j<i+2; j++)
            {
@@ -3956,15 +3954,16 @@ bool nonSymm()
             double currentLow  = iLow(NULL,periodGlobal,j);
             double currentHigh = iHigh(NULL,periodGlobal,j);
 // Ьерем текущее "наперед" не заглядываем
-            if(ts7_3_min0_local>currentLow) {ts7_3_min0_local=currentLow;}
-            if(ts7_3_max0_local<currentHigh){ts7_3_max0_local=currentHigh;}
-            ts7_3_HalfWave_0 = "minus";
+            if(ts7_3_min00_local>currentLow) {ts7_3_min00_local=currentLow;}
+            if(ts7_3_max00_local<currentHigh){ts7_3_max00_local=currentHigh;}
+            ts7_3_HalfWave_00 = "plus";
 
             halfWave0H4[zz]=j;
             zz++;
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
+      /*7.3 Текущая завершенная ПВ положительная*/
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
          //Print("C0W1");
@@ -3975,9 +3974,8 @@ bool nonSymm()
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
 
-                 // Инициализируем текущим значением цены
-                 ts7_3_min0_local = iLow(NULL,periodGlobal,j);
-                 ts7_3_max0_local = iHigh(NULL,periodGlobal,j);
+      ts7_3_min00_local = iLow(NULL,periodGlobal,j);
+      ts7_3_max00_local = iHigh(NULL,periodGlobal,j);
 
          for(j; j<i+2; j++)
            {
@@ -3985,9 +3983,9 @@ bool nonSymm()
             double currentLow  = iLow(NULL,periodGlobal,j);
             double currentHigh = iHigh(NULL,periodGlobal,j);
 // Ьерем текущее "наперед" не заглядываем
-            if(ts7_3_min0_local>currentLow) {ts7_3_min0_local=currentLow;}
-            if(ts7_3_max0_local<currentHigh){ts7_3_max0_local=currentHigh;}
-            ts7_3_HalfWave_0 = "plus";
+            if(ts7_3_min00_local>currentLow) {ts7_3_min00_local=currentLow;}
+            if(ts7_3_max00_local<currentHigh){ts7_3_max00_local=currentHigh;}
+            ts7_3_HalfWave_00 = "minus";
 
             halfWave0H4[zz]=j;
             zz++;
@@ -4010,9 +4008,8 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
          firstMinLocalNonSymmetricMACD=macdForMinMax;
 
-                 // Инициализируем текущим значением цены
-                 ts7_3_min1_local = iLow(NULL,periodGlobal,k);
-                 ts7_3_max1_local = iHigh(NULL,periodGlobal,k);
+      ts7_3_min0_local = iLow(NULL,periodGlobal,k);
+      ts7_3_max0_local = iHigh(NULL,periodGlobal,k);
 
 
          for(k; k<i+2; k++)
@@ -4021,9 +4018,9 @@ bool nonSymm()
             double currentLow  = iLow(NULL,periodGlobal,k);
             double currentHigh = iHigh(NULL,periodGlobal,k);
 // Ьерем текущее "наперед" не заглядываем
-            if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
-            if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
-            ts7_3_HalfWave_1 = "plus";
+            if(ts7_3_min0_local>currentLow) {ts7_3_min0_local=currentLow;}
+            if(ts7_3_max0_local<currentHigh){ts7_3_max0_local=currentHigh;}
+            ts7_3_HalfWave_0 = "minus";
 
             halfWave_1H4[z]=k;
             priceForMinMax=iOpen(NULL,periodGlobal,k);
@@ -4059,9 +4056,9 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
          firstMaxLocalNonSymmetricMACD=macdForMinMax;
 
-                 // Инициализируем текущим значением цены
-                 ts7_3_min1_local = iLow(NULL,periodGlobal,k);
-                 ts7_3_max1_local = iHigh(NULL,periodGlobal,k);
+      // Инициализируем текущим значением цены
+      ts7_3_min0_local = iLow(NULL,periodGlobal,k);
+      ts7_3_max0_local = iHigh(NULL,periodGlobal,k);
 
 
          for(k; k<i+2; k++)
@@ -4070,9 +4067,9 @@ bool nonSymm()
            double currentLow  = iLow(NULL,periodGlobal,k);
             double currentHigh = iHigh(NULL,periodGlobal,k);
 // Ьерем текущее "наперед" не заглядываем
-            if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
-            if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
-            ts7_3_HalfWave_1 = "minus";
+            if(ts7_3_min0_local>currentLow) {ts7_3_min0_local=currentLow;}
+            if(ts7_3_max0_local<currentHigh){ts7_3_max0_local=currentHigh;}
+            ts7_3_HalfWave_0 = "plus";
 
             halfWave_1H4[z]=k;
             priceForMinMax=iOpen(NULL,periodGlobal,k);
@@ -4110,8 +4107,20 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,m);
          firstMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min1_local = iLow(NULL,periodGlobal,m);
+      ts7_3_max1_local = iHigh(NULL,periodGlobal,m);
+
          for(m; m<i+2; m++)
            {
+
+           double currentLow  = iLow(NULL,periodGlobal,m);
+            double currentHigh = iHigh(NULL,periodGlobal,m);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
+            if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
+            ts7_3_HalfWave_0 = "plus";
+
             priceForMinMax=iOpen(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
             if(priceForMinMax>firstMaxLocalNonSymmetric)
@@ -4146,8 +4155,18 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,m);
          firstMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min1_local = iLow(NULL,periodGlobal,m);
+      ts7_3_max1_local = iHigh(NULL,periodGlobal,m);
+
          for(m; m<i+2; m++)
            {
+            double currentLow  = iLow(NULL,periodGlobal,m);
+            double currentHigh = iHigh(NULL,periodGlobal,m);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
+            if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
+            ts7_3_HalfWave_0 = "minus";
+
             halfWave_2H4[y]=m;
             priceForMinMax=iOpen(NULL,periodGlobal,m);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
@@ -4184,8 +4203,19 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,p);
          secondMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min2_local = iLow(NULL,periodGlobal,p);
+      ts7_3_max2_local = iHigh(NULL,periodGlobal,p);
+
          for(p; p<i+2; p++)
            {
+
+            double currentLow  = iLow(NULL,periodGlobal,p);
+            double currentHigh = iHigh(NULL,periodGlobal,p);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min2_local>currentLow) {ts7_3_min2_local=currentLow;}
+            if(ts7_3_max2_local<currentHigh){ts7_3_max2_local=currentHigh;}
+            ts7_3_HalfWave_1 = "minus";
+
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
@@ -4221,8 +4251,19 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,p);
          secondMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min2_local = iLow(NULL,periodGlobal,p);
+      ts7_3_max2_local = iHigh(NULL,periodGlobal,p);
+
          for(p; p<i+2; p++)
            {
+           double currentLow  = iLow(NULL,periodGlobal,p);
+            double currentHigh = iHigh(NULL,periodGlobal,p);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min2_local>currentLow) {ts7_3_min2_local=currentLow;}
+            if(ts7_3_max2_local<currentHigh){ts7_3_max2_local=currentHigh;}
+            ts7_3_HalfWave_1 = "plus";
+
             halfWave_3H4[x]=p;
             priceForMinMax=iOpen(NULL,periodGlobal,p);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
@@ -4258,8 +4299,20 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,q);
          secondMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min3_local = iLow(NULL,periodGlobal,q);
+      ts7_3_max3_local = iHigh(NULL,periodGlobal,q);
+
          for(q; q<i+2; q++)
            {
+
+           double currentLow  = iLow(NULL,periodGlobal,q);
+            double currentHigh = iHigh(NULL,periodGlobal,q);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min3_local>currentLow) {ts7_3_min3_local=currentLow;}
+            if(ts7_3_max3_local<currentHigh){ts7_3_max3_local=currentHigh;}
+            ts7_3_HalfWave_1 = "plus";
+
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
 //             Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
@@ -4294,8 +4347,18 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,q);
          secondMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min3_local = iLow(NULL,periodGlobal,q);
+      ts7_3_max3_local = iHigh(NULL,periodGlobal,q);
+
          for(q; q<i+2; q++)
            {
+            double currentLow  = iLow(NULL,periodGlobal,q);
+            double currentHigh = iHigh(NULL,periodGlobal,q);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min3_local>currentLow) {ts7_3_min3_local=currentLow;}
+            if(ts7_3_max3_local<currentHigh){ts7_3_max3_local=currentHigh;}
+            ts7_3_HalfWave_1 = "minus";
+
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
  //            Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
