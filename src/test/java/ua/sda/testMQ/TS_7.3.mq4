@@ -69,7 +69,7 @@ double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 
 double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
 double ts7_3_min2 = 0.00000000, ts7_3_min3 = 0.00000000, ts7_3_max2 = 0.00000000, ts7_3_max3 = 0.00000000;
-string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init";
+
 
 
 ENUM_TIMEFRAMES periodGlobal;
@@ -87,6 +87,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats1;
  string strStats2;
  string strStats3;
+ string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init",, ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
@@ -191,6 +192,12 @@ void OnTick(void)
 // FiboMod Analyzing Block
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
+ ts7_3_HalfWave_00 = "init";
+  ts7_3_HalfWave_0 = "init";
+   ts7_3_HalfWave_1 = "init";
+      ts7_3_HalfWave_2 = "init";
+         ts7_3_HalfWave_3 = "init";
+
          //        Print("i = ", i, " ArraySize(timeFrames) = ", ArraySize(timeFrames));
          //        Print("periodGlobal = ", periodGlobal, " timeFrames[i] = ", timeFrames[i]);
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymmTick()
@@ -4113,7 +4120,7 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
             if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
-            ts7_3_HalfWave_0 = "plus";
+            ts7_3_HalfWave_1 = "plus";
 
             priceForMinMax=iOpen(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
@@ -4159,7 +4166,7 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
             if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
-            ts7_3_HalfWave_0 = "minus";
+            ts7_3_HalfWave_1 = "minus";
 
             halfWave_2H4[y]=m;
             priceForMinMax=iOpen(NULL,periodGlobal,m);
@@ -4208,7 +4215,7 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min2_local>currentLow) {ts7_3_min2_local=currentLow;}
             if(ts7_3_max2_local<currentHigh){ts7_3_max2_local=currentHigh;}
-            ts7_3_HalfWave_1 = "minus";
+            ts7_3_HalfWave_2 = "minus";
 
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
@@ -4256,7 +4263,7 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min2_local>currentLow) {ts7_3_min2_local=currentLow;}
             if(ts7_3_max2_local<currentHigh){ts7_3_max2_local=currentHigh;}
-            ts7_3_HalfWave_1 = "plus";
+            ts7_3_HalfWave_2 = "plus";
 
             halfWave_3H4[x]=p;
             priceForMinMax=iOpen(NULL,periodGlobal,p);
@@ -4305,7 +4312,7 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min3_local>currentLow) {ts7_3_min3_local=currentLow;}
             if(ts7_3_max3_local<currentHigh){ts7_3_max3_local=currentHigh;}
-            ts7_3_HalfWave_1 = "plus";
+            ts7_3_HalfWave_3 = "plus";
 
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
@@ -4351,7 +4358,7 @@ bool nonSymm()
 // Ьерем текущее "наперед" не заглядываем
             if(ts7_3_min3_local>currentLow) {ts7_3_min3_local=currentLow;}
             if(ts7_3_max3_local<currentHigh){ts7_3_max3_local=currentHigh;}
-            ts7_3_HalfWave_1 = "minus";
+            ts7_3_HalfWave_3 = "minus";
 
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
@@ -6470,7 +6477,7 @@ bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
 // Here we check, min1 and min2 for each TimeFrame
 // How we gonna handle different HalfWaves
 bool isFigure_TS_73_Up(){
-//test();
+test();
     bool result = false;
     if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" && ts7_3_min1 < ts7_3_min0){
         result = true;
@@ -6479,7 +6486,7 @@ bool isFigure_TS_73_Up(){
 }
 
 bool isFigure_TS_73_Down(){
-//test();
+test();
     bool result = false;
     if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" && ts7_3_max1 > ts7_3_max0){
         result = true;
@@ -6488,6 +6495,6 @@ bool isFigure_TS_73_Down(){
 }
 
 void test(){
-    Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00,"ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, "ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
-    Print("ts7_3_min1 = ", ts7_3_min1,"ts7_3_min0 = ", ts7_3_min0, "ts7_3_max1 = ", ts7_3_max1, "ts7_3_max0 = ", ts7_3_max0);
+    Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
+    Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
 }
