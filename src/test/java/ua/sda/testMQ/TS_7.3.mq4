@@ -6477,7 +6477,7 @@ bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
 // Here we check, min1 and min2 for each TimeFrame
 // How we gonna handle different HalfWaves
 bool isFigure_TS_73_Up(){
-test();
+//test();
     bool result = false;
     if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" && ts7_3_min1 < ts7_3_min0){
         result = true;
@@ -6486,7 +6486,7 @@ test();
 }
 
 bool isFigure_TS_73_Down(){
-test();
+//test();
     bool result = false;
     if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" && ts7_3_max1 > ts7_3_max0){
         result = true;
