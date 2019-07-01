@@ -3760,7 +3760,7 @@ total=OrdersTotal();
 if(newHalfWave_Down_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
-                 return(0); // exit
+
                 }
             //                 } // посвечный обвес
             //              } // посвечный обвес
@@ -3823,7 +3823,7 @@ if(newHalfWave_Down_M15)
 if(newHalfWave_Up_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
-                 return(0); // exit
+                 //return(0); // exit
                 }
            }
         }
