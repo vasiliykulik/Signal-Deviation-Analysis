@@ -3608,6 +3608,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          else Print("Error opening SELL order : ",GetLastError());
          return;
         }
+  } // not trailing if OrderCount == max Orders
 // it is important to enter the market correctly,
 // but it is more important to exit it correctly...
 
@@ -3741,7 +3742,6 @@ total=OrdersTotal();
 
 
      Sleep(3333);
-  }
 
 // Block 5 nonSymm() - проставляем цены в  global переменных для ПолуВолн, используется в блоке 4
 // проставляем цены для ведения позиции
