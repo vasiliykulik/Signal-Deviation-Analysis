@@ -3757,7 +3757,7 @@ total=OrdersTotal();
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
-if(newHalfWave_Down_M15)
+if(newHalfWave_Down_M5)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
 
@@ -3820,7 +3820,7 @@ if(newHalfWave_Down_M15)
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
-if(newHalfWave_Up_M15)
+if(newHalfWave_Up_M5)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
                  //return(0); // exit
