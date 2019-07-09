@@ -3603,7 +3603,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
 
     if(
-                ts73_H1 == "Up"  &&
+  //              ts73_H1 == "Up"  &&
             ts73_M15 == "Up"  &&
              ts73_M5 == "Up"  && newHalfWave_Up_H1
        )
@@ -3611,7 +3611,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
 
       if(
-      ts73_H1 == "Down" &&
+ //     ts73_H1 == "Down" &&
             ts73_M15 == "Down" &&
              ts73_M5 == "Down" && newHalfWave_Down_H1
          )
@@ -3761,7 +3761,7 @@ total=OrdersTotal();
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
-if(newHalfWave_Down_M5)
+if(newHalfWave_Down_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
 
@@ -3824,7 +3824,7 @@ if(newHalfWave_Down_M5)
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
-if(newHalfWave_Up_M5)
+if(newHalfWave_Up_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
                  //return(0); // exit
