@@ -3605,7 +3605,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     if(
   //              ts73_H1 == "Up"  && ts73_M5 == "Up"  &&
             ts73_M15 == "Up"  &&
-              newHalfWave_Up_M15
+              newHalfWave_Up_M15 &&
+              newHalfWave_Up_M5
        )
             {buy=1;Print("ts73_M5 == Up");}
 
@@ -3613,7 +3614,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if(
  //     ts73_H1 == "Down" && ts73_M5 == "Down" &&
             ts73_M15 == "Down" &&
-              newHalfWave_Down_M15
+              newHalfWave_Down_M15 &&
+              newHalfWave_Down_M5
          )
             {sell=1;Print("ts73_M5 == Down");}
 
