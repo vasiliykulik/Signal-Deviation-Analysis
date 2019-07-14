@@ -399,6 +399,7 @@ void OnTick(void)
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
 
       string ts73_M1  = "init", ts73_M5  = "init", ts73_M15 = "init",  ts73_H1  = "init",  ts73_H4  = "init",  ts73_D1  = "init";
+      string ts74_M1  = "init", ts74_M5  = "init", ts74_M15 = "init",  ts74_H1  = "init",  ts74_H4  = "init",  ts74_D1  = "init";
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2969,6 +2970,28 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     print("Figure_TS_73_Down  ", timeFrames[i]);
             }
 
+            // Figure_TS_74_Up
+            if(isFigure_TS_74_Up()){
+                    if(timeFrames[i]==PERIOD_M1) {ts74_M1  = "Up";}
+                    if(timeFrames[i]==PERIOD_M5) {ts74_M5  = "Up";}
+                    if(timeFrames[i]==PERIOD_M15){ts74_M15 = "Up";}
+                    if(timeFrames[i]==PERIOD_H1) {ts74_H1  = "Up";}
+                    if(timeFrames[i]==PERIOD_H4) {ts74_H4  = "Up";}
+                    if(timeFrames[i]==PERIOD_D1) {ts74_D1  = "Up";}
+                    print("Figure_TS_74_Up  ", timeFrames[i]);
+            }
+
+            // Figure_TS_74_Down
+            if(isFigure_TS_74_Down()){
+                    if(timeFrames[i]==PERIOD_M1) {ts74_M1  = "Down";}
+                    if(timeFrames[i]==PERIOD_M5) {ts74_M5  = "Down";}
+                    if(timeFrames[i]==PERIOD_M15){ts74_M15 = "Down";}
+                    if(timeFrames[i]==PERIOD_H1) {ts74_H1  = "Down";}
+                    if(timeFrames[i]==PERIOD_H4) {ts74_H4  = "Down";}
+                    if(timeFrames[i]==PERIOD_D1) {ts74_D1  = "Down";}
+                    print("Figure_TS_74_Down  ", timeFrames[i]);
+            }
+
 
 
 }
@@ -3447,7 +3470,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   // Stats2
   if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit){print(" Buy Stats1 && Rebound w Amplitude ","strStats2");}
   if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit){print(" Sell Stats1 && Rebound w Amplitude ","strStats2");}
-  strStats3 = StringConcatenate(ts73_M1," ",ts73_M5," ",ts73_M15," ",ts73_H1," ",ts73_H4," ",ts73_D1);
+  strStats3 = StringConcatenate(ts73_M1," ",ts73_M5," ",ts73_M15," ",ts73_H1," ",ts73_H4," ",ts73_D1, "|||", ts74_M1," ",ts74_M5," ",ts74_M15," ",ts74_H1," ",ts74_H4," ",ts74_D1);
 
 
     bool isNewSignalForSendingNotification = false;
@@ -6511,4 +6534,33 @@ bool isFigure_TS_73_Down(){
 void test(){
     Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
     Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
+}
+
+bool isFigure_TS_74_Up(){
+//test();
+    bool result = false;
+    double deltaA = ts7_3_max1 - ts7_3_min0;
+    double deltaB = deltaA / 100 * 38.2;
+    double deltaC = Bid + deltaB;
+    if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" &&
+    ts7_3_max00 > ts7_3_max0 && ts7_3_max00 > ts7_3_max1 && ts7_3_max00 > ts7_3_max2 && ts7_3_max00 > ts7_3_max> &&
+    Bid < deltaC){
+        result = true;
+    }
+    return result;
+}
+
+bool isFigure_TS_74_Down(){
+//test();
+    bool result = false;
+    double deltaA = ts7_3_max0 - ts7_3_min1;
+    double deltaB = deltaA / 100 * 38.2;
+    double deltaC = Bid - deltaB;
+    if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" &&
+     ts7_3_min00 < ts7_3_min0 && ts7_3_min00 < ts7_3_min1 && ts7_3_min00 < ts7_3_min2 && ts7_3_min00 < ts7_3_min< &&
+     Bid > deltaC
+     ){
+        result = true;
+    }
+    return result;
 }
