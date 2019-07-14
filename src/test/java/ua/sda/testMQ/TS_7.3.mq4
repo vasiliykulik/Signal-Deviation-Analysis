@@ -90,7 +90,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5,PERIOD_M15};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15, PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -3605,8 +3605,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     if(
   //              ts73_H1 == "Up"  && ts73_M5 == "Up"  &&
             ts73_M15 == "Up"  &&
-              newHalfWave_Up_M15 &&
-              newHalfWave_Up_M5
+              newHalfWave_Up_H1 //&& newHalfWave_Up_M5
        )
             {buy=1;Print("ts73_M5 == Up");}
 
@@ -3614,8 +3613,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if(
  //     ts73_H1 == "Down" && ts73_M5 == "Down" &&
             ts73_M15 == "Down" &&
-              newHalfWave_Down_M15 &&
-              newHalfWave_Down_M5
+              newHalfWave_Down_H1 // && newHalfWave_Down_M5
          )
             {sell=1;Print("ts73_M5 == Down");}
 
@@ -3763,7 +3761,7 @@ total=OrdersTotal();
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
-if(newHalfWave_Down_M5)
+if(newHalfWave_Down_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
 
@@ -3826,7 +3824,7 @@ if(newHalfWave_Down_M5)
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
-if(newHalfWave_Up_M5)
+if(newHalfWave_Up_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
                  //return(0); // exit
