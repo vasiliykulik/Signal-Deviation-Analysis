@@ -3683,7 +3683,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
         )
     */
-      ts73_H1 == "Down" //&& ts73_M5 == "Down" &&
+      ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
             ts73_M15 == "Down" &&
               newHalfWave_Down_H1 // && newHalfWave_Down_M5
          )
