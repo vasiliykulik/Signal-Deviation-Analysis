@@ -3527,7 +3527,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   // Stats2
   if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit){print(" Buy Stats1 && Rebound w Amplitude ","strStats2");}
   if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit){print(" Sell Stats1 && Rebound w Amplitude ","strStats2");}
-  strStats3 = StringConcatenate("73 min1<min0, max1>max>0 ",ts73_M1," ",ts73_M5," ",ts73_M15," ",ts73_H1," ",ts73_H4," ",ts73_D1, "|||","74 max00>max0,max1,max2,max3 ", ts74_M1," ",ts74_M5," ",ts74_M15," ",ts74_H1," ",ts74_H4," ",ts74_D1, "|||","75 max00>max0,max1,max1 min00<min0,min1 ", ts75_M1," ",ts75_M5," ",ts75_M15," ",ts75_H1," ",ts75_H4," ",ts75_D1);
+  strStats3 = StringConcatenate("73 min1<min0, max1>max>0 ",ts73_M1," ",ts73_M5," ",ts73_M15," ",ts73_H1," ",ts73_H4," ",ts73_D1, "|||","74 max00>max0,max1,max2,max3 ", ts74_M1," ",ts74_M5," ",ts74_M15," ",ts74_H1," ",ts74_H4," ",ts74_D1, "|||","75 max00>max0,max1,max1 min00<min0,min1 ", ts75_M1," ",ts75_M5," ",ts75_M15," ",ts75_H1," ",ts75_H4," ",ts75_D1, " ", TrailingFiboLevel);
 
 
     bool isNewSignalForSendingNotification = false;
