@@ -6543,8 +6543,7 @@ bool isFigure_TS_74_Up(){
     double deltaB = deltaA / 100 * 38.2;
     double deltaC = Bid + deltaB;
     if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" &&
-    ts7_3_max00 > ts7_3_max0 && ts7_3_max00 > ts7_3_max1 && ts7_3_max00 > ts7_3_max2 && ts7_3_max00 > ts7_3_max> &&
-    Bid < deltaC){
+    ts7_3_max00 > ts7_3_max0 && ts7_3_max00 > ts7_3_max1 && ts7_3_max00 > ts7_3_max2 && ts7_3_max00 > ts7_3_max3 && (Bid < deltaC)){
         result = true;
     }
     return result;
@@ -6557,9 +6556,7 @@ bool isFigure_TS_74_Down(){
     double deltaB = deltaA / 100 * 38.2;
     double deltaC = Bid - deltaB;
     if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" &&
-     ts7_3_min00 < ts7_3_min0 && ts7_3_min00 < ts7_3_min1 && ts7_3_min00 < ts7_3_min2 && ts7_3_min00 < ts7_3_min< &&
-     Bid > deltaC
-     ){
+     ts7_3_min00 < ts7_3_min0 && ts7_3_min00 < ts7_3_min1 && ts7_3_min00 < ts7_3_min2 && ts7_3_min00 < ts7_3_min3 && (Bid > deltaC)){
         result = true;
     }
     return result;
