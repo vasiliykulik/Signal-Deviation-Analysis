@@ -3717,6 +3717,9 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             {sell=1;Print("ts73_M5 == Down");}
 
 // TimeFilter (потому что надо вызвать метод print())
+
+/*
+
 int hour=TimeHour(TimeCurrent());
 int weekday=TimeDayOfWeek(TimeCurrent());
 if((hour<10 && weekday<2) || (hour>17 && weekday >4)){
@@ -3724,6 +3727,9 @@ buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny";
 } else timeFilter = "timeFilter Allow";
+
+*/
+
 // timeFilter = StringConcatenate("hour = ",hour, "weekday = ", weekday) ;
 
 print();
