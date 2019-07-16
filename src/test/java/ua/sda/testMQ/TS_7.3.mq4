@@ -93,6 +93,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats1;
  string strStats2;
  string strStats3;
+ string timeFilter;
  string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
@@ -175,6 +176,7 @@ void OnTick(void)
    strStats1 = "nothing";
    strStats2 = "nothing";
    strStats3 = "nothing";
+   timeFilter = "timeFilter not init";
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -3714,6 +3716,17 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          )
             {sell=1;Print("ts73_M5 == Down");}
 
+// TimeFilter (потому что надо вызвать метод print())
+int hour=TimeHour(TimeCurrent());
+int weekday=TimeDayOfWeek(TimeCurrent());
+if((hour<10 && weekday<2) || (hour>17 && weekday >4)){
+buy = 0;
+sell = 0;
+timeFilter = "timeFilter Deny";
+} else timeFilter = "timeFilter Allow";
+// timeFilter = StringConcatenate("hour = ",hour, "weekday = ", weekday) ;
+
+print();
 
 //buy = 0;
 //sell = 0;
@@ -3930,7 +3943,7 @@ if(CloseOnHalfWaveClosePermitDown_M1 || CloseOnHalfWaveClosePermitDown_M5 || Clo
         }
      }
      }
-
+// end of tick method
 
 
 
@@ -5311,8 +5324,11 @@ bool nonSymmTick()
         strMoneyManagment = "MoneyManagment 12/24 USD, no explicit movement. Lots = " + Lots;
      }
 
+
+start = StringConcatenate(start, " ", timeFilter);
+
     Comment(
-        "\n     ", start ,
+        "\n     ", start,
         "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
         "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
         "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
