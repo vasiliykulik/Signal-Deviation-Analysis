@@ -97,7 +97,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -3693,7 +3693,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         )
     ) ||
                ( //ts73_H1 == "Up"  && // ts73_M5 == "Up"  &&
-            ts75_M15 == "Up"  &&  ts75_M5 == "Up"
+            ts75_M15 == "Up"  &&  ts75_M5 == "Up" &&  ts75_H1 == "Up"
               //newHalfWave_Up_H1 //&& newHalfWave_Up_M5
               )
        )
@@ -3710,7 +3710,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     ) ||
     (
       //ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
-            ts75_M15 == "Down" &&  ts75_M5 == "Down"
+            ts75_M15 == "Down" &&  ts75_M5 == "Down" &&  ts75_H1 == "Down"
              // newHalfWave_Down_H1 // && newHalfWave_Down_M5
        )
          )
