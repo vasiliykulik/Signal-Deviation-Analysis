@@ -3693,7 +3693,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         )
     ) ||
                ( //ts73_H1 == "Up"  && // ts73_M5 == "Up"  &&
-            ts75_M15 == "Up" // &&
+            ts75_M15 == "Up"  &&  ts75_M5 == "Up"
               //newHalfWave_Up_H1 //&& newHalfWave_Up_M5
               )
        )
@@ -3710,7 +3710,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     ) ||
     (
       //ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
-            ts75_M15 == "Down" //&&
+            ts75_M15 == "Down" &&  ts75_M5 == "Down"
              // newHalfWave_Down_H1 // && newHalfWave_Down_M5
        )
          )
