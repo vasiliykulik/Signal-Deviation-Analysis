@@ -3692,12 +3692,12 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
             OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
         )
     ) ||
-               ( ts73_H1 == "Up"  && // ts73_M5 == "Up"  &&
-            ts73_M15 == "Up"  &&
-              newHalfWave_Up_H1 //&& newHalfWave_Up_M5
+               ( //ts73_H1 == "Up"  && // ts73_M5 == "Up"  &&
+            ts75_M15 == "Up" // &&
+              //newHalfWave_Up_H1 //&& newHalfWave_Up_M5
               )
        )
-            {buy=1;Print("ts73_M5 == Up");}
+            {buy=1;Print("ts75_M15 == Up");}
 
 
       if(
@@ -3709,12 +3709,12 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         )
     ) ||
     (
-      ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
-            ts73_M15 == "Down" &&
-              newHalfWave_Down_H1 // && newHalfWave_Down_M5
+      //ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
+            ts75_M15 == "Down" //&&
+             // newHalfWave_Down_H1 // && newHalfWave_Down_M5
        )
          )
-            {sell=1;Print("ts73_M5 == Down");}
+            {sell=1;Print("ts75_M15 == Down");}
 
 // TimeFilter (потому что надо вызвать метод print())
 
