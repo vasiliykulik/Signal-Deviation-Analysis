@@ -97,7 +97,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15, PERIOD_H1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M15};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -6658,19 +6658,16 @@ bool isFigure_TS_73_Down(){
     return result;
 }
 
-void test(){
-    Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
-    Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
-}
+
 
 bool isFigure_TS_74_Up(){
 //test();
     bool result = false;
     double deltaA = ts7_3_max1 - ts7_3_min0;
     double deltaB = deltaA / 100 * 38.2;
-    double deltaC = Bid + deltaB;
+    double deltaC = ts7_3_max1 + deltaB;
     if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" &&
-    ts7_3_max00 > ts7_3_max0 && ts7_3_max00 > ts7_3_max1 && ts7_3_max00 > ts7_3_max2 && ts7_3_max00 > ts7_3_max3 && (Bid < deltaC)){
+    Bid > ts7_3_max0 && Bid > ts7_3_max1 && Bid > ts7_3_max2 && Bid > ts7_3_max3 && (Bid < deltaC)){
         result = true;
     }
     return result;
@@ -6681,22 +6678,32 @@ bool isFigure_TS_74_Down(){
     bool result = false;
     double deltaA = ts7_3_max0 - ts7_3_min1;
     double deltaB = deltaA / 100 * 38.2;
-    double deltaC = Bid - deltaB;
+    double deltaC = ts7_3_max0 - deltaB;
     if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" &&
-     ts7_3_min00 < ts7_3_min0 && ts7_3_min00 < ts7_3_min1 && ts7_3_min00 < ts7_3_min2 && ts7_3_min00 < ts7_3_min3 && (Bid > deltaC)){
+     Bid < ts7_3_min0 && Bid < ts7_3_min1 && Bid < ts7_3_min2 && Bid < ts7_3_min3 && (Bid > deltaC)){
         result = true;
     }
     return result;
 }
 
+// max00 и min00 с изменением цены не меняются потому меняем на Bid
+//D deltaC надо брать не Ишв а max1
+
 bool isFigure_TS_75_Up(){
 //test();
     bool result = false;
     double deltaA = ts7_3_max1 - ts7_3_min0;
+// Print(" deltaA = ts7_3_max1 - ts7_3_min0 = ", ts7_3_max1 - ts7_3_min0)    ;
     double deltaB = deltaA / 100 * 38.2;
-    double deltaC = Bid + deltaB;
+// Print(" deltaB = deltaA / 100 * 38.2 = ", deltaA / 100 * 38.2);
+    double deltaC = ts7_3_max1 + deltaB;
+// Print(" deltaC = ts7_3_max1 + deltaB = ", ts7_3_max1 + deltaB);
+// Print(" ts7_3_HalfWave_0 == minus && ts7_3_HalfWave_1 == plus = ", ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus");
+// Print(" Bid  = ", Bid, " ts7_3_max0  = ", ts7_3_max0, " ts7_3_max1  = ", ts7_3_max1 );
+// Print(" Bid > ts7_3_max0 && Bid > ts7_3_max1 = ", Bid > ts7_3_max0 && Bid > ts7_3_max1);
+// Print(" (Bid < deltaC) = ", (Bid < deltaC));
     if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" &&
-    ts7_3_max00 > ts7_3_max0 && ts7_3_max00 > ts7_3_max1 && (Bid < deltaC)){
+    Bid > ts7_3_max0 && Bid > ts7_3_max1 && (Bid < deltaC)){
         result = true;
     }
     return result;
@@ -6706,11 +6713,23 @@ bool isFigure_TS_75_Down(){
 //test();
     bool result = false;
     double deltaA = ts7_3_max0 - ts7_3_min1;
+// Print(" deltaA = ts7_3_max0 - ts7_3_min1 = ", ts7_3_max0 - ts7_3_min1)    ;
     double deltaB = deltaA / 100 * 38.2;
-    double deltaC = Bid - deltaB;
+// Print(" deltaB = deltaA / 100 * 38.2 = ", deltaA / 100 * 38.2);
+    double deltaC = ts7_3_min1 - deltaB;
+// Print(" deltaC = ts7_3_max0 - deltaB = ", Bid - deltaB);
+// Print(" ts7_3_HalfWave_0 == plus && ts7_3_HalfWave_1 == minus = ", ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus");
+// Print(" Bid  = ", Bid, " ts7_3_min0  = ", ts7_3_min0, " ts7_3_min1  = ", ts7_3_min1 );
+// Print(" Bid < ts7_3_min0 && Bid < ts7_3_min1 = ", Bid < ts7_3_min0 && Bid < ts7_3_min1);
+// Print(" (Bid > deltaC) = ", (Bid > deltaC));
     if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" &&
-     ts7_3_min00 < ts7_3_min0 && ts7_3_min00 < ts7_3_min1 && (Bid > deltaC)){
+     Bid < ts7_3_min0 && Bid < ts7_3_min1 && (Bid > deltaC)){
         result = true;
     }
     return result;
+}
+
+void test(){
+    Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
+    Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
 }
