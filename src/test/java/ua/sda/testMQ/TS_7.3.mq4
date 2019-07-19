@@ -3722,7 +3722,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
 int hour=TimeHour(TimeCurrent());
 int weekday=TimeDayOfWeek(TimeCurrent());
-if((hour<10 && weekday<2) || (hour>17 && weekday >4)){
+if((hour<10 && weekday<2) || (hour>17 && weekday >=4)){
 buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny";
