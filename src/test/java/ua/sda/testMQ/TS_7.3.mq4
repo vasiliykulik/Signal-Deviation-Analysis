@@ -3722,11 +3722,20 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
 int hour=TimeHour(TimeCurrent());
 int weekday=TimeDayOfWeek(TimeCurrent());
-if((hour<10 && weekday<2) || (hour>17 && weekday >=4)){
+if((hour<10 && weekday<2)){
 buy = 0;
 sell = 0;
-timeFilter = "timeFilter Deny";
-} else timeFilter = "timeFilter Allow";
+timeFilter = "timeFilter Deny. Monday morning. Before european session. Low recognition.";
+}
+else if ((hour>17 && weekday >=4)){
+timeFilter = "timeFilter Deny. Thursday evening. If "full" Thursday after 18:00 do not climb. High fatigue.";
+}
+else if ((hour>21 && weekday >=4)){
+buy = 0;
+sell = 0;
+timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 never climb";
+}
+else timeFilter = "timeFilter Allow";
 
 */
 
