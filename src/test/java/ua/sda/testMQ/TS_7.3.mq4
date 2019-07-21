@@ -97,7 +97,7 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 //ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1, PERIOD_H4};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
