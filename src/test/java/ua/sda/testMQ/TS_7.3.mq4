@@ -96,8 +96,8 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string timeFilter;
  string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
-//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
-ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1, PERIOD_H4};
+ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1, PERIOD_H4};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -3691,13 +3691,14 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         (
             OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
         )
-    ) ||
+    )
+/*    ||
                ( //ts73_H1 == "Up"  && // ts73_M5 == "Up"  &&
             ts75_M15 == "Up"  &&  ts75_M5 == "Up" &&  ts75_H1 == "Up" &&  ts75_H4 == "Up"
               //newHalfWave_Up_H1 //&& newHalfWave_Up_M5
-              )
+              )*/
        )
-            {buy=1;Print("ts75_M15 == Up");}
+            {buy=1;Print("buy=1");}
 
 
       if(
@@ -3707,14 +3708,15 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         (
             OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
         )
-    ) ||
+    )
+/*     ||
     (
       //ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
             ts75_M15 == "Down" &&  ts75_M5 == "Down" &&  ts75_H1 == "Down" &&  ts75_H4 == "Down"
              // newHalfWave_Down_H1 // && newHalfWave_Down_M5
-       )
+       )*/
          )
-            {sell=1;Print("ts75_M15 == Down");}
+            {sell=1;Print("sell=1");}
 
 // TimeFilter (потому что надо вызвать метод print())
 
