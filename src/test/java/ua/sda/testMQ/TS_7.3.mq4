@@ -3771,7 +3771,7 @@ print();
 
          if(isBuyOrdersProfitableOrNone())
          {
-            ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+            ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"ts 75",16384,0,Green);
          }
 
          //Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
@@ -3807,7 +3807,7 @@ print();
 
          if(isSellOrdersProfitableOrNone()) // вышли ли открытые ордера в БУ
          {
-            ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
+            ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"ts 75",16384,0,Red);
          }
 
          //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
