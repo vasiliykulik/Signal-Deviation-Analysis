@@ -25,7 +25,10 @@ extern double riskOnOneOrderPercent = 2;
 
 // По открытии ордера эта группа переменных переинициализируется в false,
  //что бы уйти от многократного открытия позиции
- extern bool limitSinglePsitionOnOpenOnHalfWaves = false;
+
+
+ // Но что делать если я хочу покупать на М1 по пути вверх ?
+ extern bool limitSinglePositionOnOpenOnHalfWaves = false; //определение дано; На isNewSignal проверка пройдена
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
 extern bool OpenOnHalfWaveUp_M15   = false;
@@ -3774,7 +3777,9 @@ print();
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
-            unCheckOpenOnHalfWavesFlag();
+            if(limitSinglePositionOnOpenOnHalfWaves){
+                unCheckOpenOnHalfWavesFlag();
+            }
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
@@ -3808,7 +3813,9 @@ print();
          if(ticket>0)// если есть открытые ордера
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
-            unCheckOpenOnHalfWavesFlag();
+            if(limitSinglePositionOnOpenOnHalfWaves){
+                unCheckOpenOnHalfWavesFlag();
+            }
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
