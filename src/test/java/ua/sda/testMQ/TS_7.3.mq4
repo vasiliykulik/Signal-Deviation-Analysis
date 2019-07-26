@@ -3728,16 +3728,16 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
 int hour=TimeHour(TimeCurrent());
 int weekday=TimeDayOfWeek(TimeCurrent());
-if((hour<10 && weekday<2)){
+if((hour<10 && weekday==1)){
 buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny. Monday morning. Before european session. Low recognition.";
-}else if (hour>17 && weekday >3){
+}else if ((hour>17 && weekday ==4)){
 timeFilter = "timeFilter Deny. Thursday evening. If \"full\" Thursday after 18:00 Stay out of it. Always. High fatigue.";
-}else if (hour>21 && weekday >3){
+}else if ((weekday >4)||(hour>21 && weekday ==4)){
 buy = 0;
 sell = 0;
-timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 Stay out of it. Always.";
+timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 Stay out of it. Always. Close All.";
 }else timeFilter = "timeFilter Allow";
 
 
