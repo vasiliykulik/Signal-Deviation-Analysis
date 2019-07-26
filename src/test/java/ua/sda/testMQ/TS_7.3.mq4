@@ -3741,7 +3741,7 @@ timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 Stay 
 }else timeFilter = "timeFilter Allow";
 
 
- timeFilter = StringConcatenate("hour = ",hour, "weekday = ", weekday) ;
+ timeFilter = StringConcatenate(timeFilter," hour = ",hour, " weekday = ", weekday) ;
 
 print();
 
