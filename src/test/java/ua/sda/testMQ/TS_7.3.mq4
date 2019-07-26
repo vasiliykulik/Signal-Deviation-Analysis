@@ -3738,7 +3738,11 @@ timeFilter = "timeFilter Deny. Thursday evening. If \"full\" Thursday after 18:0
 buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 Stay out of it. Always. Close All.";
-}else if ((hour>17 && weekday ==5)){
+}else if ((hour<=17 && weekday ==5)){
+  buy = 0;
+  sell = 0;
+  timeFilter = "timeFilter Deny. Friday. Looking for to close position(s) to Stay out of it. Always. No Potential Motion. Close All.";
+  }else if ((hour>17 && weekday ==5)){
 buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny. Friday evening. No motion. After 18:00 Stay out of it. Always. No Motion. Close All.";
