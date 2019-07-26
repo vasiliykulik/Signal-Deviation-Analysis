@@ -3732,20 +3732,16 @@ if((hour<10 && weekday<2)){
 buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny. Monday morning. Before european session. Low recognition.";
-}
-else if ((hour>17 && weekday >=4)){
+}else if (hour>17 && weekday >=4){
 timeFilter = "timeFilter Deny. Thursday evening. If \"full\" Thursday after 18:00 Stay out of it. Always. High fatigue.";
-}
-else if ((hour>21 && weekday >=4)){
+}else if (hour>21 && weekday >=4){
 buy = 0;
 sell = 0;
 timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 Stay out of it. Always.";
-}
-else timeFilter = "timeFilter Allow";
+}else timeFilter = "timeFilter Allow";
 
 
-
-// timeFilter = StringConcatenate("hour = ",hour, "weekday = ", weekday) ;
+ timeFilter = StringConcatenate("hour = ",hour, "weekday = ", weekday) ;
 
 print();
 
