@@ -28,7 +28,8 @@ extern double riskOnOneOrderPercent = 2;
 
 
  // Но что делать если я хочу покупать на М1 по пути вверх ?
- extern bool limitSinglePositionOnOpenOnHalfWaves = false; //определение дано; На isNewSignal проверка пройдена
+ extern bool limitSinglePositionOnOpenOnHalfWaves = false; //
+ //определение дано; На isNewSignal проверка пройдена
  // нюанс, до прохождения проверки, при отсутствии открытых позиций была открыта позиция, тогда вопрос почему ранее позиции не открывались
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
