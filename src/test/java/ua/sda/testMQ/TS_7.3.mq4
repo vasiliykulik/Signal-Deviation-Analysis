@@ -41,12 +41,12 @@ extern bool OpenOnHalfWaveDown_M15 = false;
 extern bool m15_TL_Rebound_MarketPlay_Enabled = true;
 extern int relativeAmplitudePointsGlobal = 333;
 
-extern bool CloseOnHalfWaveUp_M1    = false;
-extern bool CloseOnHalfWaveUp_M5    = false;
-extern bool CloseOnHalfWaveUp_M15   = false;
-extern bool CloseOnHalfWaveDown_M1  = false;
-extern bool CloseOnHalfWaveDown_M5  = false;
-extern bool CloseOnHalfWaveDown_M15 = false;
+extern bool CloseOnHalfWaveDown_M1    = false;
+extern bool CloseOnHalfWaveDown_M5    = false;
+extern bool CloseOnHalfWaveDown_M15   = false;
+extern bool CloseOnHalfWaveUp_M1  = false;
+extern bool CloseOnHalfWaveUp_M5  = false;
+extern bool CloseOnHalfWaveUp_M15 = false;
 
 
 int accountLeverage = AccountLeverage();
@@ -3276,22 +3276,22 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
 
  // Method returns true if two ticks from one side and two from another.
  // So flag(s) are criterions
-  if( CloseOnHalfWaveUp_M1) {
+  if( CloseOnHalfWaveDown_M1) {
      CloseOnHalfWaveClosePermitUp_M1    = newHalfWave_Down_M1;
   }
-  if( CloseOnHalfWaveUp_M5) {
+  if( CloseOnHalfWaveDown_M5) {
      CloseOnHalfWaveClosePermitUp_M5    = newHalfWave_Down_M5;
   }
-  if( CloseOnHalfWaveUp_M15) {
+  if( CloseOnHalfWaveDown_M15) {
      CloseOnHalfWaveClosePermitUp_M15   = newHalfWave_Down_M15;
   }
-  if( CloseOnHalfWaveDown_M1) {
+  if( CloseOnHalfWaveUp_M1) {
      CloseOnHalfWaveClosePermitDown_M1  = newHalfWave_Up_M1;
   }
-  if( CloseOnHalfWaveDown_M5) {
+  if( CloseOnHalfWaveUp_M5) {
      CloseOnHalfWaveClosePermitDown_M5  = newHalfWave_Up_M5;
   }
-  if( CloseOnHalfWaveDown_M15) {
+  if( CloseOnHalfWaveUp_M15) {
      CloseOnHalfWaveClosePermitDown_M15 = newHalfWave_Up_M15;
   }
 
@@ -5295,12 +5295,12 @@ bool nonSymmTick()
     string strOpenOnHalfWaveDown_M1 ;
     string strOpenOnHalfWaveDown_M5 ;
     string strOpenOnHalfWaveDown_M15;
-    string strCloseOnHalfWaveUp_M1   ;
-    string strCloseOnHalfWaveUp_M5   ;
-    string strCloseOnHalfWaveUp_M15  ;
-    string strCloseOnHalfWaveDown_M1 ;
-    string strCloseOnHalfWaveDown_M5 ;
-    string strCloseOnHalfWaveDown_M15;
+    string strCloseOnHalfWaveDown_M1   ;
+    string strCloseOnHalfWaveDown_M5   ;
+    string strCloseOnHalfWaveDown_M15  ;
+    string strCloseOnHalfWaveUp_M1 ;
+    string strCloseOnHalfWaveUp_M5 ;
+    string strCloseOnHalfWaveUp_M15;
     string strMoneyManagment;
     int total = OrdersTotal();
     if(total>0){
@@ -5327,24 +5327,24 @@ bool nonSymmTick()
         strOpenOnHalfWaveDown_M15 =  "OpenOnHalfWaveDown_M15 now is Active";
      } else {strOpenOnHalfWaveDown_M15 = " ";}
 
-     if( CloseOnHalfWaveUp_M1) {
-        strCloseOnHalfWaveUp_M1    = "CloseOnHalfWaveUp_M1 now is Active";
-     } else {strCloseOnHalfWaveUp_M1    = " ";}
-     if( CloseOnHalfWaveUp_M5) {
-        strCloseOnHalfWaveUp_M5    = "CloseOnHalfWaveUp_M5 now is Active";
-     } else {strCloseOnHalfWaveUp_M5    = " ";}
-     if( CloseOnHalfWaveUp_M15) {
-        strCloseOnHalfWaveUp_M15   = "CloseOnHalfWaveUp_M15 now is Active";
-     } else {strCloseOnHalfWaveUp_M15   = " ";}
      if( CloseOnHalfWaveDown_M1) {
-        strCloseOnHalfWaveDown_M1  = "CloseOnHalfWaveDown_M1 now is Active";
-     } else {strCloseOnHalfWaveDown_M1  = " ";}
+        strCloseOnHalfWaveDown_M1    = "CloseOnHalfWaveDown_M1 now is Active";
+     } else {strCloseOnHalfWaveDown_M1    = " ";}
      if( CloseOnHalfWaveDown_M5) {
-        strCloseOnHalfWaveDown_M5  = "CloseOnHalfWaveDown_M5 now is Active";
-     } else {strCloseOnHalfWaveDown_M5  = " ";}
+        strCloseOnHalfWaveDown_M5    = "CloseOnHalfWaveDown_M5 now is Active";
+     } else {strCloseOnHalfWaveDown_M5    = " ";}
      if( CloseOnHalfWaveDown_M15) {
-        strCloseOnHalfWaveDown_M15 =  "CloseOnHalfWaveDown_M15 now is Active";
-     } else {strCloseOnHalfWaveDown_M15 = " ";}
+        strCloseOnHalfWaveDown_M15   = "CloseOnHalfWaveDown_M15 now is Active";
+     } else {strCloseOnHalfWaveDown_M15   = " ";}
+     if( CloseOnHalfWaveUp_M1) {
+        strCloseOnHalfWaveUp_M1  = "CloseOnHalfWaveUp_M1 now is Active";
+     } else {strCloseOnHalfWaveUp_M1  = " ";}
+     if( CloseOnHalfWaveUp_M5) {
+        strCloseOnHalfWaveUp_M5  = "CloseOnHalfWaveUp_M5 now is Active";
+     } else {strCloseOnHalfWaveUp_M5  = " ";}
+     if( CloseOnHalfWaveUp_M15) {
+        strCloseOnHalfWaveUp_M15 =  "CloseOnHalfWaveUp_M15 now is Active";
+     } else {strCloseOnHalfWaveUp_M15 = " ";}
 
      if(isAutoMoneyManagmentEnabled && moneyManagement4And8Or12And24_4_Or_12 == 4){
         strMoneyManagment = "MoneyManagment 4/8 USD, confident movement. Lots = " + Lots;
@@ -5365,12 +5365,12 @@ start = StringConcatenate(start, " ", timeFilter);
         "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
         "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
         "\nPERIOD_D1     ", messageGlobalPERIOD_D1 ,
-        "\n", strOpenOnHalfWaveUp_M1    ,"   ", strCloseOnHalfWaveUp_M1,
-        "\n", strOpenOnHalfWaveUp_M5    ,"   ", strCloseOnHalfWaveUp_M5,
-        "\n", strOpenOnHalfWaveUp_M15   ,"  ", strCloseOnHalfWaveUp_M15,
-        "\n", strOpenOnHalfWaveDown_M1  ,"   ", strCloseOnHalfWaveDown_M1,
-        "\n", strOpenOnHalfWaveDown_M5  ,"   ", strCloseOnHalfWaveDown_M5,
-        "\n", strOpenOnHalfWaveDown_M15 ,"  ", strCloseOnHalfWaveDown_M15,
+        "\n", strOpenOnHalfWaveUp_M1    ,"   ", strCloseOnHalfWaveDown_M1,
+        "\n", strOpenOnHalfWaveUp_M5    ,"   ", strCloseOnHalfWaveDown_M5,
+        "\n", strOpenOnHalfWaveUp_M15   ,"  ", strCloseOnHalfWaveDown_M15,
+        "\n", strOpenOnHalfWaveDown_M1  ,"   ", strCloseOnHalfWaveUp_M1,
+        "\n", strOpenOnHalfWaveDown_M5  ,"   ", strCloseOnHalfWaveUp_M5,
+        "\n", strOpenOnHalfWaveDown_M15 ,"  ", strCloseOnHalfWaveUp_M15,
         "\n", strMoneyManagment,
         "\nStats         ", strStats,
         "\nStats0        ", strStats0,
@@ -6451,12 +6451,12 @@ void unCheckOpenOnHalfWavesFlag(){
     OpenOnHalfWaveDown_M1  = false;
     OpenOnHalfWaveDown_M5  = false;
     OpenOnHalfWaveDown_M15 = false;
-    CloseOnHalfWaveUp_M1    = false;
-    CloseOnHalfWaveUp_M5    = false;
-    CloseOnHalfWaveUp_M15   = false;
-    CloseOnHalfWaveDown_M1  = false;
-    CloseOnHalfWaveDown_M5  = false;
-    CloseOnHalfWaveDown_M15 = false;
+    CloseOnHalfWaveDown_M1    = false;
+    CloseOnHalfWaveDown_M5    = false;
+    CloseOnHalfWaveDown_M15   = false;
+    CloseOnHalfWaveUp_M1  = false;
+    CloseOnHalfWaveUp_M5  = false;
+    CloseOnHalfWaveUp_M15 = false;
 }
 
 // ie I need not absolute values but relative
