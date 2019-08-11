@@ -3692,7 +3692,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     if(
 
      (
-        isNewSignal &&
+        isNewSignal && (down<=0 && up>11) &&
         (
             OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
         )
@@ -3709,7 +3709,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if(
 
     (
-        isNewSignal &&
+        isNewSignal && (up<=0 && down>11) &&
         (
             OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
         )
@@ -3901,7 +3901,8 @@ total=OrdersTotal();
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
-if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOnHalfWaveClosePermitUp_M15)
+//if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOnHalfWaveClosePermitUp_M15)
+if(down>up)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
 
@@ -3964,7 +3965,8 @@ if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOn
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
-if(CloseOnHalfWaveClosePermitDown_M1 || CloseOnHalfWaveClosePermitDown_M5 || CloseOnHalfWaveClosePermitDown_M15)
+//if(CloseOnHalfWaveClosePermitDown_M1 || CloseOnHalfWaveClosePermitDown_M5 || CloseOnHalfWaveClosePermitDown_M15)
+if(up>down)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
                  //return(0); // exit
