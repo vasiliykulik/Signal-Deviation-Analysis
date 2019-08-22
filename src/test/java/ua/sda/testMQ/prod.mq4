@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                                       TS_5.8.mq4 |
+//|                                                       TS_7.3.mq4 |
 //|                                                    Vasiliy Kulik |
 //|                                                       alpari.com |
 //+------------------------------------------------------------------+
@@ -8,8 +8,8 @@
 #property version   "5.8"
 #property strict
 
-extern double TakeProfit=600;
-extern double StopLoss=600;
+extern double TakeProfit=500;
+extern double StopLoss=500;
 extern double externalLots=0.01;
 //
 extern double TrailingStop=10000;
@@ -22,6 +22,15 @@ extern double TrailingFiboLevel = 0.236;
 extern double maxOrders = 30;
 extern double riskOnOneOrderPercent = 2;
 
+
+// По открытии ордера эта группа переменных переинициализируется в false,
+ //что бы уйти от многократного открытия позиции
+
+
+ // Но что делать если я хочу покупать на М1 по пути вверх ?
+ extern bool limitSinglePositionOnOpenOnHalfWaves = false; //
+ //определение дано; На isNewSignal проверка пройдена
+ // нюанс, до прохождения проверки, при отсутствии открытых позиций была открыта позиция, тогда вопрос почему ранее позиции не открывались
 extern bool OpenOnHalfWaveUp_M1    = false;
 extern bool OpenOnHalfWaveUp_M5    = false;
 extern bool OpenOnHalfWaveUp_M15   = false;
@@ -32,6 +41,12 @@ extern bool OpenOnHalfWaveDown_M15 = false;
 extern bool m15_TL_Rebound_MarketPlay_Enabled = true;
 extern int relativeAmplitudePointsGlobal = 333;
 
+extern bool CloseOnHalfWaveDown_M1    = false;
+extern bool CloseOnHalfWaveDown_M5    = false;
+extern bool CloseOnHalfWaveDown_M15   = false;
+extern bool CloseOnHalfWaveUp_M1  = false;
+extern bool CloseOnHalfWaveUp_M5  = false;
+extern bool CloseOnHalfWaveUp_M15 = false;
 
 
 int accountLeverage = AccountLeverage();
@@ -63,6 +78,10 @@ double fourthMinGlobal = 0.00000000, fourthMaxGlobal = 0.00000000;
 double fifthMinGlobal  = 0.00000000, fifthMaxGlobal  = 0.00000000;
 double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 
+double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
+double ts7_3_min2 = 0.00000000, ts7_3_min3 = 0.00000000, ts7_3_max2 = 0.00000000, ts7_3_max3 = 0.00000000;
+
+
 
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
@@ -78,8 +97,12 @@ int localFirstPointTick=0,localSecondPointTick=0;
  string strStats0;
  string strStats1;
  string strStats2;
+ string strStats3;
+ string timeFilter;
+ string ts7_3_HalfWave_00 = "init", ts7_3_HalfWave_0 = "init", ts7_3_HalfWave_1 = "init", ts7_3_HalfWave_2 = "init", ts7_3_HalfWave_3 = "init";
 
 ENUM_TIMEFRAMES timeFrames[]={PERIOD_M1, PERIOD_M5,PERIOD_M15,PERIOD_H1,PERIOD_H4,PERIOD_D1};
+//ENUM_TIMEFRAMES timeFrames[]={PERIOD_M5, PERIOD_M15, PERIOD_H1, PERIOD_H4};
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -157,6 +180,8 @@ void OnTick(void)
    strStats0 = "nothing";
    strStats1 = "nothing";
    strStats2 = "nothing";
+   strStats3 = "nothing";
+   timeFilter = "timeFilter not init";
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -180,6 +205,12 @@ void OnTick(void)
 // FiboMod Analyzing Block
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
+ ts7_3_HalfWave_00 = "init";
+  ts7_3_HalfWave_0 = "init";
+   ts7_3_HalfWave_1 = "init";
+      ts7_3_HalfWave_2 = "init";
+         ts7_3_HalfWave_3 = "init";
+
          //        Print("i = ", i, " ArraySize(timeFrames) = ", ArraySize(timeFrames));
          //        Print("periodGlobal = ", periodGlobal, " timeFrames[i] = ", timeFrames[i]);
          periodGlobal=timeFrames[i]; // set TimeFrame global value for nonSymmTick()
@@ -379,6 +410,10 @@ void OnTick(void)
       bool fourTimeFramesSignalDown = false;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
+
+      string ts73_M1  = "init", ts73_M5  = "init", ts73_M15 = "init",  ts73_H1  = "init",  ts73_H4  = "init",  ts73_D1  = "init";
+      string ts74_M1  = "init", ts74_M5  = "init", ts74_M15 = "init",  ts74_H1  = "init",  ts74_H4  = "init",  ts74_D1  = "init";
+      string ts75_M1  = "init", ts75_M5  = "init", ts75_M15 = "init",  ts75_H1  = "init",  ts75_H4  = "init",  ts75_D1  = "init";
 
 
       bool isM1FigureUp =  false;   bool isM5FigureUp =  false;   bool isM15FigureUp = false; bool isH1FigureUp = false; bool isH4FigureUp = false; bool isD1FigureUp = false;
@@ -2926,6 +2961,74 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                 smax_M15_Global = secondMaxGlobal;
             }
 
+// минимум и максимум как могут двигаться в одну сторону так как их двое - могут двигаться в две стороны
+            // Figure_TS_73_Up
+            if(isFigure_TS_73_Up()){
+                    if(timeFrames[i]==PERIOD_M1) {ts73_M1  = "Up";}
+                    if(timeFrames[i]==PERIOD_M5) {ts73_M5  = "Up";}
+                    if(timeFrames[i]==PERIOD_M15){ts73_M15 = "Up";}
+                    if(timeFrames[i]==PERIOD_H1) {ts73_H1  = "Up";}
+                    if(timeFrames[i]==PERIOD_H4) {ts73_H4  = "Up";}
+                    if(timeFrames[i]==PERIOD_D1) {ts73_D1  = "Up";}
+                    print("Figure_TS_73_Up  ", timeFrames[i]);
+            }
+
+            // Figure_TS_73_Down
+            if(isFigure_TS_73_Down()){
+                    if(timeFrames[i]==PERIOD_M1) {ts73_M1  = "Down";}
+                    if(timeFrames[i]==PERIOD_M5) {ts73_M5  = "Down";}
+                    if(timeFrames[i]==PERIOD_M15){ts73_M15 = "Down";}
+                    if(timeFrames[i]==PERIOD_H1) {ts73_H1  = "Down";}
+                    if(timeFrames[i]==PERIOD_H4) {ts73_H4  = "Down";}
+                    if(timeFrames[i]==PERIOD_D1) {ts73_D1  = "Down";}
+                    print("Figure_TS_73_Down  ", timeFrames[i]);
+            }
+
+            // Figure_TS_74_Up
+            if(isFigure_TS_74_Up()){
+                    if(timeFrames[i]==PERIOD_M1) {ts74_M1  = "Up";}
+                    if(timeFrames[i]==PERIOD_M5) {ts74_M5  = "Up";}
+                    if(timeFrames[i]==PERIOD_M15){ts74_M15 = "Up";}
+                    if(timeFrames[i]==PERIOD_H1) {ts74_H1  = "Up";}
+                    if(timeFrames[i]==PERIOD_H4) {ts74_H4  = "Up";}
+                    if(timeFrames[i]==PERIOD_D1) {ts74_D1  = "Up";}
+                    print("Figure_TS_74_Up  ", timeFrames[i]);
+            }
+
+            // Figure_TS_74_Down
+            if(isFigure_TS_74_Down()){
+                    if(timeFrames[i]==PERIOD_M1) {ts74_M1  = "Down";}
+                    if(timeFrames[i]==PERIOD_M5) {ts74_M5  = "Down";}
+                    if(timeFrames[i]==PERIOD_M15){ts74_M15 = "Down";}
+                    if(timeFrames[i]==PERIOD_H1) {ts74_H1  = "Down";}
+                    if(timeFrames[i]==PERIOD_H4) {ts74_H4  = "Down";}
+                    if(timeFrames[i]==PERIOD_D1) {ts74_D1  = "Down";}
+                    print("Figure_TS_74_Down  ", timeFrames[i]);
+            }
+            // Figure_TS_74_Up
+            if(isFigure_TS_75_Up()){
+                    if(timeFrames[i]==PERIOD_M1) {ts75_M1  = "Up";}
+                    if(timeFrames[i]==PERIOD_M5) {ts75_M5  = "Up";}
+                    if(timeFrames[i]==PERIOD_M15){ts75_M15 = "Up";}
+                    if(timeFrames[i]==PERIOD_H1) {ts75_H1  = "Up";}
+                    if(timeFrames[i]==PERIOD_H4) {ts75_H4  = "Up";}
+                    if(timeFrames[i]==PERIOD_D1) {ts75_D1  = "Up";}
+                    print("Figure_TS_75_Up  ", timeFrames[i]);
+            }
+
+            // Figure_TS_75_Down
+            if(isFigure_TS_75_Down()){
+                    if(timeFrames[i]==PERIOD_M1) {ts75_M1  = "Down";}
+                    if(timeFrames[i]==PERIOD_M5) {ts75_M5  = "Down";}
+                    if(timeFrames[i]==PERIOD_M15){ts75_M15 = "Down";}
+                    if(timeFrames[i]==PERIOD_H1) {ts75_H1  = "Down";}
+                    if(timeFrames[i]==PERIOD_H4) {ts75_H4  = "Down";}
+                    if(timeFrames[i]==PERIOD_D1) {ts75_D1  = "Down";}
+                    print("Figure_TS_75_Down  ", timeFrames[i]);
+            }
+
+
+
 }
 
             // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
@@ -2983,6 +3086,12 @@ bool OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit = false;
 bool OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = false;
 bool OpenOn_M15_TL_Artifact_Buy_OpenPermit  = false;
 bool OpenOn_M15_TL_Artifact_Sell_OpenPermit = false;
+
+bool OpenOn_M15_TL_Convergent_Before_NewHalfWave_Buy_OpenPermit = false;
+bool OpenOn_M15_TL_Convergent_Before_NewHalfWave_Sell_OpenPermit = false;
+bool OpenOn_M15_TL_Convergent_After_NewHalfWave_Buy_OpenPermit = false;
+bool OpenOn_M15_TL_Convergent_After_NewHalfWave_Sell_OpenPermit = false;
+
 if(m15_TL_Rebound_MarketPlay_Enabled){
 
     datetime dt1_1 = ObjectGet("VKTREND_LINE", OBJPROP_TIME1);
@@ -3041,6 +3150,9 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     if(first_Local_Two!=0 && deltaFirst!=0){
         amplitude = first_Local_Two / deltaFirst;
     }
+    //Print("amplitude = ", amplitude);
+    //Print("deltaFirst = ", deltaFirst);
+    //Print("deltaSecond = ", deltaSecond);
 
 // Artifact VK_TL1 red and on Highs - BUY
     color currentColor=ObjectGet("VKTREND_LINE1", OBJPROP_COLOR);
@@ -3055,14 +3167,14 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
         OpenOn_M15_TL_Artifact_Buy_OpenPermit  = true;
     }
 
-// Artifact VK_TL1 green and on Lows - SELLL
+// Artifact VK_TL1 green and on Lows - SELL
     if(currentColor == Red &&  first_Local_Two == priceLowAtDT2_2 && second_Local_Two == priceLowAtDT2_1){
         OpenOn_M15_TL_Artifact_Sell_OpenPermit = true;
     }
 
 
 
-// two TL do intersect before the last point ie dt2.2, the amplitude is not taken into account
+// two TL Do Intersect before the last point ie dt2.2, the amplitude is not taken into account
 // red - buy
     if
         (first_Local_Two > first_Local_One && second_Local_Two < second_Local_One)
@@ -3074,9 +3186,42 @@ if(m15_TL_Rebound_MarketPlay_Enabled){
     {
         OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit = true;
     }
-    //Print("amplitude = ", amplitude);
-    //Print("deltaFirst = ", deltaFirst);
-    //Print("deltaSecond = ", deltaSecond);
+
+//09.04.2019
+    double first_Local_One_Zero_Shift  = ObjectGetValueByShift("VKTREND_LINE", 0);
+    double first_Local_Two_Zero_Shift  = ObjectGetValueByShift("VKTREND_LINE1", 0);
+// two TL do intersect Before New HalfWave, the amplitude is not taken into account
+// green - buy
+    if
+        (first_Local_Two_Zero_Shift > first_Local_One_Zero_Shift && first_Local_Two < first_Local_One)
+    {
+        OpenOn_M15_TL_Convergent_Before_NewHalfWave_Buy_OpenPermit = true;
+// red - sell
+    }else if
+        (first_Local_Two_Zero_Shift < first_Local_One_Zero_Shift && first_Local_Two > first_Local_One)
+    {
+        OpenOn_M15_TL_Convergent_Before_NewHalfWave_Sell_OpenPermit = true;
+    }
+
+
+
+// two TL do intersect After New HalfWave, the amplitude is not taken into account
+// green - buy
+    if
+        (first_Local_Two < first_Local_One && second_Local_Two < second_Local_One &&
+        isTLConvergent(first_Local_One,first_Local_Two,second_Local_One,second_Local_Two))
+    {
+        OpenOn_M15_TL_Convergent_After_NewHalfWave_Buy_OpenPermit = true;
+// red - sell
+    }else if
+        (first_Local_Two > first_Local_One && second_Local_Two > second_Local_One &&
+         isTLConvergent(first_Local_Two,first_Local_One,second_Local_Two,second_Local_One))
+    {
+        OpenOn_M15_TL_Convergent_After_NewHalfWave_Sell_OpenPermit = true;
+    }
+
+
+
 
     // two TL not intersect before the last point ie dt2.2
     if(deltaFirst > deltaSecond && amplitude < relativeAmplitudePointsGlobal){
@@ -3102,6 +3247,7 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
 
 // Method returns true if two ticks from one side and two from another.
 // So flag(s) are criterions
+// Открытие по двум тикам, закрытие по одному
  if( OpenOnHalfWaveUp_M1) {
     OpenOnHalfWaveOpenPermitUp_M1    = isOpenOnHalfWaveUp_M1();
  }
@@ -3120,6 +3266,34 @@ bool OpenOnHalfWaveOpenPermitDown_M15  = false;
  if( OpenOnHalfWaveDown_M15) {
     OpenOnHalfWaveOpenPermitDown_M15 = isOpenOnHalfWaveDown_M15();
  }
+
+ bool CloseOnHalfWaveClosePermitUp_M1     = false;
+ bool CloseOnHalfWaveClosePermitUp_M5     = false;
+ bool CloseOnHalfWaveClosePermitUp_M15    = false;
+ bool CloseOnHalfWaveClosePermitDown_M1   = false;
+ bool CloseOnHalfWaveClosePermitDown_M5   = false;
+ bool CloseOnHalfWaveClosePermitDown_M15  = false;
+
+ // Method returns true if two ticks from one side and two from another.
+ // So flag(s) are criterions
+  if( CloseOnHalfWaveDown_M1) {
+     CloseOnHalfWaveClosePermitUp_M1    = newHalfWave_Down_M1;
+  }
+  if( CloseOnHalfWaveDown_M5) {
+     CloseOnHalfWaveClosePermitUp_M5    = newHalfWave_Down_M5;
+  }
+  if( CloseOnHalfWaveDown_M15) {
+     CloseOnHalfWaveClosePermitUp_M15   = newHalfWave_Down_M15;
+  }
+  if( CloseOnHalfWaveUp_M1) {
+     CloseOnHalfWaveClosePermitDown_M1  = newHalfWave_Up_M1;
+  }
+  if( CloseOnHalfWaveUp_M5) {
+     CloseOnHalfWaveClosePermitDown_M5  = newHalfWave_Up_M5;
+  }
+  if( CloseOnHalfWaveUp_M15) {
+     CloseOnHalfWaveClosePermitDown_M15 = newHalfWave_Up_M15;
+  }
 
 
 
@@ -3360,6 +3534,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
   // Stats2
   if(StatsBuy && OpenOn_M15_TL_Rebound_Buy_OpenPermit){print(" Buy Stats1 && Rebound w Amplitude ","strStats2");}
   if(StatsSell && OpenOn_M15_TL_Rebound_Sell_OpenPermit){print(" Sell Stats1 && Rebound w Amplitude ","strStats2");}
+  strStats3 = StringConcatenate("73 min1<min0, max1>max>0 ",ts73_M1," ",ts73_M5," ",ts73_M15," ",ts73_H1," ",ts73_H4," ",ts73_D1, "|||","74 max00>max0,max1,max2,max3 ", ts74_M1," ",ts74_M5," ",ts74_M15," ",ts74_H1," ",ts74_H4," ",ts74_D1, "|||","75 max00>max0,max1,max1 min00<min0,min1 ", ts75_M1," ",ts75_M5," ",ts75_M15," ",ts75_H1," ",ts75_H4," ",ts75_D1, " ", TrailingFiboLevel);
 
 
     bool isNewSignalForSendingNotification = false;
@@ -3495,47 +3670,89 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
     флаг находится в таком состоянии пока не придет новый сигнал на H1, а проверку на новый сигнал выносим вперед.
  */
-//Print("OpenOnHalfWaveOpenPermitUp_M1  && newHalfWave_Up_M1",OpenOnHalfWaveOpenPermitUp_M1, newHalfWave_Up_M1, OpenOnHalfWaveOpenPermitUp_M1  && newHalfWave_Up_M1);
- //Print("OpenOnHalfWaveOpenPermitUp_M5  && newHalfWave_Up_M5",OpenOnHalfWaveOpenPermitUp_M5, newHalfWave_Up_M5, OpenOnHalfWaveOpenPermitUp_M5  && newHalfWave_Up_M5);
- //Print("OpenOnHalfWaveOpenPermitUp_M15 && newHalfWave_Up_M15",OpenOnHalfWaveOpenPermitUp_M15, newHalfWave_Up_M15, OpenOnHalfWaveOpenPermitUp_M15 && newHalfWave_Up_M15);
- //Print("OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1",OpenOnHalfWaveOpenPermitDown_M1, newHalfWave_Down_M1, OpenOnHalfWaveOpenPermitDown_M1  && newHalfWave_Down_M1);
- //Print("OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5",OpenOnHalfWaveOpenPermitDown_M5, newHalfWave_Down_M5, OpenOnHalfWaveOpenPermitDown_M5  && newHalfWave_Down_M5);
- //Print("OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15",OpenOnHalfWaveOpenPermitDown_M15, newHalfWave_Down_M15, OpenOnHalfWaveOpenPermitDown_M15 && newHalfWave_Down_M15);
+
+
 
 // Print ("signalAnalyzeConcatenated = ", signalAnalyzeConcatenated);
 // Print ("currentSignalAnalyzeConcatenated = ", currentSignalAnalyzeConcatenated);
 // Print ("compareResult = ", compareResult);
 // Print ("isNewSignal = ", isNewSignal);
 
-      if
-      (
-       // OpenOn_M15_TL_Artifact_Buy_OpenPermit &&
-        //OpenOn_M15_TL_Sharply_Convergent_Buy_OpenPermit &&
-       // newHalfWave_Up_M15
+    double ma333_M15 = iMA(NULL,PERIOD_M15,333,0,MODE_SMA,PRICE_OPEN,0);
+    double ma133_M15 = iMA(NULL,PERIOD_M15,133,0,MODE_SMA,PRICE_OPEN,0);
+    double ma62_M15  = iMA(NULL,PERIOD_M15,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma38_M15  = iMA(NULL,PERIOD_M15,38,0,MODE_SMA,PRICE_OPEN,0);
+
+    double ma333_H1 = iMA(NULL,PERIOD_H1,333,0,MODE_SMA,PRICE_OPEN,0);
+    double ma133_H1 = iMA(NULL,PERIOD_H1,133,0,MODE_SMA,PRICE_OPEN,0);
+    double ma62_H1  = iMA(NULL,PERIOD_H1,62,0,MODE_SMA,PRICE_OPEN,0);
+    double ma38_H1  = iMA(NULL,PERIOD_H1,38,0,MODE_SMA,PRICE_OPEN,0);
+
+
+    if(
+
+     (
         isNewSignal &&
         (
             OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
         )
-      )
+    )
+/*    ||
+               ( //ts73_H1 == "Up"  && // ts73_M5 == "Up"  &&
+            ts75_M15 == "Up"  &&  ts75_M5 == "Up" &&  ts75_H1 == "Up" &&  ts75_H4 == "Up"
+              //newHalfWave_Up_H1 //&& newHalfWave_Up_M5
+              )*/
+       )
+            {buy=1;Print("buy=1");}
 
-      {
-            buy=1;
-      }
 
-      if
-      (
-       // OpenOn_M15_TL_Artifact_Sell_OpenPermit &&
-        //OpenOn_M15_TL_Sharply_Convergent_Sell_OpenPermit &&
-       // newHalfWave_Down_M15
+      if(
+
+    (
         isNewSignal &&
         (
             OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
         )
-      )
+    )
+/*     ||
+    (
+      //ts73_H1 == "Down" &&// ts73_M5 == "Down" &&
+            ts75_M15 == "Down" &&  ts75_M5 == "Down" &&  ts75_H1 == "Down" &&  ts75_H4 == "Down"
+             // newHalfWave_Down_H1 // && newHalfWave_Down_M5
+       )*/
+         )
+            {sell=1;Print("sell=1");}
 
-      {
-            sell=1;
-      }
+// TimeFilter (потому что надо вызвать метод print())
+
+
+
+int hour=TimeHour(TimeCurrent());
+int weekday=TimeDayOfWeek(TimeCurrent());
+if((hour<10 && weekday==1)){
+buy = 0;
+sell = 0;
+timeFilter = "timeFilter Deny. Monday morning. Before european session. Low recognition.";
+}else if ((hour>17 && weekday ==4)){
+timeFilter = "timeFilter Deny. Thursday evening. If \"full\" Thursday after 18:00 Stay out of it. Always. High fatigue.";
+}else if ((hour>21 && weekday ==4)){
+buy = 0;
+sell = 0;
+timeFilter = "timeFilter Deny. Thursday evening. High fatigue. After 22:00 Stay out of it. Always. Close All.";
+}else if ((hour<=17 && weekday ==5)){
+  buy = 0;
+  sell = 0;
+  timeFilter = "timeFilter Deny. Friday. Looking for to close position(s) to Stay out of it. Always. No Potential Motion. Close All.";
+  }else if ((hour>17 && weekday ==5)){
+buy = 0;
+sell = 0;
+timeFilter = "timeFilter Deny. Friday evening. No motion. After 18:00 Stay out of it. Always. No Motion. Close All.";
+}else timeFilter = "timeFilter Allow";
+
+
+ timeFilter = StringConcatenate(timeFilter," hour = ",hour, " weekday = ", weekday) ;
+
+print();
 
 //buy = 0;
 //sell = 0;
@@ -3559,17 +3776,21 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 
          if(isBuyOrdersProfitableOrNone())
          {
-            ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"macd sample",16384,0,Green);
+            ticket=OrderSend(Symbol(),OP_BUY,Lots,Ask,3,currentStopLoss,Ask+TakeProfit*Point,"ts 75",16384,0,Green);
          }
 
          //Print(" Buy Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
          if(ticket>0)
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("BUY order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
+            if(limitSinglePositionOnOpenOnHalfWaves){
+                unCheckOpenOnHalfWavesFlag();
+            }
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
             Print(strStats2);
+            Print(strStats3);
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
@@ -3580,7 +3801,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       // Проверим что выход из ПолуВолны выше входа, так сказать критерий на трендовость
 
       //Print("isDoubleSymmetricH4SellReady || isDoubleSymmetricH1SellReady || isDoubleSymmetricM15SellReady || isDoubleSymmetricM5SellReady) ", isDoubleSymmetricH4SellReady ,isDoubleSymmetricH1SellReady ,isDoubleSymmetricM15SellReady ,isDoubleSymmetricM5SellReady);
-      if(sell==1)
+      if(sell==1) // если есть сигнал на продажу
         {
          double stopLossForSellMax;
          if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
@@ -3589,23 +3810,27 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
          // не допустим супер стопа
          if(stopLossForSellMax>currentStopLoss) {stopLossForSellMax=currentStopLoss;}
 
-         if(isSellOrdersProfitableOrNone())
+         if(isSellOrdersProfitableOrNone()) // вышли ли открытые ордера в БУ
          {
-            ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"macd sample",16384,0,Red);
+            ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,3,currentStopLoss,Bid-TakeProfit*Point,"ts 75",16384,0,Red);
          }
 
          //Print("Sell Position was opened on TimeFrame ","periodGlobal = ",periodGlobal);
-         if(ticket>0)
+         if(ticket>0)// если есть открытые ордера
            {
             if(OrderSelect(ticket,SELECT_BY_TICKET,MODE_TRADES)) Print("SELL order opened : ",OrderOpenPrice()," signal = ", currentSignalAnalyzeConcatenated);
+            if(limitSinglePositionOnOpenOnHalfWaves){
+                unCheckOpenOnHalfWavesFlag();
+            }
             Print(strStats);
             Print(strStats0);
             Print(strStats1);
             Print(strStats2);
+            Print(strStats3);
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
-         else Print("Error opening SELL order : ",GetLastError());
+         else Print("Error opening SELL order : ",GetLastError()); // если открытых ордеров нет, 0 - нет ошибки, No error returned
          return;
         }
      Sleep(3333);
@@ -3676,7 +3901,11 @@ total=OrdersTotal();
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
+if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOnHalfWaveClosePermitUp_M15)
+                {
+                 OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
 
+                }
             //                 } // посвечный обвес
             //              } // посвечный обвес
            }
@@ -3735,11 +3964,16 @@ total=OrdersTotal();
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
-
+if(CloseOnHalfWaveClosePermitDown_M1 || CloseOnHalfWaveClosePermitDown_M5 || CloseOnHalfWaveClosePermitDown_M15)
+                {
+                 OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
+                 //return(0); // exit
+                }
            }
         }
      }
      }
+// end of tick method
 
 
 
@@ -3775,6 +4009,10 @@ bool nonSymm()
    double fifthMaxLocalNonSymmetric = 0.00000000;
    double sixthMaxLocalNonSymmetric = 0.00000000;
 
+   double ts7_3_min00_local = 0.00000000, ts7_3_max00_local = 0.00000000, ts7_3_min0_local = 0.00000000, ts7_3_min1_local = 0.00000000, ts7_3_max0_local = 0.00000000, ts7_3_max1_local = 0.00000000;
+   double ts7_3_max2_local = 0.00000000, ts7_3_max3_local = 0.00000000;
+   double ts7_3_min2_local = 0.00000000, ts7_3_min3_local = 0.00000000;
+
    int halfWave_7H4[], halfWave_8H4[], halfWave_9H4[], halfWave_10H4[], halfWave_11H4[], halfWave_12H4[];
    int q7 ,w7,q8,w8,q9,w9,q10,w10,q11,w11,q12,w12;
    int resize7H4, resize8H4, resize9H4, resize10H4, resize11H4, resize12H4;
@@ -3804,6 +4042,12 @@ bool nonSymm()
    isC6Min = false;
    isC6Max = false;
 
+
+
+// Двигаемся назад пока не обнаружим пересесчение
+/*7.3 for работает пока true ; Перед условием, isMACDReady проинициализирован true,
+путем установки isEqualToZero в ручном режиме/ Если находим пересечение, начиная со
+сравнения 0 и 1 тика проставляем false в isMACDReady*/
    for(begin=0;isMACDReady; begin++)
      {
       // Print("TimeCurrent=",TimeToStr(TimeCurrent(),TIME_SECONDS), " Time[begin]=",TimeToStr(Time[begin],TIME_SECONDS));
@@ -3813,8 +4057,10 @@ bool nonSymm()
       Macd_1H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin);
       Macd_2H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,begin+1);
 
+/*те текущая ПВ положительная, текущая законченая ПВ отрицательная*/
       if(Macd_2H4<0 && Macd_1H4>0)
         {what0HalfWaveMACDH4=0;} // 0 это пересечение снизу вверх
+/*те текущая ПВ отрицательная, текущая законченая ПВ положительная*/
       else if(Macd_2H4>0 && Macd_1H4<0)
         {what0HalfWaveMACDH4=1;} // 1 это пересечение сверху вниз
       // Проверка происходит в вызвавшем месте, отсюда мы возвращаем результаты проверки
@@ -3828,8 +4074,10 @@ bool nonSymm()
             isBigger = isMACD1BiggerThanZero && isMACD2BiggerThanZero;
             isEqualToZero=isMACD1EqualZero && isMACD2EqualZero;
             isMACDReady=isSmaller || isBigger || isEqualToZero;
+            // Двигаемся назад пока не обнаружим пересечение в два тиика
      }
-//
+/*f здесь мы начинаем с первого тика незавершенной ПВ, но в MACD 3,4 мы берем вда последних тика
+завершенной ПВ*/
    for(i=begin;countHalfWaves<=12;i++)
      {
       MacdIplus3H4=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,i+1); //то есть это будет два первых тика росле перехода нулевой линии
@@ -3839,6 +4087,7 @@ bool nonSymm()
       // Print("(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) = ", (countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0));
       // И Полуволны складываем в массивы
       // First Wave
+      /*7.3 Текущая завершенная ПВ отрицательная, а мы складываем в массив тики незавершенной положительной ПВ*/
       if(countHalfWaves==0 && what0HalfWaveMACDH4==0 && MacdIplus3H4<0 && MacdIplus4H4<0) // Проверим, для перехода снизу вверх, что первый и второй тик ниже 0, основной фильтр на шум
         {
          //Print("C0W0");
@@ -3849,13 +4098,27 @@ bool nonSymm()
                             // то есть у нас смещение не на 2, а на 1 - потому вношу ищменения
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
+
+      // Инициализируем текущим значением цены
+      ts7_3_min00_local = iLow(NULL,periodGlobal,j);
+      ts7_3_max00_local = iHigh(NULL,periodGlobal,j);
+
          for(j; j<i+2; j++)
            {
+
+            double currentLow  = iLow(NULL,periodGlobal,j);
+            double currentHigh = iHigh(NULL,periodGlobal,j);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min00_local>currentLow) {ts7_3_min00_local=currentLow;}
+            if(ts7_3_max00_local<currentHigh){ts7_3_max00_local=currentHigh;}
+            ts7_3_HalfWave_00 = "plus";
+
             halfWave0H4[zz]=j;
             zz++;
            }
          // // Print("halfWave0H4", "ArrayResize(halfWave0H4,(i-2)-j); ", (i-2)-j);
         }
+      /*7.3 Текущая завершенная ПВ положительная*/
       if(countHalfWaves==0 && what0HalfWaveMACDH4==1 && MacdIplus3H4>0 && MacdIplus4H4>0) // Проверим, для перехода сверзу вниз, что второй и третий тик выше 0 , основной фильтр на шум
         {
          //Print("C0W1");
@@ -3865,8 +4128,20 @@ bool nonSymm()
          resize0H4=(i+2)-j;
          ArrayResize(halfWave0H4,resize0H4);
          zz=0;
+
+      ts7_3_min00_local = iLow(NULL,periodGlobal,j);
+      ts7_3_max00_local = iHigh(NULL,periodGlobal,j);
+
          for(j; j<i+2; j++)
            {
+
+            double currentLow  = iLow(NULL,periodGlobal,j);
+            double currentHigh = iHigh(NULL,periodGlobal,j);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min00_local>currentLow) {ts7_3_min00_local=currentLow;}
+            if(ts7_3_max00_local<currentHigh){ts7_3_max00_local=currentHigh;}
+            ts7_3_HalfWave_00 = "minus";
+
             halfWave0H4[zz]=j;
             zz++;
            }
@@ -3888,8 +4163,20 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
          firstMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min0_local = iLow(NULL,periodGlobal,k);
+      ts7_3_max0_local = iHigh(NULL,periodGlobal,k);
+
+
          for(k; k<i+2; k++)
            {
+
+            double currentLow  = iLow(NULL,periodGlobal,k);
+            double currentHigh = iHigh(NULL,periodGlobal,k);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min0_local>currentLow) {ts7_3_min0_local=currentLow;}
+            if(ts7_3_max0_local<currentHigh){ts7_3_max0_local=currentHigh;}
+            ts7_3_HalfWave_0 = "minus";
+
             halfWave_1H4[z]=k;
             priceForMinMax=iOpen(NULL,periodGlobal,k);
             if(priceForMinMax<firstMinLocalNonSymmetric)
@@ -3924,8 +4211,21 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,k);
          firstMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min0_local = iLow(NULL,periodGlobal,k);
+      ts7_3_max0_local = iHigh(NULL,periodGlobal,k);
+
+
          for(k; k<i+2; k++)
            {
+
+           double currentLow  = iLow(NULL,periodGlobal,k);
+            double currentHigh = iHigh(NULL,periodGlobal,k);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min0_local>currentLow) {ts7_3_min0_local=currentLow;}
+            if(ts7_3_max0_local<currentHigh){ts7_3_max0_local=currentHigh;}
+            ts7_3_HalfWave_0 = "plus";
+
             halfWave_1H4[z]=k;
             priceForMinMax=iOpen(NULL,periodGlobal,k);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMaxLocalNonSymmetric = ", firstMaxLocalNonSymmetric);
@@ -3962,8 +4262,20 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,m);
          firstMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min1_local = iLow(NULL,periodGlobal,m);
+      ts7_3_max1_local = iHigh(NULL,periodGlobal,m);
+
          for(m; m<i+2; m++)
            {
+
+           double currentLow  = iLow(NULL,periodGlobal,m);
+            double currentHigh = iHigh(NULL,periodGlobal,m);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
+            if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
+            ts7_3_HalfWave_1 = "plus";
+
             priceForMinMax=iOpen(NULL,periodGlobal,m);
             halfWave_2H4[y]=m;
             if(priceForMinMax>firstMaxLocalNonSymmetric)
@@ -3998,8 +4310,18 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,m);
          firstMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min1_local = iLow(NULL,periodGlobal,m);
+      ts7_3_max1_local = iHigh(NULL,periodGlobal,m);
+
          for(m; m<i+2; m++)
            {
+            double currentLow  = iLow(NULL,periodGlobal,m);
+            double currentHigh = iHigh(NULL,periodGlobal,m);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min1_local>currentLow) {ts7_3_min1_local=currentLow;}
+            if(ts7_3_max1_local<currentHigh){ts7_3_max1_local=currentHigh;}
+            ts7_3_HalfWave_1 = "minus";
+
             halfWave_2H4[y]=m;
             priceForMinMax=iOpen(NULL,periodGlobal,m);
             // Print("NonSymmetric, k, z = ",k," ", z, " firstMinLocalNonSymmetric = ", firstMinLocalNonSymmetric);
@@ -4036,8 +4358,19 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,p);
          secondMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min2_local = iLow(NULL,periodGlobal,p);
+      ts7_3_max2_local = iHigh(NULL,periodGlobal,p);
+
          for(p; p<i+2; p++)
            {
+
+            double currentLow  = iLow(NULL,periodGlobal,p);
+            double currentHigh = iHigh(NULL,periodGlobal,p);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min2_local>currentLow) {ts7_3_min2_local=currentLow;}
+            if(ts7_3_max2_local<currentHigh){ts7_3_max2_local=currentHigh;}
+            ts7_3_HalfWave_2 = "minus";
+
             halfWave_3H4[x]=p;
             priceForMinMax = iOpen(NULL,periodGlobal,p);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
@@ -4073,8 +4406,19 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,p);
          secondMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min2_local = iLow(NULL,periodGlobal,p);
+      ts7_3_max2_local = iHigh(NULL,periodGlobal,p);
+
          for(p; p<i+2; p++)
            {
+           double currentLow  = iLow(NULL,periodGlobal,p);
+            double currentHigh = iHigh(NULL,periodGlobal,p);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min2_local>currentLow) {ts7_3_min2_local=currentLow;}
+            if(ts7_3_max2_local<currentHigh){ts7_3_max2_local=currentHigh;}
+            ts7_3_HalfWave_2 = "plus";
+
             halfWave_3H4[x]=p;
             priceForMinMax=iOpen(NULL,periodGlobal,p);
             // Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
@@ -4110,8 +4454,20 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,q);
          secondMaxLocalNonSymmetricMACD=macdForMinMax;
 
+      // Инициализируем текущим значением цены
+      ts7_3_min3_local = iLow(NULL,periodGlobal,q);
+      ts7_3_max3_local = iHigh(NULL,periodGlobal,q);
+
          for(q; q<i+2; q++)
            {
+
+           double currentLow  = iLow(NULL,periodGlobal,q);
+            double currentHigh = iHigh(NULL,periodGlobal,q);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min3_local>currentLow) {ts7_3_min3_local=currentLow;}
+            if(ts7_3_max3_local<currentHigh){ts7_3_max3_local=currentHigh;}
+            ts7_3_HalfWave_3 = "plus";
+
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
 //             Print("NonSymmetric, p, x = ",p," ", x, " secondMaxLocalNonSymmetric = ", secondMaxLocalNonSymmetric);
@@ -4146,8 +4502,18 @@ bool nonSymm()
          macdForMinMax=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,q);
          secondMinLocalNonSymmetricMACD=macdForMinMax;
 
+      ts7_3_min3_local = iLow(NULL,periodGlobal,q);
+      ts7_3_max3_local = iHigh(NULL,periodGlobal,q);
+
          for(q; q<i+2; q++)
            {
+            double currentLow  = iLow(NULL,periodGlobal,q);
+            double currentHigh = iHigh(NULL,periodGlobal,q);
+// Ьерем текущее "наперед" не заглядываем
+            if(ts7_3_min3_local>currentLow) {ts7_3_min3_local=currentLow;}
+            if(ts7_3_max3_local<currentHigh){ts7_3_max3_local=currentHigh;}
+            ts7_3_HalfWave_3 = "minus";
+
             halfWave_4H4[w]=q;
             priceForMinMax = iOpen(NULL,periodGlobal,q);
  //            Print("NonSymmetric, p, x = ",p," ", x, " secondMinLocalNonSymmetric = ", secondMinLocalNonSymmetric);
@@ -4546,6 +4912,12 @@ max для sell
    sixthMinGlobal   =   sixthMinLocalNonSymmetric;
    sixthMaxGlobal   =   sixthMaxLocalNonSymmetric;
 
+   ts7_3_min00 = ts7_3_min00_local;
+   ts7_3_max00 = ts7_3_max00_local;
+   ts7_3_min0 = ts7_3_min0_local;
+   ts7_3_min1 = ts7_3_min1_local;
+   ts7_3_max0 = ts7_3_max0_local;
+   ts7_3_max1 = ts7_3_max1_local;
 
    pricesUpdate=true;
    return pricesUpdate;
@@ -4923,6 +5295,12 @@ bool nonSymmTick()
     string strOpenOnHalfWaveDown_M1 ;
     string strOpenOnHalfWaveDown_M5 ;
     string strOpenOnHalfWaveDown_M15;
+    string strCloseOnHalfWaveDown_M1   ;
+    string strCloseOnHalfWaveDown_M5   ;
+    string strCloseOnHalfWaveDown_M15  ;
+    string strCloseOnHalfWaveUp_M1 ;
+    string strCloseOnHalfWaveUp_M5 ;
+    string strCloseOnHalfWaveUp_M15;
     string strMoneyManagment;
     int total = OrdersTotal();
     if(total>0){
@@ -4949,6 +5327,25 @@ bool nonSymmTick()
         strOpenOnHalfWaveDown_M15 =  "OpenOnHalfWaveDown_M15 now is Active";
      } else {strOpenOnHalfWaveDown_M15 = " ";}
 
+     if( CloseOnHalfWaveDown_M1) {
+        strCloseOnHalfWaveDown_M1    = "CloseOnHalfWaveDown_M1 now is Active";
+     } else {strCloseOnHalfWaveDown_M1    = " ";}
+     if( CloseOnHalfWaveDown_M5) {
+        strCloseOnHalfWaveDown_M5    = "CloseOnHalfWaveDown_M5 now is Active";
+     } else {strCloseOnHalfWaveDown_M5    = " ";}
+     if( CloseOnHalfWaveDown_M15) {
+        strCloseOnHalfWaveDown_M15   = "CloseOnHalfWaveDown_M15 now is Active";
+     } else {strCloseOnHalfWaveDown_M15   = " ";}
+     if( CloseOnHalfWaveUp_M1) {
+        strCloseOnHalfWaveUp_M1  = "CloseOnHalfWaveUp_M1 now is Active";
+     } else {strCloseOnHalfWaveUp_M1  = " ";}
+     if( CloseOnHalfWaveUp_M5) {
+        strCloseOnHalfWaveUp_M5  = "CloseOnHalfWaveUp_M5 now is Active";
+     } else {strCloseOnHalfWaveUp_M5  = " ";}
+     if( CloseOnHalfWaveUp_M15) {
+        strCloseOnHalfWaveUp_M15 =  "CloseOnHalfWaveUp_M15 now is Active";
+     } else {strCloseOnHalfWaveUp_M15 = " ";}
+
      if(isAutoMoneyManagmentEnabled && moneyManagement4And8Or12And24_4_Or_12 == 4){
         strMoneyManagment = "MoneyManagment 4/8 USD, confident movement. Lots = " + Lots;
      }
@@ -4957,25 +5354,29 @@ bool nonSymmTick()
         strMoneyManagment = "MoneyManagment 12/24 USD, no explicit movement. Lots = " + Lots;
      }
 
+
+start = StringConcatenate(start, " ", timeFilter);
+
     Comment(
-        "\n     ", start ,
+        "\n     ", start,
         "\nPERIOD_M1     ", messageGlobalPERIOD_M1 ,
         "\nPERIOD_M5     ", messageGlobalPERIOD_M5 ,
         "\nPERIOD_M15   ", messageGlobalPERIOD_M15 ,
         "\nPERIOD_H1     ", messageGlobalPERIOD_H1 ,
         "\nPERIOD_H4     ", messageGlobalPERIOD_H4 ,
         "\nPERIOD_D1     ", messageGlobalPERIOD_D1 ,
-        "\n", strOpenOnHalfWaveUp_M1    ,
-        "\n", strOpenOnHalfWaveUp_M5    ,
-        "\n", strOpenOnHalfWaveUp_M15   ,
-        "\n", strOpenOnHalfWaveDown_M1  ,
-        "\n", strOpenOnHalfWaveDown_M5  ,
-        "\n", strOpenOnHalfWaveDown_M15 ,
+        "\n", strOpenOnHalfWaveUp_M1    ,"   ", strCloseOnHalfWaveDown_M1,
+        "\n", strOpenOnHalfWaveUp_M5    ,"   ", strCloseOnHalfWaveDown_M5,
+        "\n", strOpenOnHalfWaveUp_M15   ,"  ", strCloseOnHalfWaveDown_M15,
+        "\n", strOpenOnHalfWaveDown_M1  ,"   ", strCloseOnHalfWaveUp_M1,
+        "\n", strOpenOnHalfWaveDown_M5  ,"   ", strCloseOnHalfWaveUp_M5,
+        "\n", strOpenOnHalfWaveDown_M15 ,"  ", strCloseOnHalfWaveUp_M15,
         "\n", strMoneyManagment,
         "\nStats         ", strStats,
         "\nStats0        ", strStats0,
         "\nStats1 clause ", strStats1,
-        "\nStats2 clause ", strStats2
+        "\nStats2 clause ", strStats2,
+        "\nStats3 clause ", strStats3
     );
   }
   //+------------------------------------------------------------------+
@@ -6041,4 +6442,318 @@ bool isOsMACrossedZeroDown (ENUM_TIMEFRAMES timeframe){
         result = true;
     }
     return result;
+}
+
+void unCheckOpenOnHalfWavesFlag(){
+    OpenOnHalfWaveUp_M1    = false;
+    OpenOnHalfWaveUp_M5    = false;
+    OpenOnHalfWaveUp_M15   = false;
+    OpenOnHalfWaveDown_M1  = false;
+    OpenOnHalfWaveDown_M5  = false;
+    OpenOnHalfWaveDown_M15 = false;
+    CloseOnHalfWaveDown_M1    = false;
+    CloseOnHalfWaveDown_M5    = false;
+    CloseOnHalfWaveDown_M15   = false;
+    CloseOnHalfWaveUp_M1  = false;
+    CloseOnHalfWaveUp_M5  = false;
+    CloseOnHalfWaveUp_M15 = false;
+}
+
+// ie I need not absolute values but relative
+// first parameter must have bigger value
+// here  i just find which MA p1 and p2 higher or lower each other
+bool isMA_Convergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
+    bool result = false;
+
+    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
+    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
+    int upper = 0;
+    int lower = 0;
+
+    if(p1_value > p2_value){
+        upper = p1;
+        lower = p2;
+    }
+    else if (p1_value < p2_value){
+        upper = p2;
+        lower = p1;
+    }
+    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
+    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
+
+    double r1 = ma_upper_0     - ma_lower_0;
+    double r2 = ma_upper_shift - ma_lower_shift;
+
+    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+    if(r2>r1){
+        result = true;
+    }
+    return result;
+}
+bool isMA_Divergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
+    bool result = false;
+
+    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
+    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
+    int upper = 0;
+    int lower = 0;
+
+    if(p1_value > p2_value){
+        upper = p1;
+        lower = p2;
+    }
+    else if (p1_value < p2_value){
+        upper = p2;
+        lower = p1;
+    }
+    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
+    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
+
+    double r1 = ma_upper_0     - ma_lower_0;
+    double r2 = ma_upper_shift - ma_lower_shift;
+
+    Print(" isMA_ ",timeFrame," _Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+    if(r2<r1){
+        result = true;
+    }
+    return result;
+}
+
+bool isTLConvergent(double fLO, double fLT, double sLO, double sLT){
+    bool result = false;
+    if((fLO-fLT)<(sLO-sLT)){
+        result = true;
+    }
+    return result;
+}
+
+bool isMA_Up(int ma, ENUM_TIMEFRAMES timeFrame){
+        bool result = false;
+        double ma_0  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,0);
+        double ma_1  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,1);
+        double ma_2  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,2);
+    if(ma_0>ma_1 && ma_1>ma_2){
+        result = true;
+    }
+    return result;
+}
+
+bool isMA_Down(int ma, ENUM_TIMEFRAMES timeFrame){
+        bool result = false;
+        double ma_0  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,0);
+        double ma_1  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,1);
+        double ma_2  = iMA(NULL,timeFrame,ma,0,MODE_SMA,PRICE_OPEN,2);
+    if(ma_0<ma_1 && ma_1<ma_2){
+        result = true;
+    }
+    return result;
+}
+
+bool isMA_Approaching_To_Down_Trend_Continuating (int p1, int p2, int p3, ENUM_TIMEFRAMES timeframe){
+//Приходит 3 Мащки, убеждаемся что они больше одна одной и их значения соответственно. Если средняя ближе к меньшей, чем большей то result true.
+// In case p2 and p3 intersect
+// p1 133, p2 62, p3 38
+
+        double p1_value = iMA(NULL,timeframe,p1,0,MODE_SMA,PRICE_OPEN,0);
+        double p2_value = iMA(NULL,timeframe,p2,0,MODE_SMA,PRICE_OPEN,0);
+        double p3_value = iMA(NULL,timeframe,p3,0,MODE_SMA,PRICE_OPEN,0);
+        bool result = false;
+        if(p1>p2 && p2>p3){ // Проверим периоды МАшек
+            if(p1_value > p2_value && p2_value > p3_value){ // проверим вниз ли
+                if((p1_value - p2_value) > (p2_value-p3_value)){ // проверим 62 ближе ли к 38 чем к 133
+                    result = true;
+                }
+            }
+        // Проверить что value p3>p2, это будет пересечением и отнимать p3 от p2. Это будет критерий трендовости,
+        // небольшое пересечение, считать будем разницу в другую сторону.
+            if(p1_value > p2_value && p3_value > p2_value){ // проверим вниз ли
+                if((p1_value - p3_value) > (p3_value-p2_value)){ // проверим 62 ближе ли к 38 чем к 133
+                    result = true;
+                }
+            }
+        }
+        return result;
+}
+
+
+bool isMA_Approaching_To_Up_Trend_Continuating (int p1, int p2, int p3, ENUM_TIMEFRAMES timeframe){
+//Приходит 3 Мащки, убеждаемся что они больше одна одной и их значения соответственно. Если средняя ближе к меньшей, чем большей то result true.
+// p1 133, p2 62, p3 38
+
+        double p1_value = iMA(NULL,timeframe,p1,0,MODE_SMA,PRICE_OPEN,0);
+        double p2_value = iMA(NULL,timeframe,p2,0,MODE_SMA,PRICE_OPEN,0);
+        double p3_value = iMA(NULL,timeframe,p3,0,MODE_SMA,PRICE_OPEN,0);
+        bool result = false;
+        if(p1>p2 && p2>p3){ // Проверим периоды МАшек
+            if(p1_value < p2_value && p2_value < p3_value){ // проверим вверх ли
+                if((p3_value - p2_value) < (p2_value-p1_value)){ // проверим 62 ближе ли к 38 чем к 133
+                    result = true;
+                }
+            }
+        // Проверить что value p3>p2, это будет пересечением и отнимать p3 от p2. Это будет критерий трендовости,
+        // небольшое пересечение, считать будем разницу в другую сторону.
+            if(p1_value < p2_value && p3_value < p2_value){ // проверим вверх ли
+                if((p2_value - p3_value) < (p3_value-p1_value)){ // проверим 62 ближе ли к 38 чем к 133
+                    result = true;
+                }
+            }
+        }
+        return result;
+}
+
+
+bool isMA_ConvergentAbs(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
+    bool result = false;
+
+    double p1_value = iMA(NULL,timeFrame,p1,0,MODE_SMA,PRICE_OPEN,0);
+    double p2_value = iMA(NULL,timeFrame,p2,0,MODE_SMA,PRICE_OPEN,0);
+    int upper = 0;
+    int lower = 0;
+
+    if(p1_value > p2_value){
+        upper = p1;
+        lower = p2;
+    }
+    else if (p1_value < p2_value){
+        upper = p2;
+        lower = p1;
+    }
+    double ma_upper_0      = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_upper_shift  = iMA(NULL,timeFrame,upper,0,MODE_SMA,PRICE_OPEN,shift);
+    double ma_lower_0      = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,0);
+    double ma_lower_shift  = iMA(NULL,timeFrame,lower,0,MODE_SMA,PRICE_OPEN,shift);
+
+    double r1 = ma_upper_0     - ma_lower_0;
+    double r2 = ma_upper_shift - ma_lower_shift;
+
+    r1 = MathAbs(r1);
+    r2 = MathAbs(r2);
+
+    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+    if(r2>r1){
+        result = true;
+    }
+    return result;
+}
+
+bool isMACDUpTicksCount (ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    if(macd0>macd1 && macd1>macd2){
+        result = true;
+    }
+    return result;
+}
+bool isMACDDownTicksCount (ENUM_TIMEFRAMES timeframe){
+    bool result = false;
+    double macd0 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,0);
+    double macd1 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,1);
+    double macd2 = iMACD(NULL,timeframe,12,26,9,PRICE_OPEN,MODE_MAIN,2);
+    if(macd0<macd1 && macd1<macd2){
+        result = true;
+    }
+    return result;
+}
+
+
+// Here we check, min1 and min2 for each TimeFrame
+// How we gonna handle different HalfWaves
+bool isFigure_TS_73_Up(){
+//test();
+    bool result = false;
+    if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" && ts7_3_min1 < ts7_3_min0){
+        result = true;
+    }
+    return result;
+}
+
+bool isFigure_TS_73_Down(){
+//test();
+    bool result = false;
+    if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" && ts7_3_max1 > ts7_3_max0){
+        result = true;
+    }
+    return result;
+}
+
+
+
+bool isFigure_TS_74_Up(){
+//test();
+    bool result = false;
+    double deltaA = ts7_3_max1 - ts7_3_min0;
+    double deltaB = deltaA / 100 * 38.2;
+    double deltaC = ts7_3_max1 + deltaB;
+    if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" &&
+    Bid > ts7_3_max0 && Bid > ts7_3_max1 && Bid > ts7_3_max2 && Bid > ts7_3_max3 && (Bid < deltaC)){
+        result = true;
+    }
+    return result;
+}
+
+bool isFigure_TS_74_Down(){
+//test();
+    bool result = false;
+    double deltaA = ts7_3_max0 - ts7_3_min1;
+    double deltaB = deltaA / 100 * 38.2;
+    double deltaC = ts7_3_max0 - deltaB;
+    if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" &&
+     Bid < ts7_3_min0 && Bid < ts7_3_min1 && Bid < ts7_3_min2 && Bid < ts7_3_min3 && (Bid > deltaC)){
+        result = true;
+    }
+    return result;
+}
+
+// max00 и min00 с изменением цены не меняются потому меняем на Bid
+//D deltaC надо брать не Ишв а max1
+
+bool isFigure_TS_75_Up(){
+//test();
+    bool result = false;
+    double deltaA = ts7_3_max1 - ts7_3_min0;
+// Print(" deltaA = ts7_3_max1 - ts7_3_min0 = ", ts7_3_max1 - ts7_3_min0)    ;
+    double deltaB = deltaA / 100 * 38.2;
+// Print(" deltaB = deltaA / 100 * 38.2 = ", deltaA / 100 * 38.2);
+    double deltaC = ts7_3_max1 + deltaB;
+// Print(" deltaC = ts7_3_max1 + deltaB = ", ts7_3_max1 + deltaB);
+// Print(" ts7_3_HalfWave_0 == minus && ts7_3_HalfWave_1 == plus = ", ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus");
+// Print(" Bid  = ", Bid, " ts7_3_max0  = ", ts7_3_max0, " ts7_3_max1  = ", ts7_3_max1 );
+// Print(" Bid > ts7_3_max0 && Bid > ts7_3_max1 = ", Bid > ts7_3_max0 && Bid > ts7_3_max1);
+// Print(" (Bid < deltaC) = ", (Bid < deltaC));
+    if(ts7_3_HalfWave_0 == "minus" && ts7_3_HalfWave_1 == "plus" &&
+    Bid > ts7_3_max0 && Bid > ts7_3_max1 && (Bid < deltaC)){
+        result = true;
+    }
+    return result;
+}
+
+bool isFigure_TS_75_Down(){
+//test();
+    bool result = false;
+    double deltaA = ts7_3_max0 - ts7_3_min1;
+// Print(" deltaA = ts7_3_max0 - ts7_3_min1 = ", ts7_3_max0 - ts7_3_min1)    ;
+    double deltaB = deltaA / 100 * 38.2;
+// Print(" deltaB = deltaA / 100 * 38.2 = ", deltaA / 100 * 38.2);
+    double deltaC = ts7_3_min1 - deltaB;
+// Print(" deltaC = ts7_3_max0 - deltaB = ", Bid - deltaB);
+// Print(" ts7_3_HalfWave_0 == plus && ts7_3_HalfWave_1 == minus = ", ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus");
+// Print(" Bid  = ", Bid, " ts7_3_min0  = ", ts7_3_min0, " ts7_3_min1  = ", ts7_3_min1 );
+// Print(" Bid < ts7_3_min0 && Bid < ts7_3_min1 = ", Bid < ts7_3_min0 && Bid < ts7_3_min1);
+// Print(" (Bid > deltaC) = ", (Bid > deltaC));
+    if(ts7_3_HalfWave_0 == "plus" && ts7_3_HalfWave_1 == "minus" &&
+     Bid < ts7_3_min0 && Bid < ts7_3_min1 && (Bid > deltaC)){
+        result = true;
+    }
+    return result;
+}
+
+void test(){
+    Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
+    Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
 }
