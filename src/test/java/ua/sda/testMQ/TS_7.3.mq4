@@ -81,7 +81,7 @@ double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
 double ts7_3_min2 = 0.00000000, ts7_3_min3 = 0.00000000, ts7_3_max2 = 0.00000000, ts7_3_max3 = 0.00000000;
 
-
+int lower = 0, higher = 0, beware = 0, down = 0, up = 0;
 
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
@@ -3500,7 +3500,11 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
 
-  int lower = 0, higher = 0, beware = 0, down = 0, up = 0;
+  lower = 0;
+  higher = 0;
+   beware = 0;
+    down = 0;
+     up = 0;
 
                                                        string countString = currentSignalAnalyzeConcatenated;
   lower  = StringReplace(countString,"Lower","z_z");
