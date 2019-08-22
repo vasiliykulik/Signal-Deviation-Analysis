@@ -3867,6 +3867,7 @@ total=OrdersTotal();
                  {
                   if(Bid-((Bid - OrderOpenPrice())*TrailingFiboLevel)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
                     {
+                    // double current_swap = OrderSwap(); // SWAP
                      OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*TrailingFiboLevel),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
                     }
                  }
@@ -3898,6 +3899,7 @@ total=OrdersTotal();
               {
               OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //07.03.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+               // double current_swap = OrderSwap(); // SWAP
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
