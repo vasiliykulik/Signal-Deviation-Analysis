@@ -3726,7 +3726,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // TimeFilter (потому что надо вызвать метод print())
 
 
-
+/*
 int hour=TimeHour(TimeCurrent());
 int weekday=TimeDayOfWeek(TimeCurrent());
 if((hour<10 && weekday==1)){
@@ -3751,7 +3751,7 @@ timeFilter = "timeFilter Deny. Friday evening. No motion. After 18:00 Stay out o
 
 
  timeFilter = StringConcatenate(timeFilter," hour = ",hour, " weekday = ", weekday) ;
-
+*/
 print();
 
 //buy = 0;
