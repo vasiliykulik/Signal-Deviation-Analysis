@@ -181,7 +181,7 @@ void OnTick(void)
    strStats1 = "nothing";
    strStats2 = "nothing";
    strStats3 = "nothing";
-   timeFilter = "timeFilter not init, TakeProfit StopLoss externalLots", "   ", TakeProfit "   ", StopLoss,  "   ", externalLots;
+   timeFilter = StringConcatenate("timeFilter not init, TakeProfit StopLoss externalLots", "   ", TakeProfit, "   ", StopLoss,  "   ", externalLots);
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
