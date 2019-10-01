@@ -8,9 +8,9 @@
 #property version   "5.8"
 #property strict
 
-extern double TakeProfit=500;
-extern double StopLoss=500;
-extern double externalLots=0.01;
+extern double TakeProfit    =   500;
+extern double StopLoss      =   500;
+extern double externalLots  =   0.01;
 //
 extern double TrailingStop=10000;
 
@@ -181,7 +181,7 @@ void OnTick(void)
    strStats1 = "nothing";
    strStats2 = "nothing";
    strStats3 = "nothing";
-   timeFilter = "timeFilter not init";
+   timeFilter = "timeFilter not init, TakeProfit StopLoss externalLots", "   ", TakeProfit "   ", StopLoss,  "   ", externalLots;
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
