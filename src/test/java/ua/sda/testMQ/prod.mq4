@@ -408,6 +408,15 @@ void OnTick(void)
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
+
+      double figure_101_fmin_M5  = 0.00000000;
+      double figure_101_smin_M5  = 0.00000000;
+      double figure_101_fmin_M15 = 0.00000000;
+      double figure_101_smin_M15 = 0.00000000;
+      double figure_101_fmax_M5 = 0.00000000;
+      double figure_101_smax_M5 = 0.00000000;
+      double figure_101_fmax_M15 = 0.00000000;
+      double figure_101_smax_M15 = 0.00000000;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
 
@@ -3027,24 +3036,20 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     print("Figure_TS_75_Down  ", timeFrames[i]);
             }
 
-
-
-}
-
-            // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
+            // minus four nonSymm() method call
+           // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
             if(true
            // isOsMACrossedZeroUp(PERIOD_H1)
             ){
-                periodGlobal = PERIOD_M5;
-                bool result = false;
-                 result = nonSymm();
-                double fmin_M5 = firstMinGlobal;
-                double smin_M5 = secondMinGlobal;
-                periodGlobal = PERIOD_M15;
-                result = false;
-                 result = nonSymm();
-                double fmin_M15 = firstMinGlobal;
-                double smin_M15 = secondMinGlobal;
+                    if(timeFrames[i]==PERIOD_M5) {
+                        figure_101_fmin_M5  = firstMinGlobal;
+                        figure_101_smin_M5  = secondMinGlobal;
+                    }
+                    if(timeFrames[i]==PERIOD_M15){
+                        figure_101_fmin_M15  = firstMinGlobal;
+                        figure_101_smin_M15  = secondMinGlobal;
+                    }
+if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
                 if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
                     print("Figure 101 M5fminEqualsM15fmin_Up  ", PERIOD_M5);
@@ -3052,22 +3057,22 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     //print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_H1);
                     figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true;
                 }
+                }
             }
 
             // Figure 102 H1_Osma_M5ANDM15fmaxEquals_Down
             if(true
          //   isOsMACrossedZeroDown(PERIOD_H1)
             ){
-                periodGlobal = PERIOD_M5;
-                bool result = false;
-                result = nonSymm();
-                double fmax_M5 = firstMaxGlobal;
-                double smax_M5 = secondMaxGlobal;
-                periodGlobal = PERIOD_M15;
-                result = false;
-                result = nonSymm();
-                double fmax_M15 = firstMaxGlobal;
-                double smax_M15 = secondMaxGlobal;
+                    if(timeFrames[i]==PERIOD_M5) {
+                        figure_101_fmax_M5  = firstMaxGlobal;
+                        figure_101_smax_M5  = secondMaxGlobal;
+                    }
+                    if(timeFrames[i]==PERIOD_M15){
+                        figure_101_fmax_M15  = firstMaxGlobal;
+                        figure_101_smax_M15  = secondMaxGlobal;
+                    }
+if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
                 if (fmax_M5 == fmax_M15 && fmax_M5 > smax_M5 && fmax_M15 > smax_M15){
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M5);
@@ -3075,7 +3080,13 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     // print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_H1);
                     figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true;
                 }
+                }
             }
+
+
+
+}
+
 
 // TL - M15 Block
 bool OpenOn_M15_TL_Rebound_Buy_OpenPermit = false;
