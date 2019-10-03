@@ -3856,7 +3856,7 @@ print();
 
 // Block 4 Ведение позиций
 /*Вызывая метод nonSymm
-   для periodGlobal мы будем update-ить цену*/
+   для periodGlobal мы будем update-ить цену, делаем єто только в лучае открытой позиции*/
    // Trying to fix one orderStop
 total=OrdersTotal();
    for(cnt=0;cnt<total;cnt++)
