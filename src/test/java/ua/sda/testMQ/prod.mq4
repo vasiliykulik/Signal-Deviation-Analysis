@@ -424,6 +424,8 @@ void OnTick(void)
       double figure_101_smax_M15 = 0.00000000;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
+      bool Figure_001_Up_3S_sMaCD_M1 = false, Figure_001_Up_3S_sMaCD_M5 = false, Figure_001_Up_3S_sMaCD_M15 = false, Figure_001_Up_3S_sMaCD_H1 = false, Figure_001_Up_3S_sMaCD_H4 = false, Figure_001_Up_3S_sMaCD_D1 = false;
+      bool Figure_002_Down_3S_sMaCD_M1 = false, Figure_002_Down_3S_sMaCD_M5 = false, Figure_002_Down_3S_sMaCD_M15 = false, Figure_002_Down_3S_sMaCD_H1 = false, Figure_002_Down_3S_sMaCD_H4 = false, Figure_002_Down_3S_sMaCD_D1 = false;
 
       string ts73_M1  = "init", ts73_M5  = "init", ts73_M15 = "init",  ts73_H1  = "init",  ts73_H4  = "init",  ts73_D1  = "init";
       string ts74_M1  = "init", ts74_M5  = "init", ts74_M15 = "init",  ts74_H1  = "init",  ts74_H4  = "init",  ts74_D1  = "init";
@@ -3088,6 +3090,77 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                 }
             }
 
+            // Figure_001_Up_3S_sMaCD
+            if(true){
+                int k = 0;
+                int sCount = 0;
+                for(k;sCount==3;k++){
+                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
+                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
+                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
+                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
+                    if(S_0_m > S_0_s && S_1_s > S_1_m){
+                        sCount++;
+                    }
+                int m = 0;
+                bool ok = false;
+                for(m;k-1/*не берем последний тик*/;m++){
+                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
+                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
+                    if (macdS0<macdS1){
+                        break;
+                    }
+                    ok = true;
+                }
+                if (ok) {
+                        if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
+                        if(timeFrames[i]==PERIOD_M5) {Figure_001_Up_3S_sMaCD_M5  = true;}
+                        if(timeFrames[i]==PERIOD_M15){Figure_001_Up_3S_sMaCD_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1) {Figure_001_Up_3S_sMaCD_H1  = true;}
+                        if(timeFrames[i]==PERIOD_H4) {Figure_001_Up_3S_sMaCD_H4  = true;}
+                        if(timeFrames[i]==PERIOD_D1) {Figure_001_Up_3S_sMaCD_D1  = true;}
+                        print("Figure_001_Up_3S_sMaCD_Up  ", timeFrames[i]);
+                }
+            }
+
+            }
+
+            // Figure_002_Down_3S_sMaCD
+            if(true){
+                int i = 0;
+                int sCount = 0;
+                for(i;sCount==3;i++){
+                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,i);
+                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,i);
+                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,i+1);
+                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,i+1);
+                    if(S_0_m < S_0_s && S_1_m > S_1_s){
+                        sCount++;
+                    }
+                bool ok = false;
+                int k = 0;
+                for(k;i-1/*не берем последний тик*/;k++){
+                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
+                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
+                    if (macdS0>macdS1){
+                        break;
+                    }
+                    ok = true;
+                }
+                if(ok) {
+                        if(timeFrames[i]==PERIOD_M1) {Figure_002_Down_3S_sMaCD_M1  = true;}
+                        if(timeFrames[i]==PERIOD_M5) {Figure_002_Down_3S_sMaCD_M5  = true;}
+                        if(timeFrames[i]==PERIOD_M15){Figure_002_Down_3S_sMaCD_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1) {Figure_002_Down_3S_sMaCD_H1  = true;}
+                        if(timeFrames[i]==PERIOD_H4) {Figure_002_Down_3S_sMaCD_H4  = true;}
+                        if(timeFrames[i]==PERIOD_D1) {Figure_002_Down_3S_sMaCD_D1  = true;}
+                        print("Figure_002_Down_3S_sMaCD  ", timeFrames[i]);
+                }
+            }
+
+            }
+
+
 
 
 }
@@ -3810,7 +3883,9 @@ print();
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
-         else Print("Error opening BUY order : ",GetLastError());
+           else if(GetLastError()!=0){
+                Print("Error opening BUY order : ",GetLastError());
+            }
          return;
         }
       // check for short position (SELL) possibility
@@ -3846,7 +3921,9 @@ print();
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
-         else Print("Error opening SELL order : ",GetLastError()); // если открытых ордеров нет, 0 - нет ошибки, No error returned
+           else if(GetLastError()!=0){
+                Print("Error opening BUY order : ",GetLastError());
+            } // если открытых ордеров нет, 0 - нет ошибки, No error returned
          return;
         }
      Sleep(3333);

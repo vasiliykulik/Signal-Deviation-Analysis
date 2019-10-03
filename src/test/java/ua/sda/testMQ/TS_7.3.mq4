@@ -8,9 +8,9 @@
 #property version   "5.8"
 #property strict
 
-extern double TakeProfit=500;
-extern double StopLoss=500;
-extern double externalLots=0.01;
+extern double TakeProfit    =   500;
+extern double StopLoss      =   500;
+extern double externalLots  =   0.01;
 //
 extern double TrailingStop=10000;
 
@@ -81,7 +81,7 @@ double sixthMinGlobal  = 0.00000000, sixthMaxGlobal  = 0.00000000;
 double ts7_3_min00 = 0.00000000, ts7_3_max00 = 0.00000000, ts7_3_min0 = 0.00000000, ts7_3_min1 = 0.00000000, ts7_3_max0 = 0.00000000, ts7_3_max1 = 0.00000000;
 double ts7_3_min2 = 0.00000000, ts7_3_min3 = 0.00000000, ts7_3_max2 = 0.00000000, ts7_3_max3 = 0.00000000;
 
-int lower = 0, higher = 0, beware = 0, down = 0, up = 0;
+
 
 ENUM_TIMEFRAMES periodGlobal;
 int firstPointTick=0,secondPointTick=0;
@@ -181,7 +181,7 @@ void OnTick(void)
    strStats1 = "nothing";
    strStats2 = "nothing";
    strStats3 = "nothing";
-   timeFilter = "timeFilter not init";
+   timeFilter = StringConcatenate("timeFilter not init,   external T/P S/L Lots", "   ", TakeProfit, "   ", StopLoss,  "   ", externalLots);
 
 
    bool lowAndHighUpdateViaNonSymmTick=false;
@@ -202,7 +202,8 @@ void OnTick(void)
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
       блок Проставляем Флаги*/
-// FiboMod Analyzing Block
+/*
+// Start FiboMod Analyzing Block
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
  ts7_3_HalfWave_00 = "init";
@@ -271,6 +272,10 @@ void OnTick(void)
               }
            }
         }// end of TimeFrames for loop for FiboModule State and IsPassed flag
+
+// End FiboMod Analyzing Block
+*/
+
 // First layer Analyzing Block plus Figures Analyzing Block
 
 
@@ -408,8 +413,19 @@ void OnTick(void)
 
       bool fourTimeFramesSignalUp = false;
       bool fourTimeFramesSignalDown = false;
+
+      double figure_101_fmin_M5  = 0.00000000;
+      double figure_101_smin_M5  = 0.00000000;
+      double figure_101_fmin_M15 = 0.00000000;
+      double figure_101_smin_M15 = 0.00000000;
+      double figure_101_fmax_M5 = 0.00000000;
+      double figure_101_smax_M5 = 0.00000000;
+      double figure_101_fmax_M15 = 0.00000000;
+      double figure_101_smax_M15 = 0.00000000;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
+      bool Figure_001_Up_3S_sMaCD_M1 = false, Figure_001_Up_3S_sMaCD_M5 = false, Figure_001_Up_3S_sMaCD_M15 = false, Figure_001_Up_3S_sMaCD_H1 = false, Figure_001_Up_3S_sMaCD_H4 = false, Figure_001_Up_3S_sMaCD_D1 = false;
+      bool Figure_002_Down_3S_sMaCD_M1 = false, Figure_002_Down_3S_sMaCD_M5 = false, Figure_002_Down_3S_sMaCD_M15 = false, Figure_002_Down_3S_sMaCD_H1 = false, Figure_002_Down_3S_sMaCD_H4 = false, Figure_002_Down_3S_sMaCD_D1 = false;
 
       string ts73_M1  = "init", ts73_M5  = "init", ts73_M15 = "init",  ts73_H1  = "init",  ts73_H4  = "init",  ts73_D1  = "init";
       string ts74_M1  = "init", ts74_M5  = "init", ts74_M15 = "init",  ts74_H1  = "init",  ts74_H4  = "init",  ts74_D1  = "init";
@@ -3027,30 +3043,27 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     print("Figure_TS_75_Down  ", timeFrames[i]);
             }
 
-
-
-}
-
-            // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
+            // minus four nonSymm() method call
+           // Figure 101 H1_Osma_M5ANDM15fminEquals_Up
             if(true
            // isOsMACrossedZeroUp(PERIOD_H1)
             ){
-                periodGlobal = PERIOD_M5;
-                bool result = false;
-                 result = nonSymm();
-                double fmin_M5 = firstMinGlobal;
-                double smin_M5 = secondMinGlobal;
-                periodGlobal = PERIOD_M15;
-                result = false;
-                 result = nonSymm();
-                double fmin_M15 = firstMinGlobal;
-                double smin_M15 = secondMinGlobal;
+                    if(timeFrames[i]==PERIOD_M5) {
+                        figure_101_fmin_M5  = firstMinGlobal;
+                        figure_101_smin_M5  = secondMinGlobal;
+                    }
+                    if(timeFrames[i]==PERIOD_M15){
+                        figure_101_fmin_M15  = firstMinGlobal;
+                        figure_101_smin_M15  = secondMinGlobal;
+                    }
+if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
-                if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
+                if (figure_101_fmin_M5 == figure_101_fmin_M15 && figure_101_fmin_M5 < figure_101_smin_M5 && figure_101_fmin_M15 < figure_101_smin_M15){
                     print("Figure 101 M5fminEqualsM15fmin_Up  ", PERIOD_M5);
                     print("Figure 101 M15fminEqualsM5fmin_Up  ", PERIOD_M15);
                     //print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_H1);
                     figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = true;
+                }
                 }
             }
 
@@ -3058,24 +3071,100 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
             if(true
          //   isOsMACrossedZeroDown(PERIOD_H1)
             ){
-                periodGlobal = PERIOD_M5;
-                bool result = false;
-                result = nonSymm();
-                double fmax_M5 = firstMaxGlobal;
-                double smax_M5 = secondMaxGlobal;
-                periodGlobal = PERIOD_M15;
-                result = false;
-                result = nonSymm();
-                double fmax_M15 = firstMaxGlobal;
-                double smax_M15 = secondMaxGlobal;
+                    if(timeFrames[i]==PERIOD_M5) {
+                        figure_101_fmax_M5  = firstMaxGlobal;
+                        figure_101_smax_M5  = secondMaxGlobal;
+                    }
+                    if(timeFrames[i]==PERIOD_M15){
+                        figure_101_fmax_M15  = firstMaxGlobal;
+                        figure_101_smax_M15  = secondMaxGlobal;
+                    }
+if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
-                if (fmax_M5 == fmax_M15 && fmax_M5 > smax_M5 && fmax_M15 > smax_M15){
+                if (figure_101_fmax_M5 == figure_101_fmax_M15 && figure_101_fmax_M5 > figure_101_smax_M5 && figure_101_fmax_M15 > figure_101_smax_M15){
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M5);
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M15);
                     // print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_H1);
                     figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = true;
                 }
+                }
             }
+
+            // Figure_001_Up_3S_sMaCD
+            if(true){
+                int k = 0;
+                int sCount = 0;
+                for(k;sCount==3;k++){
+                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
+                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
+                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
+                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
+                    if(S_0_m > S_0_s && S_1_s > S_1_m){
+                        sCount++;
+                    }
+                int m = 0;
+                bool ok = false;
+                for(m;m==k-1/*не берем последний тик*/;m++){
+                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
+                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
+                    if (macdS0<macdS1){
+                        break;
+                    }
+                    ok = true;
+                }
+                if (ok) {
+                        if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
+                        if(timeFrames[i]==PERIOD_M5) {Figure_001_Up_3S_sMaCD_M5  = true;}
+                        if(timeFrames[i]==PERIOD_M15){Figure_001_Up_3S_sMaCD_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1) {Figure_001_Up_3S_sMaCD_H1  = true;}
+                        if(timeFrames[i]==PERIOD_H4) {Figure_001_Up_3S_sMaCD_H4  = true;}
+                        if(timeFrames[i]==PERIOD_D1) {Figure_001_Up_3S_sMaCD_D1  = true;}
+                        print("Figure_001_Up_3S_sMaCD_Up  ", timeFrames[i]);
+                }
+            }
+
+            }
+
+            // Figure_002_Down_3S_sMaCD
+            if(true){
+                int k = 0;
+                int sCount = 0;
+                for(k;sCount==3;k++){
+                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
+                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
+                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
+                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
+                    if(S_0_m < S_0_s && S_1_m > S_1_s){
+                        sCount++;
+                    }
+                bool ok = false;
+                int m = 0;
+                for(m;m==k-1/*не берем последний тик*/;m++){
+                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
+                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
+                    if (macdS0>macdS1){
+                        break;
+                    }
+                    ok = true;
+                }
+                if(ok) {
+                        if(timeFrames[i]==PERIOD_M1) {Figure_002_Down_3S_sMaCD_M1  = true;}
+                        if(timeFrames[i]==PERIOD_M5) {Figure_002_Down_3S_sMaCD_M5  = true;}
+                        if(timeFrames[i]==PERIOD_M15){Figure_002_Down_3S_sMaCD_M15 = true;}
+                        if(timeFrames[i]==PERIOD_H1) {Figure_002_Down_3S_sMaCD_H1  = true;}
+                        if(timeFrames[i]==PERIOD_H4) {Figure_002_Down_3S_sMaCD_H4  = true;}
+                        if(timeFrames[i]==PERIOD_D1) {Figure_002_Down_3S_sMaCD_D1  = true;}
+                        print("Figure_002_Down_3S_sMaCD  ", timeFrames[i]);
+                }
+            }
+
+            }
+
+
+
+
+}
+
 
 // TL - M15 Block
 bool OpenOn_M15_TL_Rebound_Buy_OpenPermit = false;
@@ -3500,11 +3589,7 @@ isTwoMaxAllTFtoH4Lower =  twoMaxAllTFtoH4Lower_Down_M5 && twoMaxAllTFtoH4Lower_D
     signalAnalyzeConcatenated = currentSignalAnalyzeConcatenated;
   }
 
-  lower = 0;
-  higher = 0;
-   beware = 0;
-    down = 0;
-     up = 0;
+  int lower = 0, higher = 0, beware = 0, down = 0, up = 0;
 
                                                        string countString = currentSignalAnalyzeConcatenated;
   lower  = StringReplace(countString,"Lower","z_z");
@@ -3696,9 +3781,10 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     if(
 
      (
-        isNewSignal && (down<=0 && up>11) &&
+        isNewSignal &&
         (
-            OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
+            Figure_001_Up_3S_sMaCD_M5
+            //OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
         )
     )
 /*    ||
@@ -3713,9 +3799,10 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
       if(
 
     (
-        isNewSignal && (up<=0 && down>11) &&
+        isNewSignal &&
         (
-            OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
+            Figure_002_Down_3S_sMaCD_M5
+            //OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
         )
     )
 /*     ||
@@ -3730,7 +3817,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
 // TimeFilter (потому что надо вызвать метод print())
 
 
-
+/*
 int hour=TimeHour(TimeCurrent());
 int weekday=TimeDayOfWeek(TimeCurrent());
 if((hour<10 && weekday==1)){
@@ -3755,7 +3842,7 @@ timeFilter = "timeFilter Deny. Friday evening. No motion. After 18:00 Stay out o
 
 
  timeFilter = StringConcatenate(timeFilter," hour = ",hour, " weekday = ", weekday) ;
-
+*/
 print();
 
 //buy = 0;
@@ -3798,7 +3885,9 @@ print();
             isNewSignal = false;
             updateSLandTPForBuyOrders(currentStopLoss,Ask+TakeProfit*Point);
            }
-         else Print("Error opening BUY order : ",GetLastError());
+           else if(GetLastError()!=0){
+                Print("Error opening BUY order : ",GetLastError());
+            }
          return;
         }
       // check for short position (SELL) possibility
@@ -3834,7 +3923,9 @@ print();
             isNewSignal = false;
             updateSLandTPForSellOrders(currentStopLoss,Bid-TakeProfit*Point);
            }
-         else Print("Error opening SELL order : ",GetLastError()); // если открытых ордеров нет, 0 - нет ошибки, No error returned
+           else if(GetLastError()!=0){
+                Print("Error opening BUY order : ",GetLastError());
+            } // если открытых ордеров нет, 0 - нет ошибки, No error returned
          return;
         }
      Sleep(3333);
@@ -3844,7 +3935,7 @@ print();
 
 // Block 4 Ведение позиций
 /*Вызывая метод nonSymm
-   для periodGlobal мы будем update-ить цену*/
+   для periodGlobal мы будем update-ить цену, делаем єто только в лучае открытой позиции*/
    // Trying to fix one orderStop
 total=OrdersTotal();
    for(cnt=0;cnt<total;cnt++)
@@ -3871,6 +3962,7 @@ total=OrdersTotal();
                  {
                   if(Bid-((Bid - OrderOpenPrice())*TrailingFiboLevel)>OrderStopLoss())// если стоп-лосс МЕНЬШЕ чем цена - 50% прибыли
                     {
+                    // double current_swap = OrderSwap(); // SWAP
                      OrderModify(OrderTicket(),OrderOpenPrice(),Bid-((Bid - OrderOpenPrice())*TrailingFiboLevel),OrderTakeProfit(),0,Green);// то стоп лосс равен пцена - 50% прибыли
                     }
                  }
@@ -3902,11 +3994,11 @@ total=OrdersTotal();
               {
               OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES); //07.03.2019 trying to fix disappearing (more precisely - OrderTakeProfit() = 0.00000 in this section)  tp for sell position and moving backward manual stopLoss
                //Print("Buy Position was stoplossed on TimeFrame ","periodGlobal = ",periodGlobal);
+               // double current_swap = OrderSwap(); // SWAP
                OrderModify(OrderTicket(),OrderOpenPrice(),stopLossForBuyMin,OrderTakeProfit(),0,Green);
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
-//if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOnHalfWaveClosePermitUp_M15)
-if(down>up)
+if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOnHalfWaveClosePermitUp_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Bid,30,Violet); // close position
 
@@ -3969,8 +4061,7 @@ if(down>up)
               // return; Уберем что бы перебирались все ордера, а не происходих выход после изменения первого
               }
             //                 }
-//if(CloseOnHalfWaveClosePermitDown_M1 || CloseOnHalfWaveClosePermitDown_M5 || CloseOnHalfWaveClosePermitDown_M15)
-if(up>down)
+if(CloseOnHalfWaveClosePermitDown_M1 || CloseOnHalfWaveClosePermitDown_M5 || CloseOnHalfWaveClosePermitDown_M15)
                 {
                  OrderClose(OrderTicket(),OrderLots(),Ask,30,Violet); // close position
                  //return(0); // exit
