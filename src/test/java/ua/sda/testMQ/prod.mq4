@@ -3051,7 +3051,7 @@ bool is11PositionFigureUp_M15 = false, is10PositionFigureUp_M15 = false, is9Posi
                     }
 if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
-                if (fmin_M5 == fmin_M15 && fmin_M5 < smin_M5 && fmin_M15 < smin_M15){
+                if (figure_101_fmin_M5 == figure_101_fmin_M15 && figure_101_fmin_M5 < figure_101_smin_M5 && figure_101_fmin_M15 < figure_101_smin_M15){
                     print("Figure 101 M5fminEqualsM15fmin_Up  ", PERIOD_M5);
                     print("Figure 101 M15fminEqualsM5fmin_Up  ", PERIOD_M15);
                     //print("Figure 101 M5ANDM15fminEquals_Up  ", PERIOD_H1);
@@ -3074,7 +3074,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     }
 if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
-                if (fmax_M5 == fmax_M15 && fmax_M5 > smax_M5 && fmax_M15 > smax_M15){
+                if (figure_101_fmax_M5 == figure_101_fmax_M15 && figure_101_fmax_M5 > figure_101_smax_M5 && figure_101_fmax_M15 > figure_101_smax_M15){
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M5);
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M15);
                     // print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_H1);
