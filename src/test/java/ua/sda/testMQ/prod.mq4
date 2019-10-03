@@ -202,7 +202,8 @@ void OnTick(void)
       блок условий по пересечению MACD + MA 83
       блок Считаем Веса
       блок Проставляем Флаги*/
-// FiboMod Analyzing Block
+/*
+// Start FiboMod Analyzing Block
       for(int i=0; i<=ArraySize(timeFrames)-1;i++) // iterate through TimeFrames
         {
  ts7_3_HalfWave_00 = "init";
@@ -271,6 +272,10 @@ void OnTick(void)
               }
            }
         }// end of TimeFrames for loop for FiboModule State and IsPassed flag
+
+// End FiboMod Analyzing Block
+*/
+
 // First layer Analyzing Block plus Figures Analyzing Block
 
 
