@@ -6865,7 +6865,8 @@ bool isFigure_TS_75_Down(){
     return result;
 }
 
+/*
 void test(){
     Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
     Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
-}
+}*/
