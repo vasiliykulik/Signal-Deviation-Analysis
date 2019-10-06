@@ -3104,7 +3104,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                  }
                 int m;
                 bool ok = true;
-                Print(" k = ", k);
+//                Print(" k = ", k);
                 for(m=0;m<k-1;m++){/*не берем последний тик*/
                     double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
                     double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
@@ -3113,16 +3113,16 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                         break;
                     }
                 }
-                Print(" ok = ", ok);
+//                Print(" ok = ", ok);
                     double macdk=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
                     double macdk1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
                     if (macdk>=macdk1){
                         ok = false;
-                Print(" macdk = ", k, "ok = ", ok);
+//                Print(" macdk = ", k, "ok = ", ok);
                         break;
                     }
                 if (ok) {
-                Print(" if(ok) macdk = ", k, "ok = ", ok);
+//                Print(" if(ok) macdk = ", k, "ok = ", ok);
                         if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
                         if(timeFrames[i]==PERIOD_M5) {Figure_001_Up_3S_sMaCD_M5  = true;}
                         if(timeFrames[i]==PERIOD_M15){Figure_001_Up_3S_sMaCD_M15 = true;}
@@ -6598,7 +6598,7 @@ bool isMA_Convergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     double r1 = ma_upper_0     - ma_lower_0;
     double r2 = ma_upper_shift - ma_lower_shift;
 
-    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+//    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2>r1){
         result = true;
     }
@@ -6628,7 +6628,7 @@ bool isMA_Divergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     double r1 = ma_upper_0     - ma_lower_0;
     double r2 = ma_upper_shift - ma_lower_shift;
 
-    Print(" isMA_ ",timeFrame," _Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+ //   Print(" isMA_ ",timeFrame," _Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2<r1){
         result = true;
     }
@@ -6745,7 +6745,7 @@ bool isMA_ConvergentAbs(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     r1 = MathAbs(r1);
     r2 = MathAbs(r2);
 
-    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+//    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2>r1){
         result = true;
     }
