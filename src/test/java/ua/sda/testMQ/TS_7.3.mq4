@@ -3099,8 +3099,6 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
                     double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
                     double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
-Print("S_0_m, S_0_s, S_1_s, S_1_m ",S_0_m," ", S_0_s," ", S_1_s," ", S_1_m," ",S_0_m > S_0_s && S_1_s > S_1_m, " sCount = ", sCount);
-
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
                     }
@@ -3119,15 +3117,11 @@ Print("S_0_m, S_0_s, S_1_s, S_1_m ",S_0_m," ", S_0_s," ", S_1_s," ", S_1_m," ",S
                 Print(" ok = ", ok);
                     double macdk=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
                     double macdk1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
-                    //Print("macdk = ",macdk, " macdk1 = ",macdk1, " macdk>=macdk1 ", macdk>=macdk1, " k = ", k);
                     if (macdk>=macdk1){
                         ok = false;
                 Print(" macdk = ", k, "ok = ", ok);
                         break;
                     }
-
-
-
                 if (ok) {
                 Print(" if(ok) macdk = ", k, "ok = ", ok);
                         if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
@@ -3151,7 +3145,6 @@ Print("S_0_m, S_0_s, S_1_s, S_1_m ",S_0_m," ", S_0_s," ", S_1_s," ", S_1_m," ",S
                     double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
                     double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
                     double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
-//Print("S_0_m, S_0_s, S_1_s, S_1_m ",S_0_m," ", S_0_s," ", S_1_s," ", S_1_m," ",S_0_m < S_0_s && S_1_m > S_1_s);
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
                     }

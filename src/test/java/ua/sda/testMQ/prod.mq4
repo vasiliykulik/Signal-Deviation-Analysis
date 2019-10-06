@@ -3089,12 +3089,11 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                 }
                 }
             }
-
             // Figure_001_Up_3S_sMaCD
             if(true){
-                int k = 0;
+                int k=0;
                 int sCount = 0;
-                for(k;sCount==3;k++){
+                for(k;sCount<3;k++){
                     double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
                     double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
                     double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
@@ -3102,17 +3101,28 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
                     }
-                int m = 0;
-                bool ok = false;
-                for(m;k-1/*не берем последний тик*/;m++){
+                 }
+                int m;
+                bool ok = true;
+                Print(" k = ", k);
+                for(m=0;m<k-1;m++){/*не берем последний тик*/
                     double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
                     double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
                     if (macdS0<macdS1){
+                        ok = false;
                         break;
                     }
-                    ok = true;
                 }
+                Print(" ok = ", ok);
+                    double macdk=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
+                    double macdk1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
+                    if (macdk>=macdk1){
+                        ok = false;
+                Print(" macdk = ", k, "ok = ", ok);
+                        break;
+                    }
                 if (ok) {
+                Print(" if(ok) macdk = ", k, "ok = ", ok);
                         if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
                         if(timeFrames[i]==PERIOD_M5) {Figure_001_Up_3S_sMaCD_M5  = true;}
                         if(timeFrames[i]==PERIOD_M15){Figure_001_Up_3S_sMaCD_M15 = true;}
@@ -3121,32 +3131,40 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                         if(timeFrames[i]==PERIOD_D1) {Figure_001_Up_3S_sMaCD_D1  = true;}
                         print("Figure_001_Up_3S_sMaCD_Up  ", timeFrames[i]);
                 }
-            }
+
 
             }
 
             // Figure_002_Down_3S_sMaCD
             if(true){
-                int i = 0;
+                int k=0;
                 int sCount = 0;
-                for(i;sCount==3;i++){
-                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,i);
-                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,i);
-                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,i+1);
-                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,i+1);
+                for(k;sCount<3;k++){
+                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
+                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
+                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
+                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
                     }
-                bool ok = false;
-                int k = 0;
-                for(k;i-1/*не берем последний тик*/;k++){
-                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
-                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
+                }
+                int m;
+                bool ok = true;
+                for(m=0;m<k-1;m++){/*не берем последний тик*/
+                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
+                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
                     if (macdS0>macdS1){
+                        ok = false;
                         break;
                     }
-                    ok = true;
                 }
+                    double macdk=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
+                    double macdk1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
+                    if (macdk<=macdk1){
+                        ok = false;
+                        break;
+                    }
+
                 if(ok) {
                         if(timeFrames[i]==PERIOD_M1) {Figure_002_Down_3S_sMaCD_M1  = true;}
                         if(timeFrames[i]==PERIOD_M5) {Figure_002_Down_3S_sMaCD_M5  = true;}
@@ -3156,10 +3174,9 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                         if(timeFrames[i]==PERIOD_D1) {Figure_002_Down_3S_sMaCD_D1  = true;}
                         print("Figure_002_Down_3S_sMaCD  ", timeFrames[i]);
                 }
-            }
+
 
             }
-
 
 
 
