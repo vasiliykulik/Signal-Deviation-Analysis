@@ -3090,40 +3090,42 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                 }
             }
 
+
+// может нельзяв индикаторе вызывать timeFrames[i], пробуем вызывать periodGlobal - и не в этом дело, но дело здесь, тут что то со скобками
             // Figure_001_Up_3S_sMaCD
             if(true){
-                int k=0;
+                int kCount=0;
                 int sCount = 0;
-                for(k;sCount<3;k++){
-                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
-                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
-                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
-                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
+                for(kCount;sCount<3;kCount++){
+                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount);
+                    double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount);
+                    double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount+1);
+                    double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount+1);
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
                     }
                  }
-                int m;
+                int mCount=0;
                 bool ok = true;
-                Print(" k = ", k);
-                for(m=0;m<k-1;m++){/*не берем последний тик*/
-                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
-                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
+//                Print(" k = ", k);
+                for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
+                    double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
+                    double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
                     if (macdS0<macdS1){
                         ok = false;
-                        break;
+//                        break;
                     }
                 }
-                Print(" ok = ", ok);
-                    double macdk=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
-                    double macdk1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
+//                Print(" ok = ", ok);
+                    double macdk=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount);
+                    double macdk1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount+1);
                     if (macdk>=macdk1){
                         ok = false;
-                Print(" macdk = ", k, "ok = ", ok);
-                        break;
+//                Print(" macdk = ", k, "ok = ", ok);
+//                        break;
                     }
                 if (ok) {
-                Print(" if(ok) macdk = ", k, "ok = ", ok);
+//                Print(" if(ok) macdk = ", k, "ok = ", ok);
                         if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
                         if(timeFrames[i]==PERIOD_M5) {Figure_001_Up_3S_sMaCD_M5  = true;}
                         if(timeFrames[i]==PERIOD_M15){Figure_001_Up_3S_sMaCD_M15 = true;}
@@ -3138,32 +3140,32 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
 
             // Figure_002_Down_3S_sMaCD
             if(true){
-                int k=0;
+                int kCount=0;
                 int sCount = 0;
-                for(k;sCount<3;k++){
-                    double S_0_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k);
-                    double S_0_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k);
-                    double S_1_m  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_MAIN,k+1);
-                    double S_1_s  = iStochastic(NULL,timeFrames[i],5,3,3,MODE_SMA,0,MODE_SIGNAL,k+1);
+                for(kCount;sCount<3;kCount++){
+                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount);
+                    double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount);
+                    double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount+1);
+                    double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount+1);
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
                     }
                 }
-                int m;
+                int mCount=0;
                 bool ok = true;
-                for(m=0;m<k-1;m++){/*не берем последний тик*/
-                    double macdS0=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m);
-                    double macdS1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,m+1);
+                for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
+                    double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
+                    double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
                     if (macdS0>macdS1){
                         ok = false;
-                        break;
+//                        break;
                     }
                 }
-                    double macdk=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k);
-                    double macdk1=iMACD(NULL,timeFrames[i],12,26,9,PRICE_OPEN,MODE_MAIN,k+1);
+                    double macdk=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount);
+                    double macdk1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount+1);
                     if (macdk<=macdk1){
                         ok = false;
-                        break;
+//                        break;
                     }
 
                 if(ok) {
@@ -3179,8 +3181,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
 
             }
 
-
-
+                        Print(" timeFrames[i] = ", timeFrames[i]);
 
 }
 
@@ -3802,8 +3803,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
      (
         isNewSignal &&
         (
-            Figure_001_Up_3S_sMaCD_M5
-            //OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
+            Figure_001_Up_3S_sMaCD_H1
         )
     )
 /*    ||
@@ -3820,8 +3820,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     (
         isNewSignal &&
         (
-            Figure_002_Down_3S_sMaCD_M5
-            //OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
+            Figure_002_Down_3S_sMaCD_H1
         )
     )
 /*     ||
@@ -3861,8 +3860,8 @@ timeFilter = "timeFilter Deny. Friday evening. No motion. After 18:00 Stay out o
 
 
  timeFilter = StringConcatenate(timeFilter," hour = ",hour, " weekday = ", weekday) ;
-*/
 print();
+*/
 
 //buy = 0;
 //sell = 0;
@@ -3956,7 +3955,14 @@ print();
 /*Вызывая метод nonSymm
    для periodGlobal мы будем update-ить цену, делаем єто только в лучае открытой позиции*/
    // Trying to fix one orderStop
-total=OrdersTotal();
+
+      total=OrdersTotal();
+   if(0<total){
+      periodGlobal = PERIOD_M5;
+      lowAndHighUpdateViaNonSymmForTrailing = false;
+      lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
+   }
+
    for(cnt=0;cnt<total;cnt++)
      {
       OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
@@ -3987,9 +3993,9 @@ total=OrdersTotal();
                  }
 
 
-              periodGlobal = PERIOD_M5;
-              lowAndHighUpdateViaNonSymmForTrailing = false;
-               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
+ //             periodGlobal = PERIOD_M5;
+ //             lowAndHighUpdateViaNonSymmForTrailing = false;
+//               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
                //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
@@ -4050,9 +4056,9 @@ if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOn
               }
 
 
-               periodGlobal = PERIOD_M5;
-              lowAndHighUpdateViaNonSymmForTrailing = false;
-               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
+//               periodGlobal = PERIOD_M5;
+//              lowAndHighUpdateViaNonSymmForTrailing = false;
+//               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
@@ -6602,7 +6608,7 @@ bool isMA_Convergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     double r1 = ma_upper_0     - ma_lower_0;
     double r2 = ma_upper_shift - ma_lower_shift;
 
-    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+//    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2>r1){
         result = true;
     }
@@ -6632,7 +6638,7 @@ bool isMA_Divergent(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     double r1 = ma_upper_0     - ma_lower_0;
     double r2 = ma_upper_shift - ma_lower_shift;
 
-    Print(" isMA_ ",timeFrame," _Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+ //   Print(" isMA_ ",timeFrame," _Divergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2<r1){
         result = true;
     }
@@ -6749,7 +6755,7 @@ bool isMA_ConvergentAbs(int p1, int p2, int shift, ENUM_TIMEFRAMES timeFrame){
     r1 = MathAbs(r1);
     r2 = MathAbs(r2);
 
-    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
+//    Print(" isMA_ ",timeFrame," _Convergent ", " r1 = ", r1,  "r2 = ", r2, " r1 > r2 = ", r1 > r2);
     if(r2>r1){
         result = true;
     }
@@ -6869,7 +6875,8 @@ bool isFigure_TS_75_Down(){
     return result;
 }
 
+/*
 void test(){
     Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
     Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
-}
+}*/
