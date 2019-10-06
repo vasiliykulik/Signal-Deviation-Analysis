@@ -3952,7 +3952,14 @@ print();
 /*Вызывая метод nonSymm
    для periodGlobal мы будем update-ить цену, делаем єто только в лучае открытой позиции*/
    // Trying to fix one orderStop
-total=OrdersTotal();
+
+      total=OrdersTotal();
+   if(0<total){
+      periodGlobal = PERIOD_M5;
+      lowAndHighUpdateViaNonSymmForTrailing = false;
+      lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
+   }
+
    for(cnt=0;cnt<total;cnt++)
      {
       OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
@@ -3983,9 +3990,9 @@ total=OrdersTotal();
                  }
 
 
-              periodGlobal = PERIOD_M5;
-              lowAndHighUpdateViaNonSymmForTrailing = false;
-               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
+ //             periodGlobal = PERIOD_M5;
+ //             lowAndHighUpdateViaNonSymmForTrailing = false;
+//               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
                //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
                if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
@@ -4046,9 +4053,9 @@ if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOn
               }
 
 
-               periodGlobal = PERIOD_M5;
-              lowAndHighUpdateViaNonSymmForTrailing = false;
-               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
+//               periodGlobal = PERIOD_M5;
+//              lowAndHighUpdateViaNonSymmForTrailing = false;
+//               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
                if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
                else {stopLossForSellMax=secondMaxGlobal;}
