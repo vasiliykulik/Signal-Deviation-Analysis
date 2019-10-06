@@ -3113,7 +3113,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
                     if (macdS0<macdS1){
                         ok = false;
-//                        break;
+//                        break; - здесь break ешь весь цикл перебора таймфреймов
                     }
                 }
 //                Print(" ok = ", ok);
