@@ -3097,6 +3097,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
             if(true){
                 int kCount=0;
                 int sCount = 0;
+                bool ok = true;
                 for(kCount;sCount<3;kCount++){
                     double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount);
                     double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
@@ -3104,10 +3105,14 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
+                        // 3 Tick Limit to H1 Strategy
+                        if(sCount == 1 && kCount>3){
+                            ok = false;
+                        }
                     }
                  }
                 int mCount=0;
-                bool ok = true;
+
 //                Print(" k = ", k);
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
@@ -3143,6 +3148,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
             if(true){
                 int kCount=0;
                 int sCount = 0;
+                bool ok = true;
                 for(kCount;sCount<3;kCount++){
                     double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount);
                     double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
@@ -3150,10 +3156,14 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
+                        // 3 Tick Limit to H1 Strategy
+                        if(sCount == 1 && kCount>3){
+                            ok = false;
+                        }
                     }
                 }
                 int mCount=0;
-                bool ok = true;
+
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
                     double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
