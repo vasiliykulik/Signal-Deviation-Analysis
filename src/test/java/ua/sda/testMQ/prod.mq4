@@ -3181,7 +3181,6 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
 
             }
 
-                        Print(" timeFrames[i] = ", timeFrames[i]);
 
 }
 
