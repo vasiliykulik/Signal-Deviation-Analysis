@@ -3097,10 +3097,10 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                 int kCount=0;
                 int sCount = 0;
                 for(kCount;sCount<3;kCount++){
-                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount);
-                    double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount);
-                    double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount+1);
-                    double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount+1);
+                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount); // price_field  [in]  Параметр выбора цен для расчета. Может быть одной из следующих величин: 0 - Low/High или 1 - Close/Close
+                    double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
+                    double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount+1);
+                    double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
                     }
@@ -3143,10 +3143,10 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                 int kCount=0;
                 int sCount = 0;
                 for(kCount;sCount<3;kCount++){
-                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount);
-                    double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount);
-                    double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_MAIN,kCount+1);
-                    double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,0,MODE_SIGNAL,kCount+1);
+                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount);
+                    double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
+                    double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount+1);
+                    double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
                     }
