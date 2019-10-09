@@ -419,10 +419,10 @@ void OnTick(void)
       double figure_101_smin_M5  = 0.00000000;
       double figure_101_fmin_M15 = 0.00000000;
       double figure_101_smin_M15 = 0.00000000;
-      double figure_101_fmax_M5 = 0.00000000;
-      double figure_101_smax_M5 = 0.00000000;
-      double figure_101_fmax_M15 = 0.00000000;
-      double figure_101_smax_M15 = 0.00000000;
+      double figure_102_fmax_M5 = 0.00000000;
+      double figure_102_smax_M5 = 0.00000000;
+      double figure_102_fmax_M15 = 0.00000000;
+      double figure_102_smax_M15 = 0.00000000;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
       bool Figure_001_Up_3S_sMaCD_M1 = false, Figure_001_Up_3S_sMaCD_M5 = false, Figure_001_Up_3S_sMaCD_M15 = false, Figure_001_Up_3S_sMaCD_H1 = false, Figure_001_Up_3S_sMaCD_H4 = false, Figure_001_Up_3S_sMaCD_D1 = false;
@@ -3073,16 +3073,16 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
          //   isOsMACrossedZeroDown(PERIOD_H1)
             ){
                     if(timeFrames[i]==PERIOD_M5) {
-                        figure_101_fmax_M5  = firstMaxGlobal;
-                        figure_101_smax_M5  = secondMaxGlobal;
+                        figure_102_fmax_M5  = firstMaxGlobal;
+                        figure_102_smax_M5  = secondMaxGlobal;
                     }
                     if(timeFrames[i]==PERIOD_M15){
-                        figure_101_fmax_M15  = firstMaxGlobal;
-                        figure_101_smax_M15  = secondMaxGlobal;
+                        figure_102_fmax_M15  = firstMaxGlobal;
+                        figure_102_smax_M15  = secondMaxGlobal;
                     }
-if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
+if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_102_fmax_M15!=0.00000000 && figure_102_smax_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
-                if (figure_101_fmax_M5 == figure_101_fmax_M15 && figure_101_fmax_M5 > figure_101_smax_M5 && figure_101_fmax_M15 > figure_101_smax_M15){
+                if (figure_102_fmax_M5 == figure_102_fmax_M15 && figure_102_fmax_M5 > figure_102_smax_M5 && figure_102_fmax_M15 > figure_102_smax_M15){
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M5);
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M15);
                     // print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_H1);
