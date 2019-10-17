@@ -3110,9 +3110,15 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                             ok = false;
                         }
                     }
-                 }
-                int mCount=0;
 
+                    if(S_0_m > 80 || S_0_s > 80 || S_1_m > 80 || S_1_s > 80 ||
+                        S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
+                        ok = false;
+                    }
+                 }
+
+                 if(ok!=false){
+                int mCount=0;
 //                Print(" k = ", k);
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
@@ -3140,7 +3146,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         if(timeFrames[i]==PERIOD_D1) {Figure_001_Up_3S_sMaCD_D1  = true;}
                         print("Figure_001_Up_3S_sMaCD_Up  ", timeFrames[i]);
                 }
-
+                }
 
             }
 
@@ -3162,6 +3168,13 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         }
                     }
                 }
+
+
+                    if(S_0_m > 80 || S_0_s > 80 || S_1_m > 80 || S_1_s > 80 ||
+                        S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
+                        ok = false;
+                    }
+                if (ok!=false){
                 int mCount=0;
 
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
@@ -3188,7 +3201,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         if(timeFrames[i]==PERIOD_D1) {Figure_002_Down_3S_sMaCD_D1  = true;}
                         print("Figure_002_Down_3S_sMaCD  ", timeFrames[i]);
                 }
-
+                }
 
             }
 
@@ -3823,7 +3836,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
      (
         isNewSignal &&
         (
-            OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
+            (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15) &&
+            Figure_001_Up_3S_sMaCD_M5
         )
     )
 /*    ||
@@ -3840,7 +3854,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     (
         isNewSignal &&
         (
-            OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
+            (OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15)
+            && Figure_002_Down_3S_sMaCD_M5
         )
     )
 /*     ||

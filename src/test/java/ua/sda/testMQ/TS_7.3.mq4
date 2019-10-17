@@ -71,6 +71,7 @@ double filterForPlusHalfWave = 0.0001000;
 double firstMinGlobal=0.00000000,secondMinGlobal=0.00000000,firstMaxGlobal=0.00000000,secondMaxGlobal=0.00000000;
 double firstMinGlobalMACD=0.00000000,secondMinGlobalMACD=0.00000000,firstMaxGlobalMACD=0.00000000,secondMaxGlobalMACD=0.00000000;
 double thirdMinGlobal=0.00000000,thirdMaxGlobal=0.00000000;
+double firstMinGlobalPTbDC = 0.00000000, secondMinGlobalPTbDC = 0.00000000, firstMaxGlobalPTbDC = 0.00000000, secondMaxGlobalPTbDC = 0.00000000;
 bool isC5Min = false; bool isC5Max = false;
 bool isC6Min = false; bool isC6Max = false;
 
@@ -418,10 +419,10 @@ void OnTick(void)
       double figure_101_smin_M5  = 0.00000000;
       double figure_101_fmin_M15 = 0.00000000;
       double figure_101_smin_M15 = 0.00000000;
-      double figure_101_fmax_M5 = 0.00000000;
-      double figure_101_smax_M5 = 0.00000000;
-      double figure_101_fmax_M15 = 0.00000000;
-      double figure_101_smax_M15 = 0.00000000;
+      double figure_102_fmax_M5 = 0.00000000;
+      double figure_102_smax_M5 = 0.00000000;
+      double figure_102_fmax_M15 = 0.00000000;
+      double figure_102_smax_M15 = 0.00000000;
       bool figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1 = false;
       bool figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1 = false;
       bool Figure_001_Up_3S_sMaCD_M1 = false, Figure_001_Up_3S_sMaCD_M5 = false, Figure_001_Up_3S_sMaCD_M15 = false, Figure_001_Up_3S_sMaCD_H1 = false, Figure_001_Up_3S_sMaCD_H4 = false, Figure_001_Up_3S_sMaCD_D1 = false;
@@ -3072,16 +3073,16 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
          //   isOsMACrossedZeroDown(PERIOD_H1)
             ){
                     if(timeFrames[i]==PERIOD_M5) {
-                        figure_101_fmax_M5  = firstMaxGlobal;
-                        figure_101_smax_M5  = secondMaxGlobal;
+                        figure_102_fmax_M5  = firstMaxGlobal;
+                        figure_102_smax_M5  = secondMaxGlobal;
                     }
                     if(timeFrames[i]==PERIOD_M15){
-                        figure_101_fmax_M15  = firstMaxGlobal;
-                        figure_101_smax_M15  = secondMaxGlobal;
+                        figure_102_fmax_M15  = firstMaxGlobal;
+                        figure_102_smax_M15  = secondMaxGlobal;
                     }
-if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_101_fmin_M15!=0.00000000 && figure_101_smin_M15!=0.00000000){
+if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_102_fmax_M15!=0.00000000 && figure_102_smax_M15!=0.00000000){
                 // Операцию сравнения проверить, если что округлить
-                if (figure_101_fmax_M5 == figure_101_fmax_M15 && figure_101_fmax_M5 > figure_101_smax_M5 && figure_101_fmax_M15 > figure_101_smax_M15){
+                if (figure_102_fmax_M5 == figure_102_fmax_M15 && figure_102_fmax_M5 > figure_102_smax_M5 && figure_102_fmax_M15 > figure_102_smax_M15){
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M5);
                     print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_M15);
                     // print("Figure 102 M5_&&_M15fminEquals_Down  ", PERIOD_H1);
@@ -3096,24 +3097,29 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
             if(true){
                 int kCount=0;
                 int sCount = 0;
+                bool ok = true;
                 for(kCount;sCount<3;kCount++){
-                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount); // price_field  [in]  Параметр выбора цен для расчета. Может быть одной из следующих величин: 0 - Low/High или 1 - Close/Close
+                    double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount);
                     double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
                     double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount+1);
                     double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
+                        // 3 Tick Limit to H1 Strategy
+                        if(sCount == 1 && kCount>3){
+                            ok = false;
+                        }
                     }
                  }
                 int mCount=0;
-                bool ok = true;
+
 //                Print(" k = ", k);
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
                     double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
                     if (macdS0<macdS1){
                         ok = false;
-//                        break;
+//                        break; - здесь break ешь весь цикл перебора таймфреймов
                     }
                 }
 //                Print(" ok = ", ok);
@@ -3142,6 +3148,7 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
             if(true){
                 int kCount=0;
                 int sCount = 0;
+                bool ok = true;
                 for(kCount;sCount<3;kCount++){
                     double S_0_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount);
                     double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
@@ -3149,10 +3156,14 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                     double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
+                        // 3 Tick Limit to H1 Strategy
+                        if(sCount == 1 && kCount>3){
+                            ok = false;
+                        }
                     }
                 }
                 int mCount=0;
-                bool ok = true;
+
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
                     double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
@@ -3179,6 +3190,17 @@ if(figure_101_fmin_M5!=0.00000000 && figure_101_smin_M5!=0.00000000 && figure_10
                 }
 
 
+            }
+
+//             Position trailing by double criterion PTbDC, moved here from position handling block to
+//              optimize nonSymm() method calls to  one/single method call
+            if(true){
+                if(timeFrames[i]==PERIOD_M5){
+                    firstMinGlobalPTbDC  = firstMinGlobal;
+                    secondMinGlobalPTbDC = secondMinGlobal;
+                    firstMaxGlobalPTbDC  = firstMaxGlobal;
+                    secondMaxGlobalPTbDC = secondMaxGlobal;
+                }
             }
 
 }
@@ -3801,7 +3823,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
      (
         isNewSignal &&
         (
-            Figure_001_Up_3S_sMaCD_H1
+            OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15
         )
     )
 /*    ||
@@ -3818,7 +3840,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     (
         isNewSignal &&
         (
-            Figure_002_Down_3S_sMaCD_H1
+            OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15
         )
     )
 /*     ||
@@ -3955,12 +3977,15 @@ print();
    // Trying to fix one orderStop
 
       total=OrdersTotal();
-   if(0<total){
+/*   if(0<total){
       periodGlobal = PERIOD_M5;
       lowAndHighUpdateViaNonSymmForTrailing = false;
       lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
-   }
-
+   }*/
+/*Вынести в global переменные для ведения по двойному критерию. И в переборе TF их проставлять
+это будет не firstMinGlobal, secondMinGlobal, firstMaxGlobal, secondMaxGlobal, а
+Position trailing by double criterion PTbDC,
+firstMinGlobalPTbDC, secondMinGlobalPTbDC, firstMaxGlobalPTbDC, secondMaxGlobalPTbDC*/
    for(cnt=0;cnt<total;cnt++)
      {
       OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES);
@@ -3996,8 +4021,8 @@ print();
 //               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMinGlobal = ",firstMinGlobal," secondMinGlobal = ",secondMinGlobal);
                //               //Print ("Блок ведения, ", "firstMinGlobal = ", firstMinGlobal, " secondMinGlobal = ", secondMinGlobal);
-               if(firstMinGlobal>secondMinGlobal) {stopLossForBuyMin=secondMinGlobal;}
-               else {stopLossForBuyMin=firstMinGlobal;}
+               if(firstMinGlobalPTbDC>secondMinGlobalPTbDC) {stopLossForBuyMin=secondMinGlobalPTbDC;}
+               else {stopLossForBuyMin=firstMinGlobalPTbDC;}
               }
 
             //Print("Блок ведения, "," Bid = ",Bid,"stopLossForBuyMin = ",stopLossForBuyMin," OrderStopLoss() = ",OrderStopLoss());
@@ -4058,8 +4083,8 @@ if(CloseOnHalfWaveClosePermitUp_M1 || CloseOnHalfWaveClosePermitUp_M5 || CloseOn
 //              lowAndHighUpdateViaNonSymmForTrailing = false;
 //               lowAndHighUpdateViaNonSymmForTrailing = nonSymm();
                //Print("Блок ведения, ","firstMaxGlobal = ",firstMaxGlobal," secondMaxGlobal = ",secondMaxGlobal);
-               if(firstMaxGlobal>secondMaxGlobal) {stopLossForSellMax=firstMaxGlobal;}
-               else {stopLossForSellMax=secondMaxGlobal;}
+               if(firstMaxGlobalPTbDC>secondMaxGlobalPTbDC) {stopLossForSellMax=firstMaxGlobalPTbDC;}
+               else {stopLossForSellMax=secondMaxGlobalPTbDC;}
 
                //               if(Ask<(High[1]+(Ask-Bid)*2) && (High[1]+(Ask-Bid)*2)<OrderOpenPrice())
                //                 {
