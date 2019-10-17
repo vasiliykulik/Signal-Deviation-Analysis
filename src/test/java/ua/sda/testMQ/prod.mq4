@@ -3103,9 +3103,12 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                     double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
                     double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount+1);
                     double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
-                    if(S_0_m > 80 || S_0_s > 80 || S_1_m > 80 || S_1_s > 80 ||
-                        S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
-                        ok = false;
+                    // let third cross be beyond the filter
+                    if(sCount<2){
+                        if(S_0_m > 80 || S_0_s > 80 || S_1_m > 80 || S_1_s > 80 ||
+                            S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
+                            ok = false;
+                        }
                     }
                     if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
@@ -3161,9 +3164,12 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                     double S_0_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount);
                     double S_1_m  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_MAIN,kCount+1);
                     double S_1_s  = iStochastic(NULL,periodGlobal,5,3,3,MODE_SMA,1,MODE_SIGNAL,kCount+1);
-                    if(S_0_m > 80 || S_0_s > 80 || S_1_m > 80 || S_1_s > 80 ||
-                        S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
-                        ok = false;
+                    // let third cross be beyond the filter
+                    if(sCount<2){
+                        if(S_0_m > 80 || S_0_s > 80 || S_1_m > 80 || S_1_s > 80 ||
+                            S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
+                            ok = false;
+                        }
                     }
                     if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
