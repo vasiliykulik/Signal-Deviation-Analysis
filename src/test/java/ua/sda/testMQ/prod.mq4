@@ -3845,7 +3845,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         isNewSignal &&
         (
            // (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15) &&
-            figure_101_H1_Osma_M5ANDM15fminEquals_Up_M5_M15_H1
+            Figure_001_Up_3S_sMaCD_H1
         )
     )
 /*    ||
@@ -3863,7 +3863,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
         isNewSignal &&
         (
            // (OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15) &&
-            figure_102_H1_Osma_M5ANDM15fminEquals_Down_M5_M15_H1
+            Figure_002_Down_3S_sMaCD_H1
         )
     )
 /*     ||
