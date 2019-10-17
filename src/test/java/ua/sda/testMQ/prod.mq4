@@ -3121,7 +3121,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
 
                 int mCount=0;
 //                Print(" k = ", k);
-                for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
+               for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
                     double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
                     if (macdS0<macdS1){
@@ -3130,13 +3130,13 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                     }
                 }
 //                Print(" ok = ", ok);
-                    double macdk=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount);
+         /*            double macdk=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount);
                     double macdk1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount+1);
                     if (macdk>=macdk1){
                         ok = false;
 //                Print(" macdk = ", k, "ok = ", ok);
 //                        break;
-                    }
+                    }*/
                 if (ok) {
 //                Print(" if(ok) macdk = ", k, "ok = ", ok);
                         if(timeFrames[i]==PERIOD_M1) {Figure_001_Up_3S_sMaCD_M1  = true;}
@@ -3179,7 +3179,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
 
                 int mCount=0;
 
-                for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
+               for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
                     double macdS0=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount);
                     double macdS1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,mCount+1);
                     if (macdS0>macdS1){
@@ -3187,12 +3187,12 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
 //                        break;
                     }
                 }
-                    double macdk=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount);
+          /*           double macdk=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount);
                     double macdk1=iMACD(NULL,periodGlobal,12,26,9,PRICE_OPEN,MODE_MAIN,kCount+1);
                     if (macdk<=macdk1){
                         ok = false;
 //                        break;
-                    }
+                    }*/
 
                 if(ok) {
                         if(timeFrames[i]==PERIOD_M1) {Figure_002_Down_3S_sMaCD_M1  = true;}
