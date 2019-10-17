@@ -3838,7 +3838,7 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
      (
         isNewSignal &&
         (
-            (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15) &&
+           // (OpenOnHalfWaveOpenPermitUp_M1 || OpenOnHalfWaveOpenPermitUp_M5 || OpenOnHalfWaveOpenPermitUp_M15) &&
             Figure_001_Up_3S_sMaCD_M5
         )
     )
@@ -3856,8 +3856,8 @@ if (isH1FigureDown && macd0_H1>macd1_H1){
     (
         isNewSignal &&
         (
-            (OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15)
-            && Figure_002_Down_3S_sMaCD_M5
+           // (OpenOnHalfWaveOpenPermitDown_M1 || OpenOnHalfWaveOpenPermitDown_M5 || OpenOnHalfWaveOpenPermitDown_M15) &&
+            Figure_002_Down_3S_sMaCD_M5
         )
     )
 /*     ||
