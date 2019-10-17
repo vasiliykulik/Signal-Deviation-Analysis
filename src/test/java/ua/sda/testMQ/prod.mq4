@@ -3107,7 +3107,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
                         ok = false;
                     }
-                    if(ok != false && S_0_m > S_0_s && S_1_s > S_1_m){
+                    if(S_0_m > S_0_s && S_1_s > S_1_m){
                         sCount++;
                         // 3 Tick Limit to H1 Strategy
                         if(sCount == 1 && kCount>3){
@@ -3118,7 +3118,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
 
                  }
 
-                 if(ok!=false){
+
                 int mCount=0;
 //                Print(" k = ", k);
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
@@ -3147,7 +3147,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         if(timeFrames[i]==PERIOD_D1) {Figure_001_Up_3S_sMaCD_D1  = true;}
                         print("Figure_001_Up_3S_sMaCD_Up  ", timeFrames[i]);
                 }
-                }
+
 
             }
 
@@ -3165,7 +3165,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         S_0_m < 20 || S_0_s < 20 || S_1_m < 20 || S_1_s < 20){
                         ok = false;
                     }
-                    if(ok != false && S_0_m < S_0_s && S_1_m > S_1_s){
+                    if(S_0_m < S_0_s && S_1_m > S_1_s){
                         sCount++;
                         // 3 Tick Limit to H1 Strategy
                         if(sCount == 1 && kCount>3){
@@ -3176,7 +3176,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
 
 
 
-                if (ok!=false){
+
                 int mCount=0;
 
                 for(mCount=0;mCount<kCount-1;mCount++){//не берем последний тик
@@ -3203,7 +3203,7 @@ if(figure_102_fmax_M5!=0.00000000 && figure_102_smax_M5!=0.00000000 && figure_10
                         if(timeFrames[i]==PERIOD_D1) {Figure_002_Down_3S_sMaCD_D1  = true;}
                         print("Figure_002_Down_3S_sMaCD  ", timeFrames[i]);
                 }
-                }
+
 
             }
 
