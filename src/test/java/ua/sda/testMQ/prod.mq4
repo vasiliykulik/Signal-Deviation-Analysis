@@ -6924,3 +6924,317 @@ void test(){
     Print("ts7_3_HalfWave_00 = ", ts7_3_HalfWave_00," ts7_3_HalfWave_0 = ", ts7_3_HalfWave_0, " ts7_3_HalfWave_1 = ", ts7_3_HalfWave_1);
     Print("ts7_3_min1 = ", ts7_3_min1," ts7_3_min0 = ", ts7_3_min0, " ts7_3_max1 = ", ts7_3_max1, " ts7_3_max0 = ", ts7_3_max0);
 }*/
+
+
+//premarket tests
+
+// 1. Нехватка средств для проведения торговой операции
+bool CheckMoneyForTrade(string symb, double lots,int type)
+  {
+   double free_margin=AccountFreeMarginCheck(symb,type,lots);
+   //-- если денег не хватает
+   if(free_margin<0)
+     {
+      string oper=(type==OP_BUY)? "Buy":"Sell";
+      Print("Not enough money for ", oper," ",lots, " ", symb, " Error code=",GetLastError());
+      return(false);
+     }
+   //-- проверка прошла успешно
+   return(true);
+  }
+
+  // 2. Неправильные объемы в торговых операциях
+  //+------------------------------------------------------------------+
+  //|  Проверяет объем ордера на корректность                          |
+  //+------------------------------------------------------------------+
+  bool CheckVolumeValue(double volume,string &description)
+    {
+  //--- минимально допустимый объем для торговых операций
+     double min_volume=SymbolInfoDouble(Symbol(),SYMBOL_VOLUME_MIN);
+     if(volume<min_volume)
+       {
+        description=StringFormat("Объем меньше минимально допустимого SYMBOL_VOLUME_MIN=%.2f",min_volume);
+        return(false);
+       }
+
+  //--- максимально допустимый объем для торговых операций
+     double max_volume=SymbolInfoDouble(Symbol(),SYMBOL_VOLUME_MAX);
+     if(volume>max_volume)
+       {
+        description=StringFormat("Объем больше максимально допустимого SYMBOL_VOLUME_MAX=%.2f",max_volume);
+        return(false);
+       }
+
+  //--- получим минимальную градацию объема
+     double volume_step=SymbolInfoDouble(Symbol(),SYMBOL_VOLUME_STEP);
+
+     int ratio=(int)MathRound(volume/volume_step);
+     if(MathAbs(ratio*volume_step-volume)>0.0000001)
+       {
+        description=StringFormat("Объем не является кратным минимальной градации SYMBOL_VOLUME_STEP=%.2f, ближайший корректный объем %.2f",
+                                 volume_step,ratio*volume_step);
+        return(false);
+       }
+     description="Корректное значение объема";
+     return(true);
+    }
+
+// 3. Ограничение на количество отложенных ордеров
+//+------------------------------------------------------------------+
+//| проверяет - можно ли выставить еще один ордер                    |
+//+------------------------------------------------------------------+
+bool IsNewOrderAllowed()
+  {
+//--- получим количество разрешенных на счете отложенных ордеров
+   int max_allowed_orders=(int)AccountInfoInteger(ACCOUNT_LIMIT_ORDERS);
+
+//--- если ограничения нет - вернем true, можно отослать ордер
+   if(max_allowed_orders==0) return(true);
+
+//--- если дошли до этого места, значит ограничение есть, узнаем, сколько уже ордеров действует
+   int orders=OrdersTotal();
+
+//--- вернем результат сравнения
+   return(orders<max_allowed_orders);
+  }
+
+ // 4.  Ограничение на количество лотов по одному символу
+
+//+------------------------------------------------------------------+
+//|  Возвращает максимально допустимый объем для ордера по символу   |
+//+------------------------------------------------------------------+
+double NewOrderAllowedVolume(string symbol)
+  {
+   double allowed_volume=0;
+//--- получим ограничение на максимальный объем в ордере
+   double symbol_max_volume=SymbolInfoDouble(Symbol(),SYMBOL_VOLUME_MAX);
+//--- получим ограничение по символу на объем
+   double max_volume=SymbolInfoDouble(Symbol(),SYMBOL_VOLUME_LIMIT);
+
+//--- получим объем открытой позиции по символу
+   double opened_volume=PositionVolume(symbol);
+   if(opened_volume>=0)
+     {
+      //--- если мы уже исчерпали объем
+      if(max_volume-opened_volume<=0)
+         return(0);
+
+      //--- объем открытой позиции не превышает max_volume
+      double orders_volume_on_symbol=PendingsVolume(symbol);
+      allowed_volume=max_volume-opened_volume-orders_volume_on_symbol;
+      if(allowed_volume>symbol_max_volume) allowed_volume=symbol_max_volume;
+     }
+   return(allowed_volume);
+  }
+
+ // 5.  Установка уровней TakeProfit и StopLoss в пределах минимального уровня SYMBOL_TRADE_STOPS_LEVEL
+//+------------------------------------------------------------------+
+//| Script program start function                                    |
+//+------------------------------------------------------------------+
+void OnStart()
+  {
+//--- получим случайным образом тип операции
+   int oper=(int)(GetTickCount()%2); // остаток от деления на два всегда либо 0 либо 1
+   switch(oper)
+     {
+      //--- покупаем
+      case  0:
+        {
+         //--- получим цену открытия и установим заведомо неверные TP/SL
+         double price=Ask;
+         double SL=NormalizeDouble(Bid+2*_Point,_Digits);
+         double TP=NormalizeDouble(Bid-2*_Point,_Digits);
+         //--- сделаем проверку
+         PrintFormat("Buy at %.5f   SL=%.5f   TP=%.5f  Bid=%.5f",price,SL,TP,Bid);
+         if(!CheckStopLoss_Takeprofit(ORDER_TYPE_BUY,SL,TP))
+            Print("Уровень StopLoss или TakeProfit указан неверно!");
+         //--- все равно попытаемся купить, чтобы увидеть результат выполнения
+         Buy(price,SL,TP);
+        }
+      break;
+      //--- продаем
+      case  1:
+        {
+         //--- получим цену открытия и установим заведомо неверные TP/SL
+         double price=Bid;
+         double SL=NormalizeDouble(Ask-2*_Point,_Digits);
+         double TP=NormalizeDouble(Ask+2*_Point,_Digits);
+         //--- сделаем проверку
+         PrintFormat("Sell at %.5f   SL=%.5f   TP=%.5f  Ask=%.5f",price,SL,TP,Ask);
+         if(!CheckStopLoss_Takeprofit(ORDER_TYPE_SELL,SL,TP))
+            Print("Уровень StopLoss или TakeProfit указан неверно!");
+         //--- все равно попытаемся продать, чтобы увидеть результат выполнения
+         Sell(price,SL,TP);
+        }
+      break;
+      //---
+     }
+  }
+
+  // 6. Попытка модификации ордера или позиции в пределах уровня заморозки SYMBOL_TRADE_FREEZE_LEVEL
+  //--- проверяем типа ордера
+     switch(type)
+       {
+        //--- отложенный ордер BuyLimit
+        case  ORDER_TYPE_BUY_LIMIT:
+          {
+           //--- проверим дистанцию от цены открытия до цены активации
+           check=((Ask-price)>freeze_level*_Point);
+           if(!check)
+              PrintFormat("Ордер %s #%d нельзя модифицировать: Ask-Open=%d пунктов < SYMBOL_TRADE_FREEZE_LEVEL=%d пунктов",
+                          EnumToString(type),ticket,(int)((Ask-price)/_Point),freeze_level);
+           return(check);
+          }
+        //--- отложенный ордер BuyLimit
+        case  ORDER_TYPE_SELL_LIMIT:
+          {
+           //--- проверим дистанцию от цены открытия до цены активации
+           check=((price-Bid)>freeze_level*_Point);
+           if(!check)
+              PrintFormat("Ордер %s #%d нельзя модифицировать: Open-Bid=%d пунктов < SYMBOL_TRADE_FREEZE_LEVEL=%d пунктов",
+                          EnumToString(type),ticket,(int)((price-Bid)/_Point),freeze_level);
+           return(check);
+          }
+        break;
+        //--- отложенный ордер BuyStop
+        case  ORDER_TYPE_BUY_STOP:
+          {
+           //--- проверим дистанцию от цены открытия до цены активации
+           check=((price-Ask)>freeze_level*_Point);
+           if(!check)
+              PrintFormat("Ордер %s #%d нельзя модифицировать: Ask-Open=%d пунктов < SYMBOL_TRADE_FREEZE_LEVEL=%d пунктов",
+                          EnumToString(type),ticket,(int)((price-Ask)/_Point),freeze_level);
+           return(check);
+          }
+        //--- отложенный ордер SellStop
+        case  ORDER_TYPE_SELL_STOP:
+          {
+           //--- проверим дистанцию от цены открытия до цены активации
+           check=((Bid-price)>freeze_level*_Point);
+           if(!check)
+              PrintFormat("Ордер %s #%d нельзя модифицировать: Bid-Open=%d пунктов < SYMBOL_TRADE_FREEZE_LEVEL=%d пунктов",
+                          EnumToString(type),ticket,(int)((Bid-price)/_Point),freeze_level);
+           return(check);
+          }
+        break;
+       }
+
+// 7. Перед запуском Советника, beforeExpertStarts(), надо подумать как... Увеличиваем значения цикла, несмотря на наличие данных...
+
+
+//+------------------------------------------------------------------+
+//|                                            Test_Out_of_range.mq5 |
+//|                        Copyright 2016, MetaQuotes Software Corp. |
+//|                                             https://www.mql5.com |
+//+------------------------------------------------------------------+
+#property copyright "Copyright 2016, MetaQuotes Software Corp."
+#property link      "https://www.mql5.com"
+#property version   "1.00"
+#property indicator_chart_window
+#property indicator_buffers 1
+#property indicator_plots   1
+//--- plot Line
+#property indicator_label1  "Line"
+#property indicator_type1   DRAW_LINE
+#property indicator_color1  clrRed
+#property indicator_style1  STYLE_SOLID
+#property indicator_width1  1
+//--- input parameters
+input int      period=10;
+//--- indicator buffers
+double         LineBuffer[];
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+//--- indicator buffers mapping
+   SetIndexBuffer(0,LineBuffer,INDICATOR_DATA);
+   int size=ArraySize(LineBuffer);
+   for(int i=0;i<period;i++)
+     {
+      LineBuffer[i]=100.;
+     }
+//---
+   return(INIT_SUCCEEDED);
+  }
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+  {
+//---
+
+//--- return value of prev_calculated for next call
+   return(rates_total);
+  }
+//+------------------------------------------------------------------+
+
+
+
+// 8. Отправка запроса на модификацию уровней без фактического их изменения
+
+
+#property strict
+//+------------------------------------------------------------------+
+//| проверка новых значений уровней перед модификацией ордера        |
+//+------------------------------------------------------------------+
+bool OrderModifyCheck(int ticket,double price,double sl,double tp)
+  {
+//--- выберем ордер по тикету
+   if(OrderSelect(ticket,SELECT_BY_TICKET))
+     {
+      //--- размер пункта и имя символа, по которому выставлен отложенный ордер
+      string symbol=OrderSymbol();
+      double point=SymbolInfoDouble(symbol,SYMBOL_POINT);
+      //--- проверим - есть ли изменения в цене открытия
+      bool PriceOpenChanged=true;
+      int type=OrderType();
+      if(!(type==OP_BUY || type==OP_SELL))
+        {
+         PriceOpenChanged=(MathAbs(OrderOpenPrice()-price)>point);
+        }
+      //--- проверим - есть ли изменения в уровне StopLoss
+      bool StopLossChanged=(MathAbs(OrderStopLoss()-sl)>point);
+      //--- проверим - есть ли изменения в уровне Takeprofit
+      bool TakeProfitChanged=(MathAbs(OrderTakeProfit()-tp)>point);
+      //--- если есть какие-то изменения в уровнях
+      if(PriceOpenChanged || StopLossChanged || TakeProfitChanged)
+         return(true);  // ордер можно модифицировать
+      //--- изменений в уровнях открытия, StopLoss и Takeprofit нет
+      else
+      //--- сообщим об ошибке
+         PrintFormat("Ордер #%d уже имеет уровни Open=%.5f SL=%.5f TP=%.5f",
+                     ticket,OrderOpenPrice(),OrderStopLoss(),OrderTakeProfit());
+     }
+//--- дошли до конца, изменений для ордера нет
+   return(false);       // нет смысла модифицировать
+  }
+//+------------------------------------------------------------------+
+//| Script program start function                                    |
+//+------------------------------------------------------------------+
+void OnStart()
+  {
+//--- уровни цен для ордеров и позиций
+   double priceopen,stoploss,takeprofit;
+//--- тикет текущего ордера
+   int orderticket;
+/*
+   ... получим тикет ордeра и новые уровни StopLoss/Takeprofit/PriceOpen
+*/
+//--- проверим уровни перед модификацией ордера
+   if(OrderModifyCheck(orderticket,priceopen,stoploss,takeprofit))
+     {
+      //--- проверка прошла успешно
+      OrderModify(orderticket,priceopen,stoploss,takeprofit,OrderExpiration());
+     }
+  }
