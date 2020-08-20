@@ -135,7 +135,7 @@ ClearObjects(); //
    ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_FIRSTLEVEL+9,FiboLevel10);
 
    ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELCOLOR,levelColor);
-   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELWIDTH,1);
+   ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELWIDTH,2);
    ObjectSet(MPrefix+"FIBO_MOD",OBJPROP_LEVELSTYLE,STYLE_SOLID);
 
    // TrendLine
